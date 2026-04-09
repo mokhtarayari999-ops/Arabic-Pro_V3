@@ -3,29 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic-Pro V5 | المحلل الشامل</title>
+    <title>Arabic-Pro V5 | Poisson Engine</title>
     <style>
         :root { --gold: #ffcc00; --dark: #0a0a0a; --gray: #1a1a1a; }
         body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .container { width: 100%; max-width: 450px; }
-        
         .header { background: var(--gray); border-radius: 15px; padding: 10px; margin: 20px 0 10px; text-align: center; font-weight: bold; color: var(--gold); border: 1px solid #333; }
         .card { background: var(--dark); border-radius: 25px; padding: 15px; margin-bottom: 10px; border: 1px solid var(--gray); text-align: center; }
-        .label { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
-        
-        input[type="number"] { background: transparent; border: none; color: var(--gold); font-size: 2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
-        input { background: #111; border: 1px solid #222; border-radius: 12px; padding: 10px; color: #fff; text-align: center; width: 85%; margin-bottom: 10px; outline: none; }
-
+        input[type="number"], input { background: transparent; border: none; color: var(--gold); font-size: 1.8rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
+        input { font-size: 1.1rem; color: #fff; background: #111; border-radius: 12px; padding: 8px; margin-bottom: 10px; width: 85%; }
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
         .toggle-btn { background: #121212; border: 1px solid var(--gray); border-radius: 15px; padding: 12px; color: #555; cursor: pointer; text-align: center; transition: 0.3s; }
         .toggle-btn.active { border-color: var(--gold); color: #fff; background: #222; }
-
         .btn-main { background: linear-gradient(180deg, var(--gold) 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; cursor: pointer; }
-
-        .res-panel { background: var(--dark); border-radius: 30px; padding: 25px; margin-top: 25px; border: 1px solid #222; }
-        .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 0.9rem; }
+        .res-panel { background: var(--dark); border-radius: 30px; padding: 25px; margin-top: 25px; border: 1px solid #222; text-align: center; }
         .percent-grid { display: flex; justify-content: space-around; margin-bottom: 20px; background: #050505; padding: 15px; border-radius: 20px; }
-        .p-box { text-align: center; }
         .p-val { font-size: 1.2rem; font-weight: bold; color: var(--gold); }
     </style>
 </head>
@@ -34,13 +26,13 @@
 <div class="container">
     <div class="header">🏟️ الفريق المضيف</div>
     <center><input type="text" id="hN" placeholder="اسم المضيف"></center>
-    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="hA" value="70"></div>
-    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="hD" value="80"></div>
+    <div class="card"><div style="font-size:0.8rem; color:#888;">🚀 هجوم</div><input type="number" id="hA" value="70"></div>
+    <div class="card"><div style="font-size:0.8rem; color:#888;">🛡️ دفاع</div><input type="number" id="hD" value="80"></div>
 
     <div class="header">🏁 الفريق الضيف</div>
     <center><input type="text" id="aN" placeholder="اسم الضيف"></center>
-    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="aA" value="65"></div>
-    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="aD" value="75"></div>
+    <div class="card"><div style="font-size:0.8rem; color:#888;">🚀 هجوم</div><input type="number" id="aA" value="65"></div>
+    <div class="card"><div style="font-size:0.8rem; color:#888;">🛡️ دفاع</div><input type="number" id="aD" value="75"></div>
 
     <div class="btn-grid">
         <div class="toggle-btn" onclick="this.classList.toggle('active')" id="inj">🤕 إصابات</div>
@@ -49,7 +41,7 @@
         <div class="toggle-btn" onclick="this.classList.toggle('active')" id="fat">😫 إرهاق</div>
     </div>
 
-    <button class="btn-main" onclick="analyze()">توليد التوقعات السيادية 👑</button>
+    <button class="btn-main" onclick="poissonAnalysis()">توليد التوقعات الخارقة (Poisson) 👑</button>
 
     <div class="res-panel" id="res" style="display:none;">
         <div class="percent-grid">
@@ -57,47 +49,64 @@
             <div class="p-box"><div class="p-val" id="wD">0%</div><div style="font-size:0.7rem">تعادل</div></div>
             <div class="p-box"><div class="p-val" id="wA">0%</div><div style="font-size:0.7rem">خسارة</div></div>
         </div>
-        <div style="font-size: 2.2rem; font-weight: bold; margin-bottom: 20px;" id="score">0 - 0</div>
-        <div class="stat-row"><span>الركنيات (Corners):</span> <span id="corn" style="color:var(--gold)">0</span></div>
-        <div class="stat-row"><span>الأوراق الصفراء:</span> <span id="card" style="color:var(--gold)">0</span></div>
+        <div id="finalScore" style="font-size: 2.5rem; font-weight: bold; letter-spacing: 5px;">0 - 0</div>
+        <div style="margin-top:15px; color:#8a6d3b; font-size:0.9rem;">ركنيات: <span id="corn" style="color:#fff">0</span> | كروت: <span id="card" style="color:#fff">0</span></div>
     </div>
-
-    <div style="margin-top: 30px; width: 100%; text-align: right; color: var(--gold);">📜 سجل التحليلات الذهبي</div>
-    <div id="history" style="width: 100%; margin-top: 10px;"></div>
+    
+    <div id="history" style="margin-top:20px; width:100%;"></div>
 </div>
 
 <script>
-function analyze() {
+// دالة بواسون الرياضية
+function poisson(lambda, k) {
+    return (Math.exp(-lambda) * Math.pow(lambda, k)) / factorial(k);
+}
+function factorial(n) {
+    if (n === 0) return 1;
+    let res = 1;
+    for (let i = 1; i <= n; i++) res *= i;
+    return res;
+}
+
+function poissonAnalysis() {
     let ha = parseInt(document.getElementById('hA').value), hd = parseInt(document.getElementById('hD').value);
     let aa = parseInt(document.getElementById('aA').value), ad = parseInt(document.getElementById('aD').value);
+
+    // حساب الـ xG (الأهداف المتوقعة) بناءً على الهجوم ضد الدفاع
+    let lambdaH = (ha / ad) * 1.5;
+    let lambdaA = (aa / hd) * 1.2;
+
+    // تأثير العوامل
+    if(document.getElementById('inj').classList.contains('active')) lambdaA *= 0.7;
+    if(document.getElementById('spi').classList.contains('active')) lambdaH *= 1.2;
+
+    // حساب الاحتمالات لـ 0-5 أهداف لكل فريق
+    let pWinH = 0, pDraw = 0, pWinA = 0;
+    for (let i = 0; i <= 5; i++) {
+        for (let j = 0; j <= 5; j++) {
+            let prob = poisson(lambdaH, i) * poisson(lambdaA, j);
+            if (i > j) pWinH += prob;
+            else if (i === j) pDraw += prob;
+            else pWinA += prob;
+        }
+    }
+
+    // عرض النتائج
+    document.getElementById('wH').innerText = Math.round(pWinH * 100) + "%";
+    document.getElementById('wD').innerText = Math.round(pDraw * 100) + "%";
+    document.getElementById('wA').innerText = Math.round(pWinA * 100) + "%";
     
-    // تأثير الأزرار
-    let penalty = 0;
-    if(document.getElementById('inj').classList.contains('active')) penalty += 15;
-    if(document.getElementById('tra').classList.contains('active')) penalty += 8;
-    if(document.getElementById('fat').classList.contains('active')) penalty += 10;
-    let boost = document.getElementById('spi').classList.contains('active') ? 10 : 0;
-
-    let hP = (ha + hd + boost), aP = (aa + ad - penalty);
-    let total = hP + aP;
-
-    // النسب
-    document.getElementById('wH').innerText = Math.round((hP/total)*80) + "%";
-    document.getElementById('wA').innerText = Math.round((aP/total)*80) + "%";
-    document.getElementById('wD').innerText = "20%";
-
-    // التوقعات
-    document.getElementById('score').innerText = Math.floor(ha/30) + " - " + Math.floor(aa/40);
-    document.getElementById('corn').innerText = Math.floor((ha+aa)/15) + " ركنية";
-    document.getElementById('card').innerText = Math.floor((hd+ad)/35) + " أوراق";
-    
+    let resScore = Math.round(lambdaH) + " - " + Math.round(lambdaA);
+    document.getElementById('finalScore').innerText = resScore;
+    document.getElementById('corn').innerText = Math.round(lambdaH * 3 + lambdaA * 2);
+    document.getElementById('card').innerText = Math.round((60/hd) + (60/ad));
     document.getElementById('res').style.display = 'block';
 
     // السجل
-    let h = document.getElementById('history'), item = document.createElement('div');
-    item.style = "background:#111; padding:12px; border-radius:12px; margin-bottom:8px; border-right:4px solid var(--gold); display:flex; justify-content:space-between;";
-    item.innerHTML = `<span>${document.getElementById('hN').value || 'فريق 1'} vs ${document.getElementById('aN').value || 'فريق 2'}</span> <b>${document.getElementById('score').innerText}</b>`;
-    h.prepend(item);
+    let hItem = document.createElement('div');
+    hItem.style = "background:#111; padding:10px; border-radius:12px; margin-bottom:5px; border-right:4px solid var(--gold); display:flex; justify-content:space-between;";
+    hItem.innerHTML = `<span>${document.getElementById('hN').value || 'فريق 1'} vs ${document.getElementById('aN').value || 'فريق 2'}</span> <b>${resScore}</b>`;
+    document.getElementById('history').prepend(hItem);
 }
 </script>
 </body>
