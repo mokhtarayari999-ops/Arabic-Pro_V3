@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC PRO V4.5</title>
+    <title>ARABIC PRO V4.5 | المحلل السيادي</title>
     <style>
-        body { background-color: #000; color: #ffcc00; font-family: 'Arial', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .app-title { font-size: 2.2rem; font-weight: bold; margin-bottom: 25px; color: #ffcc00; }
-        .main-container { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 35px; width: 100%; max-width: 400px; padding: 25px 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        body { background-color: #000; color: #ffcc00; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .app-title { font-size: 1.8rem; font-weight: bold; margin-bottom: 20px; }
+        .main-container { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 30px; width: 100%; max-width: 450px; padding: 20px; }
         
-        .input-field { background-color: #000; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; margin-bottom: 10px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; color: #999; font-size: 1.1rem; }
-        .number-field { background-color: #000; border: 1px solid #1a1a1a; border-radius: 15px; padding: 10px; margin-bottom: 10px; text-align: center; color: #ffcc00; font-size: 1.8rem; font-weight: bold; cursor: pointer; }
+        .section-label { color: #fff; background: #111; padding: 8px; border-radius: 10px; margin: 15px 0 10px; text-align: center; font-size: 0.9rem; border: 1px solid #222; }
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+        .row { display: flex; gap: 10px; }
         
-        /* التعديل الجديد: إصابات الضيف بإطار ذهبي */
-        .injuries-field { border: 1px solid #ffcc00 !important; color: #ffcc00; }
+        input { background: #000; border: 1px solid #333; border-radius: 12px; padding: 12px; color: #ffcc00; font-size: 1.2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
+        input:focus { border-color: #ffcc00; }
+        input::placeholder { color: #444; font-size: 0.8rem; }
 
-        .btn-predict { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 20px; padding: 22px; width: 100%; font-size: 1.6rem; font-weight: bold; margin-top: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-predict { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 20px; padding: 18px; width: 100%; font-size: 1.4rem; font-weight: bold; margin-top: 20px; cursor: pointer; }
 
-        .result-section { background-color: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 30px; width: 100%; max-width: 400px; padding: 30px 15px; margin-top: 25px; text-align: right; }
-        .result-text { color: #8a6d3b; font-size: 1rem; margin-bottom: 10px; padding-right: 20px; }
-        .score-display { color: #fff; font-size: 1.8rem; text-align: center; font-weight: bold; letter-spacing: 5px; }
-
-        .history-title { align-self: flex-end; width: 100%; max-width: 400px; margin-top: 30px; text-align: right; font-size: 1.2rem; color: #ffcc00; display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding-right: 10px; }
-        .history-list { width: 100%; max-width: 400px; margin-top: 10px; }
-        .history-item { background: #0a0a0a; border-radius: 15px; padding: 12px; margin-bottom: 8px; border-right: 4px solid #ffcc00; display: flex; justify-content: space-between; color: #fff; font-size: 0.9rem; }
+        .result-panel { background: #080808; border-radius: 25px; width: 100%; max-width: 450px; padding: 20px; margin-top: 20px; border: 1px solid #151515; }
+        .stat-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #111; font-size: 0.9rem; }
+        .stat-val { color: #fff; font-weight: bold; }
+        .percent-box { display: flex; justify-content: space-around; margin-top: 15px; background: #111; padding: 15px; border-radius: 15px; }
+        .percent-item { text-align: center; }
+        .p-label { font-size: 0.7rem; color: #8a6d3b; }
+        .p-val { font-size: 1.1rem; font-weight: bold; color: #ffcc00; }
     </style>
 </head>
 <body>
@@ -31,46 +33,64 @@
     <div class="app-title">ARABIC PRO V4.5</div>
 
     <div class="main-container">
-        <div class="input-field">🏟️ اسم الفريق المضيف</div>
-        <div class="number-field" contenteditable="true">85</div>
-        <div class="number-field" contenteditable="true">75</div>
+        <div class="section-label">🏟️ الفريق المضيف</div>
+        <div class="input-group">
+            <input type="number" id="h_atk" placeholder="قوة الهجوم (0-100)">
+            <input type="number" id="h_def" placeholder="قوة الدفاع (0-100)">
+            <input type="number" id="h_adv" placeholder="عامل الأرض والجمهور (0-10)">
+        </div>
 
-        <div class="input-field">🏁 اسم الفريق الضيف</div>
-        <div class="number-field" contenteditable="true">70</div>
-        <div class="number-field" contenteditable="true">80</div>
+        <div class="section-label">🏁 الفريق الضيف</div>
+        <div class="input-group">
+            <input type="number" id="a_atk" placeholder="قوة الهجوم (0-100)">
+            <input type="number" id="a_def" placeholder="قوة الدفاع (0-100)">
+            <input type="number" id="a_inj" placeholder="تأثير الإصابات (خصم قوة)">
+        </div>
+
+        <button class="btn-predict" onclick="calculatePro()">توليد التوقعات السيادية 👑</button>
+    </div>
+
+    <div class="result-panel" id="resPanel" style="display: none;">
+        <div style="text-align: center; color: #8a6d3b; margin-bottom: 15px;">التحليل الذهبي للمباراة 📜</div>
         
-        <!-- خانة الإصابات المضافة -->
-        <div class="input-field injuries-field">🤕 إصابات الضيف (جديد)</div>
-        <div class="number-field injuries-field" contenteditable="true" id="awayInjuries">0</div>
+        <div class="percent-box">
+            <div class="percent-item"><div class="p-label">فوز المضيف</div><div class="p-val" id="win_h">0%</div></div>
+            <div class="percent-item"><div class="p-label">تعادل</div><div class="p-val" id="draw">0%</div></div>
+            <div class="percent-item"><div class="p-label">فوز الضيف</div><div class="p-val" id="win_a">0%</div></div>
+        </div>
 
-        <button class="btn-predict" onclick="runPrediction()">توليد التوقعات 👑</button>
+        <div class="stat-row"><span>الأهداف المتوقعة:</span> <span class="stat-val" id="goals">0-0</span></div>
+        <div class="stat-row"><span>الركنيات (Corners):</span> <span class="stat-val" id="corners">0</span></div>
+        <div class="stat-row"><span>البطاقات الصفراء:</span> <span class="stat-val" id="cards">0</span></div>
     </div>
-
-    <div class="result-section">
-        <div class="result-text">النتيجة المتوقعة</div>
-        <div class="score-display" id="finalScore">0-0</div>
-    </div>
-
-    <div class="history-title">📜 سجل التحليلات الذهبي</div>
-    <div id="history" class="history-list"></div>
 
     <script>
-        function runPrediction() {
-            // منطق حساب التوقعات الخاص بـ Arabic Pro
-            let randomHome = Math.floor(Math.random() * 4);
-            let randomAway = Math.floor(Math.random() * 3);
-            let result = randomHome + "-" + randomAway;
-            
-            document.getElementById('finalScore').innerText = result;
+        function calculatePro() {
+            // جلب البيانات
+            const hAtk = parseFloat(document.getElementById('h_atk').value) || 0;
+            const hDef = parseFloat(document.getElementById('h_def').value) || 0;
+            const hAdv = parseFloat(document.getElementById('h_adv').value) || 0;
+            const aAtk = parseFloat(document.getElementById('a_atk').value) || 0;
+            const aDef = parseFloat(document.getElementById('a_def').value) || 0;
+            const aInj = parseFloat(document.getElementById('a_inj').value) || 0;
 
-            // إضافة للسجل
-            let historyDiv = document.getElementById('history');
-            let item = document.createElement('div');
-            item.className = 'history-item';
-            item.innerHTML = `<span>تحليل جديد</span> <b>${result}</b>`;
-            historyDiv.prepend(item);
+            // خوارزمية Arabic Pro التحليلية
+            let homePower = (hAtk * 0.6) + (hDef * 0.4) + hAdv;
+            let awayPower = (aAtk * 0.6) + (aDef * 0.4) - aInj;
+            let total = homePower + awayPower;
+
+            // النسب المئوية
+            document.getElementById('win_h').innerText = Math.round((homePower/total)*100) + "%";
+            document.getElementById('win_a').innerText = Math.round((awayPower/total)*100) + "%";
+            document.getElementById('draw').innerText = "25%"; // قيمة افتراضية للتعادل
+
+            // الأهداف والركنيات
+            document.getElementById('goals').innerText = Math.floor(homePower/30) + " - " + Math.floor(awayPower/35);
+            document.getElementById('corners').innerText = Math.floor((hAtk + aAtk)/15) + "+";
+            document.getElementById('cards').innerText = Math.floor((hDef + aDef)/40) + " كروت";
+
+            document.getElementById('resPanel').style.display = 'block';
         }
     </script>
-
 </body>
 </html>
