@@ -3,160 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic-Pro | توقعات المباريات</title>
+    <title>Arabic-Pro | Predictor</title>
     <style>
-        /* تصميم الواجهة كما في الصورة */
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
+            margin: 0;
         }
 
         .container {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
         }
 
-        .input-card {
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 15px;
-            margin-bottom: 12px;
-            padding: 15px;
+        /* البطاقات السوداء */
+        .card {
+            background-color: #121212;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .label-text {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            display: block;
+        /* البطاقة المميزة (إصابات الضيف) */
+        .card.highlight {
+            border: 1px solid #ffd700;
         }
 
-        .value-display {
-            color: #FFD700; /* اللون الذهبي للأرقام */
-            font-size: 1.8rem;
+        /* عنوان القسم (فريق الضيف) */
+        .section-header {
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: center;
             font-weight: bold;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        input[type="number"] {
+        .label {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #efefef;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input {
             background: transparent;
             border: none;
-            color: #FFD700;
+            color: #ffcc00; /* اللون الذهبي للأرقام */
+            font-size: 2.2rem;
+            font-weight: bold;
             text-align: center;
-            font-size: 1.8rem;
-            width: 80px;
+            width: 100%;
             outline: none;
         }
 
-        .section-title {
-            background: #222;
-            padding: 10px;
-            border-radius: 10px;
-            margin: 15px 0;
-            font-weight: bold;
-        }
-
-        .generate-btn {
-            background: linear-gradient(180deg, #FFD700 0%, #B8860B 100%);
+        .btn-generate {
+            background: linear-gradient(to bottom, #ffd700, #b8860b);
             color: #000;
-            width: 100%;
-            padding: 15px;
-            border-radius: 15px;
             border: none;
-            font-size: 1.4rem;
+            border-radius: 15px;
+            padding: 18px;
+            width: 100%;
+            font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
-            transition: transform 0.2s;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
         }
 
-        .generate-btn:active {
-            transform: scale(0.95);
+        .btn-generate:active {
+            transform: scale(0.98);
         }
-
-        .emoji { margin-left: 8px; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- بيانات الفريق المضيف (اختياري للإكمال) -->
-        <div class="input-card">
-            <span class="label-text">إصابات <span class="emoji">🤕</span></span>
+        
+        <!-- إصابات (الأساسية) -->
+        <div class="card">
+            <div class="label">إصابات 🤕</div>
             <input type="number" id="homeInjuries" value="0">
         </div>
 
-        <div class="input-card">
-            <span class="label-text">روح قتالية <span class="emoji">🔥</span></span>
+        <!-- روح قتالية -->
+        <div class="card">
+            <div class="label">روح قتالية 🔥</div>
             <input type="number" id="homeSpirit" value="75">
         </div>
 
-        <!-- بيانات الفريق الضيف (المطلوبة) -->
-        <div class="section-title">🏁 فريق الضيف</div>
+        <!-- فاصل فريق الضيف -->
+        <div class="section-header">
+            🏁 فريق الضيف
+        </div>
 
-        <div class="input-card">
-            <span class="label-text">هجوم <span class="emoji">🚀</span></span>
+        <!-- هجوم -->
+        <div class="card">
+            <div class="label">هجوم 🚀</div>
             <input type="number" id="awayAttack" value="70">
         </div>
 
-        <div class="input-card">
-            <span class="label-text">دفاع <span class="emoji">🛡️</span></span>
+        <!-- دفاع -->
+        <div class="card">
+            <div class="label">دفاع 🛡️</div>
             <input type="number" id="awayDefense" value="80">
         </div>
 
-        <!-- الخانة التي كانت مفقودة وأضفناها الآن -->
-        <div class="input-card" style="border: 1px solid #FFD700;"> 
-            <span class="label-text">إصابات الضيف <span class="emoji">🤕</span></span>
+        <!-- إصابات الضيف (المضافة والمميزة) -->
+        <div class="card highlight">
+            <div class="label">إصابات الضيف 🤕</div>
             <input type="number" id="awayInjuries" value="0">
         </div>
 
-        <div class="input-card">
-            <span class="label-text">سفر شاق <span class="emoji">✈️</span></span>
-            <input type="number" id="awayTravel" value="10">
-        </div>
-
-        <div class="input-card">
-            <span class="label-text">إرهاق <span class="emoji">😫</span></span>
-            <input type="number" id="awayFatigue" value="20">
-        </div>
-
-        <button class="generate-btn" onclick="generatePrediction()">
+        <!-- زر التوليد -->
+        <button class="btn-generate" onclick="calculate()">
             توليد التوقعات 💎
         </button>
 
-        <div id="result" style="margin-top: 20px; text-align: center; font-size: 1.2rem;"></div>
+        <div id="result" style="margin-top: 20px; text-align: center; font-size: 1.2rem; color: #ffd700;"></div>
+
     </div>
 
     <script>
-        function generatePrediction() {
-            // جلب القيم من الخانات
-            const attack = parseInt(document.getElementById('awayAttack').value) || 0;
-            const defense = parseInt(document.getElementById('awayDefense').value) || 0;
-            const injuries = parseInt(document.getElementById('awayInjuries').value) || 0;
-            const travel = parseInt(document.getElementById('awayTravel').value) || 0;
-            const fatigue = parseInt(document.getElementById('awayFatigue').value) || 0;
-
-            // معادلة "Arabic-Pro" المخصصة
-            // الإصابات والإرهاق والسفر تخصم من قوة الفريق الإجمالية
-            let finalScore = (attack + defense) / 2;
-            finalScore -= (injuries * 2) + (fatigue * 0.5) + (travel * 0.3);
-
-            let message = "";
-            if (finalScore > 70) message = "أداء متوقع قوي جداً للضيف! 🌟";
-            else if (finalScore > 50) message = "أداء متوسط، الحذر مطلوب. ⚖️";
-            else message = "الفريق الضيف يعاني، احتمالية خسارة كبيرة. 🚩";
-
-            document.getElementById('result').innerHTML = `
-                <div style="background:#222; padding:15px; border-radius:10px;">
-                    <p>قوة الضيف النهائية: <b>${finalScore.toFixed(1)}%</b></p>
-                    <p>${message}</p>
-                </div>
-            `;
+        function calculate() {
+            const atk = parseFloat(document.getElementById('awayAttack').value) || 0;
+            const def = parseFloat(document.getElementById('awayDefense').value) || 0;
+            const inj = parseFloat(document.getElementById('awayInjuries').value) || 0;
+            
+            // معادلة افتراضية للتوقع بناءً على المعطيات
+            let score = ((atk + def) / 2) - (inj * 5);
+            
+            let resDiv = document.getElementById('result');
+            resDiv.innerHTML = "جاري تحليل البيانات... النتيجة المتوقعة: " + Math.max(0, score).toFixed(1) + "%";
         }
     </script>
 
