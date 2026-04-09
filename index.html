@@ -3,100 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC PRO V3 | SOVEREIGN ANALYZER</title>
+    <title>ARABIC PRO V4 | THE ULTIMATE ENGINE</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         @import url('https://googleapis.com');
-        body { background-color: #080808; color: #D4AF37; font-family: 'Cairo', sans-serif; }
-        .gold-gradient { background: linear-gradient(135deg, #B8860B 0%, #FFD700 100%); }
-        .glass-card { background: rgba(20, 20, 20, 0.95); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
-        input { background: #121212; border: 1px solid #2a2a2a; color: #fff; padding: 14px; border-radius: 12px; width: 100%; text-align: center; outline: none; }
-        .probability-bar { height: 8px; border-radius: 4px; background: #222; overflow: hidden; }
-        .probability-fill { height: 100%; transition: width 1.5s ease-in-out; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.8rem; }
-        th, td { padding: 10px; border: 1px solid #222; text-align: center; }
-        th { color: #D4AF37; background: #111; }
+        body { background: radial-gradient(circle at top, #1a1a1a 0%, #050505 100%); color: #D4AF37; font-family: 'Cairo', sans-serif; min-height: 100vh; }
+        .gold-glow { text-shadow: 0 0 15px rgba(212, 175, 55, 0.6); }
+        .glass-panel { background: rgba(15, 15, 15, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); backdrop-filter: blur(10px); border-radius: 30px; }
+        .stat-card { background: linear-gradient(145deg, #111, #080808); border-radius: 20px; border: 1px solid #222; }
+        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 15px !important; transition: 0.4s !important; text-align: center; }
+        input:focus { border-color: #D4AF37 !important; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2) !important; }
+        .btn-prime { background: linear-gradient(90deg, #B8860B, #FFD700, #B8860B); background-size: 200% auto; animation: shine 3s linear infinite; color: #000; font-weight: 900; border-radius: 20px; transition: 0.5s; }
+        @keyframes shine { to { background-position: 200% center; } }
+        .progress-ring { transition: width 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
     </style>
 </head>
-<body class="p-4 pb-20">
-    <div class="max-w-xl mx-auto">
-        <div class="text-center mb-10 mt-6">
-            <h1 class="text-4xl font-black italic gold-gradient bg-clip-text text-transparent">ARABIC PRO V3</h1>
-            <p class="text-gray-500 text-xs font-bold tracking-widest">SOVEREIGN AI ENGINE</p>
+<body class="p-4">
+    <div class="max-w-xl mx-auto space-y-6">
+        <!-- Header -->
+        <header class="text-center py-6">
+            <h1 class="text-5xl font-black italic gold-glow tracking-tighter">ARABIC PRO <span class="text-white">V4</span></h1>
+            <div class="h-1 w-24 bg-yellow-600 mx-auto mt-2 rounded-full"></div>
+            <p class="text-[10px] mt-2 text-gray-500 tracking-[0.3em] font-bold">PREMIUM SOVEREIGN ANALYZER</p>
+        </header>
+
+        <!-- Input Section -->
+        <div class="glass-panel p-6 shadow-2xl">
+            <div class="grid grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <input type="text" id="hName" placeholder="فريق الأرض" class="w-full p-3 font-bold">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><p class="text-[10px] text-center text-blue-400 font-bold mb-1">هجوم</p><input type="number" id="hAtk" value="80"></div>
+                        <div><p class="text-[10px] text-center text-blue-300 font-bold mb-1">دفاع</p><input type="number" id="hDef" value="75"></div>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <input type="text" id="aName" placeholder="فريق الخصم" class="w-full p-3 font-bold">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div><p class="text-[10px] text-center text-red-400 font-bold mb-1">هجوم</p><input type="number" id="aAtk" value="70"></div>
+                        <div><p class="text-[10px] text-center text-red-300 font-bold mb-1">دفاع</p><input type="number" id="aDef" value="80"></div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="runUltimateAI()" class="btn-prime w-full py-5 mt-8 text-xl shadow-lg active:scale-95">استخراج التوقعات السيادية ⚡</button>
         </div>
 
-        <div class="glass-card p-6 mb-8">
-            <div class="grid grid-cols-2 gap-4 mb-8">
-                <div class="text-center">
-                    <input type="text" id="hName" placeholder="المضيف" class="mb-4 text-sm border-b border-yellow-700">
-                    <div class="flex gap-2"><input type="number" id="hAtk" value="80"><input type="number" id="hDef" value="70"></div>
+        <!-- Dashboard Results -->
+        <div id="dashboard" class="hidden space-y-4 animate-in fade-in duration-1000">
+            <div class="stat-card p-8 text-center border-yellow-600/30 border-2">
+                <p class="text-gray-500 text-xs font-bold uppercase mb-2">النتيجة الأكثر احتمالاً</p>
+                <div class="text-8xl font-black text-white" id="mainScore">0 - 0</div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="stat-card p-4 text-center">
+                    <p class="text-[10px] text-gray-500 mb-1">فوق 2.5 هدف</p>
+                    <div id="over25" class="text-xl font-bold text-yellow-500">0%</div>
                 </div>
-                <div class="text-center">
-                    <input type="text" id="aName" placeholder="الضيف" class="mb-4 text-sm border-b border-yellow-700">
-                    <div class="flex gap-2"><input type="number" id="aAtk" value="75"><input type="number" id="aDef" value="75"></div>
+                <div class="stat-card p-4 text-center">
+                    <p class="text-[10px] text-gray-500 mb-1">كلا الفريقين يسجل</p>
+                    <div id="btts" class="text-xl font-bold text-yellow-500">0%</div>
                 </div>
             </div>
 
-            <button onclick="superAnalysis()" class="w-full gold-gradient py-5 rounded-2xl text-black font-black text-xl shadow-lg active:scale-95 transition-transform">تشغيل المحرك الاحتمالي ⚡</button>
-
-            <div id="resultEngine" class="hidden mt-10 space-y-6">
-                <div class="text-center"><p class="text-gray-500 text-xs font-bold mb-1">النتيجة الأكثر توقعاً</p><div class="text-6xl font-black text-white" id="exactScore">0 - 0</div></div>
-                <div class="space-y-3">
-                    <div><div class="flex justify-between text-[10px] mb-1"><span>فوز المضيف</span><span id="valHome">0%</span></div><div class="probability-bar"><div id="barHome" class="probability-fill bg-blue-500" style="width: 0%"></div></div></div>
-                    <div><div class="flex justify-between text-[10px] mb-1"><span>تعادل</span><span id="valDraw">0%</span></div><div class="probability-bar"><div id="barDraw" class="probability-fill bg-gray-500" style="width: 0%"></div></div></div>
-                    <div><div class="flex justify-between text-[10px] mb-1"><span>فوز الضيف</span><span id="valAway">0%</span></div><div class="probability-bar"><div id="barAway" class="probability-fill bg-red-500" style="width: 0%"></div></div></div>
-                </div>
+            <!-- Probabilities -->
+            <div class="glass-panel p-6 space-y-4">
+                <div id="probList"></div>
             </div>
         </div>
 
-        <!-- السجل الذهبي الجديد -->
-        <div class="glass-card p-4">
-            <h3 class="text-sm font-black mb-4 text-center">📜 السجل الذهبي للتحليلات</h3>
-            <div class="overflow-x-auto">
-                <table>
-                    <thead><tr><th>المباراة</th><th>التوقع</th><th>الفوز %</th></tr></thead>
-                    <tbody id="historyBody" class="text-white"></tbody>
-                </table>
-            </div>
+        <!-- Smart History -->
+        <div class="glass-panel p-6">
+            <h3 class="text-center font-black text-sm mb-4">📜 الأرشيف الذكي (History)</h3>
+            <div id="historyLog" class="space-y-3"></div>
         </div>
     </div>
 
     <script>
         function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }
-        function poisson(lambda, k) { return (Math.pow(lambda, k) * Math.exp(-lambda)) / factorial(k); }
+        function poisson(l, k) { return (Math.pow(l, k) * Math.exp(-l)) / factorial(k); }
 
-        function superAnalysis() {
-            const hn = document.getElementById('hName').value || "المضيف";
-            const an = document.getElementById('aName').value || "الضيف";
-            const hAtk = parseFloat(document.getElementById('hAtk').value) / 100, hDef = parseFloat(document.getElementById('hDef').value) / 100;
-            const aAtk = parseFloat(document.getElementById('aAtk').value) / 100, aDef = parseFloat(document.getElementById('aDef').value) / 100;
-            const expH = (hAtk * (1 - aDef)) * 4, expA = (aAtk * (1 - hDef)) * 3;
-            let pW=0, pL=0, pD=0, maxP=0, bH=0, bA=0;
+        function runUltimateAI() {
+            const hN = document.getElementById('hName').value || "المضيف";
+            const aN = document.getElementById('aName').value || "الضيف";
+            const hAtk = document.getElementById('hAtk').value / 100, hDef = document.getElementById('hDef').value / 100;
+            const aAtk = document.getElementById('aAtk').value / 100, aDef = document.getElementById('aDef').value / 100;
 
-            for (let h=0; h<=5; h++) {
-                for (let a=0; a<=5; a++) {
-                    let p = poisson(expH, h) * poisson(expA, a);
-                    if (h>a) pW+=p; else if (h<a) pL+=p; else pD+=p;
-                    if (p>maxP) { maxP=p; bH=h; bA=a; }
+            const xGH = (hAtk * (1-aDef)) * 4.2;
+            const xGA = (aAtk * (1-hDef)) * 3.5;
+
+            let pW=0, pD=0, pL=0, pOver=0, pBTTS=0, mP=0, bH=0, bA=0;
+
+            for(let h=0; h<=6; h++){
+                for(let a=0; a<=6; a++){
+                    let p = poisson(xGH, h) * poisson(xGA, a);
+                    if(h>a) pW+=p; else if(a>h) pL+=p; else pD+=p;
+                    if(h+a > 2.5) pOver+=p;
+                    if(h>0 && a>0) pBTTS+=p;
+                    if(p>mP){ mP=p; bH=h; bA=a; }
                 }
             }
-            const total = pW + pL + pD;
-            const winPerc = ((pW/total)*100).toFixed(1);
-            const finalScore = `${bH} - ${bA}`;
-            
-            document.getElementById('resultEngine').classList.remove('hidden');
-            document.getElementById('exactScore').innerText = finalScore;
-            updateBar('Home', (pW/total)*100); updateBar('Draw', (pD/total)*100); updateBar('Away', (pL/total)*100);
 
-            // إضافة للسجل
-            const row = `<tr><td>${hn} x ${an}</td><td class="text-yellow-500 font-bold">${finalScore}</td><td>${winPerc}%</td></tr>`;
-            document.getElementById('historyBody').innerHTML = row + document.getElementById('historyBody').innerHTML;
-        }
-        function updateBar(id, val) {
-            document.getElementById('val'+id).innerText = val.toFixed(1) + "%";
-            document.getElementById('bar'+id).style.width = val + "%";
+            const total = pW+pD+pL;
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('mainScore').innerText = `${bH} - ${bA}`;
+            document.getElementById('over25').innerText = ((pOver/total)*100).toFixed(1) + "%";
+            document.getElementById('btts').innerText = ((pBTTS/total)*100).toFixed(1) + "%";
+
+            const results = [
+                {l: `فوز ${hN}`, v: (pW/total)*100, c: 'bg-blue-600'},
+                {l: 'تعادل المباراة', v: (pD/total)*100, c: 'bg-gray-600'},
+                {l: `فوز ${aN}`, v: (pL/total)*100, c: 'bg-red-600'}
+            ];
+
+            document.getElementById('probList').innerHTML = results.map(r => `
+                <div class="mb-3">
+                    <div class="flex justify-between text-[10px] font-bold mb-1"><span>${r.l}</span><span>${r.v.toFixed(1)}%</span></div>
+                    <div class="w-full bg-black h-2 rounded-full overflow-hidden">
+                        <div class="progress-ring h-full ${r.c}" style="width: ${r.v}%"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Save to LocalStorage & History
+            const entry = `<div class="p-3 bg-black/40 border-r-4 border-yellow-600 flex justify-between items-center rounded-lg">
+                <span class="text-[10px] font-bold">${hN} x ${aN}</span>
+                <span class="text-lg font-black text-white">${bH}-${bA}</span>
+                <span class="text-[10px] text-yellow-500">${((pW/total)*100).toFixed(1)}% Win</span>
+            </div>`;
+            document.getElementById('historyLog').innerHTML = entry + document.getElementById('historyLog').innerHTML;
         }
     </script>
 </body>
-                                             </html>
-                                                                                
+</html>
