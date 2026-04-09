@@ -3,122 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- كود تحويل الموقع إلى تطبيق حقيقي -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
-    
-    <title>ARABIC PRO V4.3 | CINEMATIC EDITION</title>
+    <title>ARABIC PRO V4.4 | TOTAL CLARITY</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         @import url('https://googleapis.com');
-        body { 
-            background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%); 
-            color: #D4AF37; 
-            font-family: 'Cairo', sans-serif; 
-            min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
-        }
-        .glass-panel { 
-            background: rgba(20, 20, 20, 0.7); 
-            border: 1px solid rgba(212, 175, 55, 0.2); 
-            backdrop-filter: blur(15px); 
-            border-radius: 35px; 
-        }
-        input { 
-            background: #000 !important; 
-            border: 1px solid #333 !important; 
-            color: #FFD700 !important; 
-            border-radius: 18px !important; 
-            text-align: center; 
-            font-size: 1.5rem !important; 
-            padding: 15px !important;
-            font-weight: 900;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
-        }
-        .modifier-btn { 
-            border: 1px solid #222; 
-            padding: 15px 5px; 
-            border-radius: 15px; 
-            font-size: 1.1rem; 
-            font-weight: 800;
-            color: #555;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .modifier-btn.active { 
-            border-color: #FFD700; 
-            color: #FFD700; 
-            background: rgba(212, 175, 55, 0.15);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-            transform: scale(1.05);
-        }
-        .btn-king { 
-            background: linear-gradient(135deg, #B8860B 0%, #FFD700 50%, #B8860B 100%);
-            background-size: 200% auto;
-            animation: glow-move 4s linear infinite;
-            color: #000; font-weight: 900; border-radius: 25px; 
-            width: 100%; padding: 25px; font-size: 1.8rem;
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.4);
-        }
-        @keyframes glow-move { to { background-position: 200% center; } }
-        .label-tag { font-size: 1.2rem; color: #fff; font-weight: 900; margin-bottom: 8px; text-shadow: 0 2px 4px #000; }
+        body { background: #000; color: #D4AF37; font-family: 'Cairo', sans-serif; min-height: 100vh; }
+        /* بطاقات الفريقين المتميزة */
+        .team-card { background: rgba(15, 15, 15, 1); border-radius: 25px; padding: 20px; border: 1px solid #222; margin-bottom: 20px; }
+        .home-border { border-right: 6px solid #1e40af; } /* لون أزرق للمضيف */
+        .away-border { border-right: 6px solid #991b1b; } /* لون أحمر للضيف */
+        
+        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 12px !important; text-align: center; font-size: 1.3rem !important; padding: 10px !important; font-weight: 900; width: 100%; }
+        .modifier-btn { border: 1px solid #222; padding: 10px 5px; border-radius: 12px; font-size: 0.9rem; font-weight: 800; color: #555; transition: 0.3s; width: 100%; text-align: center; }
+        .modifier-btn.active { border-color: #FFD700; color: #FFD700; background: rgba(212, 175, 55, 0.1); shadow: 0 0 10px #D4AF37; }
+        .btn-king { background: linear-gradient(90deg, #B8860B, #FFD700); color: #000; font-weight: 900; border-radius: 20px; width: 100%; padding: 20px; font-size: 1.5rem; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); }
+        .label-tag { font-size: 1rem; color: #fff; font-weight: 800; margin-bottom: 5px; display: block; }
     </style>
 </head>
-<body class="p-4 md:p-10 flex items-center justify-center">
-    <div class="max-w-xl w-full space-y-10">
-        <header class="text-center">
-            <h1 class="text-6xl font-black italic tracking-tighter" style="text-shadow: 0 0 30px rgba(212,175,55,0.5)">
-                ARABIC PRO <span class="text-white">V4.3</span>
-            </h1>
-            <p class="text-sm text-yellow-800 tracking-[0.5em] font-black mt-3">SOVEREIGN MOBILE APP</p>
+<body class="p-4">
+    <div class="max-w-xl mx-auto">
+        <header class="text-center py-6">
+            <h1 class="text-4xl font-black italic gold-glow">ARABIC PRO <span class="text-white">V4.4</span></h1>
+            <p class="text-[10px] text-yellow-700 tracking-[0.4em] font-bold mt-1">THE SYSTEM IS NOW SEPARATED</p>
         </header>
 
-        <div class="glass-panel p-8 shadow-[0_0_50px_rgba(0,0,0,1)]">
-            <div class="space-y-12">
-                <!-- الفريق المضيف -->
-                <div class="space-y-5">
-                    <input type="text" id="hName" placeholder="🏟️ اسم فريق الأرض" class="w-full">
-                    <div class="grid grid-cols-2 gap-5">
-                        <div class="text-center"><span class="label-tag">🚀 هجوم</span><input type="number" id="hAtk" value="85"></div>
-                        <div class="text-center"><span class="label-tag">🛡️ دفاع</span><input type="number" id="hDef" value="75"></div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mt-4">
-                        <div id="hInj" onclick="toggleM('hInj')" class="modifier-btn">🤕 إصابات</div>
-                        <div id="hMor" onclick="toggleM('hMor')" class="modifier-btn">🔥 روح قتالية</div>
-                    </div>
-                </div>
-
-                <div class="h-px bg-gradient-to-r from-transparent via-yellow-900/50 to-transparent w-full"></div>
-
-                <!-- الفريق الضيف -->
-                <div class="space-y-5">
-                    <input type="text" id="aName" placeholder="🏁 اسم فريق الخصم" class="w-full">
-                    <div class="grid grid-cols-2 gap-5">
-                        <div class="text-center"><span class="label-tag">🚀 هجوم</span><input type="number" id="aAtk" value="70"></div>
-                        <div class="text-center"><span class="label-tag">🛡️ دفاع</span><input type="number" id="aDef" value="80"></div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3 mt-4">
-                        <div id="aFan" onclick="toggleM('aFan')" class="modifier-btn">✈️ سفر شاق</div>
-                        <div id="aFat" onclick="toggleM('aFat')" class="modifier-btn">😫 إرهاق</div>
-                    </div>
-                </div>
+        <!-- بطاقة الفريق المضيف -->
+        <div class="team-card home-border shadow-lg">
+            <input type="text" id="hName" placeholder="🏟️ اسم الفريق المضيف" class="mb-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div><span class="label-tag">🚀 هجوم</span><input type="number" id="hAtk" value="85"></div>
+                <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="hDef" value="75"></div>
             </div>
-
-            <button onclick="runTacticalAI()" class="btn-king mt-12 active:scale-90 transition-all">توليد التوقعات السيادية 👑</button>
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <div id="hInj" onclick="toggleM('hInj')" class="modifier-btn">🤕 إصابات</div>
+                <div id="hMor" onclick="toggleM('hMor')" class="modifier-btn">🔥 روح قتالية</div>
+                <div id="hFan" onclick="toggleM('hFan')" class="modifier-btn">📢 جمهور</div>
+                <div id="hFat" onclick="toggleM('hFat')" class="modifier-btn">😫 إرهاق</div>
+            </div>
         </div>
 
-        <div id="dashboard" class="hidden space-y-8 animate-in slide-in-from-bottom duration-700">
-            <div class="glass-panel p-10 text-center border-yellow-500 border-4">
-                <p class="text-gray-400 text-lg font-bold mb-3 italic">التحليل النهائي</p>
-                <div class="text-9xl font-black text-white" id="mainScore" style="text-shadow: 0 0 40px #D4AF37">0 - 0</div>
+        <!-- بطاقة الفريق الضيف -->
+        <div class="team-card away-border shadow-lg">
+            <input type="text" id="aName" placeholder="🏁 اسم الفريق الضيف" class="mb-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div><span class="label-tag">🚀 هجوم</span><input type="number" id="aAtk" value="70"></div>
+                <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="aDef" value="80"></div>
             </div>
-            <div id="probList" class="glass-panel p-8 space-y-6"></div>
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <div id="aInj" onclick="toggleM('aInj')" class="modifier-btn">🤕 إصابات</div>
+                <div id="aMor" onclick="toggleM('aMor')" class="modifier-btn">🔥 روح عالية</div>
+                <div id="aFan" onclick="toggleM('aFan')" class="modifier-btn">✈️ سفر شاق</div>
+                <div id="aFat" onclick="toggleM('aFat')" class="modifier-btn">😫 إرهاق</div>
+            </div>
+        </div>
+
+        <button onclick="runTacticalAI()" class="btn-king mt-6 active:scale-95 transition-all">توليد التوقعات السيادية 👑</button>
+
+        <div id="dashboard" class="hidden space-y-6 mt-8">
+            <div class="team-card text-center border-yellow-500 border-4 py-8">
+                <p class="text-gray-400 text-sm font-bold mb-2">النتيجة النهائية المتوقعة</p>
+                <div class="text-7xl font-black text-white" id="mainScore">0 - 0</div>
+            </div>
+            <div id="probList" class="team-card space-y-4"></div>
         </div>
     </div>
 
     <script>
-        let modifiers = { hInj:false, hMor:false, aFan:false, aFat:false };
-        function toggleM(id) { modifiers[id] = !modifiers[id]; document.getElementById(id).classList.toggle('active'); }
+        let m = { hInj:false, hMor:false, hFan:false, hFat:false, aInj:false, aMor:false, aFan:false, aFat:false };
+        function toggleM(id) { m[id] = !m[id]; document.getElementById(id).classList.toggle('active'); }
         function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }
         function poisson(l, k) { return (Math.pow(l, k) * Math.exp(-l)) / factorial(k); }
 
@@ -126,10 +78,10 @@
             let hAtk = document.getElementById('hAtk').value / 100, hDef = document.getElementById('hDef').value / 100;
             let aAtk = document.getElementById('aAtk').value / 100, aDef = document.getElementById('aDef').value / 100;
 
-            if(modifiers.hInj) hAtk *= 0.75; if(modifiers.hMor) hAtk *= 1.25;
-            if(modifiers.aFan) aDef *= 0.8; if(modifiers.aFat) aAtk *= 0.8;
+            if(m.hInj) hAtk *= 0.8; if(m.hMor) hAtk *= 1.2; if(m.hFan) hAtk *= 1.15; if(m.hFat) hAtk *= 0.85;
+            if(m.aInj) aAtk *= 0.8; if(m.aMor) aAtk *= 1.15; if(m.aFan) aAtk *= 0.85; if(m.aFat) aAtk *= 0.85;
 
-            const xGH = (hAtk * (1-aDef)) * 4.8, xGA = (aAtk * (1-hDef)) * 3.8;
+            const xGH = (hAtk * (1-aDef)) * 4.6, xGA = (aAtk * (1-hDef)) * 3.6;
             let pW=0, pD=0, pL=0, mP=0, bH=0, bA=0;
 
             for(let h=0; h<=5; h++){
@@ -141,19 +93,19 @@
             }
             const total = pW+pD+pL;
             document.getElementById('dashboard').classList.remove('hidden');
-            window.scrollTo({top: document.getElementById('dashboard').offsetTop, behavior: 'smooth'});
             document.getElementById('mainScore').innerText = `${bH} - ${bA}`;
+            window.scrollTo({top: document.getElementById('dashboard').offsetTop, behavior: 'smooth'});
             
             const results = [
                 {l: `فوز المضيف`, v: (pW/total)*100, c: 'bg-blue-600'},
-                {l: 'تعادل سيادي', v: (pD/total)*100, c: 'bg-gray-600'},
+                {l: 'تعادل', v: (pD/total)*100, c: 'bg-gray-600'},
                 {l: `فوز الضيف`, v: (pL/total)*100, c: 'bg-red-600'}
             ];
             document.getElementById('probList').innerHTML = results.map(r => `
                 <div>
-                    <div class="flex justify-between text-xl font-black mb-3"><span>${r.l}</span><span>${r.v.toFixed(1)}%</span></div>
-                    <div class="w-full bg-black h-4 rounded-full overflow-hidden border border-yellow-900">
-                        <div class="h-full ${r.c} shadow-[0_0_15px_rgba(255,255,255,0.2)]" style="width: ${r.v}%"></div>
+                    <div class="flex justify-between text-sm font-bold mb-2"><span>${r.l}</span><span>${r.v.toFixed(1)}%</span></div>
+                    <div class="w-full bg-black h-2 rounded-full overflow-hidden border border-gray-800">
+                        <div class="h-full ${r.c}" style="width: ${r.v}%"></div>
                     </div>
                 </div>
             `).join('');
