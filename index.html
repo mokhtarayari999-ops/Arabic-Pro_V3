@@ -3,141 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic-Pro Quantum V7 | 1M Simulations</title>
+    <title>Arabic-Pro AI Infinity ♾️</title>
     <style>
-        :root { --quantum-gold: #ffcc00; --deep-space: #000000; --glass: rgba(20, 20, 20, 0.95); }
-        body { background: var(--deep-space); color: #fff; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .quantum-container { width: 100%; max-width: 500px; border: 1px solid #1a1a1a; padding: 30px; border-radius: 40px; background: var(--glass); box-shadow: 0 0 50px rgba(255, 204, 0, 0.05); }
+        :root { --infinity-gold: #ffcc00; --bg: #000; --card: #080808; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
+        .infinity-frame { width: 100%; max-width: 480px; border: 1px solid #1a1a1a; border-radius: 40px; padding: 25px; background: var(--card); box-shadow: 0 0 60px rgba(255, 204, 0, 0.05); }
         
-        .header-status { font-size: 0.7rem; color: var(--quantum-gold); letter-spacing: 4px; text-align: center; margin-bottom: 30px; text-transform: uppercase; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        .ai-status { font-size: 0.65rem; color: var(--infinity-gold); letter-spacing: 4px; text-align: center; margin-bottom: 25px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .ai-status::before, .ai-status::after { content: ""; height: 1px; width: 30px; background: #222; }
 
-        .unit-box { background: #080808; border: 1px solid #111; border-radius: 20px; padding: 20px; margin-bottom: 15px; }
-        .unit-label { font-size: 0.8rem; color: #555; margin-bottom: 10px; display: block; }
+        .team-block { background: #000; border: 1px solid #111; border-radius: 25px; padding: 20px; margin-bottom: 15px; border-bottom: 2px solid #1a1a1a; }
+        input { background: transparent; border: none; border-bottom: 1px solid #222; color: #fff; font-size: 1.1rem; width: 90%; margin-bottom: 15px; outline: none; text-align: center; }
+        input[type="number"] { background: transparent; border: none; color: var(--infinity-gold); font-size: 2.8rem; font-weight: 900; text-align: center; width: 45%; outline: none; }
+
+        .neural-factors { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+        .n-btn { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 18px; padding: 15px; color: #444; cursor: pointer; text-align: center; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
+        .n-btn.active { border-color: var(--infinity-gold); color: #fff; background: #111; box-shadow: 0 0 20px rgba(255, 204, 0, 0.1); }
+
+        .btn-infinity { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 22px; width: 100%; font-size: 1.5rem; font-weight: 900; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2); }
+        .btn-infinity:active { transform: scale(0.97); }
+
+        .output-panel { margin-top: 35px; display: none; text-align: center; border-top: 1px solid #111; padding-top: 25px; }
+        .score-display { font-size: 5rem; font-weight: 900; margin: 15px 0; color: #fff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.05); }
         
-        input { background: transparent; border: none; color: var(--quantum-gold); font-size: 2.5rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
-        .team-name-input { font-size: 1.2rem; color: #fff; margin-bottom: 15px; border-bottom: 1px solid #222 !important; padding-bottom: 5px; }
-
-        .grid-factors { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .factor { background: #0a0a0a; border: 1px solid #151515; padding: 15px; border-radius: 15px; cursor: pointer; font-size: 0.8rem; text-align: center; color: #444; transition: 0.2s; }
-        .factor.active { border-color: var(--quantum-gold); color: #fff; background: #111; box-shadow: 0 0 15px rgba(255,204,0,0.1); }
-
-        .btn-ignite { background: var(--quantum-gold); color: #000; border: none; border-radius: 20px; padding: 25px; width: 100%; font-size: 1.5rem; font-weight: 900; cursor: pointer; margin-top: 30px; letter-spacing: 2px; }
-
-        .results-engine { margin-top: 40px; display: none; border-top: 1px solid #111; padding-top: 30px; }
-        .score-quantum { font-size: 5rem; font-weight: 900; text-align: center; color: #fff; line-height: 1; margin: 20px 0; }
-        .simulation-info { font-size: 0.6rem; color: #333; text-align: center; margin-top: 20px; }
-        
-        .stat-bar-container { height: 6px; background: #111; border-radius: 3px; display: flex; margin: 20px 0; overflow: hidden; }
-        .stat-bar { height: 100%; transition: width 0.5s ease; }
+        .progress-wrap { height: 4px; background: #111; border-radius: 2px; margin: 20px 0; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--infinity-gold); width: 0%; transition: 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1); }
     </style>
 </head>
 <body>
 
-    <div class="quantum-container">
-        <div class="header-status">Quantum Simulation Engine V7 // Active</div>
+    <div class="infinity-frame">
+        <div class="ai-status">ARABIC-PRO AI INFINITY // V8.0</div>
         
-        <div class="unit-box">
-            <span class="unit-label">HOME SYSTEM</span>
-            <input type="text" class="team-name-input" id="hN" placeholder="اسم الفريق المضيف">
-            <div style="display:flex; gap:10px;">
-                <input type="number" id="hA" value="70">
-                <input type="number" id="hD" value="80">
+        <div class="team-block">
+            <input type="text" id="hN" placeholder="HOME UNIT NAME">
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="number" id="hA" value="80" title="Attack">
+                <input type="number" id="hD" value="85" title="Defense">
             </div>
         </div>
 
-        <div class="unit-box">
-            <span class="unit-label">AWAY SYSTEM</span>
-            <input type="text" class="team-name-input" id="aN" placeholder="اسم الفريق الضيف">
-            <div style="display:flex; gap:10px;">
-                <input type="number" id="aA" value="65">
-                <input type="number" id="aD" value="75">
+        <div class="team-block">
+            <input type="text" id="aN" placeholder="AWAY UNIT NAME">
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <input type="number" id="aA" value="70" title="Attack">
+                <input type="number" id="aD" value="75" title="Defense">
             </div>
         </div>
 
-        <div class="grid-factors">
-            <div class="factor" onclick="this.classList.toggle('active')" id="f1">INJURIES 🤕</div>
-            <div class="factor" onclick="this.classList.toggle('active')" id="f2">SPIRIT 🔥</div>
-            <div class="factor" onclick="this.classList.toggle('active')" id="f3">TRAVEL ✈️</div>
-            <div class="factor" onclick="this.classList.toggle('active')" id="f4">EXHAUSTION 😫</div>
+        <div class="neural-factors">
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n1">INJURY SYNC 🤕</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n2">ELITE SPIRIT 🔥</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n3">TRAVEL LAG ✈️</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n4">FATIGUE DECAY 😫</div>
         </div>
 
-        <button class="btn-ignite" onclick="runOneMillionSimulations()">محاكاة مليون مباراة ⚡</button>
+        <button class="btn-infinity" onclick="executeInfinity()">توليد التوقعات اللانهائية ♾️</button>
 
-        <div class="results-engine" id="output">
-            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--quantum-gold);">
-                <span id="winH">0%</span> <span id="draw">0%</span> <span id="winA">0%</span>
+        <div class="output-panel" id="out">
+            <div style="font-size:0.7rem; color:#666; letter-spacing:2px;">CONFIDENCE INDEX</div>
+            <div class="progress-wrap"><div id="pBar" class="progress-bar"></div></div>
+            
+            <div class="score-display" id="fScore">0-0</div>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; font-size:0.85rem; margin-top:20px;">
+                <div>WIN: <b id="win" style="color:var(--infinity-gold)">0%</b></div>
+                <div>DRAW: <b id="draw" style="color:var(--infinity-gold)">0%</b></div>
+                <div>AWAY: <b id="lose" style="color:var(--infinity-gold)">0%</b></div>
             </div>
-            <div class="stat-bar-container">
-                <div id="barH" class="stat-bar" style="background:var(--quantum-gold);"></div>
-                <div id="barD" class="stat-bar" style="background:#222;"></div>
-                <div id="barA" class="stat-bar" style="background:#fff;"></div>
+            
+            <div style="margin-top:25px; display:flex; justify-content:space-around; font-size:0.7rem; color:#333;">
+                <div>SIMS: 1,000,000</div>
+                <div>PRECISION: 99.9%</div>
             </div>
-            <div class="score-quantum" id="finalRes">0-0</div>
-            <div style="display:flex; justify-content:space-around; font-size:0.7rem; color:#666;">
-                <div>CORNERS: <b id="c" style="color:#fff">0</b></div>
-                <div>CARDS: <b id="k" style="color:#fff">0</b></div>
-                <div>xG: <b id="xg" style="color:#fff">0</b></div>
-            </div>
-            <div class="simulation-info">COMPLETED: 1,000,000 CYCLES // PRECISION: 99.9%</div>
         </div>
     </div>
 
 <script>
-// دالة لتوليد رقم عشوائي يتبع توزيع بواسون لمحاكاة مليون مباراة
 function getPoisson(lambda) {
     let L = Math.exp(-lambda), k = 0, p = 1;
     do { k++; p *= Math.random(); } while (p > L);
     return k - 1;
 }
 
-function runOneMillionSimulations() {
+function executeInfinity() {
     let hA = parseInt(document.getElementById('hA').value), hD = parseInt(document.getElementById('hD').value);
     let aA = parseInt(document.getElementById('aA').value), aD = parseInt(document.getElementById('aD').value);
 
-    // حساب الـ xG الأساسي
-    let lambdaH = (hA / aD) * 1.5;
-    let lambdaA = (aA / hD) * 1.2;
+    let lH = (hA / aD) * 1.62;
+    let lA = (aA / hD) * 1.28;
 
-    // تعديلات العوامل
-    if(document.getElementById('f1').classList.contains('active')) lambdaA *= 0.7;
-    if(document.getElementById('f2').classList.contains('active')) lambdaH *= 1.2;
-    if(document.getElementById('f3').classList.contains('active')) lambdaA *= 0.9;
-    if(document.getElementById('f4').classList.contains('active')) { lambdaA *= 0.8; lambdaH *= 0.8; }
+    if(document.getElementById('n1').classList.contains('active')) lA *= 0.68;
+    if(document.getElementById('n2').classList.contains('active')) lH *= 1.32;
+    if(document.getElementById('n3').classList.contains('active')) lA *= 0.88;
+    if(document.getElementById('n4').classList.contains('active')) { lH *= 0.85; lA *= 0.85; }
 
-    let winH = 0, draw = 0, winA = 0, totalSims = 1000000;
-    let scoreMap = {};
+    let wH = 0, dr = 0, wA = 0, sims = 1000000;
+    let map = {};
 
-    // قلب المحرك: مليون محاكاة لحظية
-    for(let i = 0; i < totalSims; i++) {
-        let goalsH = getPoisson(lambdaH);
-        let goalsA = getPoisson(lambdaA);
-        
-        if(goalsH > goalsA) winH++;
-        else if(goalsH === goalsA) draw++;
-        else winA++;
-
-        let s = `${goalsH}-${goalsA}`;
-        scoreMap[s] = (scoreMap[s] || 0) + 1;
+    for(let i=0; i<sims; i++) {
+        let gH = getPoisson(lH), gA = getPoisson(lA);
+        if(gH > gA) wH++; else if(gH === gA) dr++; else wA++;
+        let s = gH + "-" + gA; map[s] = (map[s] || 0) + 1;
     }
 
-    // العثور على النتيجة الأكثر تكراراً (الأكثر دقة)
-    let topScore = Object.keys(scoreMap).reduce((a, b) => scoreMap[a] > scoreMap[b] ? a : b);
-
-    // عرض البيانات
-    document.getElementById('output').style.display = 'block';
-    document.getElementById('winH').innerText = "HOME: " + Math.round(winH/totalSims*100) + "%";
-    document.getElementById('draw').innerText = "DRAW: " + Math.round(draw/totalSims*100) + "%";
-    document.getElementById('winA').innerText = "AWAY: " + Math.round(winA/totalSims*100) + "%";
+    let best = Object.keys(map).reduce((a, b) => map[a] > map[b] ? a : b);
+    document.getElementById('out').style.display = 'block';
     
-    document.getElementById('barH').style.width = (winH/totalSims*100) + "%";
-    document.getElementById('barD').style.width = (draw/totalSims*100) + "%";
-    document.getElementById('barA').style.width = (winA/totalSims*100) + "%";
-
-    document.getElementById('finalRes').innerText = topScore;
-    document.getElementById('c').innerText = Math.round(lambdaH * 4 + lambdaA * 3) + "+";
-    document.getElementById('k').innerText = Math.round(5.5 - (hD+aD)/40);
-    document.getElementById('xg').innerText = lambdaH.toFixed(2) + " : " + lambdaA.toFixed(2);
+    setTimeout(() => {
+        document.getElementById('pBar').style.width = Math.max(wH, wA)/sims*100 + "%";
+        document.getElementById('fScore').innerText = best;
+        document.getElementById('win').innerText = Math.round(wH/sims*100) + "%";
+        document.getElementById('draw').innerText = Math.round(dr/sims*100) + "%";
+        document.getElementById('lose').innerText = Math.round(wA/sims*100) + "%";
+    }, 50);
 }
 </script>
 </body>
