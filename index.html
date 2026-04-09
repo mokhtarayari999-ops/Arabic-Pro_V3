@@ -3,126 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic Pro V5 | 999-ops</title>
+    <title>Arabic Pro V5 | الإصدار المتكامل</title>
     <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            margin: 0;
-        }
-
+        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .container { width: 100%; max-width: 400px; }
+        
+        /* خانات إدخال أسماء الفرق */
+        .team-input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        .team-name { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; color: #ffcc00; text-align: center; width: 50%; font-weight: bold; outline: none; }
+        .team-name:focus { border-color: #ffcc00; }
 
-        /* حاوية المدخلات الرئيسية */
-        .input-card {
-            background: #0a0a0a;
-            border-radius: 30px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #1a1a1a;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
-        }
-
+        .input-card { background: #0a0a0a; border-radius: 30px; padding: 20px; border: 1px solid #1a1a1a; margin-bottom: 20px; }
         .label-group { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 1rem; color: #eee; margin-bottom: 8px; }
         
-        .number-box {
-            background: #000;
-            border: 1px solid #1a1a1a;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: #ffcc00;
-            margin-bottom: 20px;
-        }
+        /* إدخال الأرقام يدوياً */
+        .number-input { background: #000; border: 1px solid #1a1a1a; border-radius: 15px; padding: 10px; text-align: center; font-size: 2.2rem; font-weight: bold; color: #ffcc00; width: 100%; outline: none; margin-bottom: 15px; }
 
-        /* الأزرار الرمادية في الصورة */
-        .option-btn {
-            background: #121212;
-            border: 1px solid #1a1a1a;
-            border-radius: 15px;
-            padding: 12px;
-            margin-bottom: 10px;
-            text-align: center;
-            color: #666;
-            font-size: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-        }
+        .option-btn { background: #121212; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; margin-bottom: 10px; text-align: center; color: #666; cursor: pointer; display: flex; justify-content: center; gap: 10px; }
 
-        /* الزر الذهبي السيادي */
-        .btn-predict {
-            background: linear-gradient(to bottom, #ffcc00, #b8860b);
-            color: #000;
-            border: none;
-            border-radius: 25px;
-            padding: 22px;
-            width: 100%;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(255, 204, 0, 0.3);
-        }
+        .btn-predict { background: linear-gradient(to bottom, #ffcc00, #b8860b); color: #000; border: none; border-radius: 25px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 20px rgba(255, 204, 0, 0.3); }
 
-        /* حاوية النتيجة */
-        .result-box {
-            background: #0a0a0a;
-            border-radius: 30px;
-            padding: 25px;
-            border: 1px solid #1a1a1a;
-            text-align: center;
-        }
-
-        .result-label { color: #8a6d3b; font-size: 0.95rem; margin-bottom: 15px; display: block; }
+        .result-box { background: #0a0a0a; border-radius: 30px; padding: 25px; border: 1px solid #1a1a1a; text-align: center; margin-top: 20px; }
+        .result-label { color: #8a6d3b; font-size: 0.9rem; margin-bottom: 15px; display: block; }
         .score-val { font-size: 1.8rem; font-weight: bold; letter-spacing: 5px; }
-
-        .footer-line {
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            height: 50px;
-            border-radius: 25px;
-            margin-top: 15px;
-            width: 100%;
-        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        
-        <div class="input-card">
-            <div class="label-group">🚀 هجوم</div>
-            <div class="number-box" contenteditable="true">70</div>
-
-            <div class="label-group">🛡️ دفاع</div>
-            <div class="number-box" contenteditable="true">80</div>
-
-            <div class="option-btn">🤕 إصابات</div>
-            <div class="option-btn">🔥 روح عالية</div>
-            <div class="option-btn">✈️ سفر شاق</div>
-            <div class="option-btn">😫 إرهاق</div>
-        </div>
-
-        <button class="btn-predict">توليد التوقعات السيادية 👑</button>
-
-        <div class="result-box">
-            <span class="result-label">النتيجة النهائية المتوقعة</span>
-            <div class="score-val">0 - 0</div>
-        </div>
-
-        <div class="footer-line"></div>
-
+<div class="container">
+    <!-- إدخال أسماء الفرق يدوياً -->
+    <div class="team-input-group">
+        <input type="text" class="team-name" id="homeTeam" placeholder="المضيف">
+        <input type="text" class="team-name" id="awayTeam" placeholder="الضيف">
     </div>
+
+    <div class="input-card">
+        <div class="label-group">🚀 هجوم</div>
+        <input type="number" class="number-input" id="atk" value="70">
+
+        <div class="label-group">🛡️ دفاع</div>
+        <input type="number" class="number-input" id="def" value="80">
+
+        <div class="option-btn">🤕 إصابات</div>
+        <div class="option-btn">🔥 روح عالية</div>
+        <div class="option-btn">✈️ سفر شاق</div>
+        <div class="option-btn">😫 إرهاق</div>
+    </div>
+
+    <button class="btn-predict" onclick="generate()">توليد التوقعات السيادية 👑</button>
+
+    <div class="result-box">
+        <span class="result-label" id="resTitle">النتيجة النهائية المتوقعة</span>
+        <div class="score-val" id="finalScore">0 - 0</div>
+    </div>
+</div>
+
+<script>
+function generate() {
+    const home = document.getElementById('homeTeam').value || "المضيف";
+    const away = document.getElementById('awayTeam').value || "الضيف";
+    const atk = document.getElementById('atk').value;
+    const def = document.getElementById('def').value;
+
+    // حساب بسيط للمثال
+    const s1 = Math.floor(atk / 30);
+    const s2 = Math.floor(def / 40);
+
+    document.getElementById('resTitle').innerText = `توقع مباراة ${home} ضد ${away}`;
+    document.getElementById('finalScore').innerText = `${s1} - ${s2}`;
+}
+</script>
 
 </body>
 </html>
