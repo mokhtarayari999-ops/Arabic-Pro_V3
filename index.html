@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC PRO V5 | المحرك المتكامل</title>
+    <title>ARABIC PRO V5 | المحرك الفعال</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
+        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .container { width: 100%; max-width: 450px; }
         
         .section-header { background: #1a1a1a; border-radius: 15px; padding: 10px; margin: 20px 0 10px; text-align: center; font-weight: bold; color: #ffcc00; border: 1px solid #333; }
@@ -16,87 +16,84 @@
         input[type="number"] { background: transparent; border: none; color: #ffcc00; font-size: 2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
         input { background: #111; border: 1px solid #222; border-radius: 12px; padding: 10px; color: #fff; text-align: center; width: 80%; margin-bottom: 10px; outline: none; }
 
-        .factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .small-btn { background: #121212; border: 1px solid #1a1a1a; border-radius: 12px; padding: 8px; color: #555; font-size: 0.8rem; text-align: center; }
+        /* الأزرار التفاعلية */
+        .factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .toggle-btn { background: #121212; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; color: #555; font-size: 0.9rem; text-align: center; cursor: pointer; transition: 0.3s; }
+        .toggle-btn.active { background: #222; border-color: #ffcc00; color: #fff; box-shadow: 0 0 10px rgba(255, 204, 0, 0.2); }
 
-        .btn-predict { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 20px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; margin-top: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); }
+        .btn-predict { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; margin-top: 25px; cursor: pointer; }
 
-        .res-panel { background: #080808; border-radius: 25px; padding: 20px; margin-top: 20px; border: 1px solid #222; text-align: center; }
-        .history-title { margin-top: 30px; width: 100%; text-align: right; color: #ffcc00; font-size: 1.1rem; }
-        .history-item { background: #0a0a0a; border-radius: 12px; padding: 12px; margin-bottom: 8px; border-right: 4px solid #ffcc00; display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .res-panel { background: #080808; border-radius: 25px; padding: 25px; margin-top: 25px; border: 1px solid #222; text-align: center; }
+        .score-val { font-size: 2.5rem; font-weight: bold; color: #fff; letter-spacing: 8px; margin: 15px 0; }
+
+        .history-title { margin-top: 30px; width: 100%; text-align: right; color: #ffcc00; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
+        .history-item { background: #0a0a0a; border-radius: 12px; padding: 12px; margin-top: 10px; border-right: 4px solid #ffcc00; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
 <body>
 
 <div class="container">
     
-    <!-- الفريق المضيف -->
     <div class="section-header">🏟️ الفريق المضيف</div>
-    <center><input type="text" id="hName" placeholder="اسم الفريق المضيف"></center>
-    <div class="card">
-        <div class="label">🚀 قوة الهجوم</div>
-        <input type="number" id="hAtk" value="70">
-    </div>
-    <div class="card">
-        <div class="label">🛡️ قوة الدفاع</div>
-        <input type="number" id="hDef" value="75">
-    </div>
+    <center><input type="text" id="hName" placeholder="اسم المضيف"></center>
+    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="hAtk" value="70"></div>
+    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="hDef" value="75"></div>
 
-    <!-- الفريق الضيف -->
     <div class="section-header">🏁 الفريق الضيف</div>
-    <center><input type="text" id="aName" placeholder="اسم الفريق الضيف"></center>
-    <div class="card">
-        <div class="label">🚀 قوة الهجوم</div>
-        <input type="number" id="aAtk" value="65">
-    </div>
-    <div class="card">
-        <div class="label">🛡️ قوة الدفاع</div>
-        <input type="number" id="aDef" value="80">
-    </div>
+    <center><input type="text" id="aName" placeholder="اسم الضيف"></center>
+    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="aAtk" value="65"></div>
+    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="aDef" value="80"></div>
 
+    <!-- الأزرار أصبحت تعمل الآن عند الضغط -->
     <div class="factor-grid">
-        <div class="small-btn">🤕 إصابات</div>
-        <div class="small-btn">🔥 روح عالية</div>
-        <div class="small-btn">✈️ سفر شاق</div>
-        <div class="small-btn">😫 إرهاق</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="injBtn">🤕 إصابات</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="spiritBtn">🔥 روح عالية</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="travelBtn">✈️ سفر شاق</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="tiredBtn">😫 إرهاق</div>
     </div>
 
-    <button class="btn-predict" onclick="runProAnalysis()">توليد التوقعات السيادية 👑</button>
+    <button class="btn-predict" onclick="runAnalysis()">توليد التوقعات السيادية 👑</button>
 
-    <!-- منطقة النتائج -->
     <div class="res-panel" id="resPanel" style="display:none;">
-        <div style="color: #8a6d3b; font-size: 0.9rem;">النتيجة المتوقعة</div>
-        <div id="finalScore" style="font-size: 2.2rem; font-weight: bold; margin: 10px 0; letter-spacing: 5px;">0 - 0</div>
-        <div id="percents" style="color: #ffcc00; font-size: 0.9rem;"></div>
+        <div style="color: #8a6d3b;">النتيجة النهائية المتوقعة</div>
+        <div id="finalScore" class="score-val">0 - 0</div>
     </div>
 
     <div class="history-title">📜 سجل التحليلات الذهبي</div>
-    <div id="historyList" style="width: 100%; margin-top: 10px;"></div>
+    <div id="historyList"></div>
 
 </div>
 
 <script>
-function runProAnalysis() {
+function runAnalysis() {
     const hn = document.getElementById('hName').value || "المضيف";
     const an = document.getElementById('aName').value || "الضيف";
-    const ha = parseInt(document.getElementById('hAtk').value);
-    const hd = parseInt(document.getElementById('hDef').value);
-    const aa = parseInt(document.getElementById('aAtk').value);
-    const ad = parseInt(document.getElementById('aDef').value);
+    
+    // جلب قيم الهجوم والدفاع
+    let ha = parseInt(document.getElementById('hAtk').value);
+    let hd = parseInt(document.getElementById('hDef').value);
+    let aa = parseInt(document.getElementById('aAtk').value);
+    let ad = parseInt(document.getElementById('aDef').value);
 
-    // معادلة التوقع (أهداف المضيف تعتمد على هجومه مقابل دفاع الخصم)
-    let homeGoals = Math.max(0, Math.floor((ha - ad) / 10) + 1);
-    let awayGoals = Math.max(0, Math.floor((aa - hd) / 10) + 1);
-    let score = `${homeGoals} - ${awayGoals}`;
+    // التحقق من الأزرار التفاعلية وتعديل القوة
+    if(document.getElementById('injBtn').classList.contains('active')) { aa -= 10; ad -= 5; }
+    if(document.getElementById('spiritBtn').classList.contains('active')) { ha += 5; hd += 5; }
+    if(document.getElementById('travelBtn').classList.contains('active')) { aa -= 5; }
+    if(document.getElementById('tiredBtn').classList.contains('active')) { aa -= 7; ad -= 7; }
 
-    document.getElementById('finalScore').innerText = score;
+    // معادلة التوقع
+    let hGoals = Math.max(0, Math.floor((ha - ad) / 12) + (Math.random() > 0.5 ? 1 : 0));
+    let aGoals = Math.max(0, Math.floor((aa - hd) / 15));
+    
+    const result = `${hGoals} - ${aGoals}`;
+    document.getElementById('finalScore').innerText = result;
     document.getElementById('resPanel').style.display = 'block';
 
-    // السجل
+    // إضافة للسجل
     const list = document.getElementById('historyList');
     const item = document.createElement('div');
     item.className = 'history-item';
-    item.innerHTML = `<span>${hn} ضد ${an}</span> <b>${score}</b>`;
+    item.innerHTML = `<span>${hn} vs ${an}</span> <b>${result}</b>`;
     list.prepend(item);
 }
 </script>
