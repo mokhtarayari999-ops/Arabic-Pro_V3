@@ -2,67 +2,90 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC PRO V4.5 | HISTORY FIX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARABIC PRO V4.6 | THE ROYAL EDITION</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         @import url('https://googleapis.com');
-        body { background: #000; color: #D4AF37; font-family: 'Cairo', sans-serif; }
-        .glass-panel { background: #0a0a0a; border: 1px solid #222; border-radius: 25px; padding: 20px; margin-bottom: 20px; }
-        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 12px; text-align: center; font-size: 1.3rem !important; padding: 10px !important; font-weight: 900; width: 100%; }
-        .modifier-btn { border: 1px solid #222; padding: 10px; border-radius: 12px; font-size: 0.9rem; color: #555; text-align: center; font-weight: 800; cursor: pointer; }
-        .modifier-btn.active { border-color: #FFD700; color: #FFD700; background: rgba(212, 175, 55, 0.1); }
-        .btn-king { background: linear-gradient(90deg, #B8860B, #FFD700); color: #000; font-weight: 900; border-radius: 20px; width: 100%; padding: 20px; font-size: 1.5rem; }
-        /* تصميم بطاقات السجل الجديد */
-        .history-card { background: #111; border-right: 4px solid #D4AF37; padding: 15px; border-radius: 12px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #222; }
+        body { background: #000; color: #D4AF37; font-family: 'Cairo', sans-serif; min-height: 100vh; }
+        .glass-panel { background: rgba(20, 20, 20, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 30px; padding: 25px; margin-bottom: 20px; }
+        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 15px !important; text-align: center; font-size: 1.4rem !important; padding: 12px !important; font-weight: 900; width: 100%; outline: none; }
+        .modifier-btn { border: 1px solid #222; padding: 12px 5px; border-radius: 12px; font-size: 0.9rem; font-weight: 800; color: #555; cursor: pointer; transition: 0.3s; width: 100%; text-align: center; }
+        .modifier-btn.active { border-color: #FFD700; color: #FFD700; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 10px #D4AF37; }
+        .btn-king { background: linear-gradient(90deg, #B8860B, #FFD700); color: #000; font-weight: 900; border-radius: 20px; width: 100%; padding: 20px; font-size: 1.6rem; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
+        .history-card { background: #0a0a0a; border-right: 5px solid #D4AF37; padding: 15px; border-radius: 15px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #1a1a1a; }
+        .label-tag { font-size: 1.1rem; color: #fff; font-weight: 900; margin-bottom: 5px; display: block; text-align: center; }
     </style>
 </head>
-<body class="p-4">
-    <div class="max-w-xl mx-auto">
+<body class="p-4 flex flex-col items-center">
+    <div class="max-w-xl w-full">
         <header class="text-center py-6">
-            <h1 class="text-4xl font-black italic">ARABIC PRO <span class="text-white">V4.5</span></h1>
+            <h1 class="text-5xl font-black italic">ARABIC PRO <span class="text-white text-2xl">V4.6</span></h1>
+            <p class="text-[10px] text-yellow-700 tracking-[0.4em] font-bold mt-2">THE FULL SOVEREIGN SYSTEM</p>
         </header>
 
         <div class="glass-panel">
-            <input type="text" id="hName" placeholder="🏟️ اسم الفريق المضيف" class="mb-4">
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <input type="number" id="hAtk" value="85">
-                <input type="number" id="hDef" value="75">
+            <!-- قسم المضيف -->
+            <div class="space-y-4 mb-8">
+                <input type="text" id="hName" placeholder="🏟️ اسم فريق الأرض">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><span class="label-tag">🚀 هجوم</span><input type="number" id="hAtk" value="85"></div>
+                    <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="hDef" value="75"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div id="hInj" onclick="toggleM('hInj')" class="modifier-btn">🤕 إصابات</div>
+                    <div id="hMor" onclick="toggleM('hMor')" class="modifier-btn">🔥 روح قتالية</div>
+                </div>
             </div>
-            <input type="text" id="aName" placeholder="🏁 اسم الفريق الضيف" class="mb-4">
-            <div class="grid grid-cols-2 gap-4">
-                <input type="number" id="aAtk" value="70">
-                <input type="number" id="aDef" value="80">
+
+            <div class="h-px bg-yellow-900/30 w-full mb-8"></div>
+
+            <!-- قسم الضيف -->
+            <div class="space-y-4 mb-8">
+                <input type="text" id="aName" placeholder="🏁 اسم فريق الخصم">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><span class="label-tag">🚀 هجوم</span><input type="number" id="aAtk" value="70"></div>
+                    <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="aDef" value="80"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div id="aFan" onclick="toggleM('aFan')" class="modifier-btn">✈️ سفر شاق</div>
+                    <div id="aFat" onclick="toggleM('aFat')" class="modifier-btn">😫 إرهاق</div>
+                </div>
             </div>
-            <button onclick="runAnalysis()" class="btn-king mt-6 active:scale-95">توليد التوقعات 👑</button>
+
+            <button onclick="runUltimateAI()" class="btn-king active:scale-95 transition-all">توليد التوقعات الذهبية 👑</button>
         </div>
 
-        <!-- منطقة النتائج والسجل -->
-        <div id="results" class="hidden glass-panel text-center">
-            <p class="text-gray-400 text-sm mb-1">النتيجة المتوقعة</p>
-            <div class="text-6xl font-black text-white" id="mainScore">0-0</div>
-            <div id="probList" class="mt-4 space-y-2"></div>
+        <!-- Dashboard النتائج -->
+        <div id="dashboard" class="hidden glass-panel text-center border-2 border-yellow-600">
+            <p class="text-gray-400 text-sm font-bold mb-1 italic">التحليل النهائي</p>
+            <div class="text-7xl font-black text-white" id="mainScore">0 - 0</div>
+            <div id="probList" class="mt-6 space-y-3"></div>
         </div>
 
-        <div class="mt-8">
+        <!-- السجل الذهبي الفاخر -->
+        <div class="w-full mt-6">
             <h3 class="text-center font-black text-sm mb-4">📜 سجل التحليلات الذهبي</h3>
-            <div id="historyLog" class="space-y-3">
-                <!-- هنا تظهر النتائج فوراً -->
-            </div>
+            <div id="historyLog" class="space-y-3"></div>
         </div>
     </div>
 
     <script>
+        let mods = { hInj:false, hMor:false, aFan:false, aFat:false };
+        function toggleM(id) { mods[id] = !mods[id]; document.getElementById(id).classList.toggle('active'); }
         function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }
         function poisson(l, k) { return (Math.pow(l, k) * Math.exp(-l)) / factorial(k); }
 
-        function runAnalysis() {
+        function runUltimateAI() {
             let hN = document.getElementById('hName').value || "المضيف";
             let aN = document.getElementById('aName').value || "الضيف";
             let hAtk = document.getElementById('hAtk').value / 100, hDef = document.getElementById('hDef').value / 100;
             let aAtk = document.getElementById('aAtk').value / 100, aDef = document.getElementById('aDef').value / 100;
 
-            const xH = (hAtk * (1-aDef)) * 4.5, xA = (aAtk * (1-hDef)) * 3.5;
+            if(mods.hInj) hAtk *= 0.8; if(mods.hMor) hAtk *= 1.2;
+            if(mods.aFan) aDef *= 0.85; if(mods.aFat) aAtk *= 0.85;
+
+            const xH = (hAtk * (1-aDef)) * 4.6, xA = (aAtk * (1-hDef)) * 3.6;
             let mP=0, bH=0, bA=0, pW=0, pD=0, pL=0;
 
             for(let h=0; h<=5; h++) {
@@ -72,22 +95,24 @@
                     if(p>mP) { mP=p; bH=h; bA=a; }
                 }
             }
-
-            let res = `${bH}-${bA}`;
-            document.getElementById('results').classList.remove('hidden');
+            const total = pW+pD+pL;
+            const res = `${bH} - ${bA}`;
+            document.getElementById('dashboard').classList.remove('hidden');
             document.getElementById('mainScore').innerText = res;
 
-            // إضافة للسجل فوراً
-            let log = document.getElementById('historyLog');
-            let card = `
-                <div class="history-card">
-                    <div class="text-right">
-                        <p class="text-white font-bold text-sm">${hN} x ${aN}</p>
-                        <p class="text-[10px] text-gray-500">${new Date().toLocaleTimeString()}</p>
-                    </div>
-                    <div class="text-2xl font-black text-yellow-500">${res}</div>
-                </div>`;
-            log.innerHTML = card + log.innerHTML;
+            // تحديث أشرطة النسب
+            const results = [{l:`فوز ${hN}`, v:(pW/total)*100, c:'bg-blue-600'}, {l:'تعادل', v:(pD/total)*100, c:'bg-gray-600'}, {l:`فوز ${aN}`, v:(pL/total)*100, c:'bg-red-600'}];
+            document.getElementById('probList').innerHTML = results.map(r => `
+                <div class="flex justify-between text-[10px] font-bold mb-1"><span>${r.l}</span><span>${r.v.toFixed(1)}%</span></div>
+                <div class="w-full bg-black h-1 rounded-full overflow-hidden mb-2"><div class="h-full ${r.c}" style="width: ${r.v}%"></div></div>
+            `).join('');
+
+            // إضافة للسجل الذهبي
+            const card = `<div class="history-card">
+                <div class="text-right"><p class="text-white font-bold text-xs">${hN} x ${aN}</p><p class="text-[9px] text-gray-500">${new Date().toLocaleTimeString()}</p></div>
+                <div class="text-2xl font-black text-yellow-500">${res}</div>
+            </div>`;
+            document.getElementById('historyLog').innerHTML = card + document.getElementById('historyLog').innerHTML;
         }
     </script>
 </body>
