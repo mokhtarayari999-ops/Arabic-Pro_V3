@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- أيقونة التاج الذهبية الفخمة -->
+    <!-- كود الهوية البصرية الصارم لإظهار الأيقونة -->
+    <link rel="icon" type="image/png" href="https://icons8.com">
     <link rel="apple-touch-icon" href="https://icons8.com">
-    <link rel="icon" href="https://icons8.com">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="ARABIC PRO">
-    
-    <title>ARABIC PRO V4.8 | PERMANENT MEMORY</title>
+    <meta name="theme-color" content="#000000">
+
+    <title>ARABIC PRO V4.9</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         @import url('https://googleapis.com');
@@ -27,11 +30,10 @@
 <body class="p-4 flex flex-col items-center">
     <div class="max-w-xl w-full">
         <header class="text-center py-6">
-            <h1 class="text-5xl font-black italic">ARABIC PRO <span class="text-white text-2xl">V4.8</span></h1>
+            <h1 class="text-5xl font-black italic">ARABIC PRO <span class="text-white text-2xl">V4.9</span></h1>
         </header>
 
         <div class="glass-panel space-y-8">
-            <!-- المدخلات -->
             <div class="space-y-4">
                 <input type="text" id="hName" placeholder="🏟️ فريق المضيف">
                 <div class="grid grid-cols-2 gap-4">
@@ -61,14 +63,11 @@
             <button onclick="runUltimateAI()" class="btn-king active:scale-95 transition-all">توليد التوقعات الذهبية 👑</button>
         </div>
 
-        <!-- عرض النتيجة -->
         <div id="dashboard" class="hidden glass-panel mt-6 text-center border-2 border-yellow-600">
-            <p class="text-gray-400 text-xs font-bold mb-1 italic">التحليل النهائي</p>
             <div class="text-7xl font-black text-white" id="mainScore">0 - 0</div>
             <div id="probList" class="mt-6 space-y-3"></div>
         </div>
 
-        <!-- السجل الدائم -->
         <div class="w-full mt-8">
             <div class="flex justify-between items-center mb-4">
                 <button onclick="clearHistory()" class="text-[10px] text-red-500 border border-red-900 px-2 py-1 rounded">مسح السجل</button>
@@ -80,10 +79,7 @@
 
     <script>
         let mods = { hInj:false, hMor:false, aFan:false, aFat:false };
-        
-        // تحميل السجل عند فتح التطبيق
         window.onload = function() { displayHistory(); };
-
         function toggleM(id) { mods[id] = !mods[id]; document.getElementById(id).classList.toggle('active'); }
         function factorial(n) { return n <= 1 ? 1 : n * factorial(n - 1); }
         function poisson(l, k) { return (Math.pow(l, k) * Math.exp(-l)) / factorial(k); }
@@ -111,15 +107,13 @@
             const res = `${bH} - ${bA}`;
             document.getElementById('dashboard').classList.remove('hidden');
             document.getElementById('mainScore').innerText = res;
-
-            // حفظ النتيجة في الذاكرة الدائمة
             saveMatch(hN, aN, res, ((pW/total)*100).toFixed(1));
         }
 
         function saveMatch(h, a, res, prob) {
             let history = JSON.parse(localStorage.getItem('arabicProHistory') || "[]");
             history.unshift({ h, a, res, prob, time: new Date().toLocaleTimeString() });
-            localStorage.setItem('arabicProHistory', JSON.stringify(history.slice(0, 20))); // حفظ آخر 20
+            localStorage.setItem('arabicProHistory', JSON.stringify(history.slice(0, 20)));
             displayHistory();
         }
 
