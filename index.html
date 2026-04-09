@@ -3,93 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic-Pro | Predictor</title>
+    <title>Arabic-Pro Predictor</title>
     <style>
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: system-ui, -apple-system, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px;
-            margin: 0;
+            padding: 20px 10px;
         }
 
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
         }
 
         /* البطاقات السوداء */
         .card {
-            background-color: #121212;
-            border: 1px solid #2a2a2a;
-            border-radius: 20px;
+            background-color: #111111;
+            border-radius: 25px;
             padding: 20px;
             margin-bottom: 15px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            border: 1px solid #1a1a1a;
         }
 
-        /* البطاقة المميزة (إصابات الضيف) */
-        .card.highlight {
-            border: 1px solid #ffd700;
-        }
-
-        /* عنوان القسم (فريق الضيف) */
-        .section-header {
-            background-color: #1a1a1a;
-            border-radius: 12px;
-            padding: 12px;
+        /* بطاقة إصابات الضيف المميزة */
+        .card-highlight {
+            background-color: #111111;
+            border-radius: 25px;
+            padding: 20px;
             margin-bottom: 15px;
             text-align: center;
+            border: 2px solid #ffcc00; /* الإطار الذهبي */
+        }
+
+        /* عنوان القسم */
+        .section-title {
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 20px 0;
+            text-align: center;
             font-weight: bold;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            font-size: 1.2rem;
         }
 
         .label {
             font-size: 1.1rem;
             margin-bottom: 10px;
-            color: #efefef;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            display: block;
+            color: #eeeeee;
         }
 
         input {
             background: transparent;
             border: none;
-            color: #ffcc00; /* اللون الذهبي للأرقام */
-            font-size: 2.2rem;
+            color: #ffcc00; /* لون الأرقام الذهبي */
+            font-size: 2.5rem;
             font-weight: bold;
             text-align: center;
             width: 100%;
             outline: none;
         }
 
-        .btn-generate {
-            background: linear-gradient(to bottom, #ffd700, #b8860b);
-            color: #000;
+        /* زر توليد التوقعات الأصفر */
+        .btn-predict {
+            background: linear-gradient(to bottom, #ffcc00 0%, #b8860b 100%);
+            color: #000000;
             border: none;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 18px;
             width: 100%;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
-        .btn-generate:active {
+        .btn-predict:active {
             transform: scale(0.98);
         }
     </style>
@@ -98,63 +97,47 @@
 
     <div class="container">
         
-        <!-- إصابات (الأساسية) -->
-        <div class="card">
-            <div class="label">إصابات 🤕</div>
-            <input type="number" id="homeInjuries" value="0">
+        <!-- قيمة علوية (كما في الصورة) -->
+        <div class="card" style="margin-top: -40px; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;">
+            <input type="number" value="75">
         </div>
 
-        <!-- روح قتالية -->
-        <div class="card">
-            <div class="label">روح قتالية 🔥</div>
-            <input type="number" id="homeSpirit" value="75">
-        </div>
-
-        <!-- فاصل فريق الضيف -->
-        <div class="section-header">
+        <div class="section-title">
             🏁 فريق الضيف
         </div>
 
         <!-- هجوم -->
         <div class="card">
-            <div class="label">هجوم 🚀</div>
-            <input type="number" id="awayAttack" value="70">
+            <span class="label">🚀 هجوم</span>
+            <input type="number" id="attack" value="70">
         </div>
 
         <!-- دفاع -->
         <div class="card">
-            <div class="label">دفاع 🛡️</div>
-            <input type="number" id="awayDefense" value="80">
+            <span class="label">🛡️ دفاع</span>
+            <input type="number" id="defense" value="80">
         </div>
 
-        <!-- إصابات الضيف (المضافة والمميزة) -->
-        <div class="card highlight">
-            <div class="label">إصابات الضيف 🤕</div>
-            <input type="number" id="awayInjuries" value="0">
+        <!-- إصابات الضيف (المطلوبة) -->
+        <div class="card-highlight">
+            <span class="label">🤕 إصابات الضيف</span>
+            <input type="number" id="injuries" value="0">
         </div>
 
-        <!-- زر التوليد -->
-        <button class="btn-generate" onclick="calculate()">
-            توليد التوقعات 💎
+        <!-- زر توليد التوقعات -->
+        <button class="btn-predict" onclick="startPrediction()">
+            💎 توليد التوقعات
         </button>
-
-        <div id="result" style="margin-top: 20px; text-align: center; font-size: 1.2rem; color: #ffd700;"></div>
 
     </div>
 
     <script>
-        function calculate() {
-            const atk = parseFloat(document.getElementById('awayAttack').value) || 0;
-            const def = parseFloat(document.getElementById('awayDefense').value) || 0;
-            const inj = parseFloat(document.getElementById('awayInjuries').value) || 0;
-            
-            // معادلة افتراضية للتوقع بناءً على المعطيات
-            let score = ((atk + def) / 2) - (inj * 5);
-            
-            let resDiv = document.getElementById('result');
-            resDiv.innerHTML = "جاري تحليل البيانات... النتيجة المتوقعة: " + Math.max(0, score).toFixed(1) + "%";
+        function startPrediction() {
+            // كود التشغيل الخاص بمشروعنا
+            alert("جاري تحليل البيانات لإنتاج التوقع النهائي...");
         }
     </script>
 
 </body>
-</html>
+                </html>
+                
