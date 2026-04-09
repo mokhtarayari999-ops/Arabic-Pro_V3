@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic-Pro AI Infinity ♾️</title>
+    <title>Arabic-Pro AI Infinity ♾️ | مع السجل</title>
     <style>
         :root { --infinity-gold: #ffcc00; --bg: #000; --card: #080808; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .infinity-frame { width: 100%; max-width: 480px; border: 1px solid #1a1a1a; border-radius: 40px; padding: 25px; background: var(--card); box-shadow: 0 0 60px rgba(255, 204, 0, 0.05); }
         
         .ai-status { font-size: 0.65rem; color: var(--infinity-gold); letter-spacing: 4px; text-align: center; margin-bottom: 25px; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .ai-status::before, .ai-status::after { content: ""; height: 1px; width: 30px; background: #222; }
-
-        .team-block { background: #000; border: 1px solid #111; border-radius: 25px; padding: 20px; margin-bottom: 15px; border-bottom: 2px solid #1a1a1a; }
+        .team-block { background: #000; border: 1px solid #111; border-radius: 25px; padding: 20px; margin-bottom: 15px; }
         input { background: transparent; border: none; border-bottom: 1px solid #222; color: #fff; font-size: 1.1rem; width: 90%; margin-bottom: 15px; outline: none; text-align: center; }
         input[type="number"] { background: transparent; border: none; color: var(--infinity-gold); font-size: 2.8rem; font-weight: 900; text-align: center; width: 45%; outline: none; }
 
@@ -20,14 +18,20 @@
         .n-btn { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 18px; padding: 15px; color: #444; cursor: pointer; text-align: center; font-size: 0.85rem; font-weight: 600; transition: 0.3s; }
         .n-btn.active { border-color: var(--infinity-gold); color: #fff; background: #111; box-shadow: 0 0 20px rgba(255, 204, 0, 0.1); }
 
-        .btn-infinity { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 22px; width: 100%; font-size: 1.5rem; font-weight: 900; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2); }
-        .btn-infinity:active { transform: scale(0.97); }
+        .btn-infinity { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 22px; width: 100%; font-size: 1.5rem; font-weight: 900; cursor: pointer; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2); }
 
         .output-panel { margin-top: 35px; display: none; text-align: center; border-top: 1px solid #111; padding-top: 25px; }
-        .score-display { font-size: 5rem; font-weight: 900; margin: 15px 0; color: #fff; text-shadow: 0 0 20px rgba(255, 255, 255, 0.05); }
+        .score-display { font-size: 5rem; font-weight: 900; margin: 15px 0; color: #fff; }
         
         .progress-wrap { height: 4px; background: #111; border-radius: 2px; margin: 20px 0; overflow: hidden; }
-        .progress-bar { height: 100%; background: var(--infinity-gold); width: 0%; transition: 1.2s cubic-bezier(0.1, 0.7, 1.0, 0.1); }
+        .progress-bar { height: 100%; background: var(--infinity-gold); width: 0%; transition: 1.2s; }
+
+        /* سجل النتائج الجديد */
+        .history-section { width: 100%; margin-top: 40px; border-top: 1px solid #1a1a1a; padding-top: 20px; }
+        .history-title { color: var(--infinity-gold); font-size: 1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .history-card { background: #0a0a0a; border-radius: 15px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 4px solid var(--infinity-gold); }
+        .h-teams { font-size: 0.9rem; color: #fff; }
+        .h-score { font-weight: bold; color: var(--infinity-gold); font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -36,46 +40,44 @@
         <div class="ai-status">ARABIC-PRO AI INFINITY // V8.0</div>
         
         <div class="team-block">
-            <input type="text" id="hN" placeholder="HOME UNIT NAME">
+            <input type="text" id="hN" placeholder="اسم صاحب الأرض">
             <div style="display:flex; justify-content:center; gap:10px;">
-                <input type="number" id="hA" value="80" title="Attack">
-                <input type="number" id="hD" value="85" title="Defense">
+                <input type="number" id="hA" value="80">
+                <input type="number" id="hD" value="85">
             </div>
         </div>
 
         <div class="team-block">
-            <input type="text" id="aN" placeholder="AWAY UNIT NAME">
+            <input type="text" id="aN" placeholder="اسم الضيف">
             <div style="display:flex; justify-content:center; gap:10px;">
-                <input type="number" id="aA" value="70" title="Attack">
-                <input type="number" id="aD" value="75" title="Defense">
+                <input type="number" id="aA" value="70">
+                <input type="number" id="aD" value="75">
             </div>
         </div>
 
         <div class="neural-factors">
-            <div class="n-btn" onclick="this.classList.toggle('active')" id="n1">INJURY SYNC 🤕</div>
-            <div class="n-btn" onclick="this.classList.toggle('active')" id="n2">ELITE SPIRIT 🔥</div>
-            <div class="n-btn" onclick="this.classList.toggle('active')" id="n3">TRAVEL LAG ✈️</div>
-            <div class="n-btn" onclick="this.classList.toggle('active')" id="n4">FATIGUE DECAY 😫</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n1">إصابات 🤕</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n2">روح قتالية 🔥</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n3">سفر شاق ✈️</div>
+            <div class="n-btn" onclick="this.classList.toggle('active')" id="n4">إرهاق 😫</div>
         </div>
 
-        <button class="btn-infinity" onclick="executeInfinity()">توليد التوقعات اللانهائية ♾️</button>
+        <button class="btn-infinity" onclick="executeInfinity()">محاكاة مليون مباراة ♾️</button>
 
         <div class="output-panel" id="out">
-            <div style="font-size:0.7rem; color:#666; letter-spacing:2px;">CONFIDENCE INDEX</div>
             <div class="progress-wrap"><div id="pBar" class="progress-bar"></div></div>
-            
             <div class="score-display" id="fScore">0-0</div>
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; font-size:0.85rem; margin-top:20px;">
-                <div>WIN: <b id="win" style="color:var(--infinity-gold)">0%</b></div>
-                <div>DRAW: <b id="draw" style="color:var(--infinity-gold)">0%</b></div>
-                <div>AWAY: <b id="lose" style="color:var(--infinity-gold)">0%</b></div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; font-size:0.85rem;">
+                <div>WIN: <b id="win">0%</b></div>
+                <div>DRAW: <b id="draw">0%</b></div>
+                <div>LOSE: <b id="lose">0%</b></div>
             </div>
-            
-            <div style="margin-top:25px; display:flex; justify-content:space-around; font-size:0.7rem; color:#333;">
-                <div>SIMS: 1,000,000</div>
-                <div>PRECISION: 99.9%</div>
-            </div>
+        </div>
+
+        <!-- قسم سجل النتائج -->
+        <div class="history-section">
+            <div class="history-title">📜 سجل الأرشيف الذهبي</div>
+            <div id="historyList"></div>
         </div>
     </div>
 
@@ -87,16 +89,17 @@ function getPoisson(lambda) {
 }
 
 function executeInfinity() {
+    let hN = document.getElementById('hN').value || "المضيف";
+    let aN = document.getElementById('aN').value || "الضيف";
     let hA = parseInt(document.getElementById('hA').value), hD = parseInt(document.getElementById('hD').value);
     let aA = parseInt(document.getElementById('aA').value), aD = parseInt(document.getElementById('aD').value);
 
     let lH = (hA / aD) * 1.62;
     let lA = (aA / hD) * 1.28;
 
-    if(document.getElementById('n1').classList.contains('active')) lA *= 0.68;
-    if(document.getElementById('n2').classList.contains('active')) lH *= 1.32;
-    if(document.getElementById('n3').classList.contains('active')) lA *= 0.88;
-    if(document.getElementById('n4').classList.contains('active')) { lH *= 0.85; lA *= 0.85; }
+    if(document.getElementById('n1').classList.contains('active')) lA *= 0.65;
+    if(document.getElementById('n2').classList.contains('active')) lH *= 1.35;
+    if(document.getElementById('n3').classList.contains('active')) lA *= 0.85;
 
     let wH = 0, dr = 0, wA = 0, sims = 1000000;
     let map = {};
@@ -110,13 +113,20 @@ function executeInfinity() {
     let best = Object.keys(map).reduce((a, b) => map[a] > map[b] ? a : b);
     document.getElementById('out').style.display = 'block';
     
-    setTimeout(() => {
-        document.getElementById('pBar').style.width = Math.max(wH, wA)/sims*100 + "%";
-        document.getElementById('fScore').innerText = best;
-        document.getElementById('win').innerText = Math.round(wH/sims*100) + "%";
-        document.getElementById('draw').innerText = Math.round(dr/sims*100) + "%";
-        document.getElementById('lose').innerText = Math.round(wA/sims*100) + "%";
-    }, 50);
+    let pH = Math.round(wH/sims*100), pD = Math.round(dr/sims*100), pA = Math.round(wA/sims*100);
+    
+    document.getElementById('pBar').style.width = Math.max(pH, pA) + "%";
+    document.getElementById('fScore').innerText = best;
+    document.getElementById('win').innerText = pH + "%";
+    document.getElementById('draw').innerText = pD + "%";
+    document.getElementById('lose').innerText = pA + "%";
+
+    // إضافة النتيجة للسجل
+    let hList = document.getElementById('historyList');
+    let item = document.createElement('div');
+    item.className = 'history-card';
+    item.innerHTML = `<div class="h-teams">${hN} vs ${aN}</div><div class="h-score">${best}</div>`;
+    hList.prepend(item);
 }
 </script>
 </body>
