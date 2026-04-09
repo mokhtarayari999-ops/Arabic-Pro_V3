@@ -3,89 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arabic Pro V5 | السجل والتحليل</title>
+    <title>ARABIC-PRO-V5 | المحرك السيادي</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
-        .container { width: 100%; max-width: 400px; }
+        :root { --main-gold: #ffcc00; --dark-card: #111111; --border-clr: #1a1a1a; }
+        body { background-color: #000; color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; }
+        .container { width: 100%; max-width: 450px; }
         
         /* إدخال أسماء الفرق */
-        .team-inputs { display: flex; gap: 10px; margin-bottom: 15px; }
-        .team-field { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; color: #ffcc00; text-align: center; width: 50%; font-weight: bold; outline: none; }
+        .team-header { display: flex; gap: 10px; margin-bottom: 20px; }
+        .t-input { background: #0a0a0a; border: 1px solid var(--border-clr); border-radius: 15px; padding: 12px; color: var(--main-gold); text-align: center; width: 50%; font-weight: bold; outline: none; }
 
-        /* حاوية المدخلات الرئيسية */
-        .main-card { background: #0a0a0a; border-radius: 30px; padding: 20px; border: 1px solid #1a1a1a; margin-bottom: 15px; }
-        .label-row { display: flex; justify-content: flex-end; align-items: center; gap: 8px; font-size: 0.9rem; color: #ccc; margin-bottom: 5px; }
-        
-        .num-input { background: #000; border: 1px solid #1a1a1a; border-radius: 15px; padding: 10px; text-align: center; font-size: 2rem; font-weight: bold; color: #ffcc00; width: 100%; outline: none; margin-bottom: 15px; }
+        /* الكروت الكبيرة (الهجوم والدفاع) */
+        .stat-card { background: var(--dark-card); border-radius: 25px; padding: 15px; margin-bottom: 12px; border: 1px solid var(--border-clr); text-align: center; }
+        .stat-label { display: flex; align-items: center; justify-content: center; gap: 8px; color: #888; font-size: 1rem; margin-bottom: 5px; }
+        .num-val { background: transparent; border: none; color: var(--main-gold); font-size: 2.2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
 
-        .opt-btn { background: #121212; border: 1px solid #1a1a1a; border-radius: 15px; padding: 10px; margin-bottom: 8px; text-align: center; color: #555; font-size: 0.9rem; }
+        /* الخانات الرمادية (العوامل) */
+        .factor-btn { background: #121212; border: 1px solid var(--border-clr); border-radius: 15px; padding: 10px; margin-bottom: 8px; text-align: center; color: #555; font-size: 0.95rem; cursor: pointer; transition: 0.3s; }
+        .factor-btn.active { border-color: var(--main-gold); color: #fff; background: #1a1a1a; }
 
-        /* الزر الذهبي */
-        .predict-btn { background: linear-gradient(to bottom, #ffcc00, #b8860b); color: #000; border: none; border-radius: 25px; padding: 18px; width: 100%; font-size: 1.4rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); }
+        /* الزر السيادي */
+        .btn-generate { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 20px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; margin-top: 15px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); }
 
-        /* النتيجة والسجل */
-        .res-card { background: #0a0a0a; border-radius: 30px; padding: 20px; border: 1px solid #1a1a1a; text-align: center; margin-top: 15px; }
-        .res-label { color: #8a6d3b; font-size: 0.85rem; margin-bottom: 10px; display: block; }
-        .score-text { font-size: 1.8rem; font-weight: bold; letter-spacing: 3px; }
+        /* لوحة النتائج المئوية والتفصيلية */
+        .result-panel { background: #080808; border-radius: 25px; padding: 20px; margin-top: 20px; border: 1px solid var(--border-clr); }
+        .percentages { display: flex; justify-content: space-around; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #151515; }
+        .p-box { text-align: center; }
+        .p-num { font-size: 1.2rem; font-weight: bold; color: var(--main-gold); }
+        .p-lab { font-size: 0.7rem; color: #666; }
 
-        .history-section { width: 100%; margin-top: 25px; border-top: 1px solid #1a1a1a; padding-top: 15px; }
-        .history-title { color: #ffcc00; font-size: 1rem; margin-bottom: 10px; text-align: right; }
-        .history-card { background: #080808; border-radius: 15px; padding: 12px; margin-bottom: 8px; border-right: 4px solid #ffcc00; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        /* سجل التحليلات */
+        .history-title { margin-top: 30px; width: 100%; text-align: right; color: var(--main-gold); font-size: 1.1rem; padding-right: 10px; }
+        .history-list { width: 100%; margin-top: 10px; }
+        .history-item { background: #0a0a0a; border-radius: 12px; padding: 10px; margin-bottom: 8px; border-right: 3px solid var(--main-gold); display: flex; justify-content: space-between; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="team-inputs">
-        <input type="text" id="hName" class="team-field" placeholder="المضيف">
-        <input type="text" id="aName" class="team-field" placeholder="الضيف">
+    <div class="team-header">
+        <input type="text" id="hTeam" class="t-input" placeholder="صاحب الأرض">
+        <input type="text" id="aTeam" class="t-input" placeholder="الفريق الضيف">
     </div>
 
-    <div class="main-card">
-        <div class="label-row">🚀 هجوم</div>
-        <input type="number" id="atkVal" class="num-input" value="70">
-
-        <div class="label-row">🛡️ دفاع</div>
-        <input type="number" id="defVal" class="num-input" value="80">
-
-        <div class="opt-btn">🤕 إصابات</div>
-        <div class="opt-btn">🔥 روح عالية</div>
+    <div class="stat-card">
+        <div class="stat-label">🚀 هجوم</div>
+        <input type="number" id="atk" class="num-val" value="70">
     </div>
 
-    <button class="predict-btn" onclick="runAnalysis()">توليد التوقعات السيادية 👑</button>
-
-    <div class="res-card">
-        <span class="res-label">النتيجة النهائية المتوقعة</span>
-        <div class="score-text" id="currentScore">0 - 0</div>
+    <div class="stat-card">
+        <div class="stat-label">🛡️ دفاع</div>
+        <input type="number" id="def" class="num-val" value="80">
     </div>
 
-    <!-- السجل المطلوب -->
-    <div class="history-section">
-        <div class="history-title">📜 سجل التحليلات الذهبي</div>
-        <div id="log"></div>
+    <div class="factor-btn" onclick="this.classList.toggle('active')">🤕 إصابات</div>
+    <div class="factor-btn" onclick="this.classList.toggle('active')">🔥 روح عالية</div>
+    <div class="factor-btn" onclick="this.classList.toggle('active')">✈️ سفر شاق</div>
+    <div class="factor-btn" onclick="this.classList.toggle('active')">😫 إرهاق</div>
+
+    <button class="btn-generate" onclick="runAnalysis()">توليد التوقعات السيادية 👑</button>
+
+    <div class="result-panel" id="resPanel" style="display:none;">
+        <div class="percentages">
+            <div class="p-box"><div class="p-num" id="winP">0%</div><div class="p-lab">فوز</div></div>
+            <div class="p-box"><div class="p-num" id="drawP">25%</div><div class="p-lab">تعادل</div></div>
+            <div class="p-box"><div class="p-num" id="loseP">0%</div><div class="p-lab">خسارة</div></div>
+        </div>
+        <div style="text-align: center;">
+            <div style="color: #8a6d3b; font-size: 0.8rem;">النتيجة المتوقعة</div>
+            <div id="finalScore" style="font-size: 2rem; font-weight: bold; margin: 10px 0;">0 - 0</div>
+            <div style="color: #444; font-size: 0.75rem;">ركنيات: <span id="corners" style="color:#fff">0</span> | كروت: <span id="cards" style="color:#fff">0</span></div>
+        </div>
     </div>
+
+    <div class="history-title">📜 سجل التحليلات الذهبي</div>
+    <div id="history" class="history-list"></div>
 </div>
 
 <script>
 function runAnalysis() {
-    const h = document.getElementById('hName').value || "فريق 1";
-    const a = document.getElementById('aName').value || "فريق 2";
-    const atk = document.getElementById('atkVal').value;
-    const def = document.getElementById('defVal').value;
+    const h = document.getElementById('hTeam').value || "المضيف";
+    const a = document.getElementById('aTeam').value || "الضيف";
+    const atk = parseInt(document.getElementById('atk').value);
+    const def = parseInt(document.getElementById('def').value);
 
-    // معادلة Arabic Pro V5
-    const s1 = Math.floor(atk / 25);
-    const s2 = Math.floor(def / 35);
-    const final = `${s1} - ${s2}`;
+    // خوارزمية Arabic Pro التحليلية
+    let power = (atk * 0.7) + (def * 0.3);
+    let hG = Math.floor(atk / 28);
+    let aG = Math.floor(def / 38);
+    let score = `${hG} - ${aG}`;
 
-    document.getElementById('currentScore').innerText = final;
+    // عرض النتائج
+    document.getElementById('winP').innerText = Math.min(99, Math.round(power/1.5)) + "%";
+    document.getElementById('loseP').innerText = Math.max(1, 100 - Math.round(power/1.5) - 25) + "%";
+    document.getElementById('finalScore').innerText = score;
+    document.getElementById('corners').innerText = Math.floor(atk/12) + "+";
+    document.getElementById('cards').innerText = Math.floor(def/25);
+    document.getElementById('resPanel').style.display = 'block';
 
-    // إضافة للسجل
-    const log = document.getElementById('log');
-    const entry = document.createElement('div');
-    entry.className = 'history-card';
-    entry.innerHTML = `<span>${h} VS ${a}</span> <b>${final}</b>`;
-    log.prepend(entry);
+    // سجل التحليلات
+    const hist = document.getElementById('history');
+    const item = document.createElement('div');
+    item.className = 'history-item';
+    item.innerHTML = `<span>${h} vs ${a}</span> <b>${score}</b>`;
+    hist.prepend(item);
 }
 </script>
 
