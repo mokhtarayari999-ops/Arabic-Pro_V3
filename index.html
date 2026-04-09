@@ -3,100 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC PRO V5 | المحرك الفعال</title>
+    <title>Arabic-Pro V5 | المحلل الشامل</title>
     <style>
+        :root { --gold: #ffcc00; --dark: #0a0a0a; --gray: #1a1a1a; }
         body { background-color: #000; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; margin: 0; }
         .container { width: 100%; max-width: 450px; }
         
-        .section-header { background: #1a1a1a; border-radius: 15px; padding: 10px; margin: 20px 0 10px; text-align: center; font-weight: bold; color: #ffcc00; border: 1px solid #333; }
-
-        .card { background: #0a0a0a; border-radius: 25px; padding: 15px; margin-bottom: 10px; border: 1px solid #1a1a1a; text-align: center; }
-        .label { display: flex; align-items: center; justify-content: center; gap: 8px; color: #888; font-size: 0.9rem; margin-bottom: 5px; }
+        .header { background: var(--gray); border-radius: 15px; padding: 10px; margin: 20px 0 10px; text-align: center; font-weight: bold; color: var(--gold); border: 1px solid #333; }
+        .card { background: var(--dark); border-radius: 25px; padding: 15px; margin-bottom: 10px; border: 1px solid var(--gray); text-align: center; }
+        .label { color: #888; font-size: 0.85rem; margin-bottom: 5px; }
         
-        input[type="number"] { background: transparent; border: none; color: #ffcc00; font-size: 2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
-        input { background: #111; border: 1px solid #222; border-radius: 12px; padding: 10px; color: #fff; text-align: center; width: 80%; margin-bottom: 10px; outline: none; }
+        input[type="number"] { background: transparent; border: none; color: var(--gold); font-size: 2rem; font-weight: bold; text-align: center; width: 100%; outline: none; }
+        input { background: #111; border: 1px solid #222; border-radius: 12px; padding: 10px; color: #fff; text-align: center; width: 85%; margin-bottom: 10px; outline: none; }
 
-        /* الأزرار التفاعلية */
-        .factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .toggle-btn { background: #121212; border: 1px solid #1a1a1a; border-radius: 15px; padding: 12px; color: #555; font-size: 0.9rem; text-align: center; cursor: pointer; transition: 0.3s; }
-        .toggle-btn.active { background: #222; border-color: #ffcc00; color: #fff; box-shadow: 0 0 10px rgba(255, 204, 0, 0.2); }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .toggle-btn { background: #121212; border: 1px solid var(--gray); border-radius: 15px; padding: 12px; color: #555; cursor: pointer; text-align: center; transition: 0.3s; }
+        .toggle-btn.active { border-color: var(--gold); color: #fff; background: #222; }
 
-        .btn-predict { background: linear-gradient(180deg, #ffcc00 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; margin-top: 25px; cursor: pointer; }
+        .btn-main { background: linear-gradient(180deg, var(--gold) 0%, #b8860b 100%); color: #000; border: none; border-radius: 25px; padding: 20px; width: 100%; font-size: 1.4rem; font-weight: bold; cursor: pointer; }
 
-        .res-panel { background: #080808; border-radius: 25px; padding: 25px; margin-top: 25px; border: 1px solid #222; text-align: center; }
-        .score-val { font-size: 2.5rem; font-weight: bold; color: #fff; letter-spacing: 8px; margin: 15px 0; }
-
-        .history-title { margin-top: 30px; width: 100%; text-align: right; color: #ffcc00; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; }
-        .history-item { background: #0a0a0a; border-radius: 12px; padding: 12px; margin-top: 10px; border-right: 4px solid #ffcc00; display: flex; justify-content: space-between; align-items: center; }
+        .res-panel { background: var(--dark); border-radius: 30px; padding: 25px; margin-top: 25px; border: 1px solid #222; }
+        .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #151515; font-size: 0.9rem; }
+        .percent-grid { display: flex; justify-content: space-around; margin-bottom: 20px; background: #050505; padding: 15px; border-radius: 20px; }
+        .p-box { text-align: center; }
+        .p-val { font-size: 1.2rem; font-weight: bold; color: var(--gold); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
-    <div class="section-header">🏟️ الفريق المضيف</div>
-    <center><input type="text" id="hName" placeholder="اسم المضيف"></center>
-    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="hAtk" value="70"></div>
-    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="hDef" value="75"></div>
+    <div class="header">🏟️ الفريق المضيف</div>
+    <center><input type="text" id="hN" placeholder="اسم المضيف"></center>
+    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="hA" value="70"></div>
+    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="hD" value="80"></div>
 
-    <div class="section-header">🏁 الفريق الضيف</div>
-    <center><input type="text" id="aName" placeholder="اسم الضيف"></center>
-    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="aAtk" value="65"></div>
-    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="aDef" value="80"></div>
+    <div class="header">🏁 الفريق الضيف</div>
+    <center><input type="text" id="aN" placeholder="اسم الضيف"></center>
+    <div class="card"><div class="label">🚀 هجوم</div><input type="number" id="aA" value="65"></div>
+    <div class="card"><div class="label">🛡️ دفاع</div><input type="number" id="aD" value="75"></div>
 
-    <!-- الأزرار أصبحت تعمل الآن عند الضغط -->
-    <div class="factor-grid">
-        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="injBtn">🤕 إصابات</div>
-        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="spiritBtn">🔥 روح عالية</div>
-        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="travelBtn">✈️ سفر شاق</div>
-        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="tiredBtn">😫 إرهاق</div>
+    <div class="btn-grid">
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="inj">🤕 إصابات</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="spi">🔥 روح عالية</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="tra">✈️ سفر شاق</div>
+        <div class="toggle-btn" onclick="this.classList.toggle('active')" id="fat">😫 إرهاق</div>
     </div>
 
-    <button class="btn-predict" onclick="runAnalysis()">توليد التوقعات السيادية 👑</button>
+    <button class="btn-main" onclick="analyze()">توليد التوقعات السيادية 👑</button>
 
-    <div class="res-panel" id="resPanel" style="display:none;">
-        <div style="color: #8a6d3b;">النتيجة النهائية المتوقعة</div>
-        <div id="finalScore" class="score-val">0 - 0</div>
+    <div class="res-panel" id="res" style="display:none;">
+        <div class="percent-grid">
+            <div class="p-box"><div class="p-val" id="wH">0%</div><div style="font-size:0.7rem">فوز</div></div>
+            <div class="p-box"><div class="p-val" id="wD">0%</div><div style="font-size:0.7rem">تعادل</div></div>
+            <div class="p-box"><div class="p-val" id="wA">0%</div><div style="font-size:0.7rem">خسارة</div></div>
+        </div>
+        <div style="font-size: 2.2rem; font-weight: bold; margin-bottom: 20px;" id="score">0 - 0</div>
+        <div class="stat-row"><span>الركنيات (Corners):</span> <span id="corn" style="color:var(--gold)">0</span></div>
+        <div class="stat-row"><span>الأوراق الصفراء:</span> <span id="card" style="color:var(--gold)">0</span></div>
     </div>
 
-    <div class="history-title">📜 سجل التحليلات الذهبي</div>
-    <div id="historyList"></div>
-
+    <div style="margin-top: 30px; width: 100%; text-align: right; color: var(--gold);">📜 سجل التحليلات الذهبي</div>
+    <div id="history" style="width: 100%; margin-top: 10px;"></div>
 </div>
 
 <script>
-function runAnalysis() {
-    const hn = document.getElementById('hName').value || "المضيف";
-    const an = document.getElementById('aName').value || "الضيف";
+function analyze() {
+    let ha = parseInt(document.getElementById('hA').value), hd = parseInt(document.getElementById('hD').value);
+    let aa = parseInt(document.getElementById('aA').value), ad = parseInt(document.getElementById('aD').value);
     
-    // جلب قيم الهجوم والدفاع
-    let ha = parseInt(document.getElementById('hAtk').value);
-    let hd = parseInt(document.getElementById('hDef').value);
-    let aa = parseInt(document.getElementById('aAtk').value);
-    let ad = parseInt(document.getElementById('aDef').value);
+    // تأثير الأزرار
+    let penalty = 0;
+    if(document.getElementById('inj').classList.contains('active')) penalty += 15;
+    if(document.getElementById('tra').classList.contains('active')) penalty += 8;
+    if(document.getElementById('fat').classList.contains('active')) penalty += 10;
+    let boost = document.getElementById('spi').classList.contains('active') ? 10 : 0;
 
-    // التحقق من الأزرار التفاعلية وتعديل القوة
-    if(document.getElementById('injBtn').classList.contains('active')) { aa -= 10; ad -= 5; }
-    if(document.getElementById('spiritBtn').classList.contains('active')) { ha += 5; hd += 5; }
-    if(document.getElementById('travelBtn').classList.contains('active')) { aa -= 5; }
-    if(document.getElementById('tiredBtn').classList.contains('active')) { aa -= 7; ad -= 7; }
+    let hP = (ha + hd + boost), aP = (aa + ad - penalty);
+    let total = hP + aP;
 
-    // معادلة التوقع
-    let hGoals = Math.max(0, Math.floor((ha - ad) / 12) + (Math.random() > 0.5 ? 1 : 0));
-    let aGoals = Math.max(0, Math.floor((aa - hd) / 15));
+    // النسب
+    document.getElementById('wH').innerText = Math.round((hP/total)*80) + "%";
+    document.getElementById('wA').innerText = Math.round((aP/total)*80) + "%";
+    document.getElementById('wD').innerText = "20%";
+
+    // التوقعات
+    document.getElementById('score').innerText = Math.floor(ha/30) + " - " + Math.floor(aa/40);
+    document.getElementById('corn').innerText = Math.floor((ha+aa)/15) + " ركنية";
+    document.getElementById('card').innerText = Math.floor((hd+ad)/35) + " أوراق";
     
-    const result = `${hGoals} - ${aGoals}`;
-    document.getElementById('finalScore').innerText = result;
-    document.getElementById('resPanel').style.display = 'block';
+    document.getElementById('res').style.display = 'block';
 
-    // إضافة للسجل
-    const list = document.getElementById('historyList');
-    const item = document.createElement('div');
-    item.className = 'history-item';
-    item.innerHTML = `<span>${hn} vs ${an}</span> <b>${result}</b>`;
-    list.prepend(item);
+    // السجل
+    let h = document.getElementById('history'), item = document.createElement('div');
+    item.style = "background:#111; padding:12px; border-radius:12px; margin-bottom:8px; border-right:4px solid var(--gold); display:flex; justify-content:space-between;";
+    item.innerHTML = `<span>${document.getElementById('hN').value || 'فريق 1'} vs ${document.getElementById('aN').value || 'فريق 2'}</span> <b>${document.getElementById('score').innerText}</b>`;
+    h.prepend(item);
 }
 </script>
-
 </body>
 </html>
