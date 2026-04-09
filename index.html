@@ -4,76 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- كود الهوية البصرية الصارم لإظهار الأيقونة -->
+    <!-- كود إجبار الهاتف على إظهار الأيقونة الذهبية -->
     <link rel="icon" type="image/png" href="https://icons8.com">
     <link rel="apple-touch-icon" href="https://icons8.com">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ARABIC PRO">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#000000">
 
-    <title>ARABIC PRO V4.9</title>
+    <title>ARABIC PRO V5.0</title>
     <script src="https://tailwindcss.com"></script>
     <style>
         @import url('https://googleapis.com');
         body { background: #000; color: #D4AF37; font-family: 'Cairo', sans-serif; min-height: 100vh; padding-bottom: 50px; }
-        .glass-panel { background: rgba(15, 15, 15, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 30px; padding: 20px; }
-        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 15px !important; text-align: center; font-size: 1.4rem !important; padding: 12px !important; font-weight: 900; width: 100%; outline: none; }
-        .modifier-btn { border: 1px solid #222; padding: 12px 5px; border-radius: 12px; font-size: 0.9rem; font-weight: 800; color: #555; cursor: pointer; transition: 0.3s; width: 100%; text-align: center; }
-        .modifier-btn.active { border-color: #FFD700; color: #FFD700; background: rgba(212, 175, 55, 0.15); box-shadow: 0 0 10px #D4AF37; }
-        .btn-king { background: linear-gradient(90deg, #B8860B, #FFD700); color: #000; font-weight: 900; border-radius: 20px; width: 100%; padding: 22px; font-size: 1.6rem; box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
-        .history-card { background: #0a0a0a; border-right: 5px solid #D4AF37; padding: 15px; border-radius: 15px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #1a1a1a; }
-        .label-tag { font-size: 1.1rem; color: #fff; font-weight: 900; margin-bottom: 5px; display: block; text-align: center; }
+        .glass-panel { background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 35px; padding: 25px; }
+        input { background: #000 !important; border: 1px solid #333 !important; color: #FFD700 !important; border-radius: 18px !important; text-align: center; font-size: 1.5rem !important; padding: 15px !important; font-weight: 900; width: 100%; outline: none; }
+        .modifier-btn { border: 1px solid #222; padding: 14px 5px; border-radius: 15px; font-size: 1rem; font-weight: 800; color: #555; cursor: pointer; transition: 0.3s; width: 100%; text-align: center; }
+        .modifier-btn.active { border-color: #FFD700; color: #FFD700; background: rgba(212, 175, 55, 0.15); box-shadow: 0 0 15px #D4AF37; }
+        .btn-king { background: linear-gradient(90deg, #B8860B, #FFD700, #B8860B); color: #000; font-weight: 900; border-radius: 25px; width: 100%; padding: 25px; font-size: 1.8rem; box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4); }
+        .history-card { background: #0a0a0a; border-right: 6px solid #D4AF37; padding: 18px; border-radius: 18px; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #1a1a1a; }
+        .label-tag { font-size: 1.2rem; color: #fff; font-weight: 900; margin-bottom: 8px; display: block; text-align: center; }
     </style>
 </head>
 <body class="p-4 flex flex-col items-center">
     <div class="max-w-xl w-full">
-        <header class="text-center py-6">
-            <h1 class="text-5xl font-black italic">ARABIC PRO <span class="text-white text-2xl">V4.9</span></h1>
+        <header class="text-center py-8">
+            <h1 class="text-6xl font-black italic gold-glow" style="text-shadow: 0 0 20px #D4AF37">ARABIC PRO <span class="text-white text-3xl">V5.0</span></h1>
+            <p class="text-[10px] text-yellow-800 tracking-[0.5em] font-black mt-2 uppercase">Ultimate Final Edition</p>
         </header>
 
-        <div class="glass-panel space-y-8">
-            <div class="space-y-4">
-                <input type="text" id="hName" placeholder="🏟️ فريق المضيف">
-                <div class="grid grid-cols-2 gap-4">
+        <div class="glass-panel space-y-10">
+            <!-- نفس نظام المدخلات الفخم -->
+            <div class="space-y-5">
+                <input type="text" id="hName" placeholder="🏟️ فريق المضيف" class="w-full">
+                <div class="grid grid-cols-2 gap-5">
                     <div><span class="label-tag">🚀 هجوم</span><input type="number" id="hAtk" value="85"></div>
                     <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="hDef" value="75"></div>
                 </div>
-                <div class="grid grid-cols-2 gap-2 mt-2">
+                <div class="grid grid-cols-2 gap-3 mt-2">
                     <div id="hInj" onclick="toggleM('hInj')" class="modifier-btn">🤕 إصابات</div>
                     <div id="hMor" onclick="toggleM('hMor')" class="modifier-btn">🔥 روح قتالية</div>
                 </div>
             </div>
 
-            <div class="h-px bg-yellow-900/30 w-full"></div>
+            <div class="h-px bg-gradient-to-r from-transparent via-yellow-900/50 to-transparent w-full"></div>
 
-            <div class="space-y-4">
-                <input type="text" id="aName" placeholder="🏁 فريق الضيف">
-                <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-5">
+                <input type="text" id="aName" placeholder="🏁 فريق الضيف" class="w-full">
+                <div class="grid grid-cols-2 gap-5">
                     <div><span class="label-tag">🚀 هجوم</span><input type="number" id="aAtk" value="70"></div>
                     <div><span class="label-tag">🛡️ دفاع</span><input type="number" id="aDef" value="80"></div>
                 </div>
-                <div class="grid grid-cols-2 gap-2 mt-2">
+                <div class="grid grid-cols-2 gap-3 mt-2">
                     <div id="aFan" onclick="toggleM('aFan')" class="modifier-btn">✈️ سفر شاق</div>
                     <div id="aFat" onclick="toggleM('aFat')" class="modifier-btn">😫 إرهاق</div>
                 </div>
             </div>
 
-            <button onclick="runUltimateAI()" class="btn-king active:scale-95 transition-all">توليد التوقعات الذهبية 👑</button>
+            <button onclick="runUltimateAI()" class="btn-king active:scale-95 transition-all">توليد التوقعات الماسية 💎</button>
         </div>
 
-        <div id="dashboard" class="hidden glass-panel mt-6 text-center border-2 border-yellow-600">
-            <div class="text-7xl font-black text-white" id="mainScore">0 - 0</div>
-            <div id="probList" class="mt-6 space-y-3"></div>
+        <div id="dashboard" class="hidden glass-panel mt-10 text-center border-4 border-yellow-600">
+            <p class="text-white text-lg font-black mb-2 italic">التحليل السيادي النهائي</p>
+            <div class="text-8xl font-black text-white" id="mainScore" style="text-shadow: 0 0 40px #D4AF37">0 - 0</div>
+            <div id="probList" class="mt-8 space-y-5"></div>
         </div>
 
-        <div class="w-full mt-8">
-            <div class="flex justify-between items-center mb-4">
-                <button onclick="clearHistory()" class="text-[10px] text-red-500 border border-red-900 px-2 py-1 rounded">مسح السجل</button>
-                <h3 class="font-black text-sm">📜 السجل الذهبي (دائم)</h3>
+        <div class="w-full mt-10 pb-10">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="clearHistory()" class="text-xs text-red-600 font-bold border border-red-900 px-3 py-1 rounded-full">مسح السجل</button>
+                <h3 class="font-black text-lg">📜 الأرشيف الماسي</h3>
             </div>
-            <div id="historyLog" class="space-y-3"></div>
+            <div id="historyLog" class="space-y-4"></div>
         </div>
     </div>
 
@@ -89,13 +91,9 @@
             let aN = document.getElementById('aName').value || "الضيف";
             let hAtk = document.getElementById('hAtk').value / 100, hDef = document.getElementById('hDef').value / 100;
             let aAtk = document.getElementById('aAtk').value / 100, aDef = document.getElementById('aDef').value / 100;
-
-            if(mods.hInj) hAtk *= 0.8; if(mods.hMor) hAtk *= 1.2;
-            if(mods.aFan) aDef *= 0.85; if(mods.aFat) aAtk *= 0.85;
-
-            const xH = (hAtk * (1-aDef)) * 4.6, xA = (aAtk * (1-hDef)) * 3.6;
+            if(mods.hInj) hAtk *= 0.75; if(mods.hMor) hAtk *= 1.25; if(mods.aFan) aDef *= 0.8; if(mods.aFat) aAtk *= 0.8;
+            const xH = (hAtk * (1-aDef)) * 4.8, xA = (aAtk * (1-hDef)) * 3.8;
             let mP=0, bH=0, bA=0, pW=0, pD=0, pL=0;
-
             for(let h=0; h<=5; h++) {
                 for(let a=0; a<=5; a++) {
                     let p = poisson(xH, h) * poisson(xA, a);
@@ -107,13 +105,22 @@
             const res = `${bH} - ${bA}`;
             document.getElementById('dashboard').classList.remove('hidden');
             document.getElementById('mainScore').innerText = res;
+            window.scrollTo({top: document.getElementById('dashboard').offsetTop, behavior: 'smooth'});
             saveMatch(hN, aN, res, ((pW/total)*100).toFixed(1));
+            
+            const results = [{l:`فوز ${hN}`, v:(pW/total)*100, c:'bg-blue-600'}, {l:'تعادل', v:(pD/total)*100, c:'bg-gray-600'}, {l:`فوز ${aN}`, v:(pL/total)*100, c:'bg-red-600'}];
+            document.getElementById('probList').innerHTML = results.map(r => `
+                <div>
+                    <div class="flex justify-between text-xl font-black mb-2"><span>${r.l}</span><span>${r.v.toFixed(1)}%</span></div>
+                    <div class="w-full bg-black h-3 rounded-full overflow-hidden border border-yellow-900"><div class="h-full ${r.c}" style="width: ${r.v}%"></div></div>
+                </div>
+            `).join('');
         }
 
         function saveMatch(h, a, res, prob) {
             let history = JSON.parse(localStorage.getItem('arabicProHistory') || "[]");
             history.unshift({ h, a, res, prob, time: new Date().toLocaleTimeString() });
-            localStorage.setItem('arabicProHistory', JSON.stringify(history.slice(0, 20)));
+            localStorage.setItem('arabicProHistory', JSON.stringify(history.slice(0, 15)));
             displayHistory();
         }
 
@@ -121,14 +128,13 @@
             let history = JSON.parse(localStorage.getItem('arabicProHistory') || "[]");
             document.getElementById('historyLog').innerHTML = history.map(m => `
                 <div class="history-card">
-                    <div class="text-right"><p class="text-white font-bold text-xs">${m.h} x ${m.a}</p><p class="text-[9px] text-gray-500">${m.time}</p></div>
-                    <div class="text-2xl font-black text-yellow-500">${m.res}</div>
+                    <div class="text-right"><p class="text-white font-black text-sm italic">${m.h} x ${m.a}</p><p class="text-[10px] text-gray-500 font-bold">${m.time}</p></div>
+                    <div class="text-3xl font-black text-yellow-500" style="text-shadow: 0 0 10px rgba(212,175,55,0.5)">${m.res}</div>
                 </div>
             `).join('');
         }
 
-        function clearHistory() { if(confirm("مسح كل السجل؟")) { localStorage.removeItem('arabicProHistory'); displayHistory(); } }
+        function clearHistory() { if(confirm("هل أنت متأكد من مسح الأرشيف الماسي؟")) { localStorage.removeItem('arabicProHistory'); displayHistory(); } }
     </script>
 </body>
-    </html>
-    
+</html>
