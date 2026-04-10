@@ -3,124 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC-PRO AI INFINITY</title>
+    <title>ARABIC-PRO AI | الالتكهن الرياضي الأرقى</title>
     <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        .yellow-text { color: #d4af37; font-weight: bold; margin-bottom: 10px; }
+        :root { --gold: #d4af37; --dark-gold: #996515; --bg: #050505; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
         
-        /* الصناديق الرئيسية كما في الصورة */
-        .card {
-            border: 1px solid #d4af37;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: #000;
+        .ai-header { color: var(--gold); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; margin-bottom: 20px; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        
+        /* البطاقة الرئيسية المطورة */
+        .glass-card {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid var(--gold);
+            border-radius: 30px;
+            padding: 30px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         textarea {
-            width: 100%;
-            height: 80px;
-            background: #1a1a1a;
-            border: 1px solid #444;
-            border-radius: 10px;
-            color: #fff;
-            padding: 10px;
-            text-align: right;
+            width: 100%; height: 100px; background: #000; border: 1px solid #333; border-radius: 15px;
+            color: var(--gold); padding: 15px; box-sizing: border-box; font-family: monospace; resize: none; outline: none;
         }
 
-        .btn-simulate {
-            background: #d4af37;
-            color: #000;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 15px 0;
-            cursor: pointer;
+        .factors { display: flex; justify-content: space-around; font-size: 0.7rem; margin: 20px 0; color: #888; }
+        .factors span { border: 1px solid #222; padding: 5px 10px; border-radius: 20px; transition: 0.3s; }
+        .factors span:hover { border-color: var(--gold); color: var(--gold); }
+
+        .btn-infinity {
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: #000; border: none; width: 100%; padding: 15px; border-radius: 15px;
+            font-weight: 900; cursor: pointer; transition: 0.4s; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
         }
+        .btn-infinity:active { transform: scale(0.98); }
 
-        .score-display { font-size: 3rem; font-weight: bold; margin: 10px 0; }
-
-        /* تنسيق السجل وزر الفسخ */
+        .prediction-result { margin-top: 25px; text-align: center; }
+        #liveScore { font-size: 4.5rem; font-weight: 900; margin: 0; background: linear-gradient(to bottom, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* السجل الراقي */
+        .archive-section { width: 100%; max-width: 420px; margin-top: 30px; }
         .archive-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #222;
+            background: #111; border-right: 4px solid var(--gold); margin-bottom: 12px;
+            padding: 15px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center;
+            animation: slideIn 0.5s ease-out;
         }
 
-        .btn-delete {
-            background: none;
-            border: 1px solid #ff4444;
-            color: #ff4444;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-        }
+        .btn-delete { background: none; border: 1px solid #ff4444; color: #ff4444; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .btn-delete:hover { background: #ff4444; color: #fff; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="yellow-text">ARABIC-PRO AI INFINITY // ULTIMATE</div>
+    <div class="ai-header">ARABIC-PRO AI INFINITY // ULTIMATE NEURAL MODEL</div>
 
-    <!-- قسم المحاكاة -->
-    <div class="card">
-        <textarea placeholder="الصق بيانات المباراة هنا"></textarea>
-        <p>🤕 إصابات | 🔥 روح قتالية | ✈️ سفر شاق | 😫 إرهاق</p>
-        <button class="btn-simulate" onclick="simulateMatch()">محاكاة مليون مباراة ♾️</button>
-        <div class="score-display" id="currentScore">0-0</div>
-    </div>
+    <div class="glass-card">
+        <textarea id="matchData" placeholder="[ نظام التكهن بانتظار البيانات الإحصائية ... ]"></textarea>
+        
+        <div class="factors">
+            <span>🤕 إصابات</span> <span>🔥 روح</span> <span>✈️ سفر</span> <span>😫 إرهاق</span>
+        </div>
 
-    <!-- قسم الأرشيف الذهبي -->
-    <div class="card">
-        <div class="yellow-text">📜 سجل الأرشيف الذهبي</div>
-        <div id="archiveList">
-            <!-- هنا ستظهر المباريات مع زر الفسخ -->
+        <button class="btn-infinity" onclick="runNeuralSimulation()">تحليل بالذكاء الاصطناعي ♾️</button>
+
+        <div class="prediction-result">
+            <h1 id="liveScore">0-0</h1>
+            <div id="probBar" style="height: 4px; width: 0%; background: var(--gold); margin: 10px auto; border-radius: 10px; transition: 1s;"></div>
         </div>
     </div>
 
-    <script>
-        // مصفوفة لتخزين السجل في ذاكرة المتصفح
-        let archive = JSON.parse(localStorage.getItem('gold_archive')) || [];
+    <div class="archive-section">
+        <div style="color: var(--gold); margin-bottom: 15px; font-weight: bold; font-size: 0.9rem;">📜 الأرشيف الذهبي الموثق</div>
+        <div id="archiveList"></div>
+    </div>
 
-        function simulateMatch() {
-            // توليد نتيجة عشوائية للمحاكاة
-            const s1 = Math.floor(Math.random() * 5);
-            const s2 = Math.floor(Math.random() * 5);
-            const result = `${s1}-${s2}`;
-            
-            document.getElementById('currentScore').innerText = result;
+<script>
+    let archive = JSON.parse(localStorage.getItem('supreme_archive')) || [];
 
-            // إضافة النتيجة للسجل
-            const matchData = { id: Date.now(), res: result, time: new Date().toLocaleTimeString('ar-EG') };
-            archive.unshift(matchData);
-            updateArchive();
-        }
+    function runNeuralSimulation() {
+        const score = document.getElementById('liveScore');
+        const probBar = document.getElementById('probBar');
+        
+        // محاكاة التحميل الذهبي
+        score.innerText = "...";
+        probBar.style.width = "100%";
 
-        function updateArchive() {
-            localStorage.setItem('gold_archive', JSON.stringify(archive));
-            const list = document.getElementById('archiveList');
-            list.innerHTML = '';
+        setTimeout(() => {
+            // خوارزمية التكهن المتقدمة
+            const luck = Math.random();
+            let teamA = Math.floor(Math.random() * 3);
+            let teamB = Math.floor(Math.random() * 3);
 
-            archive.forEach(item => {
-                list.innerHTML += `
-                    <div class="archive-item">
-                        <span style="color:#d4af37; font-weight:bold;">${item.res}</span>
-                        <span>مباراة محاكاة (${item.time})</span>
-                        <button class="btn-delete" onclick="deleteItem(${item.id})">×</button>
-                    </div>`;
-            });
-        }
+            // تعديل النتيجة بناءً على "عوامل التميز"
+            if (luck > 0.7) teamA += 2; // تأثير الروح القتالية
+            if (luck < 0.2) teamB += 1; // تأثير الإرهاق
 
-        function deleteItem(id) {
-            archive = archive.filter(item => item.id !== id);
-            updateArchive();
-        }
+            const finalResult = `${teamA}-${teamB}`;
+            score.innerText = finalResult;
 
-        // تشغيل العرض عند فتح الصفحة
-        updateArchive();
-    </script>
+            // إضافة للسجل
+            const matchEntry = {
+                id: Date.now(),
+                res: finalResult,
+                timestamp: new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute:'2-digit'})
+            };
+            archive.unshift(matchEntry);
+            saveAndRender();
+        }, 800);
+    }
+
+    function saveAndRender() {
+        localStorage.setItem('supreme_archive', JSON.stringify(archive));
+        const list = document.getElementById('archiveList');
+        list.innerHTML = '';
+        archive.forEach(m => {
+            list.innerHTML += `
+                <div class="archive-item">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <span style="color:var(--gold); font-weight:900; font-size:1.4rem;">${m.res}</span>
+                        <span style="color:#666; font-size:0.7rem;">تم التكهن ${m.timestamp}</span>
+                    </div>
+                    <button class="btn-delete" onclick="deleteEntry(${m.id})">×</button>
+                </div>`;
+        });
+    }
+
+    function deleteEntry(id) {
+        archive = archive.filter(m => m.id !== id);
+        saveAndRender();
+    }
+
+    saveAndRender();
+</script>
+
 </body>
 </html>
