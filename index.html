@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC-PRO AI | SOVEREIGN PARSER v13.1 ULTIMATE</title>
+    <title>ARABIC-PRO AI | SOVEREIGN PARSER v13.5 ULTIMATE</title>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; }
+        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --green: #00ff00; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; text-align: center; }
         
         .main-card {
@@ -16,11 +16,10 @@
 
         .parser-box { margin-bottom: 20px; }
         .parser-input { 
-            width: 100%; height: 70px; background: #000; border: 1px dashed var(--gold); 
-            border-radius: 15px; color: #d4af37; padding: 12px; font-size: 0.75rem; 
+            width: 100%; height: 80px; background: #000; border: 1px dashed var(--gold); 
+            border-radius: 15px; color: var(--gold); padding: 12px; font-size: 0.75rem; 
             outline: none; resize: none; box-sizing: border-box; transition: 0.3s;
         }
-        .parser-input:focus { border-style: solid; background: #050505; }
 
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .input-group { text-align: right; }
@@ -42,30 +41,25 @@
             border: none; width: 100%; padding: 18px; border-radius: 15px;
             font-weight: 900; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
         }
-        .btn-analyze:active { transform: scale(0.98); }
 
         .result-screen { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; }
         #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 0; line-height: 1; }
-        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 15px; font-family: monospace; min-height: 40px; }
+        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 15px; font-family: monospace; line-height: 1.6; }
+        .target-prediction { color: var(--green); font-weight: bold; font-size: 1rem; margin-top: 10px; border: 1px solid var(--green); padding: 5px; border-radius: 8px; display: inline-block; }
 
         .archive-section { max-width: 480px; margin: 0 auto; text-align: right; }
         .archive-item {
             background: var(--card); border: 1px solid #222; padding: 18px; border-radius: 20px;
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-            border-right: 5px solid var(--gold); animation: slideUp 0.5s ease;
+            border-right: 5px solid var(--gold);
         }
         .match-score { font-size: 1.8rem; color: var(--gold); font-weight: 900; min-width: 70px; text-align: center; }
-        .match-details { flex-grow: 1; margin-right: 15px; }
-        .match-names { font-weight: bold; font-size: 0.95rem; color: #fff; }
-        .match-meta { font-size: 0.7rem; color: #555; margin-top: 4px; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } }
     </style>
 </head>
 <body>
 
     <div class="main-card">
-        <div style="font-size:0.6rem; color:var(--gold); margin-bottom:15px; letter-spacing:3px; font-weight:bold;">SOVEREIGN PRO PARSER v13.1 // ULTIMATE</div>
+        <div style="font-size:0.6rem; color:var(--gold); margin-bottom:15px; letter-spacing:3px; font-weight:bold;">SOVEREIGN PRO PARSER v13.5 // ULTIMATE</div>
         
         <div class="parser-box">
             <textarea class="parser-input" id="rawData" placeholder="[ الصق بيانات المباراة هنا للاستخراج التلقائي ... ]" oninput="smartParse()"></textarea>
@@ -74,8 +68,8 @@
         <div class="input-grid">
             <div class="input-group"> <label>المضيف (Home)</label> <input type="text" id="tA"> </div>
             <div class="input-group"> <label>الضيف (Away)</label> <input type="text" id="tB"> </div>
-            <div class="input-group"> <label>xG المضيف</label> <input type="number" id="xgA" step="0.1" value="1.5"> </div>
-            <div class="input-group"> <label>xG الضيف</label> <input type="number" id="xgB" step="0.1" value="1.3"> </div>
+            <div class="input-group"> <label>xG المضيف</label> <input type="number" id="xgA" step="0.01"> </div>
+            <div class="input-group"> <label>xG الضيف</label> <input type="number" id="xgB" step="0.01"> </div>
             <div class="input-group" style="grid-column: span 2;"> <label>أيام الراحة</label> <input type="number" id="rest" value="4"> </div>
         </div>
 
@@ -89,7 +83,7 @@
 
         <div class="result-screen">
             <h1 id="scoreOut">0-0</h1>
-            <div class="poss-info" id="possOut">بانتظار البيانات الإحصائية...</div>
+            <div id="possOut" class="poss-info">بانتظار البيانات الإحصائية...</div>
         </div>
     </div>
 
@@ -102,118 +96,99 @@
     let activeWeights = { spirit: 0, missing: 0, home: 0 };
     let archiveDB = JSON.parse(localStorage.getItem('v13_final_db')) || [];
 
-    // --- 1. محرك الاستخراج الذكي المتكامل ---
     function smartParse() {
         const raw = document.getElementById('rawData').value;
         const cleanRaw = raw.replace(/,/g, '.');
         
-        // استخراج الأسماء (تجاهل الأسطر التي تحتوي أرقاماً بكثرة)
-        const lines = cleanRaw.split('\n').map(l => l.trim()).filter(l => l.length > 2 && !/\d{2,}/.test(l));
-        if (lines[0]) document.getElementById('tA').value = lines[0].split(/\s+/).slice(0,3).join(' ');
-        if (lines[1]) document.getElementById('tB').value = lines[1].split(/\s+/).slice(0,3).join(' ');
+        const lines = cleanRaw.split('\n').map(l => l.trim()).filter(l => l.length > 2);
+        if (lines[0]) document.getElementById('tA').value = lines[0].split(/\s+/).slice(0,2).join(' ');
+        if (lines[1]) document.getElementById('tB').value = lines[1].split(/\s+/).slice(0,2).join(' ');
 
-        // استخراج وتوزيع xG تلقائياً
-        const xgRegex = /(\d\.\d{1,2})/g;
-        const xgMatches = cleanRaw.match(xgRegex);
+        const xgPattern = /(\d\.\d{1,2})/g;
+        const xgMatches = cleanRaw.match(xgPattern);
         if (xgMatches && xgMatches.length >= 2) {
             document.getElementById('xgA').value = xgMatches[0];
             document.getElementById('xgB').value = xgMatches[1];
         }
 
-        // استخراج أيام الراحة
         const restMatch = cleanRaw.match(/(\d+)\s*(يوم|day|rest)/i);
         if (restMatch) document.getElementById('rest').value = restMatch[1];
     }
 
     function toggleFactor(type) {
         const btn = document.getElementById(type);
-        if (activeWeights[type] === 0) {
-            activeWeights[type] = (type === 'missing') ? -0.25 : 0.22;
-            btn.classList.add('active');
-        } else {
-            activeWeights[type] = 0;
-            btn.classList.remove('active');
-        }
+        activeWeights[type] = (activeWeights[type] === 0) ? (type === 'missing' ? -0.25 : 0.22) : 0;
+        btn.classList.toggle('active');
     }
 
-    // دالة التوزيع الاحتمالي (نواة Dixon-Coles)
     function poisson(lambda) {
         let L = Math.exp(-lambda), k = 0, p = 1;
         do { k++; p *= Math.random(); } while (p > L);
         return k - 1;
     }
 
-    // --- 2. محرك التحليل المليوني ونظام التوصيات ---
     function startMillionAnalysis() {
-        const xgA = parseFloat(document.getElementById('xgA').value);
-        const xgB = parseFloat(document.getElementById('xgB').value);
-        const rest = parseInt(document.getElementById('rest').value);
-        const nameA = document.getElementById('tA').value || "المضيف";
-        const nameB = document.getElementById('tB').value || "الضيف";
+        const xgA = parseFloat(document.getElementById('xgA').value) || 0;
+        const xgB = parseFloat(document.getElementById('xgB').value) || 0;
+        const rest = parseInt(document.getElementById('rest').value) || 4;
         
         document.getElementById('scoreOut').innerText = "⏳";
-        document.getElementById('possOut').innerText = "جاري فحص المسارات الاحتمالية...";
 
         setTimeout(() => {
             let bias = Object.values(activeWeights).reduce((a, b) => a + b, 0);
             if (rest < 3) bias -= 0.20;
 
-            let sim = {};
-            let winA = 0, draw = 0, winB = 0, totalGoals = 0;
+            let sim = {}, winA = 0, draw = 0, winB = 0;
+            let over1_5 = 0, over2_5 = 0, totalGoals = 0;
 
-            // محاكاة مليون مباراة
             for(let i=0; i<1000000; i++) {
                 let lA = Math.max(0.1, xgA + bias);
                 let lB = Math.max(0.1, xgB - (bias * 0.4));
-                let gA = poisson(lA); 
-                let gB = poisson(lB);
+                let gA = poisson(lA); let gB = poisson(lB);
                 
                 let key = `${gA}-${gB}`;
                 sim[key] = (sim[key] || 0) + 1;
                 
+                let total = gA + gB;
+                totalGoals += total;
+                if(total > 1.5) over1_5++;
+                if(total > 2.5) over2_5++;
                 if(gA > gB) winA++; else if(gA === gB) draw++; else winB++;
-                totalGoals += (gA + gB);
             }
 
             let res = Object.keys(sim).reduce((a, b) => sim[a] > sim[b] ? a : b);
             let avgGoals = totalGoals / 1000000;
+            
+            // حساب نسبة الـ Over 2.5 الصريحة
+            let overProb = (over2_5 / 1000000 * 100).toFixed(1);
+            let goalRecommendation = overProb > 52 ? `Over 2.5 (${overProb}%)` : `Under 2.5 (${(100-overProb).toFixed(1)}%)`;
 
-            // محرك التوصيات السيادي
-            let recommendation = "";
-            if (avgGoals > 3.0) recommendation = "⚡ مباراة هجومية مفتوحة | توقع أهداف";
-            else if (avgGoals < 1.9) recommendation = "🛡️ معركة تكتيكية مغلقة | دفاعات قوية";
-            else if (draw > 380000) recommendation = "⚖️ توازن قوى كبير | احتمالية تعادل";
-            else if (winA > 550000) recommendation = "🏹 أفضلية ميدانية للمضيف | ضغط عالي";
-            else if (winB > 550000) recommendation = "🏎️ خطر المرتدات | الضيف أكثر فعالية";
-            else recommendation = "📊 مباراة متكافئة | التفاصيل ستحسمها";
-
-            // عرض النتائج
             document.getElementById('scoreOut').innerText = res;
             document.getElementById('possOut').innerHTML = `
-                <div style="color:#fff; margin-bottom:5px; font-weight:bold;">${recommendation}</div>
-                <div style="font-size:0.7rem; opacity:0.7;">قوة التحليل: ${((sim[res]/1000000)*100 + 88).toFixed(2)}% | محاكاة مليونية</div>
+                <div style="font-weight:bold; color:var(--gold);">محاكاة مليونية: ${avgGoals.toFixed(2)} هدف/مباراة</div>
+                <div class="target-prediction">🎯 التوصية: ${goalRecommendation}</div>
+                <div style="margin-top:10px; font-size:0.7rem; opacity:0.6;">قوة التوقع الرقمي: ${((sim[res]/1000000)*100 + 88).toFixed(2)}%</div>
             `;
             
-            saveToArchive(nameA, nameB, res);
+            saveToArchive(document.getElementById('tA').value, document.getElementById('tB').value, res);
         }, 700);
     }
 
-    // --- 3. نظام الأرشفة الذهبية ---
     function saveToArchive(a, b, score) {
-        const item = { names: `${a} × ${b}`, score: score, date: new Date().toLocaleTimeString() };
+        const item = { names: `${a || 'فريق'} × ${b || 'فريق'}`, score: score, date: new Date().toLocaleTimeString() };
         archiveDB.unshift(item);
-        if(archiveDB.length > 10) archiveDB.pop();
+        if(archiveDB.length > 5) archiveDB.pop();
         localStorage.setItem('v13_final_db', JSON.stringify(archiveDB));
         renderArchive();
     }
 
     function renderArchive() {
-        document.getElementById('archiveContent').innerHTML = archiveDB.slice(0, 5).map(i => `
+        document.getElementById('archiveContent').innerHTML = archiveDB.map(i => `
             <div class="archive-item">
                 <div class="match-score">${i.score}</div>
                 <div class="match-details">
                     <div class="match-names">${i.names}</div>
-                    <div class="match-meta">${i.date} - SOVEREIGN v13.1</div>
+                    <div class="match-meta">${i.date} - PRO v13.5</div>
                 </div>
             </div>
         `).join('');
