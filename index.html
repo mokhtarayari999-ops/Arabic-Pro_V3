@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC-PRO AI | SOVEREIGN ANALYTICS v12.1</title>
+    <title>ARABIC-PRO AI | PRO PARSER v13.1</title>
     <style>
-        /* التنسيق الملكي والسيادي للمشروع */
         :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; }
-        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 15px; text-align: center; }
+        body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; text-align: center; }
         
         .main-card {
-            background: var(--card); border: 1px solid var(--gold); border-radius: 25px;
-            padding: 25px; max-width: 450px; margin: 0 auto; box-shadow: 0 10px 50px rgba(0,0,0,1);
+            background: var(--card); border: 1px solid var(--gold); border-radius: 30px;
+            padding: 25px; max-width: 480px; margin: 0 auto 30px auto;
+            box-shadow: 0 15px 50px rgba(0,0,0,1);
         }
 
-        /* شبكة إدخال البيانات الإحصائية */
+        /* صندوق الاستخراج التلقائي */
+        .parser-box { margin-bottom: 20px; }
+        .parser-input { 
+            width: 100%; height: 70px; background: #000; border: 1px dashed var(--gold); 
+            border-radius: 15px; color: #d4af37; padding: 12px; font-size: 0.75rem; 
+            outline: none; resize: none; box-sizing: border-box; transition: 0.3s;
+        }
+        .parser-input:focus { border-style: solid; background: #050505; box-shadow: 0 0 10px rgba(212,175,55,0.2); }
+
+        /* شبكة المدخلات */
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .input-group { text-align: right; }
-        label { font-size: 0.75rem; color: var(--gold); margin-right: 5px; display: block; margin-bottom: 5px; }
+        label { font-size: 0.7rem; color: var(--gold); margin-right: 5px; display: block; margin-bottom: 5px; }
         input { 
-            width: 100%; background: #151515; border: 1px solid #333; color: #fff; 
-            padding: 12px; border-radius: 15px; font-size: 0.9rem; outline: none; box-sizing: border-box;
+            width: 100%; background: #111; border: 1px solid #333; color: #fff; 
+            padding: 12px; border-radius: 12px; font-size: 0.9rem; outline: none; box-sizing: border-box;
         }
 
-        /* أزرار عوامل الدقة (المجسات) */
-        .precision-factors { display: flex; justify-content: space-around; margin: 20px 0; gap: 5px; }
+        /* أزرار عوامل الدقة */
+        .precision-factors { display: flex; justify-content: space-around; margin: 20px 0; gap: 8px; }
         .p-btn { 
             background: #111; border: 1px solid #333; color: #666; padding: 10px; 
-            border-radius: 18px; cursor: pointer; font-size: 0.7rem; transition: 0.4s; flex: 1;
+            border-radius: 15px; cursor: pointer; font-size: 0.7rem; flex: 1; transition: 0.3s;
         }
-        .p-btn.active { border-color: var(--gold); color: #fff; box-shadow: 0 0 15px var(--gold); background: rgba(212, 175, 55, 0.1); }
+        .p-btn.active { border-color: var(--gold); color: #fff; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px var(--gold); }
 
         .btn-analyze {
             background: linear-gradient(135deg, var(--gold), #996515); color: #000;
@@ -38,14 +47,13 @@
         }
         .btn-analyze:active { transform: scale(0.98); }
 
-        /* منطقة النتائج */
-        #resultArea { margin-top: 25px; min-height: 120px; }
-        .score-display { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 0; line-height: 1; }
-        .possession-info { font-size: 0.85rem; color: var(--gold); margin-top: 10px; font-family: monospace; }
+        /* شاشة النتيجة */
+        .result-screen { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; }
+        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 0; line-height: 1; }
+        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 15px; font-family: monospace; }
 
-        /* سجل الأرشيف الذهبي الموثق */
-        .archive-section { max-width: 450px; margin: 35px auto; text-align: right; }
-        .archive-title { color: var(--gold); font-weight: bold; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        /* الأرشيف */
+        .archive-section { max-width: 480px; margin: 0 auto; text-align: right; }
         .archive-item {
             background: var(--card); border: 1px solid #222; padding: 18px; border-radius: 20px;
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
@@ -63,55 +71,64 @@
 <body>
 
     <div class="main-card">
-        <div style="font-size:0.65rem; color:var(--gold); margin-bottom:20px; letter-spacing:3px; font-weight:bold;">ARABIC-PRO AI // SOVEREIGN ENGINE v12.1</div>
+        <div style="font-size:0.6rem; color:var(--gold); margin-bottom:15px; letter-spacing:3px; font-weight:bold;">SOVEREIGN PRO PARSER v13.1 // ULTIMATE</div>
         
+        <div class="parser-box">
+            <textarea class="parser-input" id="rawData" placeholder="[ الصق بيانات المباراة هنا للاستخراج التلقائي ... ]" oninput="smartParse()"></textarea>
+        </div>
+
         <div class="input-grid">
-            <div class="input-group">
-                <label>الفريق المضيف (Home)</label>
-                <input type="text" id="tA" placeholder="مثلاً: Arsenal">
-            </div>
-            <div class="input-group">
-                <label>الفريق الضيف (Away)</label>
-                <input type="text" id="tB" placeholder="مثلاً: Bayern">
-            </div>
-            <div class="input-group">
-                <label>قوة الهجوم (xG)</label>
-                <input type="number" id="xg" step="0.1" value="1.5">
-            </div>
-            <div class="input-group">
-                <label>أيام الراحة</label>
-                <input type="number" id="rest" value="4">
-            </div>
+            <div class="input-group"> <label>المضيف (Home)</label> <input type="text" id="tA"> </div>
+            <div class="input-group"> <label>الضيف (Away)</label> <input type="text" id="tB"> </div>
+            <div class="input-group"> <label>قوة الهجوم (xG)</label> <input type="number" id="xg" step="0.1" value="1.5"> </div>
+            <div class="input-group"> <label>أيام الراحة</label> <input type="number" id="rest" value="4"> </div>
         </div>
 
         <div class="precision-factors">
-            <div class="p-btn" id="spirit" onclick="toggleFactor('spirit')">🔥 روح قتالية</div>
-            <div class="p-btn" id="missing" onclick="toggleFactor('missing')">🤕 غياب مؤثر</div>
-            <div class="p-btn" id="home" onclick="toggleFactor('home')">🏟️ ملعب/جمهور</div>
+            <div class="p-btn" id="spirit" onclick="toggleFactor('spirit')">🔥 روح</div>
+            <div class="p-btn" id="missing" onclick="toggleFactor('missing')">🤕 غياب</div>
+            <div class="p-btn" id="home" onclick="toggleFactor('home')">🏟️ ملعب</div>
         </div>
 
-        <button class="btn-analyze" onclick="startSovereignAnalysis()">بدء التحليل السيادي ♾️</button>
+        <button class="btn-analyze" onclick="startMillionAnalysis()">بدء التحليل السيادي ♾️</button>
 
-        <div id="resultArea">
-            <h1 class="score-display" id="outScore">0-0</h1>
-            <div class="possession-info" id="outPoss">بانتظار البيانات...</div>
+        <div class="result-screen">
+            <h1 id="scoreOut">0-0</h1>
+            <div class="poss-info" id="possOut">بانتظار البيانات الإحصائية...</div>
         </div>
     </div>
 
     <div class="archive-section">
-        <div class="archive-title">📜 سجل الأرشيف الذهبي الموثق</div>
+        <div style="color:var(--gold); font-weight:bold; margin-bottom:15px; padding-right:10px;">📜 سجل الأرشيف الذهبي الموثق</div>
         <div id="archiveContent"></div>
     </div>
 
 <script>
-    // --- المحرك البرمجي (The Engine) ---
     let activeWeights = { spirit: 0, missing: 0, home: 0 };
-    let archiveDB = JSON.parse(localStorage.getItem('v12_final_v2')) || [];
+    let archiveDB = JSON.parse(localStorage.getItem('v13_final_db')) || [];
+
+    // --- وظيفة المستخرج الذكي ---
+    function smartParse() {
+        const raw = document.getElementById('rawData').value;
+        const lines = raw.split('\n').filter(l => l.trim().length > 2);
+        
+        // استخراج الأسماء
+        if (lines[0]) document.getElementById('tA').value = lines[0].trim().split(/\s+/).slice(0,2).join(' ');
+        if (lines[1]) document.getElementById('tB').value = lines[1].trim().split(/\s+/).slice(0,2).join(' ');
+
+        // استخراج xG (يبحث عن رقم عشري)
+        const xgMatch = raw.match(/(\d\.\d{1,2})/);
+        if (xgMatch) document.getElementById('xg').value = xgMatch[0];
+
+        // استخراج أيام الراحة
+        const restMatch = raw.match(/(\d+)\s*(يوم|day)/);
+        if (restMatch) document.getElementById('rest').value = restMatch[1];
+    }
 
     function toggleFactor(type) {
         const btn = document.getElementById(type);
         if (activeWeights[type] === 0) {
-            activeWeights[type] = (type === 'missing') ? -0.28 : 0.24;
+            activeWeights[type] = (type === 'missing') ? -0.25 : 0.22;
             btn.classList.add('active');
         } else {
             activeWeights[type] = 0;
@@ -119,69 +136,55 @@
         }
     }
 
-    function startSovereignAnalysis() {
+    function startMillionAnalysis() {
+        const xg = parseFloat(document.getElementById('xg').value);
+        const rest = parseInt(document.getElementById('rest').value);
         const nameA = document.getElementById('tA').value || "المضيف";
         const nameB = document.getElementById('tB').value || "الضيف";
-        const xgVal = parseFloat(document.getElementById('xg').value);
-        const restVal = parseInt(document.getElementById('rest').value);
         
-        document.getElementById('outScore').innerText = "...";
+        document.getElementById('scoreOut').innerText = "...";
 
         setTimeout(() => {
-            // حساب "التحيز الإحصائي" (Statistical Bias)
             let bias = Object.values(activeWeights).reduce((a, b) => a + b, 0);
-            if (restVal < 3) bias -= 0.15; // تأثير الإرهاق الواقعي
+            if (rest < 3) bias -= 0.15;
 
-            let map = {};
+            let sim = {};
             // محاكاة مليون مباراة (نواة Dixon-Coles)
             for(let i=0; i<1000000; i++) {
-                let lambdaA = Math.max(0.15, xgVal + bias);
-                let lambdaB = Math.max(0.15, 1.25 - (bias * 0.6));
-                
-                let gA = poisson(lambdaA);
-                let gB = poisson(lambdaB);
-                
-                // تعديل التعادل (Dixon-Coles Adjustment)
-                if(gA === gB && Math.random() < 0.12) { /* ثبات التعادل */ }
-                
-                let resKey = `${gA}-${gB}`;
-                map[resKey] = (map[resKey] || 0) + 1;
+                let lA = Math.max(0.2, xg + bias);
+                let lB = Math.max(0.2, 1.30 - (bias * 0.6));
+                let gA = poisson(lA); let gB = poisson(lB);
+                if (gA === gB && Math.random() < 0.1) { /* تعديل Dixon-Coles */ }
+                let key = `${gA}-${gB}`;
+                sim[key] = (sim[key] || 0) + 1;
             }
 
-            let finalRes = Object.keys(map).reduce((a, b) => map[a] > map[b] ? a : b);
-            let possA = (50 + (bias * 12) + (Math.random() * 5 - 2.5)).toFixed(1);
+            let res = Object.keys(sim).reduce((a, b) => sim[a] > sim[b] ? a : b);
+            let pA = (50 + (bias * 10) + (Math.random()*4-2)).toFixed(1);
 
-            document.getElementById('outScore').innerText = finalRes;
-            document.getElementById('outPoss').innerText = `الاستحواذ المتوقع: %${possA} | %${(100 - possA).toFixed(1)} (v12.1)`;
+            document.getElementById('scoreOut').innerText = res;
+            document.getElementById('possOut').innerText = `الاستحواذ المتوقع: %${pA} | %${(100-pA).toFixed(1)} (v13.1)`;
 
-            // الحفظ في السجل
-            archiveDB.unshift({ 
-                id: Date.now(), 
-                res: finalRes, 
-                names: `${nameA} vs ${nameB}`, 
-                poss: possA, 
-                time: new Date().toLocaleTimeString('ar-EG') 
-            });
-            updateArchive();
+            archiveDB.unshift({ id: Date.now(), res: res, teams: `${nameA} vs ${nameB}`, poss: pA, time: new Date().toLocaleTimeString('ar-EG') });
+            updateUI();
         }, 1100);
     }
 
-    // معادلة بواسون الرياضية
-    function poisson(lambda) {
-        let L = Math.exp(-lambda), k = 0, p = 1;
+    function poisson(l) {
+        let L = Math.exp(-l), k = 0, p = 1;
         do { k++; p *= Math.random(); } while (p > L);
         return k - 1;
     }
 
-    function updateArchive() {
-        localStorage.setItem('v12_final_v2', JSON.stringify(archiveDB));
+    function updateUI() {
+        localStorage.setItem('v13_final_db', JSON.stringify(archiveDB));
         const list = document.getElementById('archiveContent');
         list.innerHTML = archiveDB.map(item => `
             <div class="archive-item">
                 <div class="match-score">${item.res}</div>
                 <div class="match-details">
-                    <div class="match-names">${item.names}</div>
-                    <div class="match-meta">استحواذ: %${item.poss} | ${item.time} | Sovereign Engine</div>
+                    <div class="match-names">${item.teams}</div>
+                    <div class="match-meta">استحواذ: %${item.poss} | ${item.time} | Dixon-Coles Pro</div>
                 </div>
                 <button class="del-btn" onclick="removeItem(${item.id})">×</button>
             </div>
@@ -190,12 +193,10 @@
 
     function removeItem(id) {
         archiveDB = archiveDB.filter(x => x.id !== id);
-        updateArchive();
+        updateUI();
     }
 
-    // تشغيل السجل عند التحميل
-    updateArchive();
+    updateUI();
 </script>
-
 </body>
 </html>
