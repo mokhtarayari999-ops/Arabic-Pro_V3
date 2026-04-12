@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO v13.8 | THE COMPLETE MASTER BUILD</title>
+    <title>SOVEREIGN PRO v13.9 | THE MASTER AUDIT</title>
     <style>
         :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --green: #00ff00; --blue: #00d4ff; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; text-align: center; }
@@ -14,73 +14,73 @@
             box-shadow: 0 15px 50px rgba(0,0,0,1);
         }
 
-        /* مستطيل اللصق والرادار */
+        /* 1. جزء الرادار واللصق الذكي */
         .parser-input { 
-            width: 100%; height: 60px; background: #000; border: 1px dashed var(--gold); 
-            border-radius: 12px; color: var(--gold); padding: 10px; font-size: 0.7rem; 
+            width: 100%; height: 65px; background: #000; border: 1px dashed var(--gold); 
+            border-radius: 15px; color: var(--gold); padding: 12px; font-size: 0.75rem; 
             outline: none; resize: none; box-sizing: border-box; margin-bottom: 15px;
         }
 
-        /* شبكة احتمالات السوق */
+        /* 2. جزء احتمالات السوق (Cotes) */
         .odds-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px; background: #050505; padding: 10px; border-radius: 15px; border: 1px solid #222; }
-        .odds-item label { font-size: 0.6rem; color: #666; display: block; margin-bottom: 3px; }
-        .odds-item input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: var(--blue); text-align: center; font-weight: bold; outline: none; }
+        .odds-item label { font-size: 0.65rem; color: #666; display: block; margin-bottom: 3px; }
+        .odds-item input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: var(--blue); text-align: center; font-weight: bold; outline: none; font-size: 1rem; }
 
-        /* شبكة المدخلات الأساسية */
+        /* 3. جزء مدخلات الفريق والـ xG */
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .input-group { text-align: right; }
-        label { font-size: 0.65rem; color: var(--gold); margin-bottom: 4px; display: block; padding-right: 5px; }
-        input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 10px; font-size: 0.85rem; outline: none; box-sizing: border-box; }
+        label { font-size: 0.7rem; color: var(--gold); margin-bottom: 5px; display: block; padding-right: 5px; }
+        input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 12px; font-size: 0.9rem; outline: none; box-sizing: border-box; }
 
-        /* شبكة العوامل الأربعة */
+        /* 4. جزء العوامل التكتيكية */
         .factors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
-        .f-btn { padding: 10px; font-size: 0.7rem; background: #111; border: 1px solid #333; color: #666; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+        .f-btn { padding: 12px; font-size: 0.75rem; background: #111; border: 1px solid #333; color: #666; border-radius: 15px; cursor: pointer; transition: 0.3s; }
         .f-btn.active { border-color: var(--gold); color: #fff; background: rgba(212,175,55,0.1); box-shadow: 0 0 10px var(--gold); }
 
         .btn-analyze { 
             background: linear-gradient(135deg, var(--gold), #996515); color: #000; 
-            border: none; width: 100%; padding: 18px; border-radius: 15px; 
+            border: none; width: 100%; padding: 18px; border-radius: 18px; 
             font-weight: 900; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
         }
 
-        /* شاشة النتائج */
-        .result-screen { margin-top: 20px; border-top: 1px solid #222; padding-top: 15px; }
-        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 25px var(--gold); margin: 10px 0; line-height: 1; }
-        .poss-info { font-size: 0.85rem; color: var(--gold); line-height: 1.6; margin-bottom: 10px; }
-        .value-badge { display: inline-block; padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--blue); color: var(--blue); }
+        /* 5. شاشة النتائج وشفرة السوق */
+        .result-screen { margin-top: 25px; border-top: 1px solid #222; padding-top: 20px; }
+        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 25px var(--gold); margin: 5px 0; line-height: 1; }
+        .poss-info { font-size: 0.9rem; color: var(--gold); line-height: 1.6; margin-bottom: 12px; }
+        .market-code-box { 
+            background: rgba(0, 212, 255, 0.05); border: 1px solid var(--blue); 
+            padding: 12px; border-radius: 15px; margin-top: 15px; display: none; 
+            text-align: center; font-size: 0.8rem; color: var(--blue); font-weight: bold;
+        }
 
-        /* سجل الأرشيف الموثق */
+        /* 6. سجل الأرشيف الذهبي الموثق */
         .archive-section { max-width: 480px; margin: 0 auto; text-align: right; }
-        .archive-item {
-            background: var(--card); border: 1px solid #222; padding: 15px; border-radius: 20px;
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-            border-right: 5px solid var(--gold); animation: slideUp 0.4s ease;
+        .archive-item { 
+            background: var(--card); border: 1px solid #222; padding: 15px; border-radius: 20px; 
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; 
+            border-right: 5px solid var(--gold); animation: slideIn 0.4s ease;
         }
         .match-score { font-size: 1.8rem; color: var(--gold); font-weight: 900; min-width: 70px; text-align: center; }
-        .match-names { font-weight: bold; font-size: 0.95rem; color: #fff; }
-        .match-meta { font-size: 0.65rem; color: #555; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } }
+        .match-names { font-weight: bold; font-size: 1rem; color: #fff; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } }
     </style>
 </head>
 <body>
 
     <div class="main-card">
-        <div style="font-size:0.5rem; color:var(--gold); margin-bottom:10px; letter-spacing:2px; font-weight:bold;">SOVEREIGN PRO v13.8 // COMPLETE AUDIT</div>
+        <div style="font-size:0.6rem; color:var(--gold); margin-bottom:12px; letter-spacing:2px; font-weight:bold;">SOVEREIGN PRO v13.9 // MASTER AUDIT EDITION</div>
         
-        <textarea class="parser-input" id="rawData" placeholder="[ الرادار سيتعرف على المباراة بمجرد اللصق... ]" oninput="smartRadar()"></textarea>
-
-        <div class="input-grid">
-            <div class="input-group"> <label>المضيف</label> <input type="text" id="tA" placeholder="فريق 1"> </div>
-            <div class="input-group"> <label>الضيف</label> <input type="text" id="tB" placeholder="فريق 2"> </div>
-        </div>
+        <textarea class="parser-input" id="rawData" placeholder="[ الصق بيانات المباراة هنا... الرادار سيتعرف عليها ]" oninput="smartRadar()"></textarea>
 
         <div class="odds-grid">
-            <div class="odds-item"> <label>(1)</label> <input type="number" id="c1" step="0.01"> </div>
-            <div class="odds-item"> <label>(X)</label> <input type="number" id="cX" step="0.01"> </div>
-            <div class="odds-item"> <label>(2)</label> <input type="number" id="c2" step="0.01"> </div>
+            <div class="odds-item"> <label>مضيف (1)</label> <input type="number" id="c1" step="0.01"> </div>
+            <div class="odds-item"> <label>تعادل (X)</label> <input type="number" id="cX" step="0.01"> </div>
+            <div class="odds-item"> <label>ضيف (2)</label> <input type="number" id="c2" step="0.01"> </div>
         </div>
 
         <div class="input-grid">
+            <div class="input-group"> <label>الفريق المضيف</label> <input type="text" id="tA" placeholder="بانتظار الرادار..."> </div>
+            <div class="input-group"> <label>الفريق الضيف</label> <input type="text" id="tB" placeholder="بانتظار الرادار..."> </div>
             <div class="input-group"> <label>xG المضيف</label> <input type="number" id="xgA" step="0.01"> </div>
             <div class="input-group"> <label>xG الضيف</label> <input type="number" id="xgB" step="0.01"> </div>
         </div>
@@ -96,21 +96,21 @@
 
         <div class="result-screen">
             <h1 id="scoreOut">0-0</h1>
-            <div id="possOut" class="poss-info"></div>
-            <div id="valueAdvice" class="value-badge" style="display:none;"></div>
+            <div id="possOut" class="poss-info">بانتظار المعالجة...</div>
+            <div id="marketCode" class="market-code-box"></div>
         </div>
     </div>
 
     <div class="archive-section">
-        <div style="color:var(--gold); font-weight:bold; margin-bottom:12px; padding-right:10px;">📜 سجل الأرشيف الموثق</div>
+        <div style="color:var(--gold); font-weight:bold; margin-bottom:12px; padding-right:10px;">📜 سجل الأرشيف الذهبي الموثق</div>
         <div id="archiveContent"></div>
     </div>
 
 <script>
     let activeFactors = { fHome: 0, fSpirit: 0, fMissing: 0, fTactics: 0 };
-    let archiveDB = JSON.parse(localStorage.getItem('v13_8_audit_db')) || [];
+    let archiveDB = JSON.parse(localStorage.getItem('v13_9_final_db')) || [];
 
-    // قاعدة بيانات الرادار (مباريات اليوم)
+    // قاعدة بيانات الرادار (محدثة لحظياً)
     const liveGames = [
         { keywords: ['sunderland', 'سندرلاند', 'tottenham', 'توتنهام'], home: 'سندرلاند', away: 'توتنهام', c1: 2.75, cX: 3.42, c2: 2.81 },
         { keywords: ['monastir', 'منستير', 'africain', 'إفريقي'], home: 'الاتحاد المنستيري', away: 'النادي الإفريقي', c1: 2.10, cX: 3.00, c2: 3.20 },
@@ -120,7 +120,7 @@
     function smartRadar() {
         const raw = document.getElementById('rawData').value.toLowerCase().replace(/,/g, '.');
         
-        // 1. الرادار الذكي
+        // 1. تدقيق الرادار: التعرف التلقائي
         const found = liveGames.find(g => g.keywords.some(k => raw.includes(k)));
         if (found) {
             document.getElementById('tA').value = found.home;
@@ -130,7 +130,7 @@
             document.getElementById('c2').value = found.c2;
         }
 
-        // 2. توزيع xG تلقائي
+        // 2. تدقيق استخراج xG
         const xgs = raw.match(/(\d\.\d{1,2})/g);
         if (xgs && xgs.length >= 2) {
             document.getElementById('xgA').value = xgs[0];
@@ -153,64 +153,49 @@
     function startMillionAnalysis() {
         const xgA = parseFloat(document.getElementById('xgA').value) || 0;
         const xgB = parseFloat(document.getElementById('xgB').value) || 0;
+        const c1 = parseFloat(document.getElementById('c1').value) || 0;
         const cX = parseFloat(document.getElementById('cX').value) || 0;
-        const tA = document.getElementById('tA').value || "المضيف";
-        const tB = document.getElementById('tB').value || "الضيف";
+        const c2 = parseFloat(document.getElementById('c2').value) || 0;
         
         document.getElementById('scoreOut').innerText = "⏳";
 
         setTimeout(() => {
             let bias = Object.values(activeFactors).reduce((a, b) => a + b, 0);
-            let sim = {}, draw = 0, over25 = 0, totalGoals = 0;
+            let sim = {}, draw = 0, over25 = 0;
 
             for(let i=0; i<1000000; i++) {
                 let lA = Math.max(0.1, xgA + bias);
                 let lB = Math.max(0.1, xgB - (bias * 0.4));
                 let gA = poisson(lA); let gB = poisson(lB);
-                
                 let key = `${gA}-${gB}`;
                 sim[key] = (sim[key] || 0) + 1;
-                
                 if(gA === gB) draw++;
                 if((gA+gB) > 2.5) over25++;
-                totalGoals += (gA + gB);
             }
 
             let res = Object.keys(sim).reduce((a, b) => sim[a] > sim[b] ? a : b);
-            let drawP = (draw / 10000).toFixed(1);
-            let overP = (over25 / 10000).toFixed(1);
-            let avgG = totalGoals / 1000000;
-
             document.getElementById('scoreOut').innerText = res;
-            
-            // عرض التوصيات والنسب
-            document.getElementById('possOut').innerHTML = `
-                ${avgG > 2.5 ? "⚡ مباراة هجومية مفتوحة" : "🛡️ معركة تكتيكية مغلقة"}<br>
-                التعادل: ${drawP}% | Over 2.5: ${overP}%
-            `;
+            document.getElementById('possOut').innerHTML = `احتمالية التعادل: ${(draw/10000).toFixed(1)}% | Over 2.5: ${(over25/10000).toFixed(1)}%`;
 
-            // كاشف القيمة في السوق
-            const vB = document.getElementById('valueAdvice');
-            if(cX > 0) {
-                vB.style.display = "inline-block";
-                let mD = (1 / cX) * 100;
-                if(parseFloat(drawP) > mD + 5) {
-                    vB.innerText = "💎 قيمة مكتشفة في التعادل";
-                    vB.style.color = "var(--green)"; vB.style.borderColor = "var(--green)";
-                } else {
-                    vB.innerText = "📊 السوق مستقر";
-                    vB.style.color = "var(--blue)"; vB.style.borderColor = "var(--blue)";
-                }
+            // --- تدقيق رادار شفرة السوق (Historical Logic) ---
+            const mCode = document.getElementById('marketCode');
+            if (c1 > 0 && cX > 0 && c2 > 0) {
+                mCode.style.display = "block";
+                if(cX < 3.15) mCode.innerHTML = "🔍 <b>شفرة السوق:</b> نمط القفل التكتيكي (غالباً 0-0 أو 1-1)";
+                else if(c1 < 1.45 && c2 > 4.5) mCode.innerHTML = "🔍 <b>شفرة السوق:</b> نمط السيطرة المطلقة للمضيف";
+                else if(cX > 3.80) mCode.innerHTML = "🔍 <b>شفرة السوق:</b> نمط التبادل المفتوح (أهداف متوقعة)";
+                else mCode.innerHTML = "🔍 <b>شفرة السوق:</b> نمط متوازن (اتبع تحليل xG السيادي)";
             }
-            saveToArchive(tA, tB, res);
+
+            saveToArchive(document.getElementById('tA').value, document.getElementById('tB').value, res);
         }, 700);
     }
 
     function saveToArchive(a, b, s) {
-        const item = { names: `${a} × ${b}`, score: s, date: new Date().toLocaleTimeString() };
+        const item = { names: `${a||'؟'} × ${b||'؟'}`, score: s, date: new Date().toLocaleTimeString() };
         archiveDB.unshift(item);
         if(archiveDB.length > 5) archiveDB.pop();
-        localStorage.setItem('v13_8_audit_db', JSON.stringify(archiveDB));
+        localStorage.setItem('v13_9_final_db', JSON.stringify(archiveDB));
         renderArchive();
     }
 
@@ -218,12 +203,11 @@
         document.getElementById('archiveContent').innerHTML = archiveDB.map(i => `
             <div class="archive-item">
                 <div class="match-score">${i.score}</div>
-                <div class="match-details">
+                <div style="text-align:right;">
                     <div class="match-names">${i.names}</div>
-                    <div class="match-meta">${i.date} - v13.8 PRO</div>
+                    <div style="font-size:0.65rem; color:#555;">${i.date} - v13.9 Audit</div>
                 </div>
-            </div>
-        `).join('');
+            </div>`).join('');
     }
 
     document.addEventListener('DOMContentLoaded', renderArchive);
