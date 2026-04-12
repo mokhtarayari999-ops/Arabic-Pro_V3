@@ -3,122 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARABIC-PRO AI | SOVEREIGN PARSER v13.5 ULTIMATE</title>
+    <title>SOVEREIGN PRO v13.6 | MARKET & PRECISION EDITION</title>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --green: #00ff00; }
+        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --green: #00ff00; --blue: #00d4ff; --red: #ff4444; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; text-align: center; }
         
         .main-card {
             background: var(--card); border: 1px solid var(--gold); border-radius: 30px;
-            padding: 25px; max-width: 480px; margin: 0 auto 30px auto;
+            padding: 20px; max-width: 480px; margin: 0 auto;
             box-shadow: 0 15px 50px rgba(0,0,0,1);
         }
 
-        .parser-box { margin-bottom: 20px; }
+        /* خانة اللصق الذكي */
         .parser-input { 
-            width: 100%; height: 80px; background: #000; border: 1px dashed var(--gold); 
-            border-radius: 15px; color: var(--gold); padding: 12px; font-size: 0.75rem; 
-            outline: none; resize: none; box-sizing: border-box; transition: 0.3s;
+            width: 100%; height: 60px; background: #000; border: 1px dashed var(--gold); 
+            border-radius: 12px; color: var(--gold); padding: 10px; font-size: 0.7rem; 
+            outline: none; resize: none; box-sizing: border-box; margin-bottom: 15px;
         }
 
-        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        /* شبكة احتمالات السوق */
+        .odds-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px; background: #050505; padding: 10px; border-radius: 15px; border: 1px solid #222; }
+        .odds-item label { font-size: 0.6rem; color: #666; display: block; margin-bottom: 3px; }
+        .odds-item input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: var(--blue); text-align: center; font-weight: bold; outline: none; }
+
+        /* شبكة المدخلات الأساسية */
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
         .input-group { text-align: right; }
-        label { font-size: 0.7rem; color: var(--gold); margin-right: 5px; display: block; margin-bottom: 5px; }
-        input { 
-            width: 100%; background: #111; border: 1px solid #333; color: #fff; 
-            padding: 12px; border-radius: 12px; font-size: 0.9rem; outline: none; box-sizing: border-box;
+        label { font-size: 0.65rem; color: var(--gold); margin-bottom: 4px; display: block; padding-right: 5px; }
+        input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 10px; border-radius: 10px; font-size: 0.85rem; outline: none; box-sizing: border-box; }
+
+        .factors { display: flex; gap: 5px; margin-bottom: 15px; }
+        .f-btn { flex: 1; padding: 8px; font-size: 0.65rem; background: #111; border: 1px solid #333; color: #666; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .f-btn.active { border-color: var(--gold); color: #fff; background: rgba(212,175,55,0.1); }
+
+        .btn-analyze { 
+            background: linear-gradient(135deg, var(--gold), #996515); color: #000; 
+            border: none; width: 100%; padding: 16px; border-radius: 15px; 
+            font-weight: 900; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 15px rgba(212,175,55,0.3);
         }
 
-        .precision-factors { display: flex; justify-content: space-around; margin: 20px 0; gap: 8px; }
-        .p-btn { 
-            background: #111; border: 1px solid #333; color: #666; padding: 10px; 
-            border-radius: 15px; cursor: pointer; font-size: 0.7rem; flex: 1; transition: 0.3s;
-        }
-        .p-btn.active { border-color: var(--gold); color: #fff; background: rgba(212, 175, 55, 0.1); box-shadow: 0 0 15px var(--gold); }
-
-        .btn-analyze {
-            background: linear-gradient(135deg, var(--gold), #996515); color: #000;
-            border: none; width: 100%; padding: 18px; border-radius: 15px;
-            font-weight: 900; font-size: 1.1rem; cursor: pointer; transition: 0.3s;
+        /* شاشة النتائج */
+        .result-screen { margin-top: 20px; border-top: 1px solid #222; padding-top: 15px; }
+        #scoreOut { font-size: 5rem; font-weight: 900; text-shadow: 0 0 20px var(--gold); margin: 0; line-height: 1; }
+        .info-row { font-size: 0.8rem; margin-top: 10px; font-family: monospace; }
+        .value-badge { 
+            margin-top: 12px; display: inline-block; padding: 6px 12px; 
+            border-radius: 8px; font-size: 0.75rem; font-weight: bold; border: 1px solid transparent; 
         }
 
-        .result-screen { margin-top: 30px; border-top: 1px solid #222; padding-top: 20px; }
-        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 0; line-height: 1; }
-        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 15px; font-family: monospace; line-height: 1.6; }
-        .target-prediction { color: var(--green); font-weight: bold; font-size: 1rem; margin-top: 10px; border: 1px solid var(--green); padding: 5px; border-radius: 8px; display: inline-block; }
-
-        .archive-section { max-width: 480px; margin: 0 auto; text-align: right; }
-        .archive-item {
-            background: var(--card); border: 1px solid #222; padding: 18px; border-radius: 20px;
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
-            border-right: 5px solid var(--gold);
-        }
-        .match-score { font-size: 1.8rem; color: var(--gold); font-weight: 900; min-width: 70px; text-align: center; }
+        .archive { margin-top: 20px; text-align: right; font-size: 0.7rem; color: #555; }
     </style>
 </head>
 <body>
 
     <div class="main-card">
-        <div style="font-size:0.6rem; color:var(--gold); margin-bottom:15px; letter-spacing:3px; font-weight:bold;">SOVEREIGN PRO PARSER v13.5 // ULTIMATE</div>
+        <div style="font-size:0.5rem; color:var(--gold); margin-bottom:10px; letter-spacing:2px; font-weight:bold;">SOVEREIGN PRO PARSER v13.6 // THE MASTER BUILD</div>
         
-        <div class="parser-box">
-            <textarea class="parser-input" id="rawData" placeholder="[ الصق بيانات المباراة هنا للاستخراج التلقائي ... ]" oninput="smartParse()"></textarea>
+        <textarea class="parser-input" id="rawData" placeholder="[ الصق بيانات المباراة هنا للاستخراج التلقائي ... ]" oninput="smartParse()"></textarea>
+
+        <div class="odds-grid">
+            <div class="odds-item"> <label>فوز المضيف (1)</label> <input type="number" id="c1" step="0.01" placeholder="2.75"> </div>
+            <div class="odds-item"> <label>التعادل (X)</label> <input type="number" id="cX" step="0.01" placeholder="3.60"> </div>
+            <div class="odds-item"> <label>فوز الضيف (2)</label> <input type="number" id="c2" step="0.01" placeholder="2.40"> </div>
         </div>
 
         <div class="input-grid">
-            <div class="input-group"> <label>المضيف (Home)</label> <input type="text" id="tA"> </div>
-            <div class="input-group"> <label>الضيف (Away)</label> <input type="text" id="tB"> </div>
+            <div class="input-group"> <label>المضيف (Home)</label> <input type="text" id="tA" placeholder="فريق 1"> </div>
+            <div class="input-group"> <label>الضيف (Away)</label> <input type="text" id="tB" placeholder="فريق 2"> </div>
             <div class="input-group"> <label>xG المضيف</label> <input type="number" id="xgA" step="0.01"> </div>
             <div class="input-group"> <label>xG الضيف</label> <input type="number" id="xgB" step="0.01"> </div>
-            <div class="input-group" style="grid-column: span 2;"> <label>أيام الراحة</label> <input type="number" id="rest" value="4"> </div>
         </div>
 
-        <div class="precision-factors">
-            <div class="p-btn" id="spirit" onclick="toggleFactor('spirit')">🔥 روح</div>
-            <div class="p-btn" id="missing" onclick="toggleFactor('missing')">🤕 غياب</div>
-            <div class="p-btn" id="home" onclick="toggleFactor('home')">🏟️ ملعب</div>
+        <div class="factors">
+            <button class="f-btn" id="homeFactor" onclick="toggleFactor('homeFactor')">🏟️ ملعب</button>
+            <button class="f-btn" id="spiritFactor" onclick="toggleFactor('spiritFactor')">🔥 روح</button>
+            <button class="f-btn" id="missingFactor" onclick="toggleFactor('missingFactor')">🤕 غيابات</button>
         </div>
 
-        <button class="btn-analyze" onclick="startMillionAnalysis()">بدء التحليل السيادي ♾️</button>
+        <button class="btn-analyze" onclick="startMillionAnalysis()">بدء التحليل والمقارنة ♾️</button>
 
         <div class="result-screen">
             <h1 id="scoreOut">0-0</h1>
-            <div id="possOut" class="poss-info">بانتظار البيانات الإحصائية...</div>
+            <div id="possOut" class="info-row"></div>
+            <div id="valueAdvice" class="value-badge"></div>
         </div>
-    </div>
-
-    <div class="archive-section">
-        <div style="color:var(--gold); font-weight:bold; margin-bottom:15px; padding-right:10px;">📜 سجل الأرشيف الذهبي الموثق</div>
-        <div id="archiveContent"></div>
+        
+        <div id="archiveItem" class="archive"></div>
     </div>
 
 <script>
-    let activeWeights = { spirit: 0, missing: 0, home: 0 };
-    let archiveDB = JSON.parse(localStorage.getItem('v13_final_db')) || [];
+    let activeFactors = { homeFactor: 0, spiritFactor: 0, missingFactor: 0 };
 
+    // 1. محرك الاستخراج الذكي (تدقيق: توزيع xG)
     function smartParse() {
-        const raw = document.getElementById('rawData').value;
-        const cleanRaw = raw.replace(/,/g, '.');
-        
-        const lines = cleanRaw.split('\n').map(l => l.trim()).filter(l => l.length > 2);
-        if (lines[0]) document.getElementById('tA').value = lines[0].split(/\s+/).slice(0,2).join(' ');
-        if (lines[1]) document.getElementById('tB').value = lines[1].split(/\s+/).slice(0,2).join(' ');
-
+        const raw = document.getElementById('rawData').value.replace(/,/g, '.');
         const xgPattern = /(\d\.\d{1,2})/g;
-        const xgMatches = cleanRaw.match(xgPattern);
-        if (xgMatches && xgMatches.length >= 2) {
-            document.getElementById('xgA').value = xgMatches[0];
-            document.getElementById('xgB').value = xgMatches[1];
+        const matches = raw.match(xgPattern);
+        
+        if (matches && matches.length >= 2) {
+            document.getElementById('xgA').value = matches[0];
+            document.getElementById('xgB').value = matches[1];
         }
-
-        const restMatch = cleanRaw.match(/(\d+)\s*(يوم|day|rest)/i);
-        if (restMatch) document.getElementById('rest').value = restMatch[1];
+        
+        const lines = raw.split('\n').filter(l => l.trim().length > 3 && !/\d/.test(l));
+        if (lines[0]) document.getElementById('tA').value = lines[0].trim();
+        if (lines[1]) document.getElementById('tB').value = lines[1].trim();
     }
 
-    function toggleFactor(type) {
-        const btn = document.getElementById(type);
-        activeWeights[type] = (activeWeights[type] === 0) ? (type === 'missing' ? -0.25 : 0.22) : 0;
-        btn.classList.toggle('active');
+    function toggleFactor(id) {
+        const btn = document.getElementById(id);
+        if (activeFactors[id] === 0) {
+            activeFactors[id] = (id === 'missingFactor') ? -0.20 : 0.22;
+            btn.classList.add('active');
+        } else {
+            activeFactors[id] = 0;
+            btn.classList.remove('active');
+        }
     }
 
     function poisson(lambda) {
@@ -127,19 +127,20 @@
         return k - 1;
     }
 
+    // 2. محرك المحاكاة المليوني + كاشف القيمة (تدقيق: دمج كامل)
     function startMillionAnalysis() {
         const xgA = parseFloat(document.getElementById('xgA').value) || 0;
         const xgB = parseFloat(document.getElementById('xgB').value) || 0;
-        const rest = parseInt(document.getElementById('rest').value) || 4;
+        const cX = parseFloat(document.getElementById('cX').value) || 0;
+        const tA = document.getElementById('tA').value || "المضيف";
+        const tB = document.getElementById('tB').value || "الضيف";
         
-        document.getElementById('scoreOut').innerText = "⏳";
+        const scoreOut = document.getElementById('scoreOut');
+        scoreOut.innerText = "⏳";
 
         setTimeout(() => {
-            let bias = Object.values(activeWeights).reduce((a, b) => a + b, 0);
-            if (rest < 3) bias -= 0.20;
-
-            let sim = {}, winA = 0, draw = 0, winB = 0;
-            let over1_5 = 0, over2_5 = 0, totalGoals = 0;
+            let bias = Object.values(activeFactors).reduce((a, b) => a + b, 0);
+            let sim = {}, winA = 0, draw = 0, winB = 0, over25 = 0;
 
             for(let i=0; i<1000000; i++) {
                 let lA = Math.max(0.1, xgA + bias);
@@ -149,52 +150,43 @@
                 let key = `${gA}-${gB}`;
                 sim[key] = (sim[key] || 0) + 1;
                 
-                let total = gA + gB;
-                totalGoals += total;
-                if(total > 1.5) over1_5++;
-                if(total > 2.5) over2_5++;
                 if(gA > gB) winA++; else if(gA === gB) draw++; else winB++;
+                if((gA + gB) > 2.5) over25++;
             }
 
             let res = Object.keys(sim).reduce((a, b) => sim[a] > sim[b] ? a : b);
-            let avgGoals = totalGoals / 1000000;
-            
-            // حساب نسبة الـ Over 2.5 الصريحة
-            let overProb = (over2_5 / 1000000 * 100).toFixed(1);
-            let goalRecommendation = overProb > 52 ? `Over 2.5 (${overProb}%)` : `Under 2.5 (${(100-overProb).toFixed(1)}%)`;
+            let drawProb = (draw / 10000).toFixed(1);
+            let overProb = (over25 / 10000).toFixed(1);
 
-            document.getElementById('scoreOut').innerText = res;
+            // عرض النتائج
+            scoreOut.innerText = res;
             document.getElementById('possOut').innerHTML = `
-                <div style="font-weight:bold; color:var(--gold);">محاكاة مليونية: ${avgGoals.toFixed(2)} هدف/مباراة</div>
-                <div class="target-prediction">🎯 التوصية: ${goalRecommendation}</div>
-                <div style="margin-top:10px; font-size:0.7rem; opacity:0.6;">قوة التوقع الرقمي: ${((sim[res]/1000000)*100 + 88).toFixed(2)}%</div>
+                التعادل: ${drawProb}% | Over 2.5: ${overProb}%<br>
+                <span style="color:var(--gold)">القوة الهجومية المتوقعة: ${(overProb > 50 ? 'عالية' : 'منخفضة')}</span>
             `;
-            
-            saveToArchive(document.getElementById('tA').value, document.getElementById('tB').value, res);
-        }, 700);
-    }
 
-    function saveToArchive(a, b, score) {
-        const item = { names: `${a || 'فريق'} × ${b || 'فريق'}`, score: score, date: new Date().toLocaleTimeString() };
-        archiveDB.unshift(item);
-        if(archiveDB.length > 5) archiveDB.pop();
-        localStorage.setItem('v13_final_db', JSON.stringify(archiveDB));
-        renderArchive();
-    }
+            // 3. منطق اكتشاف القيمة في السوق (Value Detector)
+            const vBox = document.getElementById('valueAdvice');
+            vBox.style.display = "none";
 
-    function renderArchive() {
-        document.getElementById('archiveContent').innerHTML = archiveDB.map(i => `
-            <div class="archive-item">
-                <div class="match-score">${i.score}</div>
-                <div class="match-details">
-                    <div class="match-names">${i.names}</div>
-                    <div class="match-meta">${i.date} - PRO v13.5</div>
-                </div>
-            </div>
-        `).join('');
-    }
+            if (cX > 1) {
+                let marketDrawProb = (1 / cX) * 100;
+                vBox.style.display = "inline-block";
+                
+                if (parseFloat(drawProb) > (marketDrawProb + 5)) {
+                    vBox.innerText = "💎 قيمة مكتشفة: السوق يقلل من احتمالية التعادل";
+                    vBox.style.borderColor = "var(--green)";
+                    vBox.style.color = "var(--green)";
+                } else {
+                    vBox.innerText = "📊 احتمالات السوق ضمن النطاق الطبيعي";
+                    vBox.style.borderColor = "var(--blue)";
+                    vBox.style.color = "var(--blue)";
+                }
+            }
 
-    document.addEventListener('DOMContentLoaded', renderArchive);
+            document.getElementById('archiveItem').innerText = `آخر توثيق: ${tA} vs ${tB} [${res}] - ${new Date().toLocaleTimeString()}`;
+        }, 600);
+    }
 </script>
 </body>
 </html>
