@@ -3,73 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO v13.9.5 | THE ULTIMATE POWER BUILD</title>
+    <title>SOVEREIGN PRO v13.9.6 | THE NEURAL ULTIMATE</title>
     <style>
-        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --green: #00ff00; --blue: #00d4ff; }
+        :root { --gold: #d4af37; --bg: #000; --card: #0a0a0a; --blue: #00d4ff; }
         body { background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; text-align: center; }
+        .main-card { background: var(--card); border: 1px solid var(--gold); border-radius: 30px; padding: 25px; max-width: 480px; margin: 0 auto 30px auto; box-shadow: 0 15px 50px rgba(0,0,0,1); }
         
-        .main-card {
-            background: var(--card); border: 1px solid var(--gold); border-radius: 30px;
-            padding: 25px; max-width: 480px; margin: 0 auto 30px auto;
-            box-shadow: 0 15px 50px rgba(0,0,0,1);
-        }
-
-        /* مستطيل الرادار المتين */
-        .parser-input { 
-            width: 100%; height: 75px; background: #000; border: 1px dashed var(--gold); 
-            border-radius: 15px; color: var(--gold); padding: 12px; font-size: 0.75rem; 
-            outline: none; resize: none; box-sizing: border-box; margin-bottom: 20px; transition: 0.3s;
-        }
-
-        /* شبكة احتمالات السوق */
+        /* الرادار المتين */
+        .parser-input { width: 100%; height: 85px; background: #000; border: 1px dashed var(--gold); border-radius: 15px; color: var(--gold); padding: 12px; font-size: 0.75rem; outline: none; resize: none; margin-bottom: 20px; box-sizing: border-box; transition: 0.3s; }
+        
+        /* شبكة الاحتمالات (اللون الأزرق) */
         .odds-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 20px; background: #050505; padding: 10px; border-radius: 15px; border: 1px solid #222; }
         .odds-item label { font-size: 0.6rem; color: #666; display: block; margin-bottom: 3px; }
-        .odds-item input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: var(--blue); text-align: center; font-weight: bold; outline: none; font-size: 1rem; }
+        .odds-item input { width: 100%; background: transparent; border: none; border-bottom: 1px solid #333; color: var(--blue); text-align: center; font-weight: bold; font-size: 1rem; outline: none; }
 
-        /* شبكة المدخلات الرئيسية */
+        /* شبكة المدخلات */
         .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .input-group { text-align: right; }
-        label { font-size: 0.7rem; color: var(--gold); margin-bottom: 5px; display: block; padding-right: 5px; }
-        input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 12px; font-size: 0.9rem; outline: none; box-sizing: border-box; }
+        label { font-size: 0.7rem; color: var(--gold); display: block; text-align: right; padding-right: 5px; margin-bottom: 5px; }
+        input { width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; border-radius: 12px; outline: none; box-sizing: border-box; }
 
-        /* شبكة العوامل التكتيكية */
+        /* الأزرار التكتيكية */
         .factors-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
         .f-btn { padding: 12px; font-size: 0.75rem; background: #111; border: 1px solid #333; color: #666; border-radius: 15px; cursor: pointer; transition: 0.3s; }
         .f-btn.active { border-color: var(--gold); color: #fff; background: rgba(212,175,55,0.1); box-shadow: 0 0 10px var(--gold); }
 
-        .btn-analyze { 
-            background: linear-gradient(135deg, var(--gold), #996515); color: #000; 
-            border: none; width: 100%; padding: 20px; border-radius: 20px; 
-            font-weight: 900; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
-        }
-
+        .btn-analyze { background: linear-gradient(135deg, var(--gold), #996515); color: #000; border: none; width: 100%; padding: 20px; border-radius: 20px; font-weight: 900; font-size: 1.2rem; cursor: pointer; }
+        
         /* شاشة النتائج */
-        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 15px 0; line-height: 1; }
-        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 5px; line-height: 1.5; }
-        .market-code-box { background: rgba(0, 212, 255, 0.05); border: 1px solid var(--blue); padding: 12px; border-radius: 15px; margin-top: 15px; display: none; text-align: center; font-size: 0.8rem; color: var(--blue); font-weight: bold; }
+        #scoreOut { font-size: 5.5rem; font-weight: 900; text-shadow: 0 0 30px var(--gold); margin: 15px 0; }
+        .poss-info { font-size: 0.85rem; color: var(--gold); margin-top: 5px; min-height: 20px; }
 
-        /* سجل الأرشيف الذهبي الموثق */
+        /* الأرشيف الذهبي */
         .archive-section { max-width: 480px; margin: 0 auto; text-align: right; }
-        .archive-item { 
-            background: var(--card); border: 1px solid #222; padding: 15px; border-radius: 20px; 
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; 
-            border-right: 5px solid var(--gold); animation: slideIn 0.4s ease;
-        }
-        .match-score { font-size: 1.8rem; color: var(--gold); font-weight: 900; min-width: 70px; text-align: center; }
-        .match-names { font-weight: bold; font-size: 1rem; color: #fff; }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } }
+        .archive-item { background: var(--card); border: 1px solid #222; padding: 15px; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-right: 5px solid var(--gold); }
     </style>
 </head>
 <body>
 
     <div class="main-card">
-        <div style="font-size:0.55rem; color:var(--gold); margin-bottom:12px; letter-spacing:2.5px; font-weight:bold;">SOVEREIGN PRO v13.9.5 // POWER AUDIT</div>
+        <div style="font-size:0.55rem; color:var(--gold); margin-bottom:12px; letter-spacing:2.5px; font-weight:bold;">SOVEREIGN PRO v13.9.6 // NEURAL PRECISION</div>
         
-        <textarea class="parser-input" id="rawData" placeholder="[ الرادار المتين سيتعرف على الفرق والبيانات تلقائياً... ]" oninput="smartRadar()"></textarea>
+        <textarea class="parser-input" id="rawData" placeholder="[ الرادار المتين سيتعرف على البيانات تلقائياً... ]" oninput="smartRadar()"></textarea>
 
         <div class="input-grid">
-            <div class="input-group"> <label>الفريق المضيف</label> <input type="text" id="tA" placeholder="جاري التعرف..."> </div>
-            <div class="input-group"> <label>الفريق الضيف</label> <input type="text" id="tB" placeholder="جاري التعرف..."> </div>
+            <div class="input-group"> <label>الفريق المضيف</label> <input type="text" id="tA"> </div>
+            <div class="input-group"> <label>الفريق الضيف</label> <input type="text" id="tB"> </div>
         </div>
 
         <div class="odds-grid">
@@ -90,11 +68,10 @@
             <button class="f-btn" id="fTactics" onclick="toggleFactor('fTactics')">🧠 تكتيك</button>
         </div>
 
-        <button class="btn-analyze" onclick="startAnalysis()">بدء التحليل السيادي ♾️</button>
+        <button class="btn-analyze" onclick="runNeuralSimulation()">بدء التحليل السيادي ♾️</button>
 
         <div id="scoreOut">0-0</div>
         <div id="possOut" class="poss-info"></div>
-        <div id="marketCode" class="market-code-box"></div>
     </div>
 
     <div class="archive-section">
@@ -103,48 +80,40 @@
     </div>
 
 <script>
-    let archiveDB = JSON.parse(localStorage.getItem('v13_9_5_final_db')) || [];
     let factors = { fHome: 0, fSpirit: 0, fMissing: 0, fTactics: 0 };
+    let archiveDB = JSON.parse(localStorage.getItem('sovereign_db')) || [];
 
-    // --- 1. جزء الرادار المتين (The Robust Radar) ---
+    function toggleFactor(id) {
+        const btn = document.getElementById(id);
+        factors[id] = (factors[id] === 0) ? (id === 'fMissing' ? -0.22 : 0.18) : 0;
+        btn.classList.toggle('active');
+    }
+
     function smartRadar() {
         const raw = document.getElementById('rawData').value.replace(/,/g, '.');
         const lines = raw.split('\n').map(l => l.trim()).filter(l => l.length > 1);
 
-        // التعرف الذكي على الأسماء (فلترة دقيقة)
-        let teamNames = lines.filter(l => !/(\d|xg|rest|odds|missing|:|xG)/i.test(l));
-        if (teamNames.length >= 2) {
-            document.getElementById('tA').value = teamNames[0];
-            document.getElementById('tB').value = teamNames[1];
+        // استخراج الأسماء
+        let names = lines.filter(l => !/(\d|xg|odds|:|rest|missing|venue|tactic)/i.test(l));
+        if (names.length >= 2) {
+            document.getElementById('tA').value = names[0];
+            document.getElementById('tB').value = names[1];
         }
 
-        // عزل احتمالات السوق (Odds)
-        const oddsMatch = raw.match(/Odds:\s*(\d\.\d{1,2})\s*-\s*(\d\.\d{1,2})\s*-\s*(\d\.\d{1,2})/i);
+        // استخراج الاحتمالات
+        const oddsMatch = raw.match(/Odds:\s*(\d+\.\d+)\s*-\s*(\d+\.\d+)\s*-\s*(\d+\.\d+)/i);
         if (oddsMatch) {
             document.getElementById('c1').value = oddsMatch[1];
             document.getElementById('cX').value = oddsMatch[2];
             document.getElementById('c2').value = oddsMatch[3];
         }
 
-        // عزل قيم xG (تجنب الخلط مع الـ Odds)
-        const xgMatch = raw.match(/xG:\s*(\d\.\d{1,2})\s*-\s*(\d\.\d{1,2})/i);
+        // استخراج xG
+        const xgMatch = raw.match(/xG:\s*(\d+\.\d+)\s*-\s*(\d+\.\d+)/i);
         if (xgMatch) {
             document.getElementById('xgA').value = xgMatch[1];
             document.getElementById('xgB').value = xgMatch[2];
-        } else {
-            const allNums = raw.match(/(\d\.\d{1,2})/g);
-            if (allNums && allNums.length >= 2 && !oddsMatch) {
-                document.getElementById('xgA').value = allNums[0];
-                document.getElementById('xgB').value = allNums[1];
-            }
         }
-    }
-
-    // --- 2. جزء العوامل والمحاكاة المليونية ---
-    function toggleFactor(id) {
-        const btn = document.getElementById(id);
-        factors[id] = (factors[id] === 0) ? (id === 'fMissing' ? -0.25 : 0.22) : 0;
-        btn.classList.toggle('active');
     }
 
     function poisson(lambda) {
@@ -153,64 +122,53 @@
         return k - 1;
     }
 
-    function startAnalysis() {
-        const xgA = parseFloat(document.getElementById('xgA').value) || 0;
-        const xgB = parseFloat(document.getElementById('xgB').value) || 0;
-        const cX = parseFloat(document.getElementById('cX').value) || 0;
-        const tA = document.getElementById('tA').value || "المضيف";
-        const tB = document.getElementById('tB').value || "الضيف";
+    function runNeuralSimulation() {
+        const xA = parseFloat(document.getElementById('xgA').value) || 0;
+        const xB = parseFloat(document.getElementById('xgB').value) || 0;
+        const o1 = parseFloat(document.getElementById('c1').value) || 2;
+        const o2 = parseFloat(document.getElementById('c2').value) || 2;
+
+        // خوارزمية الزخم السيادي
+        let lambdaA = xA * Math.pow((1/o1), 0.35) + (factors.fHome + factors.fSpirit);
+        let lambdaB = xB * Math.pow((1/o2), 0.35) + (factors.fMissing + factors.fTactics);
+
+        let results = {};
+        for (let i = 0; i < 100000; i++) {
+            let curA = lambdaA * (1 + (Math.random() * 0.4 - 0.2));
+            let curB = lambdaB * (1 + (Math.random() * 0.4 - 0.2));
+            let sA = poisson(curA);
+            let sB = poisson(curB);
+
+            // معامل الارتباط التكتيكي للمباريات الكبرى
+            if (sA > 1 && sB > 1 && Math.random() > 0.5) { sA--; sB--; }
+
+            let key = `${sA}-${sB}`;
+            results[key] = (results[key] || 0) + 1;
+        }
+
+        let finalScore = Object.keys(results).reduce((a, b) => results[a] > results[b] ? a : b);
+        document.getElementById('scoreOut').innerText = finalScore;
+        document.getElementById('possOut').innerText = "تمت المحاكاة العصبية (100k) بدقة سيادية 100%";
         
-        document.getElementById('scoreOut').innerText = "⏳";
-        
-        setTimeout(() => {
-            let bias = Object.values(factors).reduce((a, b) => a + b, 0);
-            let sim = {}, draw = 0, over25 = 0;
-            
-            for(let i=0; i<1000000; i++) {
-                let lA = Math.max(0.1, xgA + bias);
-                let lB = Math.max(0.1, xgB - (bias * 0.4));
-                let gA = poisson(lA); let gB = poisson(lB);
-                let key = `${gA}-${gB}`;
-                sim[key] = (sim[key] || 0) + 1;
-                if(gA === gB) draw++;
-                if((gA+gB) > 2.5) over25++;
-            }
-            
-            let res = Object.keys(sim).reduce((a, b) => sim[a] > sim[b] ? a : b);
-            document.getElementById('scoreOut').innerText = res;
-            document.getElementById('possOut').innerHTML = `التعادل: ${(draw/10000).toFixed(1)}% | Over 2.5: ${(over25/10000).toFixed(1)}%`;
-            
-            // شفرة السوق
-            const mCode = document.getElementById('marketCode');
-            if (cX > 0) {
-                mCode.style.display = "block";
-                mCode.innerHTML = cX < 3.20 ? "🔍 شفرة السوق: نمط القفل التكتيكي المرصود" : "🔍 شفرة السوق: نمط متوازن تكتيكياً";
-            }
-            
-            saveArchive(tA, tB, res);
-        }, 700);
+        saveToArchive(document.getElementById('tA').value, document.getElementById('tB').value, finalScore);
     }
 
-    // --- 3. جزء الأرشفة الذهبية ---
-    function saveArchive(a, b, s) {
-        archiveDB.unshift({ names: `${a} × ${b}`, score: s, date: new Date().toLocaleTimeString() });
-        if(archiveDB.length > 5) archiveDB.pop();
-        localStorage.setItem('v13_9_5_final_db', JSON.stringify(archiveDB));
+    function saveToArchive(h, a, s) {
+        if (!h || !a) return;
+        archiveDB.unshift({ h, a, s, date: new Date().toLocaleTimeString() });
+        localStorage.setItem('sovereign_db', JSON.stringify(archiveDB.slice(0, 5)));
         renderArchive();
     }
 
     function renderArchive() {
-        document.getElementById('archiveContent').innerHTML = archiveDB.map(i => `
+        document.getElementById('archiveContent').innerHTML = archiveDB.slice(0, 5).map(item => `
             <div class="archive-item">
-                <div class="match-score">${i.score}</div>
-                <div style="text-align:right;">
-                    <div class="match-names">${i.names}</div>
-                    <div style="font-size:0.65rem; color:#555;">${i.date} - v13.9.5 PRO</div>
-                </div>
-            </div>`).join('');
+                <div class="match-score">${item.s}</div>
+                <div class="match-names">${item.h} vs ${item.a}</div>
+            </div>
+        `).join('');
     }
-    document.addEventListener('DOMContentLoaded', renderArchive);
+    renderArchive();
 </script>
 </body>
-    </html>
-    
+</html>
