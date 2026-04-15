@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | النسخة الإمبراطورية الشاملة</title>
+    <title>SOVEREIGN PRO | نسخة كاشف الفجوات</title>
     <style>
-        /* الجزء 1: الهوية البصرية الفاخرة (CSS) */
-        :root { --gold: #ffcc00; --dark: #000; --card: #0a0a0a; }
+        /* الهوية البصرية المطورة */
+        :root { --gold: #ffcc00; --dark: #000; --card: #0a0a0a; --gap-color: #00ffcc; }
         
         body { background-color: var(--dark); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; min-height: 100vh; }
         
         .main-card { border: 2px solid var(--gold); border-radius: 35px; padding: 25px; width: 100%; max-width: 400px; background: var(--card); text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,1), 0 0 20px rgba(255, 204, 0, 0.1); position: relative; }
 
-        /* مؤشر الطبقات */
         .layer-status { color: #4caf50; font-size: 9px; font-weight: bold; letter-spacing: 1.5px; margin-bottom: 10px; display: block; text-transform: uppercase; }
         .dot { display: inline-block; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; margin-left: 5px; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
@@ -20,36 +19,38 @@
         h1 { color: var(--gold); font-size: 35px; margin: 5px 0; font-weight: 900; text-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
         .version { color: #666; font-size: 11px; margin-bottom: 20px; }
 
-        /* المدخلات الرقمية */
         .inputs-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
         .field { background: #151515; border: 1px solid #333; border-radius: 18px; color: #fff; width: 32%; padding: 18px 0; text-align: center; font-size: 22px; font-weight: bold; outline: none; border-bottom: 3px solid var(--gold); transition: 0.3s; }
         .field:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); }
 
-        /* زر التحليل */
         .btn-run { background: linear-gradient(180deg, var(--gold), #b8860b); color: #000; border: none; border-radius: 20px; padding: 20px; width: 100%; font-size: 22px; font-weight: bold; cursor: pointer; transition: 0.4s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .btn-run:active { transform: scale(0.96); }
 
-        /* لوحة النتائج */
         .res-area { margin-top: 30px; display: none; text-align: right; animation: fadeInUp 0.6s ease-out; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .main-res-box { background: rgba(255, 204, 0, 0.05); border: 1px solid var(--gold); border-radius: 25px; padding: 20px; text-align: center; margin-bottom: 20px; position: relative; }
+        .main-res-box { background: rgba(255, 204, 0, 0.05); border: 1px solid var(--gold); border-radius: 25px; padding: 20px; text-align: center; margin-bottom: 20px; position: relative; transition: 0.5s; }
+        
+        /* تأثير كاشف الفجوة الوميضي */
+        .gap-alert { border: 2px solid var(--gap-color) !important; background: rgba(0, 255, 204, 0.1) !important; box-shadow: 0 0 20px var(--gap-color); }
+        .gap-text { color: var(--gap-color) !important; font-weight: 900; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
         .score-big { font-size: 65px; color: var(--gold); font-weight: bold; margin: 10px 0; letter-spacing: 5px; }
         
-        /* الأنماط البديلة */
         .others-box { background: #111; border-radius: 20px; padding: 15px; border: 1px solid #222; }
         .other-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #222; }
         .other-item:last-child { border-bottom: none; }
         .score-small { color: #fff; font-weight: bold; font-size: 18px; }
         .pct-small { color: #4caf50; font-size: 14px; font-weight: bold; }
 
-        /* الحالات */
         .status-tag { font-size: 10px; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
         .status-سيادي { background: var(--gold); color: #000; }
         .status-قوي { background: #fff; color: #000; }
         .status-محتمل { background: #444; color: #fff; }
         .status-ضعيف { background: #222; color: #888; }
         .status-نادر { background: #111; color: #444; }
+        .status-gap { background: var(--gap-color); color: #000; }
     </style>
 </head>
 <body>
@@ -57,20 +58,20 @@
 <div class="main-card">
     <span class="layer-status" id="layer-info"><span class="dot"></span> STANDBY: SYSTEM READY</span>
     <h1>SOVEREIGN PRO</h1>
-    <div class="version">نظام الطبقات الثلاث الشامل (10 سنوات)</div>
+    <div class="version">نظام كاشف الفجوات الذكي (The Gap Finder)</div>
 
     <div class="inputs-row">
-        <input type="number" id="v-a" step="0.01" value="6.50" class="field" placeholder="A">
-        <input type="number" id="v-x" step="0.01" value="3.40" class="field" placeholder="X">
-        <input type="number" id="v-h" step="0.01" value="1.40" class="field" placeholder="H">
+        <input type="number" id="v-a" step="0.01" value="6.20" class="field" placeholder="A">
+        <input type="number" id="v-x" step="0.01" value="3.15" class="field" placeholder="X">
+        <input type="number" id="v-h" step="0.01" value="1.95" class="field" placeholder="H">
     </div>
 
-    <button class="btn-run" id="btn-analyze" onclick="runImperialEngine()">تحليل السيادة الشامل</button>
+    <button class="btn-run" id="btn-analyze" onclick="runImperialEngine()">تحديث التحليل الشامل</button>
 
     <div id="res-area" class="res-area">
-        <div class="main-res-box">
+        <div class="main-res-box" id="main-box">
             <span class="status-tag status-سيادي" id="main-status">سيادي</span>
-            <div style="font-size: 11px; color: #888; margin-top: 8px;">النمط التاريخي الأول</div>
+            <div id="gap-notice" style="font-size: 11px; color: #888; margin-top: 8px;">النمط التاريخي الأول</div>
             <div class="score-big" id="top-score">--</div>
             <div id="top-pct" style="color:#4caf50; font-weight:bold; font-size:18px;">0%</div>
         </div>
@@ -83,72 +84,76 @@
 </div>
 
 <script>
-    /**
-     * قاعدة البيانات الإمبراطورية المدمجة
-     * تشمل: Top 5 Leagues | Champions League | International Matches
-     */
     const masterArchive = [
         {
             h: 1.40, 
-            layers: ["Top 5 Leagues", "UCL Archive", "Intl Matches"],
+            layers: ["Top 5 Leagues", "UCL Archive"],
             results: [
                 {s: "2 - 0", p: 48.7, status: "سيادي"},
                 {s: "1 - 0", p: 30.3, status: "قوي"},
                 {s: "3 - 0", p: 10.4, status: "محتمل"},
-                {s: "2 - 1", p: 7.2, status: "ضعيف"},
-                {s: "1 - 1", p: 3.4, status: "نادر"}
+                {s: "2 - 1", p: 7.2, status: "ضعيف"}
             ]
         },
         {
-            h: 1.56, 
-            layers: ["Top 5 Leagues", "UCL Archive", "Intl Matches"],
+            h: 1.95, 
+            layers: ["Top 5 Leagues", "Intl Matches"],
             results: [
-                {s: "1 - 0", p: 42.1, status: "سيادي"},
-                {s: "2 - 0", p: 28.7, status: "قوي"},
-                {s: "2 - 1", p: 15.2, status: "محتمل"},
-                {s: "1 - 1", p: 9.4, status: "ضعيف"},
-                {s: "3 - 0", p: 4.6, status: "نادر"}
+                {s: "0 - 1", p: 42.1, status: "سيادي"},
+                {s: "0 - 2", p: 28.7, status: "قوي"},
+                {s: "1 - 2", p: 15.2, status: "محتمل"},
+                {s: "1 - 1", p: 9.4, status: "ضعيف"}
             ]
         },
         {
             h: 2.20, 
-            layers: ["Top 5 Leagues", "UCL Archive", "Intl Matches"],
+            layers: ["UCL Archive", "Intl Matches"],
             results: [
                 {s: "1 - 1", p: 36.5, status: "سيادي"},
                 {s: "0 - 1", p: 18.2, status: "قوي"},
                 {s: "1 - 0", p: 12.4, status: "محتمل"},
-                {s: "2 - 1", p: 11.1, status: "محتمل"},
-                {s: "0 - 0", p: 8.3, status: "ضعيف"}
+                {s: "2 - 1", p: 11.1, status: "محتمل"}
             ]
         }
-        // يمكن إضافة المزيد من الأنماط هنا بنفس الهيكل
     ];
 
     function runImperialEngine() {
-        const btn = document.getElementById('btn-analyze');
-        const layerInfo = document.getElementById('layer-info');
         const hIn = parseFloat(document.getElementById('v-h').value);
-        
-        btn.innerText = "جاري دمج طبقات البيانات...";
-        layerInfo.innerHTML = '<span class="dot"></span> SCANNING: TOP 5 | UCL | INTL...';
+        const aIn = parseFloat(document.getElementById('v-a').value); // الـ Cote للمفاجأة
+        const mainBox = document.getElementById('main-box');
+        const gapNotice = document.getElementById('gap-notice');
+        const mainStatus = document.getElementById('main-status');
 
-        // خوارزمية البحث عن أقرب تطابق تاريخي
+        // البحث عن أقرب نمط تاريخي
         let match = masterArchive.reduce((prev, curr) => 
             Math.abs(curr.h - hIn) < Math.abs(prev.h - hIn) ? curr : prev
         );
 
+        // --- محرك الفجوة (The Gap Finder) ---
+        // نحسب احتمال السوق بناءً على الـ Cote المدخل (A)
+        const marketProb = (1 / aIn) * 100;
+        const ourProb = match.results[0].p;
+        const gap = ourProb - marketProb;
+
         setTimeout(() => {
             document.getElementById('res-area').style.display = 'block';
-            
-            // 1. عرض النتيجة الرئيسية
             document.getElementById('top-score').innerText = match.results[0].s;
             document.getElementById('top-pct').innerText = `تكرار: ${match.results[0].p}%`;
-            document.getElementById('main-status').innerText = match.results[0].status;
             
-            // 2. تحديث مؤشر الطبقات
-            layerInfo.innerHTML = `● DATA MERGED FROM: ${match.layers.join(" | ")}`;
+            // تطبيق منطق المفاجأة
+            if (gap > 15) {
+                mainBox.classList.add('gap-alert');
+                gapNotice.innerHTML = `<span class="gap-text">⚡ فرصة مفاجأة ذكية (GAP: +${gap.toFixed(1)}%)</span>`;
+                mainStatus.innerText = "فجوة رابحة";
+                mainStatus.className = "status-tag status-gap";
+            } else {
+                mainBox.classList.remove('gap-alert');
+                gapNotice.innerText = "النمط التاريخي الأول";
+                mainStatus.innerText = match.results[0].status;
+                mainStatus.className = "status-tag status-سيادي";
+            }
 
-            // 3. عرض الأنماط الأربعة البديلة
+            // عرض الأنماط البديلة
             let othersHTML = '';
             for (let i = 1; i < match.results.length; i++) {
                 othersHTML += `
@@ -159,10 +164,8 @@
                     </div>`;
             }
             document.getElementById('others-list').innerHTML = othersHTML;
-            
-            btn.innerText = "تحديث التحليل الشامل";
-            btn.disabled = false;
-        }, 1200);
+            document.getElementById('btn-analyze').innerText = "تحديث التحليل الشامل";
+        }, 800);
     }
 </script>
 </body>
