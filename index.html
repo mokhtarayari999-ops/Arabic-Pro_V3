@@ -3,222 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Full Imperial Edition</title>
+    <title>SOVEREIGN PRO | Cyber-Neon Edition</title>
     <style>
-        /* الجزء 1: الهوية البصرية (CSS) */
+        /* الجزء 1: الهوية البصرية المستقبلية (CSS) */
         :root { 
-            --gold: #ffcc00; 
-            --dark: #000; 
-            --card: #0a0a0a; 
-            --gap-color: #00ffcc; 
+            --neon-gold: #ffcc00; 
+            --neon-blue: #00f2ff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --deep-dark: #050505;
         }
 
         body { 
-            background-color: var(--dark); 
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
             color: #fff; 
             font-family: 'Segoe UI', Roboto, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            padding: 20px; 
-            margin: 0; 
-            min-height: 100vh; 
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
+
+        /* تأثير الخلفية المتحركة */
+        body::before {
+            content: ""; position: absolute; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 48%, rgba(255,204,0,0.01) 50%, transparent 52%);
+            animation: sweep 12s linear infinite;
+        }
+        @keyframes sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
         .main-card { 
-            border: 2px solid var(--gold); 
-            border-radius: 35px; 
-            padding: 25px; 
-            width: 100%; 
-            max-width: 400px; 
-            background: var(--card); 
-            text-align: center; 
-            box-shadow: 0 15px 50px rgba(0,0,0,1); 
-            position: relative; 
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-radius: 40px; 
+            padding: 30px; width: 100%; max-width: 420px; 
+            text-align: center; position: relative;
+            box-shadow: 0 0 60px rgba(0,0,0,1);
+            z-index: 1; overflow: hidden;
         }
 
-        .layer-status { color: #4caf50; font-size: 9px; font-weight: bold; letter-spacing: 1.5px; margin-bottom: 10px; display: block; text-transform: uppercase; }
-        .dot { display: inline-block; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; margin-right: 5px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        /* خط المسح الضوئي */
+        .scanline { 
+            width: 100%; height: 10px; 
+            background: linear-gradient(to bottom, transparent, rgba(255, 204, 0, 0.1), transparent); 
+            position: absolute; top: 0; left: 0; 
+            animation: scan 4s linear infinite; 
+        }
+        @keyframes scan { from { top: -10%; } to { top: 110%; } }
 
-        h1 { color: var(--gold); font-size: 32px; margin: 5px 0; font-weight: 900; }
-        .version { color: #444; font-size: 10px; margin-bottom: 20px; }
+        h1 { 
+            font-size: 30px; font-weight: 900; letter-spacing: 3px; color: var(--neon-gold);
+            text-shadow: 0 0 20px rgba(255,204,0,0.5); margin: 10px 0;
+        }
 
-        /* حقول الإدخال */
-        .inputs-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
+        .system-status { font-size: 9px; color: #4caf50; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
+
+        /* حقول الإدخال النيونية */
+        .inputs-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
         .field { 
-            background: #111; 
-            border: 1px solid #222; 
-            border-radius: 18px; 
-            color: #fff; 
-            width: 32%; 
-            padding: 18px 0; 
-            text-align: center; 
-            font-size: 22px; 
-            font-weight: bold; 
-            outline: none; 
-            border-bottom: 3px solid var(--gold); 
+            width: 32%; background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px; color: var(--neon-gold); padding: 18px 0;
+            font-size: 22px; font-weight: bold; text-align: center; outline: none;
+            transition: 0.3s; border-bottom: 3px solid var(--neon-gold);
         }
+        .field:focus { background: rgba(255,204,0,0.1); box-shadow: 0 0 20px rgba(255,204,0,0.2); }
 
-        /* زر التحليل */
-        .btn-run { 
-            background: linear-gradient(180deg, var(--gold), #b8860b); 
-            color: #000; 
-            border: none; 
-            border-radius: 20px; 
-            padding: 22px; 
-            width: 100%; 
-            font-size: 20px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            text-transform: uppercase;
+        /* زر التشغيل القوي */
+        .btn-engage {
+            background: linear-gradient(180deg, var(--neon-gold), #b8860b);
+            border: none; border-radius: 20px; padding: 22px; width: 100%;
+            color: #000; font-size: 20px; font-weight: 900;
+            cursor: pointer; transition: 0.4s; text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(255,204,0,0.3);
         }
+        .btn-engage:active { transform: scale(0.96); }
 
-        /* حاوية النتائج */
-        .res-area { margin-top: 30px; display: none; animation: fadeInUp 0.5s ease-out; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-        .main-res-box { 
-            background: rgba(255, 204, 0, 0.02); 
-            border: 1px solid #222; 
-            border-radius: 30px; 
-            padding: 25px; 
-            margin-bottom: 20px; 
-            position: relative; 
-            transition: 0.4s;
+        /* لوحة النتائج الإبداعية */
+        .display-node { 
+            margin-top: 35px; padding: 30px; border-radius: 30px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05); position: relative;
+            display: none; animation: slideIn 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.28);
         }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* كاشف الفجوة (Gap Visuals) */
-        .gap-alert { 
-            border: 2px solid var(--gap-color) !important; 
-            background: rgba(0, 255, 204, 0.05) !important; 
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); 
-        }
-        .gap-header { color: var(--gap-color) !important; font-weight: 900; font-size: 12px; margin-bottom: 10px; display: block; }
-
-        .score-big { font-size: 75px; color: var(--gold); font-weight: bold; margin: 10px 0; letter-spacing: 5px; }
-        .freq-text { color: #4caf50; font-size: 18px; font-weight: bold; }
-
-        /* الأنماط البديلة */
-        .others-box { background: #0c0c0c; border-radius: 20px; padding: 15px; border: 1px solid #1a1a1a; }
-        .other-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
-        .other-item:last-child { border-bottom: none; }
+        .gap-active { border: 2px solid var(--neon-blue) !important; background: rgba(0, 242, 255, 0.05) !important; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
         
-        .status-tag { font-size: 9px; padding: 3px 10px; border-radius: 6px; font-weight: bold; text-transform: uppercase; }
-        .tag-sovereign { background: var(--gold); color: #000; }
-        .tag-gap { background: var(--gap-color); color: #000; }
-        .tag-strong { background: #fff; color: #000; }
-        .tag-likely { background: #333; color: #ccc; }
+        .badge-gap { 
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
+            background: var(--neon-blue); color: #000; padding: 6px 18px;
+            border-radius: 12px; font-size: 11px; font-weight: 900; box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 15px 0; letter-spacing: 5px; text-shadow: 0 0 30px rgba(255,255,255,0.1); }
+        
+        /* شريط القوة المتطور */
+        .power-container { margin: 20px 0; }
+        .power-label { font-size: 12px; color: var(--neon-blue); font-weight: bold; margin-bottom: 8px; display: block; }
+        .power-bar { width: 100%; height: 6px; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
+        .power-fill { height: 100%; background: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); transition: 1.5s cubic-bezier(0.075, 0.82, 0.165, 1); width: 0%; }
+
+        /* شبكة البيانات البديلة */
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
+        .data-item { 
+            background: rgba(255,255,255,0.03); border-radius: 15px; padding: 15px;
+            border: 1px solid rgba(255,255,255,0.05); text-align: left;
+        }
+        .data-score { font-size: 19px; font-weight: bold; color: var(--neon-gold); }
+        .data-pct { font-size: 12px; color: #4caf50; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
-    <span class="layer-status" id="status-line"><span class="dot"></span> STANDBY: SYSTEM READY</span>
+    <div class="scanline"></div>
+    <div class="system-status" id="status">● SYSTEM STANDBY: AWAITING DATA</div>
     <h1>SOVEREIGN PRO</h1>
-    <div class="version">THE Master Gap Finder v2.7</div>
+    <div style="font-size: 10px; color: #555; letter-spacing: 2px; margin-bottom: 25px;">NEURAL GAP DETECTOR v3.0</div>
 
     <div class="inputs-row">
-        <input type="number" id="v-a" step="0.01" value="5.25" class="field" placeholder="A">
-        <input type="number" id="v-x" step="0.01" value="4.10" class="field" placeholder="X">
-        <input type="number" id="v-h" step="0.01" value="1.62" class="field" placeholder="H">
+        <input type="number" id="v-a" value="5.25" class="field">
+        <input type="number" id="v-x" value="4.10" class="field">
+        <input type="number" id="v-h" value="1.62" class="field">
     </div>
 
-    <button class="btn-run" onclick="runAnalysis()">Update Analysis</button>
+    <button class="btn-engage" onclick="startAnalysis()">Engage Analysis</button>
 
-    <div id="res-area" class="res-area">
-        <div class="main-res-box" id="main-box">
-            <span class="status-tag tag-sovereign" id="main-label">SOVEREIGN</span>
-            <div id="gap-msg" class="gap-header" style="display:none;">⚡ SMART SURPRISE DETECTED</div>
-            <div class="score-big" id="res-score">--</div>
-            <div id="res-freq" class="freq-text">FREQ: 0%</div>
+    <div id="display" class="display-node">
+        <div id="gap-tag" class="badge-gap" style="display:none;">WINNING GAP DETECTED</div>
+        <span style="font-size: 10px; color: #888; letter-spacing: 3px; text-transform: uppercase;">Primary Historical Pattern</span>
+        <div class="score-ultra" id="res-score">--</div>
+        
+        <div class="power-container">
+            <span class="power-label" id="res-freq-label">STRENGTH: 0%</span>
+            <div class="power-bar"><div id="res-fill" class="power-fill"></div></div>
         </div>
 
-        <div class="others-box" id="others-container"></div>
+        <div class="data-grid" id="alt-grid"></div>
     </div>
 </div>
 
 <script>
-    /* قاعدة البيانات التاريخية (Archive) */
-    const masterArchive = [
+    /* أرشيف البيانات التاريخية */
+    const archive = [
         {
             h: 1.62,
             results: [
-                {s: "1 - 1", p: 36.5, status: "sovereign"},
-                {s: "0 - 1", p: 18.2, status: "strong"},
-                {s: "1 - 0", p: 12.4, status: "strong"},
-                {s: "1 - 2", p: 11.1, status: "likely"}
+                {s: "1 - 1", p: 36.5}, {s: "0 - 1", p: 18.2}, {s: "1 - 0", p: 12.4}, {s: "1 - 2", p: 11.1}
             ]
         },
         {
             h: 1.95,
             results: [
-                {s: "1 - 0", p: 42.1, status: "sovereign"},
-                {s: "2 - 0", p: 28.7, status: "strong"},
-                {s: "2 - 1", p: 15.2, status: "likely"},
-                {s: "1 - 1", p: 9.4, status: "weak"}
-            ]
-        },
-        {
-            h: 2.20,
-            results: [
-                {s: "1 - 1", p: 36.5, status: "sovereign"},
-                {s: "0 - 1", p: 18.2, status: "strong"},
-                {s: "1 - 0", p: 12.4, status: "likely"}
+                {s: "1 - 0", p: 42.1}, {s: "2 - 0", p: 28.7}, {s: "1 - 1", p: 15.2}, {s: "2 - 1", p: 9.4}
             ]
         }
     ];
 
-    function runAnalysis() {
+    function startAnalysis() {
         const hIn = parseFloat(document.getElementById('v-h').value);
         const aIn = parseFloat(document.getElementById('v-a').value);
+        const status = document.getElementById('status');
         
-        // 1. اختيار النمط الأقرب بناءً على H
-        let match = masterArchive.reduce((prev, curr) => 
-            Math.abs(curr.h - hIn) < Math.abs(prev.h - hIn) ? curr : prev
-        );
+        status.innerText = "● ANALYZING NEURAL DATA LAYERS...";
+        status.style.color = "var(--neon-blue)";
 
-        // 2. تفعيل خوارزمية الفجوة (Gap Finder)
-        const marketProb = (1 / aIn) * 100;
-        const ourProb = match.results[0].p;
-        const gapValue = ourProb - marketProb;
+        setTimeout(() => {
+            // اختيار أقرب نمط
+            let match = archive.reduce((prev, curr) => Math.abs(curr.h - hIn) < Math.abs(prev.h - hIn) ? curr : prev);
+            
+            // خوارزمية الفجوة (Gap Finder) - حساسية 10%
+            const marketProb = (1 / aIn) * 100;
+            const ourProb = match.results[0].p;
+            const gapValue = ourProb - marketProb;
 
-        // 3. إظهار النتائج في الواجهة
-        document.getElementById('res-area').style.display = 'block';
-        document.getElementById('res-score').innerText = match.results[0].s;
-        document.getElementById('res-freq').innerText = `FREQ: ${match.results[0].p}%`;
+            const display = document.getElementById('display');
+            display.style.display = 'block';
+            
+            document.getElementById('res-score').innerText = match.results[0].s;
+            document.getElementById('res-freq-label').innerText = `STRENGTH: ${match.results[0].p}%`;
+            document.getElementById('res-fill').style.width = match.results[0].p + "%";
 
-        const box = document.getElementById('main-box');
-        const gapMsg = document.getElementById('gap-msg');
-        const label = document.getElementById('main-label');
+            // تفعيل تنبيه الفجوة
+            const gapTag = document.getElementById('gap-tag');
+            if (gapValue >= 10) {
+                display.classList.add('gap-active');
+                gapTag.style.display = 'block';
+                gapTag.innerText = `WINNING GAP: +${gapValue.toFixed(1)}%`;
+            } else {
+                display.classList.remove('gap-active');
+                gapTag.style.display = 'none';
+            }
 
-        // 4. منطق التنبيه للحساسية (10%)
-        if (gapValue >= 10) {
-            box.classList.add('gap-alert');
-            gapMsg.style.display = 'block';
-            gapMsg.innerText = `⚡ WINNING GAP: +${gapValue.toFixed(1)}%`;
-            label.innerText = "GAP OPPORTUNITY";
-            label.className = "status-tag tag-gap";
-        } else {
-            box.classList.remove('gap-alert');
-            gapMsg.style.display = 'none';
-            label.innerText = "SOVEREIGN";
-            label.className = "status-tag tag-sovereign";
-        }
-
-        // 5. بناء قائمة النتائج البديلة
-        let listHtml = '<div style="font-size:10px; color:#444; margin-bottom:12px; text-align:left;">CROSS-LAYER PATTERNS:</div>';
-        for (let i = 1; i < match.results.length; i++) {
-            listHtml += `
-                <div class="other-item">
-                    <span class="status-tag tag-${match.results[i].status}">${match.results[i].status}</span>
-                    <span style="font-size:18px; font-weight:bold;">${match.results[i].s}</span>
-                    <span style="color:#4caf50; font-weight:bold;">${match.results[i].p}%</span>
+            // بناء شبكة الأنماط البديلة
+            let html = '';
+            for(let i=1; i < match.results.length; i++) {
+                html += `
+                <div class="data-item">
+                    <div style="font-size:8px; color:#555; margin-bottom:5px;">PATTERN 0${i+1}</div>
+                    <div class="data-score">${match.results[i].s}</div>
+                    <div class="data-pct">${match.results[i].p}%</div>
                 </div>`;
-        }
-        document.getElementById('others-container').innerHTML = listHtml;
-        document.getElementById('status-line').innerHTML = `<span class="dot"></span> ANALYSIS COMPLETE: ${match.results.length} LAYERS MERGED`;
+            }
+            document.getElementById('alt-grid').innerHTML = html;
+            
+            status.innerText = "● ANALYSIS COMPLETE: OPTIMAL TARGETS FOUND";
+            status.style.color = "#4caf50";
+        }, 1000);
     }
 </script>
-
 </body>
 </html>
