@@ -1,64 +1,129 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | نسخة كاشف الفجوات</title>
+    <title>SOVEREIGN PRO | Final Gap Finder Edition</title>
     <style>
-        /* الهوية البصرية المطورة */
-        :root { --gold: #ffcc00; --dark: #000; --card: #0a0a0a; --gap-color: #00ffcc; }
-        
-        body { background-color: var(--dark); color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; padding: 20px; margin: 0; min-height: 100vh; }
-        
-        .main-card { border: 2px solid var(--gold); border-radius: 35px; padding: 25px; width: 100%; max-width: 400px; background: var(--card); text-align: center; box-shadow: 0 15px 50px rgba(0,0,0,1), 0 0 20px rgba(255, 204, 0, 0.1); position: relative; }
+        /* الجزء 1: التصميم والهوية البصرية (CSS) */
+        :root { 
+            --gold: #ffcc00; 
+            --dark: #000; 
+            --card: #0a0a0a; 
+            --gap-color: #00ffcc; 
+            --text-gray: #888;
+        }
 
+        body { 
+            background-color: var(--dark); 
+            color: #fff; 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px; 
+            margin: 0; 
+            min-height: 100vh; 
+        }
+
+        .main-card { 
+            border: 2px solid var(--gold); 
+            border-radius: 35px; 
+            padding: 25px; 
+            width: 100%; 
+            max-width: 400px; 
+            background: var(--card); 
+            text-align: center; 
+            box-shadow: 0 15px 50px rgba(0,0,0,1), 0 0 20px rgba(255, 204, 0, 0.1); 
+            position: relative; 
+        }
+
+        /* مؤشر النظام */
         .layer-status { color: #4caf50; font-size: 9px; font-weight: bold; letter-spacing: 1.5px; margin-bottom: 10px; display: block; text-transform: uppercase; }
-        .dot { display: inline-block; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; margin-left: 5px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .dot { display: inline-block; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; margin-right: 5px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        h1 { color: var(--gold); font-size: 35px; margin: 5px 0; font-weight: 900; text-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
-        .version { color: #666; font-size: 11px; margin-bottom: 20px; }
+        h1 { color: var(--gold); font-size: 32px; margin: 5px 0; font-weight: 900; letter-spacing: -1px; }
+        .version { color: #444; font-size: 10px; margin-bottom: 20px; letter-spacing: 1px; }
 
+        /* مدخلات الـ Cote */
         .inputs-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
-        .field { background: #151515; border: 1px solid #333; border-radius: 18px; color: #fff; width: 32%; padding: 18px 0; text-align: center; font-size: 22px; font-weight: bold; outline: none; border-bottom: 3px solid var(--gold); transition: 0.3s; }
-        .field:focus { border-color: var(--gold); box-shadow: 0 0 15px rgba(255, 204, 0, 0.2); }
+        .field { 
+            background: #111; 
+            border: 1px solid #222; 
+            border-radius: 18px; 
+            color: #fff; 
+            width: 32%; 
+            padding: 18px 0; 
+            text-align: center; 
+            font-size: 22px; 
+            font-weight: bold; 
+            outline: none; 
+            border-bottom: 3px solid var(--gold); 
+            transition: 0.3s;
+        }
+        .field:focus { border-color: var(--gold); background: #151515; }
 
-        .btn-run { background: linear-gradient(180deg, var(--gold), #b8860b); color: #000; border: none; border-radius: 20px; padding: 20px; width: 100%; font-size: 22px; font-weight: bold; cursor: pointer; transition: 0.4s; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .btn-run:active { transform: scale(0.96); }
+        /* زر التشغيل */
+        .btn-run { 
+            background: linear-gradient(180deg, var(--gold), #b8860b); 
+            color: #000; 
+            border: none; 
+            border-radius: 20px; 
+            padding: 22px; 
+            width: 100%; 
+            font-size: 20px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.4s; 
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .btn-run:active { transform: scale(0.97); }
 
-        .res-area { margin-top: 30px; display: none; text-align: right; animation: fadeInUp 0.6s ease-out; }
+        /* منطقة النتائج */
+        .res-area { margin-top: 30px; display: none; animation: fadeInUp 0.6s ease-out; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .main-res-box { background: rgba(255, 204, 0, 0.05); border: 1px solid var(--gold); border-radius: 25px; padding: 20px; text-align: center; margin-bottom: 20px; position: relative; transition: 0.5s; }
-        
-        /* تأثير كاشف الفجوة الوميضي */
-        .gap-alert { border: 2px solid var(--gap-color) !important; background: rgba(0, 255, 204, 0.1) !important; box-shadow: 0 0 20px var(--gap-color); }
-        .gap-text { color: var(--gap-color) !important; font-weight: 900; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .main-res-box { 
+            background: rgba(255, 204, 0, 0.02); 
+            border: 1px solid #222; 
+            border-radius: 30px; 
+            padding: 25px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            position: relative; 
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-        .score-big { font-size: 65px; color: var(--gold); font-weight: bold; margin: 10px 0; letter-spacing: 5px; }
-        
-        .others-box { background: #111; border-radius: 20px; padding: 15px; border: 1px solid #222; }
-        .other-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #222; }
+        /* ستايل الفجوة الرابحة (The Gap) */
+        .gap-alert { 
+            border: 2px solid var(--gap-color) !important; 
+            background: rgba(0, 255, 204, 0.05) !important; 
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.15); 
+        }
+        .gap-tag-text { color: var(--gap-color) !important; font-weight: 900; font-size: 12px; margin-bottom: 10px; display: block; }
+
+        .score-big { font-size: 75px; color: var(--gold); font-weight: bold; margin: 5px 0; letter-spacing: 5px; }
+        .freq-text { color: #4caf50; font-size: 18px; font-weight: bold; }
+
+        /* الأنماط البديلة */
+        .others-box { background: #0c0c0c; border-radius: 20px; padding: 15px; border: 1px solid #1a1a1a; }
+        .other-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #1a1a1a; }
         .other-item:last-child { border-bottom: none; }
-        .score-small { color: #fff; font-weight: bold; font-size: 18px; }
-        .pct-small { color: #4caf50; font-size: 14px; font-weight: bold; }
-
-        .status-tag { font-size: 10px; padding: 2px 8px; border-radius: 5px; font-weight: bold; }
-        .status-سيادي { background: var(--gold); color: #000; }
-        .status-قوي { background: #fff; color: #000; }
-        .status-محتمل { background: #444; color: #fff; }
-        .status-ضعيف { background: #222; color: #888; }
-        .status-نادر { background: #111; color: #444; }
-        .status-gap { background: var(--gap-color); color: #000; }
+        
+        .status-tag { font-size: 9px; padding: 3px 10px; border-radius: 6px; font-weight: bold; text-transform: uppercase; }
+        .tag-sovereign { background: var(--gold); color: #000; }
+        .tag-gap { background: var(--gap-color); color: #000; }
+        .tag-strong { background: #fff; color: #000; }
+        .tag-likely { background: #333; color: #ccc; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
-    <span class="layer-status" id="layer-info"><span class="dot"></span> STANDBY: SYSTEM READY</span>
+    <span class="layer-status" id="system-status"><span class="dot"></span> STANDBY: SYSTEM READY</span>
     <h1>SOVEREIGN PRO</h1>
-    <div class="version">نظام كاشف الفجوات الذكي (The Gap Finder)</div>
+    <div class="version">THE GAP FINDER ENGINE v2.5</div>
 
     <div class="inputs-row">
         <input type="number" id="v-a" step="0.01" value="6.20" class="field" placeholder="A">
@@ -66,107 +131,107 @@
         <input type="number" id="v-h" step="0.01" value="1.95" class="field" placeholder="H">
     </div>
 
-    <button class="btn-run" id="btn-analyze" onclick="runImperialEngine()">تحديث التحليل الشامل</button>
+    <button class="btn-run" onclick="runEngine()">Update Analysis</button>
 
     <div id="res-area" class="res-area">
-        <div class="main-res-box" id="main-box">
-            <span class="status-tag status-سيادي" id="main-status">سيادي</span>
-            <div id="gap-notice" style="font-size: 11px; color: #888; margin-top: 8px;">النمط التاريخي الأول</div>
-            <div class="score-big" id="top-score">--</div>
-            <div id="top-pct" style="color:#4caf50; font-weight:bold; font-size:18px;">0%</div>
+        <div class="main-res-box" id="main-display">
+            <span class="status-tag tag-sovereign" id="main-label">SOVEREIGN</span>
+            <div id="gap-header" class="gap-tag-text" style="display:none;">⚡ SMART SURPRISE DETECTED</div>
+            <div class="score-big" id="main-score">--</div>
+            <div id="main-freq" class="freq-text">FREQ: 0%</div>
         </div>
 
-        <div class="others-box">
-            <div style="font-size: 11px; color: #666; margin-bottom: 10px;">تحليل الأنماط البديلة (Cross-Layer):</div>
-            <div id="others-list"></div>
+        <div class="others-box" id="alternatives-list">
+            <!-- سيتم ملؤه بواسطة JS -->
         </div>
     </div>
 </div>
 
 <script>
-    const masterArchive = [
+    /* قاعدة بيانات الأنماط التاريخية */
+    const archive = [
         {
-            h: 1.40, 
-            layers: ["Top 5 Leagues", "UCL Archive"],
-            results: [
-                {s: "2 - 0", p: 48.7, status: "سيادي"},
-                {s: "1 - 0", p: 30.3, status: "قوي"},
-                {s: "3 - 0", p: 10.4, status: "محتمل"},
-                {s: "2 - 1", p: 7.2, status: "ضعيف"}
+            h: 1.95,
+            patterns: [
+                {s: "1 - 0", p: 42.1, status: "sovereign"},
+                {s: "2 - 0", p: 28.7, status: "strong"},
+                {s: "2 - 1", p: 15.2, status: "likely"},
+                {s: "1 - 1", p: 9.4, status: "weak"}
             ]
         },
         {
-            h: 1.95, 
-            layers: ["Top 5 Leagues", "Intl Matches"],
-            results: [
-                {s: "0 - 1", p: 42.1, status: "سيادي"},
-                {s: "0 - 2", p: 28.7, status: "قوي"},
-                {s: "1 - 2", p: 15.2, status: "محتمل"},
-                {s: "1 - 1", p: 9.4, status: "ضعيف"}
+            h: 1.40,
+            patterns: [
+                {s: "2 - 0", p: 48.7, status: "sovereign"},
+                {s: "1 - 0", p: 30.3, status: "strong"},
+                {s: "3 - 0", p: 10.4, status: "likely"},
+                {s: "2 - 1", p: 7.2, status: "weak"}
             ]
         },
         {
-            h: 2.20, 
-            layers: ["UCL Archive", "Intl Matches"],
-            results: [
-                {s: "1 - 1", p: 36.5, status: "سيادي"},
-                {s: "0 - 1", p: 18.2, status: "قوي"},
-                {s: "1 - 0", p: 12.4, status: "محتمل"},
-                {s: "2 - 1", p: 11.1, status: "محتمل"}
+            h: 2.20,
+            patterns: [
+                {s: "1 - 1", p: 36.5, status: "sovereign"},
+                {s: "0 - 1", p: 18.2, status: "strong"},
+                {s: "1 - 0", p: 12.4, status: "likely"},
+                {s: "2 - 1", p: 11.1, status: "likely"}
             ]
         }
     ];
 
-    function runImperialEngine() {
-        const hIn = parseFloat(document.getElementById('v-h').value);
-        const aIn = parseFloat(document.getElementById('v-a').value); // الـ Cote للمفاجأة
-        const mainBox = document.getElementById('main-box');
-        const gapNotice = document.getElementById('gap-notice');
-        const mainStatus = document.getElementById('main-status');
+    function runEngine() {
+        const hVal = parseFloat(document.getElementById('v-h').value);
+        const aVal = parseFloat(document.getElementById('v-a').value); // Cote للمفاجأة
+        const resArea = document.getElementById('res-area');
+        const mainDisplay = document.getElementById('main-display');
+        const gapHeader = document.getElementById('gap-header');
+        const mainLabel = document.getElementById('main-label');
 
-        // البحث عن أقرب نمط تاريخي
-        let match = masterArchive.reduce((prev, curr) => 
-            Math.abs(curr.h - hIn) < Math.abs(prev.h - hIn) ? curr : prev
+        // 1. البحث عن أقرب تطابق تاريخي بناءً على H
+        let match = archive.reduce((prev, curr) => 
+            Math.abs(curr.h - hVal) < Math.abs(prev.h - hVal) ? curr : prev
         );
 
-        // --- محرك الفجوة (The Gap Finder) ---
-        // نحسب احتمال السوق بناءً على الـ Cote المدخل (A)
-        const marketProb = (1 / aIn) * 100;
-        const ourProb = match.results[0].p;
+        // 2. خوارزمية كاشف الفجوة (The Gap Finder)
+        const marketProb = (1 / aVal) * 100;
+        const ourProb = match.patterns[0].p;
         const gap = ourProb - marketProb;
 
-        setTimeout(() => {
-            document.getElementById('res-area').style.display = 'block';
-            document.getElementById('top-score').innerText = match.results[0].s;
-            document.getElementById('top-pct').innerText = `تكرار: ${match.results[0].p}%`;
-            
-            // تطبيق منطق المفاجأة
-            if (gap > 15) {
-                mainBox.classList.add('gap-alert');
-                gapNotice.innerHTML = `<span class="gap-text">⚡ فرصة مفاجأة ذكية (GAP: +${gap.toFixed(1)}%)</span>`;
-                mainStatus.innerText = "فجوة رابحة";
-                mainStatus.className = "status-tag status-gap";
-            } else {
-                mainBox.classList.remove('gap-alert');
-                gapNotice.innerText = "النمط التاريخي الأول";
-                mainStatus.innerText = match.results[0].status;
-                mainStatus.className = "status-tag status-سيادي";
-            }
+        // 3. عرض النتائج
+        resArea.style.display = 'block';
+        document.getElementById('main-score').innerText = match.patterns[0].s;
+        document.getElementById('main-freq').innerText = `FREQ: ${match.patterns[0].p}%`;
 
-            // عرض الأنماط البديلة
-            let othersHTML = '';
-            for (let i = 1; i < match.results.length; i++) {
-                othersHTML += `
-                    <div class="other-item">
-                        <span class="status-tag status-${match.results[i].status}">${match.results[i].status}</span>
-                        <span class="score-small">${match.results[i].s}</span>
-                        <span class="pct-small">${match.results[i].p}%</span>
-                    </div>`;
-            }
-            document.getElementById('others-list').innerHTML = othersHTML;
-            document.getElementById('btn-analyze').innerText = "تحديث التحليل الشامل";
-        }, 800);
+        // 4. تطبيق منطق الوميض والتنبيه في حال وجود فجوة
+        if (gap > 15) {
+            mainDisplay.classList.add('gap-alert');
+            gapHeader.style.display = 'block';
+            gapHeader.innerText = `⚡ SMART SURPRISE (GAP: +${gap.toFixed(1)}%)`;
+            mainLabel.innerText = "WINNING GAP";
+            mainLabel.className = "status-tag tag-gap";
+        } else {
+            mainDisplay.classList.remove('gap-alert');
+            gapHeader.style.display = 'none';
+            mainLabel.innerText = "SOVEREIGN";
+            mainLabel.className = "status-tag tag-sovereign";
+        }
+
+        // 5. تحديث قائمة الأنماط البديلة
+        let altHtml = '<div style="font-size:10px; color:#555; margin-bottom:12px; text-align:left; text-transform:uppercase;">Alternative Patterns (Cross-Layer):</div>';
+        for (let i = 1; i < match.patterns.length; i++) {
+            altHtml += `
+                <div class="other-item">
+                    <span class="status-tag tag-${match.patterns[i].status}">${match.patterns[i].status}</span>
+                    <span style="font-size:18px; font-weight:bold;">${match.patterns[i].s}</span>
+                    <span style="color:#4caf50; font-weight:bold;">${match.patterns[i].p}%</span>
+                </div>`;
+        }
+        document.getElementById('alternatives-list').innerHTML = altHtml;
+        
+        // تحديث حالة النظام
+        document.getElementById('system-status').innerHTML = `<span class="dot"></span> ANALYSIS COMPLETE: ${match.patterns.length} LAYERS MERGED`;
     }
 </script>
+
 </body>
 </html>
