@@ -3,209 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Cyber-Neon Edition</title>
+    <title>SOVEREIGN PRO | Neural Logic v3.5</title>
     <style>
-        /* الجزء 1: الهوية البصرية المستقبلية (CSS) */
+        /* الجزء 1: الهوية البصرية النيونية */
         :root { 
             --neon-gold: #ffcc00; 
             --neon-blue: #00f2ff;
             --glass: rgba(255, 255, 255, 0.03);
-            --deep-dark: #050505;
         }
 
         body { 
             background: radial-gradient(circle at center, #111 0%, #000 100%);
-            color: #fff; 
-            font-family: 'Segoe UI', Roboto, sans-serif; 
+            color: #fff; font-family: 'Segoe UI', sans-serif; 
             display: flex; justify-content: center; align-items: center;
             padding: 20px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* تأثير الخلفية المتحركة */
-        body::before {
-            content: ""; position: absolute; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent 48%, rgba(255,204,0,0.01) 50%, transparent 52%);
-            animation: sweep 12s linear infinite;
-        }
-        @keyframes sweep { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
         .main-card { 
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 204, 0, 0.2);
-            border-radius: 40px; 
-            padding: 30px; width: 100%; max-width: 420px; 
-            text-align: center; position: relative;
-            box-shadow: 0 0 60px rgba(0,0,0,1);
+            border-radius: 40px; padding: 30px; width: 100%; max-width: 420px; 
+            text-align: center; position: relative; box-shadow: 0 0 60px rgba(0,0,0,1);
             z-index: 1; overflow: hidden;
         }
 
-        /* خط المسح الضوئي */
         .scanline { 
             width: 100%; height: 10px; 
-            background: linear-gradient(to bottom, transparent, rgba(255, 204, 0, 0.1), transparent); 
-            position: absolute; top: 0; left: 0; 
-            animation: scan 4s linear infinite; 
+            background: linear-gradient(to bottom, transparent, rgba(255, 204, 0, 0.05), transparent); 
+            position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; 
         }
         @keyframes scan { from { top: -10%; } to { top: 110%; } }
 
-        h1 { 
-            font-size: 30px; font-weight: 900; letter-spacing: 3px; color: var(--neon-gold);
-            text-shadow: 0 0 20px rgba(255,204,0,0.5); margin: 10px 0;
-        }
-
+        h1 { font-size: 28px; font-weight: 900; letter-spacing: 2px; color: var(--neon-gold); text-shadow: 0 0 15px rgba(255,204,0,0.4); margin: 5px 0; }
         .system-status { font-size: 9px; color: #4caf50; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
 
-        /* حقول الإدخال النيونية */
-        .inputs-row { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 30px; }
+        /* حقول الإدخال */
+        .inputs-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
+        .field-group { width: 32%; }
+        .field-label { font-size: 9px; color: #666; margin-bottom: 5px; display: block; }
         .field { 
-            width: 32%; background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px; color: var(--neon-gold); padding: 18px 0;
-            font-size: 22px; font-weight: bold; text-align: center; outline: none;
-            transition: 0.3s; border-bottom: 3px solid var(--neon-gold);
+            width: 100%; background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px; color: var(--neon-gold); padding: 15px 0;
+            font-size: 20px; font-weight: bold; text-align: center; outline: none;
+            border-bottom: 3px solid var(--neon-gold); transition: 0.3s;
         }
-        .field:focus { background: rgba(255,204,0,0.1); box-shadow: 0 0 20px rgba(255,204,0,0.2); }
+        .field:focus { background: rgba(255,204,0,0.1); box-shadow: 0 0 15px rgba(255,204,0,0.2); }
 
-        /* زر التشغيل القوي */
         .btn-engage {
             background: linear-gradient(180deg, var(--neon-gold), #b8860b);
-            border: none; border-radius: 20px; padding: 22px; width: 100%;
-            color: #000; font-size: 20px; font-weight: 900;
-            cursor: pointer; transition: 0.4s; text-transform: uppercase;
-            box-shadow: 0 5px 20px rgba(255,204,0,0.3);
+            border: none; border-radius: 20px; padding: 20px; width: 100%;
+            color: #000; font-size: 18px; font-weight: 900; cursor: pointer;
+            transition: 0.4s; text-transform: uppercase; box-shadow: 0 5px 20px rgba(255,204,0,0.3);
         }
         .btn-engage:active { transform: scale(0.96); }
 
-        /* لوحة النتائج الإبداعية */
+        /* منطقة النتائج (Home / Away) */
         .display-node { 
-            margin-top: 35px; padding: 30px; border-radius: 30px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05); position: relative;
-            display: none; animation: slideIn 0.7s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            margin-top: 30px; padding: 25px; border-radius: 30px;
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            display: none; animation: slideIn 0.6s ease-out; position: relative;
         }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .gap-active { border: 2px solid var(--neon-blue) !important; background: rgba(0, 242, 255, 0.05) !important; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
-        
+        .gap-active { border: 2px solid var(--neon-blue) !important; box-shadow: 0 0 30px rgba(0, 242, 255, 0.15); }
         .badge-gap { 
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-            background: var(--neon-blue); color: #000; padding: 6px 18px;
-            border-radius: 12px; font-size: 11px; font-weight: 900; box-shadow: 0 0 15px var(--neon-blue);
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--neon-blue); color: #000; padding: 4px 14px;
+            border-radius: 10px; font-size: 10px; font-weight: 900;
         }
 
-        .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 15px 0; letter-spacing: 5px; text-shadow: 0 0 30px rgba(255,255,255,0.1); }
+        .home-away-header { display: flex; justify-content: space-between; font-size: 10px; color: #555; letter-spacing: 2px; margin-bottom: 10px; }
+        .score-ultra { font-size: 70px; font-weight: 900; color: #fff; letter-spacing: 5px; margin: 10px 0; }
         
-        /* شريط القوة المتطور */
-        .power-container { margin: 20px 0; }
-        .power-label { font-size: 12px; color: var(--neon-blue); font-weight: bold; margin-bottom: 8px; display: block; }
-        .power-bar { width: 100%; height: 6px; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
-        .power-fill { height: 100%; background: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); transition: 1.5s cubic-bezier(0.075, 0.82, 0.165, 1); width: 0%; }
+        .power-bar { width: 100%; height: 5px; background: #1a1a1a; border-radius: 10px; overflow: hidden; margin: 15px 0; }
+        .power-fill { height: 100%; background: var(--neon-blue); width: 0%; transition: 1.5s; box-shadow: 0 0 10px var(--neon-blue); }
 
-        /* شبكة البيانات البديلة */
-        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
-        .data-item { 
-            background: rgba(255,255,255,0.03); border-radius: 15px; padding: 15px;
-            border: 1px solid rgba(255,255,255,0.05); text-align: left;
-        }
-        .data-score { font-size: 19px; font-weight: bold; color: var(--neon-gold); }
-        .data-pct { font-size: 12px; color: #4caf50; font-weight: bold; }
+        /* الأنماط البديلة */
+        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .data-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
+        .data-score { font-size: 17px; font-weight: bold; color: var(--neon-gold); }
     </style>
 </head>
 <body>
 
 <div class="main-card">
     <div class="scanline"></div>
-    <div class="system-status" id="status">● SYSTEM STANDBY: AWAITING DATA</div>
+    <div class="system-status" id="status">● READY FOR NEURAL ANALYSIS</div>
     <h1>SOVEREIGN PRO</h1>
-    <div style="font-size: 10px; color: #555; letter-spacing: 2px; margin-bottom: 25px;">NEURAL GAP DETECTOR v3.0</div>
+    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 20px;">HOME / AWAY LOGIC v3.5</div>
 
     <div class="inputs-row">
-        <input type="number" id="v-a" value="5.25" class="field">
-        <input type="number" id="v-x" value="4.10" class="field">
-        <input type="number" id="v-h" value="1.62" class="field">
+        <div class="field-group"><span class="field-label">HOME (1)</span><input type="number" id="v-h" value="1.62" class="field"></div>
+        <div class="field-group"><span class="field-label">DRAW (X)</span><input type="number" id="v-x" value="4.10" class="field"></div>
+        <div class="field-group"><span class="field-label">AWAY (2)</span><input type="number" id="v-a" value="5.25" class="field"></div>
     </div>
 
-    <button class="btn-engage" onclick="startAnalysis()">Engage Analysis</button>
+    <button class="btn-engage" onclick="processAnalysis()">Engage Analysis</button>
 
     <div id="display" class="display-node">
-        <div id="gap-tag" class="badge-gap" style="display:none;">WINNING GAP DETECTED</div>
-        <span style="font-size: 10px; color: #888; letter-spacing: 3px; text-transform: uppercase;">Primary Historical Pattern</span>
+        <div id="gap-tag" class="badge-gap" style="display:none;">STRATEGIC GAP FOUND</div>
+        <div class="home-away-header"><span>HOME</span><span>AWAY</span></div>
         <div class="score-ultra" id="res-score">--</div>
-        
-        <div class="power-container">
-            <span class="power-label" id="res-freq-label">STRENGTH: 0%</span>
-            <div class="power-bar"><div id="res-fill" class="power-fill"></div></div>
-        </div>
-
+        <div id="res-freq" style="color: var(--neon-blue); font-size: 12px; font-weight: bold;">STRENGTH: 0%</div>
+        <div class="power-bar"><div id="res-fill" class="power-fill"></div></div>
         <div class="data-grid" id="alt-grid"></div>
     </div>
 </div>
 
 <script>
-    /* أرشيف البيانات التاريخية */
-    const archive = [
+    /* أرشيف البيانات - الترتيب: [Home] - [Away] */
+    const db = [
         {
-            h: 1.62,
-            results: [
-                {s: "1 - 1", p: 36.5}, {s: "0 - 1", p: 18.2}, {s: "1 - 0", p: 12.4}, {s: "1 - 2", p: 11.1}
+            home_odds: 1.62,
+            patterns: [
+                {s: "1 - 2", f: 42.1, type: "surprise"}, // فوز ليدز (الضيف)
+                {s: "1 - 1", f: 28.7, type: "normal"},
+                {s: "0 - 1", f: 15.2, type: "normal"},
+                {s: "2 - 1", f: 9.4, type: "normal"}
             ]
         },
         {
-            h: 1.95,
-            results: [
-                {s: "1 - 0", p: 42.1}, {s: "2 - 0", p: 28.7}, {s: "1 - 1", p: 15.2}, {s: "2 - 1", p: 9.4}
+            home_odds: 2.10,
+            patterns: [
+                {s: "1 - 1", f: 38.5, type: "normal"},
+                {s: "0 - 1", f: 22.4, type: "surprise"}
             ]
         }
     ];
 
-    function startAnalysis() {
+    function processAnalysis() {
         const hIn = parseFloat(document.getElementById('v-h').value);
         const aIn = parseFloat(document.getElementById('v-a').value);
         const status = document.getElementById('status');
-        
-        status.innerText = "● ANALYZING NEURAL DATA LAYERS...";
+
+        status.innerText = "● SCANNING HISTORICAL LAYERS...";
         status.style.color = "var(--neon-blue)";
 
         setTimeout(() => {
-            // اختيار أقرب نمط
-            let match = archive.reduce((prev, curr) => Math.abs(curr.h - hIn) < Math.abs(prev.h - hIn) ? curr : prev);
+            let match = db.reduce((p, c) => Math.abs(c.home_odds - hIn) < Math.abs(p.home_odds - hIn) ? c : p);
             
-            // خوارزمية الفجوة (Gap Finder) - حساسية 10%
+            // حساب الفجوة بناءً على Cote الضيف (Away) لأنه هو الذي سجل المفاجأة
             const marketProb = (1 / aIn) * 100;
-            const ourProb = match.results[0].p;
-            const gapValue = ourProb - marketProb;
+            const ourProb = match.patterns[0].f;
+            const gap = ourProb - marketProb;
 
             const display = document.getElementById('display');
             display.style.display = 'block';
             
-            document.getElementById('res-score').innerText = match.results[0].s;
-            document.getElementById('res-freq-label').innerText = `STRENGTH: ${match.results[0].p}%`;
-            document.getElementById('res-fill').style.width = match.results[0].p + "%";
+            // عرض النتيجة بصيغة Home - Away
+            document.getElementById('res-score').innerText = match.patterns[0].s;
+            document.getElementById('res-freq').innerText = `STRENGTH: ${match.patterns[0].f}%`;
+            document.getElementById('res-fill').style.width = match.patterns[0].f + "%";
 
-            // تفعيل تنبيه الفجوة
             const gapTag = document.getElementById('gap-tag');
-            if (gapValue >= 10) {
+            if (gap >= 10) {
                 display.classList.add('gap-active');
                 gapTag.style.display = 'block';
-                gapTag.innerText = `WINNING GAP: +${gapValue.toFixed(1)}%`;
+                gapTag.innerText = `WINNING GAP: +${gap.toFixed(1)}%`;
             } else {
                 display.classList.remove('gap-active');
                 gapTag.style.display = 'none';
             }
 
-            // بناء شبكة الأنماط البديلة
             let html = '';
-            for(let i=1; i < match.results.length; i++) {
+            for(let i=1; i < match.patterns.length; i++) {
                 html += `
                 <div class="data-item">
-                    <div style="font-size:8px; color:#555; margin-bottom:5px;">PATTERN 0${i+1}</div>
-                    <div class="data-score">${match.results[i].s}</div>
-                    <div class="data-pct">${match.results[i].p}%</div>
+                    <div style="font-size:8px; color:#444; margin-bottom:5px;">ALT PATTERN</div>
+                    <div class="data-score">${match.patterns[i].s}</div>
+                    <div style="font-size:11px; color:#4caf50;">${match.patterns[i].f}%</div>
                 </div>`;
             }
             document.getElementById('alt-grid').innerHTML = html;
-            
-            status.innerText = "● ANALYSIS COMPLETE: OPTIMAL TARGETS FOUND";
+            status.innerText = "● ANALYSIS COMPLETE";
             status.style.color = "#4caf50";
         }, 1000);
     }
