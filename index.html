@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Market Predator Edition</title>
+    <title>SOVEREIGN PRO | Extreme Excellence v4.5</title>
     <style>
-        /* الجزء 1: الهوية البصرية النيونية */
+        /* الجزء 1: الهوية البصرية النيونية المتطورة */
         :root { 
             --neon-gold: #ffcc00; 
             --neon-blue: #00f2ff;
@@ -23,8 +23,8 @@
         .main-card { 
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 204, 0, 0.2);
-            border-radius: 40px; padding: 30px; width: 100%; max-width: 420px; 
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: 40px; padding: 30px; width: 100%; max-width: 440px; 
             text-align: center; position: relative; box-shadow: 0 0 60px rgba(0,0,0,1);
             z-index: 1; overflow: hidden;
         }
@@ -37,123 +37,133 @@
         @keyframes scan { from { top: -10%; } to { top: 110%; } }
 
         h1 { font-size: 28px; font-weight: 900; letter-spacing: 2px; color: var(--neon-gold); text-shadow: 0 0 15px rgba(255,204,0,0.4); margin: 5px 0; }
-        .system-status { font-size: 9px; color: #4caf50; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }
+        .system-status { font-size: 9px; color: #4caf50; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; text-transform: uppercase; }
 
-        /* حقول الإدخال المتطورة */
-        .inputs-row { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 25px; }
-        .field-group { width: 32%; }
-        .field-label { font-size: 9px; color: #666; margin-bottom: 5px; display: block; text-transform: uppercase; }
+        /* شبكة الإدخال الرباعية (الامتياز) */
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 25px; }
+        .field-group { text-align: center; }
+        .field-label { font-size: 8px; color: #777; margin-bottom: 6px; display: block; font-weight: bold; text-transform: uppercase; }
         .field { 
             width: 100%; background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px; color: var(--neon-gold); padding: 15px 0;
-            font-size: 18px; font-weight: bold; text-align: center; outline: none;
+            border-radius: 12px; color: var(--neon-gold); padding: 15px 0;
+            font-size: 15px; font-weight: bold; text-align: center; outline: none;
             border-bottom: 3px solid var(--neon-gold); transition: 0.3s;
         }
-        .field:focus { background: rgba(255,204,0,0.1); box-shadow: 0 0 15px rgba(255,204,0,0.2); }
+        .field:focus { background: rgba(255,204,0,0.1); border-color: var(--neon-gold); box-shadow: 0 0 10px rgba(255,204,0,0.2); }
 
-        /* زر التشغيل القوي */
+        /* زر التشغيل الإمبراطوري */
         .btn-engage {
             background: linear-gradient(180deg, var(--neon-gold), #b8860b);
             border: none; border-radius: 20px; padding: 22px; width: 100%;
             color: #000; font-size: 18px; font-weight: 900; cursor: pointer;
-            transition: 0.4s; text-transform: uppercase; box-shadow: 0 5px 20px rgba(255,204,0,0.3);
+            transition: 0.4s; text-transform: uppercase; box-shadow: 0 5px 25px rgba(255,204,0,0.3);
         }
         .btn-engage:active { transform: scale(0.96); }
 
-        /* منطقة النتائج والتحليل */
+        /* منطقة النتائج والتحليل الذكي */
         .display-node { 
             margin-top: 30px; padding: 25px; border-radius: 30px;
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            display: none; animation: slideIn 0.6s ease-out; position: relative;
+            display: none; animation: slideIn 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28); position: relative;
         }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* تنبيه انخفاض الـ Cote */
-        .drop-alert { color: var(--alert-red); font-size: 10px; font-weight: bold; margin-bottom: 10px; display: block; animation: blink 1s infinite; }
+        .drop-alert { color: var(--alert-red); font-size: 10px; font-weight: bold; margin-bottom: 12px; display: block; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        .gap-active { border: 2px solid var(--neon-blue) !important; box-shadow: 0 0 30px rgba(0, 242, 255, 0.2); }
-        .score-ultra { font-size: 70px; font-weight: 900; color: #fff; letter-spacing: 5px; margin: 10px 0; }
+        .gap-active { border: 2px solid var(--neon-blue) !important; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
+        .score-ultra { font-size: 75px; font-weight: 900; color: #fff; letter-spacing: 5px; margin: 10px 0; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
         
+        /* شريط القوة التاريخي */
         .power-bar { width: 100%; height: 5px; background: #1a1a1a; border-radius: 10px; overflow: hidden; margin: 15px 0; }
-        .power-fill { height: 100%; background: var(--neon-blue); width: 0%; transition: 1.5s; box-shadow: 0 0 10px var(--neon-blue); }
+        .power-fill { height: 100%; background: var(--neon-blue); width: 0%; transition: 1.5s; box-shadow: 0 0 15px var(--neon-blue); }
 
-        .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .data-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
+        /* شبكة الأنماط البديلة */
+        .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px; }
+        .alt-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
     </style>
 </head>
 <body>
 
 <div class="main-card">
     <div class="scanline"></div>
-    <div class="system-status" id="status">● SCANNING MARKET FLOW</div>
+    <div class="system-status" id="status">● SENSORS ONLINE: AWAITING DATA</div>
     <h1>SOVEREIGN PRO</h1>
-    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">PREDATOR ENGINE v4.0</div>
+    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">EXCELLENCE EDITION v4.5</div>
 
-    <div class="inputs-row">
-        <div class="field-group"><span class="field-label">OPENING (2)</span><input type="number" id="v-open" value="5.80" class="field"></div>
-        <div class="field-group"><span class="field-label">CURRENT (2)</span><input type="number" id="v-curr" value="5.25" class="field"></div>
+    <div class="inputs-grid">
         <div class="field-group"><span class="field-label">HOME (1)</span><input type="number" id="v-h" value="1.62" class="field"></div>
+        <div class="field-group"><span class="field-label">DRAW (X)</span><input type="number" id="v-x" value="4.10" class="field"></div>
+        <div class="field-group"><span class="field-label">AWAY (2)</span><input type="number" id="v-a" value="5.25" class="field"></div>
+        <div class="field-group"><span class="field-label">OPENING (2)</span><input type="number" id="v-open" value="5.80" class="field"></div>
     </div>
 
-    <button class="btn-engage" onclick="runPredator()">Engage Predator Analysis</button>
+    <button class="btn-engage" onclick="runExcellenceEngine()">Engage Excellence Analysis</button>
 
     <div id="display" class="display-node">
         <span id="drop-text" class="drop-alert" style="display:none;">📉 SMART MONEY DETECTED: ODDS DROPPING</span>
-        <div style="display: flex; justify-content: space-between; font-size: 10px; color: #555;"><span>HOME</span><span>AWAY</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 9px; color: #555; text-transform: uppercase; letter-spacing: 2px;"><span>Home</span><span>Away</span></div>
         <div class="score-ultra" id="res-score">--</div>
         <div id="res-freq" style="color: var(--neon-blue); font-size: 12px; font-weight: bold;">HISTORICAL STRENGTH: 0%</div>
         <div class="power-bar"><div id="res-fill" class="power-fill"></div></div>
-        <div class="data-grid" id="alt-grid"></div>
+        <div class="alt-grid" id="alt-list"></div>
     </div>
 </div>
 
 <script>
+    /* أرشيف البيانات التاريخية المدمج */
     const archive = [
-        { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}, {s: "0 - 1", p: 15.2}] }
+        { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}, {s: "0 - 1", p: 15.2}, {s: "2 - 1", p: 9.4}] },
+        { h: 2.10, results: [{s: "1 - 1", p: 38.5}, {s: "0 - 1", p: 22.4}, {s: "2 - 1", p: 14.2}] }
     ];
 
-    function runPredator() {
+    function runExcellenceEngine() {
         const hVal = parseFloat(document.getElementById('v-h').value);
-        const open = parseFloat(document.getElementById('v-open').value);
-        const curr = parseFloat(document.getElementById('v-curr').value);
+        const aVal = parseFloat(document.getElementById('v-a').value);
+        const openVal = parseFloat(document.getElementById('v-open').value);
         const status = document.getElementById('status');
 
-        status.innerText = "● CALCULATING GAP & MOMENTUM...";
+        status.innerText = "● ANALYZING MULTI-LAYER MARKET DATA...";
         status.style.color = "var(--neon-blue)";
 
         setTimeout(() => {
+            // 1. اختيار النمط التاريخي
             let match = archive.find(i => i.h === hVal) || archive[0];
             
-            // 1. منطق الـ Odds Drop
-            const drop = ((open - curr) / open) * 100;
+            // 2. حساب انخفاض الـ Cote (Smart Money)
+            const dropPercent = ((openVal - aVal) / openVal) * 100;
             
-            // 2. تحديث الواجهة
+            // 3. تحديث الواجهة والنتائج
             const display = document.getElementById('display');
             display.style.display = 'block';
             document.getElementById('res-score').innerText = match.results[0].s;
             document.getElementById('res-freq').innerText = `HISTORICAL STRENGTH: ${match.results[0].p}%`;
             document.getElementById('res-fill').style.width = match.results[0].p + "%";
 
-            // 3. تفعيل التنبيهات
+            // 4. تفعيل تنبيه حركة المال
             const dropText = document.getElementById('drop-text');
-            if (drop >= 5) {
+            if (dropPercent >= 5) {
                 dropText.style.display = 'block';
-                dropText.innerText = `📉 SMART MONEY ALERT: ${drop.toFixed(1)}% DROP`;
+                dropText.innerText = `📉 SMART MONEY ALERT: ${dropPercent.toFixed(1)}% DROP`;
                 display.classList.add('gap-active');
             } else {
                 dropText.style.display = 'none';
                 display.classList.remove('gap-active');
             }
 
-            // 4. النتائج البديلة
+            // 5. بناء قائمة الأنماط البديلة
             let html = '';
             for(let i=1; i < match.results.length; i++) {
-                html += `<div class="data-item"><div style="font-size:8px; color:#444;">PATTERN 0${i+1}</div><div style="color:var(--neon-gold); font-weight:bold;">${match.results[i].s}</div><div style="color:#4caf50; font-size:11px;">${match.results[i].p}%</div></div>`;
+                html += `
+                <div class="alt-item">
+                    <div style="font-size:8px; color:#444; margin-bottom:5px;">ALT PATTERN</div>
+                    <div style="color:var(--neon-gold); font-weight:bold; font-size:18px;">${match.results[i].s}</div>
+                    <div style="color:#4caf50; font-size:11px; font-weight:bold;">${match.results[i].p}%</div>
+                </div>`;
             }
-            document.getElementById('alt-grid').innerHTML = html;
+            document.getElementById('alt-list').innerHTML = html;
 
-            status.innerText = "● PREDATOR ANALYSIS COMPLETE";
+            status.innerText = "● ANALYSIS COMPLETE: TARGETS IDENTIFIED";
             status.style.color = "#4caf50";
         }, 1000);
     }
