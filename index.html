@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Solid Hunter v7.1</title>
+    <title>SOVEREIGN PRO | Ultimate Hunter v7.2</title>
     <style>
         /* الجزء 1: الهوية البصرية النيونية */
         :root { 
@@ -38,16 +38,15 @@
         }
         .radar-btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
 
-        /* شريط اختيار الأفرع */
+        /* شريط اختيار الأفرع الثمانية */
         .league-selector {
             background: #111; border: 1px solid #333; border-radius: 15px;
             color: var(--neon-gold); width: 100%; padding: 12px; margin-bottom: 25px;
             font-size: 13px; font-weight: bold; outline: none; border-left: 4px solid var(--neon-gold);
         }
 
-        /* شبكة الإدخال */
+        /* شبكة الإدخال الرباعية */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 25px; }
-        .field-label { font-size: 7px; color: #777; margin-bottom: 5px; display: block; font-weight: bold; text-transform: uppercase; }
         .field { 
             width: 100%; background: var(--glass); border: 1px solid #222;
             border-radius: 10px; color: var(--neon-gold); padding: 12px 0;
@@ -61,30 +60,26 @@
             box-shadow: 0 5px 25px rgba(255,204,0,0.3);
         }
 
-        /* منطقة النتائج */
+        /* منطقة النتائج والأنماط البديلة */
         .display-node { 
             margin-top: 25px; padding: 20px; border-radius: 30px;
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            display: none;
+            display: none; animation: slideIn 0.6s ease-out;
         }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .score-ultra { font-size: 65px; font-weight: 900; color: #fff; letter-spacing: 4px; margin: 10px 0; }
         .drop-alert { color: var(--neon-red); font-size: 9px; font-weight: bold; margin-bottom: 10px; display: block; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        
+        .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+        .alt-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
 
-        /* الجزء المعدل: رادار الافتراس الحي (تصميم صلب) */
+        /* رادار الافتراس الحي السفلي */
         .live-radar-container {
-            width: 100%; max-width: 450px; background: #fff; /* خلفية بيضاء لضمان قراءة الجدول بوضوح */
+            width: 100%; max-width: 450px; background: #fff;
             border: 4px solid var(--neon-red); border-radius: 30px; padding: 5px;
             box-shadow: 0 10px 50px rgba(255, 62, 62, 0.3); margin-bottom: 40px; overflow: hidden;
-        }
-        .radar-header {
-            color: #000; font-size: 11px; font-weight: 900;
-            text-align: center; padding: 10px 0; text-transform: uppercase;
-            letter-spacing: 1px; background: #f8f8f8;
-        }
-        .radar-frame {
-            width: 100%; height: 600px; border: none;
         }
     </style>
 </head>
@@ -105,29 +100,28 @@
     </select>
 
     <h1>SOVEREIGN PRO</h1>
-    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">SOLID HUNTER v7.1</div>
+    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">ULTIMATE HUNTER v7.2</div>
 
     <div class="inputs-grid">
-        <input type="number" id="v-h" placeholder="H" class="field">
-        <input type="number" id="v-x" placeholder="X" class="field">
-        <input type="number" id="v-a" placeholder="A" class="field">
-        <input type="number" id="v-open" placeholder="OP" class="field">
+        <input type="number" id="v-h" value="1.62" class="field" placeholder="H">
+        <input type="number" id="v-x" value="4.10" class="field" placeholder="X">
+        <input type="number" id="v-a" value="5.25" class="field" placeholder="A">
+        <input type="number" id="v-open" value="7.50" class="field" placeholder="OP">
     </div>
 
-    <button class="btn-engage" onclick="engageNeuralAnalysis()">Engage Neural Analysis</button>
+    <button class="btn-engage" onclick="engageUltimateEngine()">Engage Neural Analysis</button>
 
     <div id="display" class="display-node">
         <span id="drop-text" class="drop-alert" style="display:none;">📉 SMART MONEY DETECTED</span>
         <div class="score-ultra" id="res-score">--</div>
-        <div id="res-freq" style="color: var(--neon-blue); font-size: 11px; font-weight: bold;">STRENGTH: 0%</div>
-        <div id="alt-list" style="margin-top:15px; display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>
+        <div id="res-freq" style="color: var(--neon-blue); font-size: 11px; font-weight: bold;">HISTORICAL STRENGTH: 0%</div>
+        <div id="alt-list" class="alt-grid"></div>
     </div>
 </div>
 
-<!-- الرادار الحي الصلب (لا يُحظر) -->
 <div class="live-radar-container">
-    <div class="radar-header">🚨 LIVE PREDATOR RADAR: REAL-TIME DROPPING ODDS</div>
-    <iframe class="radar-frame" src="https://betexplorer.com"></iframe>
+    <div style="color:#000; font-size:11px; font-weight:900; text-align:center; padding:10px 0;">🚨 LIVE PREDATOR RADAR: REAL-TIME DROPPING ODDS</div>
+    <iframe src="https://betexplorer.com" width="100%" height="600px" style="border:none;"></iframe>
 </div>
 
 <script>
@@ -136,8 +130,9 @@
     }
 
     const empireArchives = {
-        intl: { h: 1.62, results: [{s: "1 - 1", p: 38.0}, {s: "0 - 1", p: 22.5}], theme: "#ffffff" },
-        epl: { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}], theme: "#ff3e3e" }
+        intl: { h: 1.62, results: [{s: "1 - 1", p: 38.0}, {s: "0 - 1", p: 22.5}, {s: "1 - 2", p: 17.2}], theme: "#ffffff" },
+        epl: { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}, {s: "2 - 1", p: 9.4}], theme: "#ff3e3e" },
+        uel: { h: 2.25, results: [{s: "1 - 1", p: 41.2}, {s: "1 - 2", p: 28.5}, {s: "2 - 1", p: 18.3}], theme: "#ffcc00" }
     };
 
     function applyLeagueTheme() {
@@ -146,7 +141,7 @@
         document.getElementById('main-box').style.borderColor = color;
     }
 
-    function engageNeuralAnalysis() {
+    function engageUltimateEngine() {
         const league = document.getElementById('league-select').value;
         const hVal = parseFloat(document.getElementById('v-h').value);
         const aVal = parseFloat(document.getElementById('v-a').value);
@@ -164,9 +159,19 @@
             dropText.style.display = 'block';
             dropText.innerText = `📉 MARKET DROP: ${dropPercent.toFixed(1)}%`;
             if (dropPercent >= 20 && Notification.permission === "granted") {
-                new Notification("⚡ PREDATOR ALERT", { body: `Anomaly! ${dropPercent.toFixed(1)}% Drop detected.` });
+                new Notification("⚡ PREDATOR ALERT", { body: `Anomaly Detected: ${dropPercent.toFixed(1)}% Drop!` });
             }
         } else { dropText.style.display = 'none'; }
+
+        let html = '';
+        for(let i=1; i < match.results.length; i++) {
+            html += `<div class="alt-item">
+                <div style="font-size:8px; color:#444; margin-bottom:5px;">PATTERN</div>
+                <div style="color:var(--neon-gold); font-weight:bold; font-size:18px;">${match.results[i].s}</div>
+                <div style="color:#4caf50; font-size:11px;">${match.results[i].p}%</div>
+            </div>`;
+        }
+        document.getElementById('alt-list').innerHTML = html;
     }
 </script>
 </body>
