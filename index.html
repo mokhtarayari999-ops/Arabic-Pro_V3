@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | The Eight Empires v6.8</title>
+    <title>SOVEREIGN PRO | Hunter Edition v7.0</title>
     <style>
-        /* الجزء 1: الهوية البصرية النيونية المتطورة */
+        /* الجزء 1: الهوية البصرية النيونية */
         :root { 
             --neon-gold: #ffcc00; 
             --neon-blue: #00f2ff; 
             --neon-red: #ff3e3e; 
-            --neon-green: #39ff14;
             --glass: rgba(255, 255, 255, 0.03);
         }
 
         body { 
             background: radial-gradient(circle at center, #111 0%, #000 100%);
             color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; 
-            display: flex; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             padding: 15px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
@@ -26,18 +25,10 @@
             border: 2px solid var(--neon-gold); border-radius: 40px; 
             padding: 25px; width: 100%; max-width: 450px; 
             text-align: center; position: relative; box-shadow: 0 0 60px rgba(0,0,0,1);
-            transition: 0.5s; z-index: 1; overflow: hidden;
+            margin-bottom: 25px; z-index: 2;
         }
 
-        /* خط المسح الضوئي */
-        .scanline { 
-            width: 100%; height: 10px; 
-            background: linear-gradient(to bottom, transparent, rgba(255, 204, 0, 0.05), transparent); 
-            position: absolute; top: 0; left: 0; animation: scan 4s linear infinite; 
-        }
-        @keyframes scan { from { top: -10%; } to { top: 110%; } }
-
-        /* زر الرادار الأزرق لتفعيل الإشعارات */
+        /* زر الرادار الأزرق */
         .radar-btn {
             background: transparent; border: 1px solid var(--neon-blue);
             color: var(--neon-blue); border-radius: 12px; padding: 10px;
@@ -47,14 +38,14 @@
         }
         .radar-btn:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 15px var(--neon-blue); }
 
-        /* شريط اختيار الفرع المتخصص */
+        /* شريط اختيار الأفرع الثمانية */
         .league-selector {
             background: #111; border: 1px solid #333; border-radius: 15px;
             color: var(--neon-gold); width: 100%; padding: 12px; margin-bottom: 25px;
             font-size: 13px; font-weight: bold; outline: none; border-left: 4px solid var(--neon-gold);
         }
 
-        /* شبكة الإدخال الرباعية */
+        /* شبكة الإدخال */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 25px; }
         .field-label { font-size: 7px; color: #777; margin-bottom: 5px; display: block; font-weight: bold; text-transform: uppercase; }
         .field { 
@@ -63,36 +54,45 @@
             font-size: 14px; font-weight: bold; text-align: center; border-bottom: 2px solid var(--neon-gold); outline: none;
         }
 
-        /* زر التحليل العصبي */
         .btn-engage {
             background: linear-gradient(180deg, var(--neon-gold), #b8860b);
-            border: none; border-radius: 20px; padding: 20px; width: 100%;
-            color: #000; font-size: 17px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            border: none; border-radius: 20px; padding: 22px; width: 100%;
+            color: #000; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase;
             box-shadow: 0 5px 25px rgba(255,204,0,0.3);
         }
-        .btn-engage:active { transform: scale(0.96); }
 
-        /* منطقة عرض النتائج */
+        /* منطقة النتائج */
         .display-node { 
             margin-top: 25px; padding: 20px; border-radius: 30px;
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-            display: none; animation: slideIn 0.6s ease-out; position: relative;
+            display: none; animation: slideIn 0.6s ease-out;
         }
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .score-ultra { font-size: 65px; font-weight: 900; color: #fff; letter-spacing: 4px; margin: 10px 0; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .score-ultra { font-size: 65px; font-weight: 900; color: #fff; letter-spacing: 4px; margin: 10px 0; }
         .drop-alert { color: var(--neon-red); font-size: 9px; font-weight: bold; margin-bottom: 10px; display: block; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-        
-        .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
-        .alt-item { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 10px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
+
+        /* الجزء الجديد: لوحة رادار الافتراس الحي */
+        .live-radar-container {
+            width: 100%; max-width: 450px; background: rgba(10, 10, 10, 0.9);
+            border: 1px solid #333; border-radius: 30px; padding: 20px;
+            box-shadow: 0 10px 40px #000; margin-bottom: 30px;
+        }
+        .radar-header {
+            color: var(--neon-red); font-size: 11px; font-weight: bold;
+            text-align: center; margin-bottom: 15px; text-transform: uppercase;
+            letter-spacing: 2px; animation: blink 2s infinite;
+        }
+        .radar-frame {
+            width: 100%; height: 500px; border-radius: 20px; border: 1px solid #222;
+            overflow: hidden; background: #000;
+        }
     </style>
 </head>
 <body>
 
 <div class="main-card" id="main-box">
-    <div class="scanline"></div>
-    
     <button class="radar-btn" onclick="enableNotifications()">🔔 ENABLE NEURAL RADAR ALERTS</button>
 
     <select id="league-select" class="league-selector" onchange="applyLeagueTheme()">
@@ -107,7 +107,7 @@
     </select>
 
     <h1>SOVEREIGN PRO</h1>
-    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">EIGHT EMPIRES v6.8</div>
+    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">HUNTER EDITION v7.0</div>
 
     <div class="inputs-grid">
         <div class="field-group"><span class="field-label">HOME</span><input type="number" id="v-h" value="1.62" class="field"></div>
@@ -116,99 +116,67 @@
         <div class="field-group"><span class="field-label">OPEN</span><input type="number" id="v-open" value="7.50" class="field"></div>
     </div>
 
-    <button class="btn-engage" onclick="engageNeuralAnalysis()">Engage Neural Analysis</button>
+    <button class="btn-engage" onclick="engageHunterEngine()">Engage Neural Analysis</button>
 
     <div id="display" class="display-node">
         <span id="drop-text" class="drop-alert" style="display:none;">📉 SMART MONEY DETECTED</span>
-        <div style="display: flex; justify-content: space-between; font-size: 9px; color: #555; text-transform: uppercase;"><span>Home Team</span><span>Away Team</span></div>
         <div class="score-ultra" id="res-score">--</div>
         <div id="res-freq" style="color: var(--neon-blue); font-size: 11px; font-weight: bold;">HISTORICAL STRENGTH: 0%</div>
-        <div class="alt-grid" id="alt-list"></div>
+        <div id="alt-list" style="margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:8px;"></div>
+    </div>
+</div>
+
+<!-- رادار الافتراس الحي التلقائي -->
+<div class="live-radar-container">
+    <div class="radar-header">📡 LIVE PREDATOR RADAR: DETECTING MARKET DROPS</div>
+    <div class="radar-frame">
+        <!-- جلب بيانات حركة المال من مزود عالمي موثوق -->
+        <iframe src="https://fctables.com" width="100%" height="100%" scrolling="yes" frameborder="0"></iframe>
     </div>
 </div>
 
 <script>
-    // 1. نظام الإشعارات
     function enableNotifications() {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        } else {
-            Notification.requestPermission().then(permission => {
-                if (permission === "granted") alert("Neural Radar Active! 🚀");
-            });
-        }
+        Notification.requestPermission().then(p => { if(p === "granted") alert("Neural Radar Active! 🚀"); });
     }
 
-    function triggerRadarAlert(team, drop) {
-        if (Notification.permission === "granted") {
-            new Notification("⚡ SOVEREIGN PREDATOR ALERT", {
-                body: `Market Anomaly! ${drop.toFixed(1)}% Drop detected. High probability identified.`,
-                icon: 'https://flaticon.com'
-            });
-        }
-    }
-
-    // 2. أرشيف الإمبراطوريات الثمانية
     const empireArchives = {
-        epl: { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}, {s: "2 - 1", p: 9.4}], theme: "#ff3e3e" },
-        liga: { h: 1.62, results: [{s: "1 - 0", p: 39.5}, {s: "2 - 0", p: 22.4}, {s: "1 - 1", p: 18.2}], theme: "#ffcc00" },
-        seriea: { h: 1.62, results: [{s: "1 - 1", p: 45.2}, {s: "0 - 0", p: 30.1}], theme: "#00f2ff" },
-        bundes: { h: 1.62, results: [{s: "2 - 2", p: 31.4}, {s: "3 - 1", p: 24.2}], theme: "#ff0000" },
-        ucl: { h: 1.53, results: [{s: "2 - 0", p: 38.5}, {s: "2 - 1", p: 25.4}], theme: "#0052ff" },
-        uel: { h: 2.25, results: [{s: "1 - 1", p: 41.2}, {s: "1 - 2", p: 28.5}, {s: "2 - 1", p: 18.3}], theme: "#ffcc00" },
-        spl: { h: 1.62, results: [{s: "3 - 1", p: 35.2}, {s: "2 - 1", p: 28.4}], theme: "#39ff14" },
+        epl: { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}], theme: "#ff3e3e" },
+        uel: { h: 2.25, results: [{s: "1 - 1", p: 41.2}, {s: "1 - 2", p: 28.5}], theme: "#ffcc00" },
         intl: { h: 1.62, results: [{s: "1 - 1", p: 38.0}, {s: "0 - 1", p: 22.5}], theme: "#ffffff" }
     };
 
     function applyLeagueTheme() {
         const league = document.getElementById('league-select').value;
-        const mainBox = document.getElementById('main-box');
-        const selector = document.getElementById('league-select');
-        let color = empireArchives[league].theme || "#ffcc00";
-        mainBox.style.borderColor = color;
-        selector.style.borderColor = color;
-        selector.style.color = color;
+        const color = empireArchives[league]?.theme || "#ffcc00";
+        document.getElementById('main-box').style.borderColor = color;
     }
 
-    function engageNeuralAnalysis() {
+    function engageHunterEngine() {
         const league = document.getElementById('league-select').value;
         const hVal = parseFloat(document.getElementById('v-h').value);
         const aVal = parseFloat(document.getElementById('v-a').value);
         const openVal = parseFloat(document.getElementById('v-open').value);
 
-        // جلب الأرشيف بناءً على الدوري المختار
         let match = empireArchives[league] || empireArchives['intl'];
-        
-        // حساب انخفاض الـ Cote
         const dropPercent = ((openVal - aVal) / openVal) * 100;
 
         document.getElementById('display').style.display = 'block';
         document.getElementById('res-score').innerText = match.results[0].s;
         document.getElementById('res-freq').innerText = `HISTORICAL STRENGTH: ${match.results[0].p}%`;
 
-        // منطق التنبيهات
         const dropText = document.getElementById('drop-text');
-        if (dropPercent >= 10) {
-            if (dropPercent >= 20) triggerRadarAlert("Away Team", dropPercent);
+        if (dropPercent >= 15) {
             dropText.style.display = 'block';
-            dropText.innerText = `📉 ${league.toUpperCase()} MARKET DROP: ${dropPercent.toFixed(1)}%`;
-            document.getElementById('display').style.borderColor = "var(--neon-red)";
+            dropText.innerText = `📉 MARKET DROP DETECTED: ${dropPercent.toFixed(1)}%`;
+            if (dropPercent >= 20 && Notification.permission === "granted") {
+                new Notification("⚡ PREDATOR ALERT", { body: `Anomaly! ${dropPercent.toFixed(1)}% Market Drop detected.` });
+            }
         } else {
             dropText.style.display = 'none';
-            document.getElementById('display').style.borderColor = "rgba(255,255,255,0.05)";
         }
-
-        // بناء قائمة الأنماط البديلة
-        let html = '';
-        for(let i=1; i < match.results.length; i++) {
-            html += `<div class="alt-item">
-                <div style="font-size:8px; color:#444; margin-bottom:5px;">${league.toUpperCase()} PATTERN</div>
-                <div style="color:var(--neon-gold); font-weight:bold; font-size:18px;">${match.results[i].s}</div>
-                <div style="color:#4caf50; font-size:11px; font-weight:bold;">${match.results[i].p}%</div>
-            </div>`;
-        }
-        document.getElementById('alt-list').innerHTML = html;
     }
 </script>
 </body>
-</html>
+    </html>
+    
