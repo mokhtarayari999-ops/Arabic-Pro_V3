@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Final Radar Edition v6.6</title>
+    <title>SOVEREIGN PRO | The Eight Empires v6.8</title>
     <style>
         /* الجزء 1: الهوية البصرية النيونية المتطورة */
         :root { 
@@ -96,18 +96,18 @@
     <button class="radar-btn" onclick="enableNotifications()">🔔 ENABLE NEURAL RADAR ALERTS</button>
 
     <select id="league-select" class="league-selector" onchange="applyLeagueTheme()">
-        <option value="epl">🏴󠁧󠁢󠁥󠁮󠁧󠁿 PREMIER LEAGUE (UK)</option>
-        <option value="liga">🇪🇸 LA LIGA (SPAIN)</option>
-        <option value="seriea">🇮🇹 SERIE A (ITALY)</option>
-        <option value="bundes">🇩🇪 BUNDESLIGA (GER)</option>
-        <option value="ucl">🇪🇺 CHAMPIONS LEAGUE (EU)</option>
-        <option value="spl">🇸🇦 SAUDI PRO LEAGUE (KSA)</option>
-        <option value="ered">🇳🇱 EREDIVISIE (NETH)</option>
-        <option value="intl">🌍 INTERNATIONAL & OTHERS</option>
+        <option value="epl">🏴 1. PREMIER LEAGUE (UK)</option>
+        <option value="liga">🇪🇸 2. LA LIGA (SPAIN)</option>
+        <option value="seriea">🇮🇹 3. SERIE A (ITALY)</option>
+        <option value="bundes">🇩🇪 4. BUNDESLIGA (GER)</option>
+        <option value="ucl">🇪🇺 5. CHAMPIONS LEAGUE (EU)</option>
+        <option value="uel">🏆 6. EUROPA LEAGUE (EU)</option>
+        <option value="spl">🇸🇦 7. SAUDI PRO LEAGUE (KSA)</option>
+        <option value="intl">🌍 8. INTERNATIONAL & OTHERS</option>
     </select>
 
     <h1>SOVEREIGN PRO</h1>
-    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">UNIVERSAL RADAR v6.6</div>
+    <div style="font-size: 9px; color: #444; letter-spacing: 2px; margin-bottom: 25px;">EIGHT EMPIRES v6.8</div>
 
     <div class="inputs-grid">
         <div class="field-group"><span class="field-label">HOME</span><input type="number" id="v-h" value="1.62" class="field"></div>
@@ -130,29 +130,33 @@
 <script>
     // 1. نظام الإشعارات
     function enableNotifications() {
-        Notification.requestPermission().then(permission => {
-            if (permission === "granted") alert("Neural Radar Active! 🚀");
-        });
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") alert("Neural Radar Active! 🚀");
+            });
+        }
     }
 
     function triggerRadarAlert(team, drop) {
         if (Notification.permission === "granted") {
             new Notification("⚡ SOVEREIGN PREDATOR ALERT", {
-                body: `Market Anomaly! ${drop.toFixed(1)}% Drop for ${team}. High probability detected.`,
+                body: `Market Anomaly! ${drop.toFixed(1)}% Drop detected. High probability identified.`,
                 icon: 'https://flaticon.com'
             });
         }
     }
 
-    // 2. أرشيف الإمبراطوريات
+    // 2. أرشيف الإمبراطوريات الثمانية
     const empireArchives = {
         epl: { h: 1.62, results: [{s: "1 - 2", p: 42.1}, {s: "1 - 1", p: 28.7}, {s: "2 - 1", p: 9.4}], theme: "#ff3e3e" },
         liga: { h: 1.62, results: [{s: "1 - 0", p: 39.5}, {s: "2 - 0", p: 22.4}, {s: "1 - 1", p: 18.2}], theme: "#ffcc00" },
         seriea: { h: 1.62, results: [{s: "1 - 1", p: 45.2}, {s: "0 - 0", p: 30.1}], theme: "#00f2ff" },
         bundes: { h: 1.62, results: [{s: "2 - 2", p: 31.4}, {s: "3 - 1", p: 24.2}], theme: "#ff0000" },
         ucl: { h: 1.53, results: [{s: "2 - 0", p: 38.5}, {s: "2 - 1", p: 25.4}], theme: "#0052ff" },
+        uel: { h: 2.25, results: [{s: "1 - 1", p: 41.2}, {s: "1 - 2", p: 28.5}, {s: "2 - 1", p: 18.3}], theme: "#ffcc00" },
         spl: { h: 1.62, results: [{s: "3 - 1", p: 35.2}, {s: "2 - 1", p: 28.4}], theme: "#39ff14" },
-        ered: { h: 1.62, results: [{s: "2 - 2", p: 33.1}, {s: "3 - 2", p: 21.5}], theme: "#ff6600" },
         intl: { h: 1.62, results: [{s: "1 - 1", p: 38.0}, {s: "0 - 1", p: 22.5}], theme: "#ffffff" }
     };
 
@@ -172,28 +176,35 @@
         const aVal = parseFloat(document.getElementById('v-a').value);
         const openVal = parseFloat(document.getElementById('v-open').value);
 
+        // جلب الأرشيف بناءً على الدوري المختار
         let match = empireArchives[league] || empireArchives['intl'];
+        
+        // حساب انخفاض الـ Cote
         const dropPercent = ((openVal - aVal) / openVal) * 100;
 
         document.getElementById('display').style.display = 'block';
         document.getElementById('res-score').innerText = match.results[0].s;
         document.getElementById('res-freq').innerText = `HISTORICAL STRENGTH: ${match.results[0].p}%`;
 
+        // منطق التنبيهات
         const dropText = document.getElementById('drop-text');
         if (dropPercent >= 10) {
             if (dropPercent >= 20) triggerRadarAlert("Away Team", dropPercent);
             dropText.style.display = 'block';
             dropText.innerText = `📉 ${league.toUpperCase()} MARKET DROP: ${dropPercent.toFixed(1)}%`;
+            document.getElementById('display').style.borderColor = "var(--neon-red)";
         } else {
             dropText.style.display = 'none';
+            document.getElementById('display').style.borderColor = "rgba(255,255,255,0.05)";
         }
 
+        // بناء قائمة الأنماط البديلة
         let html = '';
         for(let i=1; i < match.results.length; i++) {
             html += `<div class="alt-item">
-                <div style="font-size:8px; color:#444; margin-bottom:3px;">${league.toUpperCase()} PATTERN</div>
-                <div style="color:var(--neon-gold); font-weight:bold; font-size:16px;">${match.results[i].s}</div>
-                <div style="color:#4caf50; font-size:10px; font-weight:bold;">${match.results[i].p}%</div>
+                <div style="font-size:8px; color:#444; margin-bottom:5px;">${league.toUpperCase()} PATTERN</div>
+                <div style="color:var(--neon-gold); font-weight:bold; font-size:18px;">${match.results[i].s}</div>
+                <div style="color:#4caf50; font-size:11px; font-weight:bold;">${match.results[i].p}%</div>
             </div>`;
         }
         document.getElementById('alt-list').innerHTML = html;
