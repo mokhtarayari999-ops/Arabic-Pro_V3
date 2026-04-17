@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Matrix v8.1</title>
+    <title>SOVEREIGN PRO | Matrix v8.2</title>
     <style>
-        /* الجزء 1: الهوية البصرية النيونية */
+        /* الجزء 1: الهوية البصرية النيونية الاحترافية */
         :root { 
             --n-gold: #ffcc00; 
             --n-blue: #00f2ff; 
@@ -35,6 +35,7 @@
         }
         .radar-btn:hover { background: var(--n-blue); color: #000; box-shadow: 0 0 15px var(--n-blue); }
 
+        /* شريط اختيار الأفرع التسعة */
         .league-selector {
             background: #111; color: #aaa; width: 100%; padding: 12px;
             border: 1px solid #222; border-radius: 10px; margin-bottom: 20px;
@@ -71,7 +72,7 @@
         .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
         .alt-item { background: #151515; border-radius: 15px; padding: 15px; border: 1px solid #222; text-align: center; }
 
-        /* رادار الافتراس العالمي */
+        /* رادار الافتراس العالمي السفلي */
         .radar-box { 
             width: 100%; max-width: 450px; background: #fff; 
             border-radius: 25px; overflow: hidden; border: 3px solid var(--n-red); 
@@ -82,7 +83,6 @@
 <body>
 
 <div class="main-card">
-    <!-- استعادة زر التنبيهات -->
     <button class="radar-btn" onclick="enableNotifications()">🔔 ENABLE NEURAL RADAR ALERTS</button>
 
     <select id="league" class="league-selector">
@@ -90,10 +90,11 @@
         <option value="eng">🏴 2. PREMIER LEAGUE (UK)</option>
         <option value="ger">🇩🇪 3. BUNDESLIGA (GER)</option>
         <option value="esp">🇪🇸 4. LA LIGA (SPAIN)</option>
-        <option value="ucl">🇪🇺 5. CHAMPIONS LEAGUE</option>
-        <option value="uel">🏆 6. EUROPA LEAGUE</option>
-        <option value="spl">🇸🇦 7. SAUDI PRO LEAGUE</option>
-        <option value="intl">🌍 8. INTERNATIONAL SCANNER</option>
+        <option value="fra">🇫🇷 5. LIGUE 1 (FRANCE)</option>
+        <option value="ucl">🇪🇺 6. CHAMPIONS LEAGUE</option>
+        <option value="uel">🏆 7. EUROPA LEAGUE</option>
+        <option value="spl">🇸🇦 8. SAUDI PRO LEAGUE</option>
+        <option value="intl">🌍 9. INTERNATIONAL SCANNER</option>
     </select>
 
     <div class="inputs-grid">
@@ -103,7 +104,7 @@
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
 
-    <button class="btn-engage" onclick="matrixAnalysis()">Run Probability Matrix v8.1</button>
+    <button class="btn-engage" onclick="matrixAnalysis()">Run Probability Matrix v8.2</button>
 
     <div id="res-box" class="display-node">
         <div id="alert-tag" style="color:var(--n-red); font-size:10px; font-weight:bold; margin-bottom:10px; display:none; letter-spacing:1px;">⚠️ MARKET ANOMALY DETECTED</div>
@@ -114,15 +115,14 @@
 </div>
 
 <div class="radar-box">
-    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">📡 GLOBAL PREDATOR RADAR v8.1</div>
+    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">📡 GLOBAL PREDATOR RADAR v8.2</div>
     <iframe src="https://betexplorer.com" width="100%" height="550px" style="border:none;"></iframe>
 </div>
 
 <script>
-    // تفعيل الإشعارات
     function enableNotifications() {
         if (!("Notification" in window)) {
-            alert("This browser does not support notifications.");
+            alert("Notification API not supported.");
         } else {
             Notification.requestPermission().then(p => { 
                 if(p === "granted") alert("Neural Radar Active! 🚀"); 
@@ -130,7 +130,6 @@
         }
     }
 
-    // إطلاق التنبيه عند الافتراس
     function triggerAlert(team, drop) {
         if (Notification.permission === "granted") {
             new Notification("⚡ SOVEREIGN PREDATOR ALERT", { 
@@ -146,14 +145,14 @@
         const o = parseFloat(document.getElementById('o').value);
         
         if(!h || !a) {
-            alert("Enter Home and Away Odds!");
+            alert("Please enter Home and Away Odds!");
             return;
         }
 
         const drop = o ? ((o - a) / o) * 100 : 0;
         let score = "", prob = 0, patterns = [];
 
-        // محرك مصفوفة الاحتمالات v8.1 (المنطق الرياضي الصرف)
+        // محرك مصفوفة الاحتمالات v8.2 (المنطق الرياضي الصرف)
         if (h <= 1.35) {
             if (drop > 15) { 
                 score = "1 - 1"; prob = 42; 
@@ -187,10 +186,11 @@
         else {
             score = "1 - 1"; prob = 38;
             patterns = [{s:"0-0",p:33},{s:"1-0",p:29}];
+            if(drop > 12) triggerAlert("Away Team", drop);
         }
 
-        // عرض النتائج
-        document.getElementById('res-box').style.display = 'block';
+        const resBox = document.getElementById('res-box');
+        resBox.style.display = 'block';
         document.getElementById('main-s').innerText = score;
         document.getElementById('main-p').innerText = `PROBABILITY MATRIX: ${prob}%`;
         
