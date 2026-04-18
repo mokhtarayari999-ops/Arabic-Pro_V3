@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Matrix v8.2</title>
+    <title>SOVEREIGN PRO | Master Engine v8.5</title>
     <style>
-        /* الجزء 1: الهوية البصرية النيونية الاحترافية */
+        /* الجزء 1: الهوية البصرية النيونية المتطورة */
         :root { 
             --n-gold: #ffcc00; 
             --n-blue: #00f2ff; 
@@ -23,10 +23,10 @@
             background: #0a0a0a; border: 1px solid #222; border-top: 4px solid var(--n-gold); 
             border-radius: 25px; padding: 25px; width: 100%; max-width: 450px; 
             text-align: center; box-shadow: 0 20px 50px #000; margin-bottom: 20px; 
-            position: relative;
+            position: relative; transition: 0.3s;
         }
 
-        /* زر الرادار الأزرق (المنبه) */
+        /* زر الرادار الأزرق (المنبه العصبي) */
         .radar-btn { 
             background: transparent; border: 1px solid var(--n-blue); color: var(--n-blue); 
             border-radius: 12px; padding: 10px; font-size: 11px; font-weight: bold; 
@@ -35,7 +35,7 @@
         }
         .radar-btn:hover { background: var(--n-blue); color: #000; box-shadow: 0 0 15px var(--n-blue); }
 
-        /* شريط اختيار الأفرع التسعة */
+        /* شريط اختيار الأفرع التسعة المصحح */
         .league-selector {
             background: #111; color: #aaa; width: 100%; padding: 12px;
             border: 1px solid #222; border-radius: 10px; margin-bottom: 20px;
@@ -57,14 +57,15 @@
             border-radius: 15px; padding: 22px; width: 100%; 
             font-size: 16px; font-weight: 900; cursor: pointer; 
             text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(255,204,0,0.1);
         }
         .btn-engage:active { transform: scale(0.97); }
 
-        /* منطقة النتائج */
+        /* منطقة النتائج والأنماط البديلة */
         .display-node { 
             margin-top: 30px; padding: 25px; border-radius: 20px; 
             background: #0f0f0f; border: 1px solid #1a1a1a; display: none; 
-            animation: fadeIn 0.5s ease;
+            animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -72,7 +73,7 @@
         .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
         .alt-item { background: #151515; border-radius: 15px; padding: 15px; border: 1px solid #222; text-align: center; }
 
-        /* رادار الافتراس العالمي السفلي */
+        /* رادار الافتراس العالمي v8.5 */
         .radar-box { 
             width: 100%; max-width: 450px; background: #fff; 
             border-radius: 25px; overflow: hidden; border: 3px solid var(--n-red); 
@@ -104,25 +105,26 @@
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
 
-    <button class="btn-engage" onclick="matrixAnalysis()">Run Probability Matrix v8.2</button>
+    <button class="btn-engage" onclick="masterAnalysis()">Run Master Engine v8.5</button>
 
     <div id="res-box" class="display-node">
-        <div id="alert-tag" style="color:var(--n-red); font-size:10px; font-weight:bold; margin-bottom:10px; display:none; letter-spacing:1px;">⚠️ MARKET ANOMALY DETECTED</div>
+        <div id="alert-tag" style="color:var(--n-red); font-size:10px; font-weight:bold; margin-bottom:10px; display:none; letter-spacing:1px;">⚠️ PREDATOR DROP DETECTED</div>
         <div class="score-ultra" id="main-s">--</div>
-        <div id="main-p" style="color:var(--n-blue); font-size:12px; font-weight:bold;">PROBABILITY MATRIX: 0%</div>
+        <div id="main-p" style="color:var(--n-blue); font-size:12px; font-weight:bold;">MASTER PROBABILITY: 0%</div>
         <div id="alts" class="alt-grid"></div>
     </div>
 </div>
 
 <div class="radar-box">
-    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">📡 GLOBAL PREDATOR RADAR v8.2</div>
+    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">📡 LIVE PREDATOR RADAR v8.5</div>
     <iframe src="https://betexplorer.com" width="100%" height="550px" style="border:none;"></iframe>
 </div>
 
 <script>
+    // تفعيل الإشعارات العصبية
     function enableNotifications() {
         if (!("Notification" in window)) {
-            alert("Notification API not supported.");
+            alert("Browser does not support notifications.");
         } else {
             Notification.requestPermission().then(p => { 
                 if(p === "granted") alert("Neural Radar Active! 🚀"); 
@@ -130,16 +132,17 @@
         }
     }
 
+    // إطلاق تنبيه الافتراس
     function triggerAlert(team, drop) {
         if (Notification.permission === "granted") {
-            new Notification("⚡ SOVEREIGN PREDATOR ALERT", { 
+            new Notification("⚡ SOVEREIGN ALERT", { 
                 body: `Market Anomaly! ${drop.toFixed(1)}% Drop detected for ${team}.`,
                 icon: 'https://flaticon.com'
             });
         }
     }
 
-    function matrixAnalysis() {
+    function masterAnalysis() {
         const h = parseFloat(document.getElementById('h').value);
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value);
@@ -149,50 +152,56 @@
             return;
         }
 
+        // حساب الفجوة المالية (Drop)
         const drop = o ? ((o - a) / o) * 100 : 0;
         let score = "", prob = 0, patterns = [];
 
-        // محرك مصفوفة الاحتمالات v8.2 (المنطق الرياضي الصرف)
-        if (h <= 1.35) {
-            if (drop > 15) { 
+        // محرك السيادة v8.5 (Master Logic Matrix)
+        if (h <= 1.45) {
+            // حالة الفريق العملاق (مان سيتي، بايرن، إنتر)
+            if (drop > 20) { 
                 score = "1 - 1"; prob = 42; 
                 patterns = [{s:"1-2",p:28},{s:"2-1",p:35}]; 
                 triggerAlert("Away Team", drop);
             } else { 
-                score = "3 - 0"; prob = 75; 
-                patterns = [{s:"2-0",p:68},{s:"4-0",p:41}]; 
+                score = "3 - 0"; prob = 78; 
+                patterns = [{s:"2-0",p:65},{s:"4-0",p:42}]; 
             }
         } 
-        else if (h <= 1.75) {
-            if (drop > 10) { 
-                score = "1 - 1"; prob = 48; 
-                patterns = [{s:"0-1",p:31},{s:"1-2",p:26}]; 
+        else if (h <= 1.85) {
+            // منطقة الفرق المفضلة (مثل لانس أو نيس)
+            if (drop > 15) { 
+                score = "1 - 1"; prob = 52; 
+                patterns = [{s:"1-2",p:38},{s:"2-1",p:44}]; 
                 triggerAlert("Away Team", drop);
             } else { 
-                score = "2 - 0"; prob = 62; 
-                patterns = [{s:"2-1",p:54},{s:"1-0",p:49}]; 
+                score = "2 - 1"; prob = 65; 
+                patterns = [{s:"2-0",p:58},{s:"1-0",p:49}]; 
             }
         }
-        else if (h > 1.75 && h <= 2.40) {
-            if (drop > 8) {
-                score = "1 - 1"; prob = 52;
-                patterns = [{s:"1-2",p:38},{s:"0-1",p:29}];
+        else if (h > 1.85 && h <= 2.45) {
+            // منطقة المباريات المتوازنة
+            if (drop > 10) {
+                score = "1 - 1"; prob = 55;
+                patterns = [{s:"0-1",p:32},{s:"1-2",p:26}];
                 triggerAlert("Away Team", drop);
             } else {
-                score = "2 - 1"; prob = 45;
-                patterns = [{s:"1-1",p:39},{s:"2-0",p:32}];
+                score = "2 - 1"; prob = 48;
+                patterns = [{s:"1-1",p:39},{s:"2-0",p:34}];
             }
         }
         else {
-            score = "1 - 1"; prob = 38;
+            // حالة الفريق غير المفضل أو التعادل
+            score = (drop > 12) ? "0 - 1" : "1 - 1";
+            prob = 38;
             patterns = [{s:"0-0",p:33},{s:"1-0",p:29}];
-            if(drop > 12) triggerAlert("Away Team", drop);
         }
 
+        // عرض النتائج بنقاء برمجي (Fresh Execution)
         const resBox = document.getElementById('res-box');
         resBox.style.display = 'block';
         document.getElementById('main-s').innerText = score;
-        document.getElementById('main-p').innerText = `PROBABILITY MATRIX: ${prob}%`;
+        document.getElementById('main-p').innerText = `MASTER PROBABILITY: ${prob}%`;
         
         const tag = document.getElementById('alert-tag');
         tag.style.display = (drop > 10) ? 'block' : 'none';
@@ -201,9 +210,9 @@
         patterns.forEach(p => {
             html += `
             <div class="alt-item">
-                <div style="font-size:9px; color:#555; margin-bottom:5px;">PATTERN</div>
+                <div style="font-size:9px; color:#555; margin-bottom:5px; text-transform:uppercase;">Pattern</div>
                 <div style="color:var(--n-gold); font-size:20px; font-weight:900;">${p.s}</div>
-                <div style="color:var(--n-blue); font-size:11px;">${p.p}%</div>
+                <div style="color:var(--n-blue); font-size:11px; font-weight:bold;">${p.p}%</div>
             </div>`;
         });
         document.getElementById('alts').innerHTML = html;
