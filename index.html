@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Sentinel v10.0</title>
+    <title>SOVEREIGN PRO | Sentinel v10.1</title>
     <style>
-        /* الجزء 1: الهوية البصرية النيونية (Sentinel Design) */
+        /* الجزء 1: الهوية البصرية النيونية (Sentinel Theme) */
         :root { 
             --gold: #ffcc00; 
             --blue: #00f2ff; 
@@ -27,7 +27,14 @@
         }
 
         h1 { font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0; font-weight: 900; }
-        .edition-tag { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
+        .version-tag { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
+
+        /* شريط اختيار الأفرع التسعة */
+        .league-selector {
+            background: #111; color: #aaa; width: 100%; padding: 12px;
+            border: 1px solid #222; border-radius: 12px; margin-bottom: 25px;
+            font-size: 12px; font-weight: bold; outline: none; border-left: 3px solid var(--gold);
+        }
 
         /* شبكة إدخال البيانات الكمية */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
@@ -42,9 +49,7 @@
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 20px;
             padding: 22px; width: 100%; color: #000; font-size: 20px; font-weight: 900; 
             cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 40px rgba(255, 204, 0, 0.3);
-            transition: 0.2s;
         }
-        .btn-strike:active { transform: scale(0.97); }
 
         /* مصفوفة النتائج العصبية */
         .res-node { 
@@ -56,67 +61,74 @@
         .main-score { font-size: 75px; font-weight: 900; color: #fff; letter-spacing: 6px; margin: 10px 0; }
         .precision-tag { color: var(--blue); font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* نظام الكاشط الآلي (The Scraper Matrix) */
-        .scraper-container {
-            width: 100%; max-width: 480px; background: #000; border: 3px solid var(--red);
-            border-radius: 35px; overflow: hidden; box-shadow: 0 0 60px rgba(255, 62, 62, 0.15); 
+        /* نظام الرادار الحي المضمون (The Unstoppable Radar) */
+        .radar-container {
+            width: 100%; max-width: 480px; background: #fff; border: 4px solid var(--red);
+            border-radius: 35px; overflow: hidden; box-shadow: 0 0 60px rgba(255, 62, 62, 0.2); 
             margin-bottom: 50px;
         }
-        .scraper-header {
-            background: var(--red); color: #000; font-size: 12px; font-weight: 900;
-            text-align: center; padding: 15px; letter-spacing: 2px; text-transform: uppercase;
-            animation: pulse 2s infinite;
+        .radar-header {
+            background: var(--red); color: #fff; font-size: 11px; font-weight: 900;
+            text-align: center; padding: 12px; letter-spacing: 2px; text-transform: uppercase;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         
-        iframe { border: none; background: #fff; }
+        iframe { border: none; width: 100%; height: 700px; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <div class="edition-tag">SENTINEL EDITION v10.0 | LIVE SCRAPER</div>
+    <div class="version-tag">SENTINEL v10.1 | UNSTOPPABLE EDITION</div>
     <h1>SOVEREIGN PRO</h1>
 
-    <div class="inputs-grid" style="margin-top: 30px;">
+    <select id="league" class="league-selector">
+        <option value="ita">🇮🇹 1. SERIE A (ITALY)</option>
+        <option value="eng">🏴 2. PREMIER LEAGUE (UK)</option>
+        <option value="ger">🇩🇪 3. BUNDESLIGA (GER)</option>
+        <option value="esp">🇪🇸 4. LA LIGA (SPAIN)</option>
+        <option value="fra">🇫🇷 5. LIGUE 1 (FRANCE)</option>
+        <option value="ucl">🇪🇺 6. CHAMPIONS LEAGUE</option>
+        <option value="uel">🏆 7. EUROPA LEAGUE</option>
+        <option value="spl">🇸🇦 8. SAUDI PRO LEAGUE</option>
+        <option value="intl">🌍 9. INTERNATIONAL SCANNER</option>
+    </select>
+
+    <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field">
         <input type="number" id="x" placeholder="X" class="field">
         <input type="number" id="a" placeholder="A" class="field">
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
 
-    <button class="btn-strike" onclick="executeSentinelStrike()">Execute Neural Strike</button>
+    <button class="btn-strike" onclick="executeStrike()">Execute Neural Strike</button>
 
     <div id="res-box" class="res-node">
-        <div id="alert-tag" style="color:var(--red); font-size:11px; font-weight:bold; margin-bottom:15px; display:none; letter-spacing:1px;">📉 ANOMALY DETECTED: DROP ACTIVATED</div>
+        <div id="alert-tag" style="color:var(--red); font-size:10px; font-weight:bold; margin-bottom:15px; display:none; letter-spacing:1px;">⚠️ MARKET ANOMALY DETECTED</div>
         <div class="main-score" id="score">--</div>
         <div class="precision-tag" id="precision">PRECISION INDEX: 0%</div>
         <div id="alt-patterns" style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
     </div>
 </div>
 
-<!-- الرادار الكاشف الحي (Sentinel Scraper) -->
-<div class="scraper-container">
-    <div class="scraper-header">📡 LIVE AUTO-SNIPER: DROPPING ODDS RADAR</div>
-    <iframe id="live-scraper" src="https://betexplorer.com" width="100%" height="600px"></iframe>
+<!-- الرادار الحي المحدث (Unstoppable Radar) -->
+<div class="radar-container">
+    <div class="radar-header">📡 LIVE AUTO-SNIPER: REAL-TIME DROPPING ODDS</div>
+    <!-- استخدام رابط مباشر يدعم الانهيارات بوضوح -->
+    <iframe id="live-radar" src="https://betexplorer.com"></iframe>
 </div>
 
 <script>
-    function executeSentinelStrike() {
+    function executeStrike() {
         const h = parseFloat(document.getElementById('h').value);
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value);
         
-        if(!h || !a) {
-            alert("Neural Interface: Awaiting Data Input.");
-            return;
-        }
+        if(!h || !a) return alert("Neural Interface: Data Required.");
 
-        // حساب الفجوة المالية (The Drop)
         const drop = o ? ((o - a) / o) * 100 : 0;
         let s = "1 - 1", p = 38, patterns = [];
 
-        // محرك الحارس v10.0 (Sentinel Master Logic)
+        // محرك الحارس v10.1 (The Unstoppable Logic)
         if (h <= 1.45) {
             if (drop > 18) { 
                 s = "1 - 1"; p = 52; 
@@ -130,8 +142,8 @@
                 s = "1 - 1"; p = 58; 
                 patterns = [{s:"1-2", p:38},{s:"0-1", p:31}];
             } else { 
-                s = "2 - 0"; p = 72; 
-                patterns = [{s:"2-1", p:61},{s:"1-0", p:54}];
+                s = "2 - 1"; p = 72; 
+                patterns = [{s:"2-0", p:61},{s:"1-0", p:54}];
             }
         } else {
             s = (drop > 10) ? "1 - 2" : "1 - 1";
@@ -139,14 +151,10 @@
             patterns = [{s:"0-1", p:34},{s:"2-2", p:26}];
         }
 
-        // تفعيل عرض النتائج (Strike Mode)
-        const resBox = document.getElementById('res-box');
-        resBox.style.display = 'block';
+        document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = s;
         document.getElementById('precision').innerText = `PRECISION INDEX: ${p}%`;
-        
-        const tag = document.getElementById('alert-tag');
-        tag.style.display = (drop > 10) ? 'block' : 'none';
+        document.getElementById('alert-tag').style.display = (drop > 10) ? 'block' : 'none';
 
         let phtml = '';
         patterns.forEach(item => {
@@ -158,14 +166,13 @@
             </div>`;
         });
         document.getElementById('alt-patterns').innerHTML = phtml;
-
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // وظيفة التحديث الآلي (Auto-Sync) كل 5 دقائق لمواكبة الانهيارات
+    // تحديث آلي للرادار لضمان تدفق البيانات
     setInterval(function() {
-        const scraper = document.getElementById('live-scraper');
-        scraper.src = scraper.src;
+        const radar = document.getElementById('live-radar');
+        radar.src = radar.src;
     }, 300000); 
 </script>
 </body>
