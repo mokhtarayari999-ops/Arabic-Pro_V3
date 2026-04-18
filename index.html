@@ -3,171 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Empire Edition v9.0</title>
+    <title>SOVEREIGN PRO | Sentinel v10.0</title>
     <style>
-        /* الجزء 1: الهوية البصرية الإمبراطورية (The Sovereign Identity) */
+        /* الجزء 1: الهوية البصرية النيونية (Sentinel Design) */
         :root { 
             --gold: #ffcc00; 
             --blue: #00f2ff; 
             --red: #ff3e3e; 
-            --bg: #050505; 
+            --bg: #000; 
         }
 
         body { 
-            background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; 
+            background: var(--bg); color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             padding: 15px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
         .master-panel { 
-            background: rgba(10, 10, 10, 0.98); border: 2px solid var(--gold); 
-            border-radius: 35px; padding: 30px; width: 100%; max-width: 450px; 
-            text-align: center; box-shadow: 0 0 80px rgba(0,0,0,1); 
-            position: relative; margin-bottom: 25px;
+            background: #0a0a0a; border: 2px solid var(--gold); border-radius: 40px; 
+            padding: 30px; width: 100%; max-width: 480px; text-align: center; 
+            box-shadow: 0 0 100px rgba(0,0,0,1); position: relative; margin-bottom: 25px;
+            border-top-width: 5px;
         }
 
-        h1 { font-size: 26px; letter-spacing: 4px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0; font-weight: 900; }
-        .version-tag { font-size: 9px; color: #444; margin-bottom: 30px; letter-spacing: 2px; }
+        h1 { font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0; font-weight: 900; }
+        .edition-tag { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 25px; font-weight: bold; }
 
-        /* شبكة الإدخال الرباعية (Data Inputs) */
-        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 30px; }
+        /* شبكة إدخال البيانات الكمية */
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 30px; }
         .field { 
-            width: 100%; background: #111; border: 1px solid #333; 
-            border-bottom: 3px solid var(--gold); border-radius: 12px; 
-            color: var(--gold); padding: 15px 0; font-size: 18px; font-weight: bold; 
+            width: 100%; background: #111; border: 1px solid #222; border-bottom: 3px solid var(--gold);
+            border-radius: 15px; color: var(--gold); padding: 15px 0; font-size: 18px; font-weight: bold;
             text-align: center; outline: none; transition: 0.3s;
         }
-        .field:focus { border-color: var(--blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.2); }
+        .field:focus { border-color: var(--blue); box-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
 
         .btn-strike { 
-            background: linear-gradient(135deg, var(--gold), #b8860b); 
-            border: none; border-radius: 20px; padding: 22px; width: 100%; 
-            color: #000; font-size: 18px; font-weight: 900; cursor: pointer; 
-            text-transform: uppercase; box-shadow: 0 10px 40px rgba(255, 204, 0, 0.2);
+            background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 20px;
+            padding: 22px; width: 100%; color: #000; font-size: 20px; font-weight: 900; 
+            cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 40px rgba(255, 204, 0, 0.3);
+            transition: 0.2s;
         }
+        .btn-strike:active { transform: scale(0.97); }
 
-        /* مصفوفة النتائج العصبية (Neural Result Node) */
+        /* مصفوفة النتائج العصبية */
         .res-node { 
-            margin-top: 35px; padding: 25px; border-radius: 30px; 
-            background: #0f0f0f; border: 1px solid #1a1a1a; display: none; 
-            animation: fadeIn 0.6s ease-out;
+            margin-top: 35px; padding: 25px; border-radius: 35px; background: #0f0f0f; 
+            border: 1px solid #1a1a1a; display: none; animation: slideUp 0.6s ease-out;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .main-score { font-size: 70px; font-weight: 900; letter-spacing: 5px; margin: 10px 0; }
-        .precision-idx { color: var(--blue); font-weight: bold; font-size: 12px; text-transform: uppercase; }
+        .main-score { font-size: 75px; font-weight: 900; color: #fff; letter-spacing: 6px; margin: 10px 0; }
+        .precision-tag { color: var(--blue); font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* رادار الافتراس الإمبراطوري الحي (Empire Radar) */
-        .live-radar {
-            width: 100%; max-width: 450px; background: #000; 
-            border: 2px solid var(--red); border-radius: 30px; padding: 20px; 
-            box-shadow: 0 0 50px rgba(255, 62, 62, 0.1); margin-bottom: 50px;
+        /* نظام الكاشط الآلي (The Scraper Matrix) */
+        .scraper-container {
+            width: 100%; max-width: 480px; background: #000; border: 3px solid var(--red);
+            border-radius: 35px; overflow: hidden; box-shadow: 0 0 60px rgba(255, 62, 62, 0.15); 
+            margin-bottom: 50px;
         }
-        .radar-title { 
-            color: var(--red); font-size: 12px; font-weight: 900; 
-            text-align: center; margin-bottom: 20px; letter-spacing: 2px; 
-            animation: pulse 2s infinite; 
+        .scraper-header {
+            background: var(--red); color: #000; font-size: 12px; font-weight: 900;
+            text-align: center; padding: 15px; letter-spacing: 2px; text-transform: uppercase;
+            animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-        .data-row { 
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0; border-bottom: 1px solid #222; font-size: 11px;
-        }
-        .drop-tag { 
-            color: var(--red); font-weight: 900; background: rgba(255, 62, 62, 0.15); 
-            padding: 5px 12px; border-radius: 8px; border: 1px solid rgba(255, 62, 62, 0.2);
-        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
+        iframe { border: none; background: #fff; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
+    <div class="edition-tag">SENTINEL EDITION v10.0 | LIVE SCRAPER</div>
     <h1>SOVEREIGN PRO</h1>
-    <div class="version-tag">EMPIRE EDITION v9.0 | QUANTUM PRECISION</div>
 
-    <div class="inputs-grid">
+    <div class="inputs-grid" style="margin-top: 30px;">
         <input type="number" id="h" placeholder="H" class="field">
         <input type="number" id="x" placeholder="X" class="field">
         <input type="number" id="a" placeholder="A" class="field">
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
 
-    <button class="btn-strike" onclick="executeEmpireLogic()">Execute Neural Strike</button>
+    <button class="btn-strike" onclick="executeSentinelStrike()">Execute Neural Strike</button>
 
     <div id="res-box" class="res-node">
-        <div id="alert" style="color:var(--red); font-size:10px; font-weight:bold; margin-bottom:15px; display:none; letter-spacing:1px;">⚠️ MARKET ANOMALY DETECTED</div>
+        <div id="alert-tag" style="color:var(--red); font-size:11px; font-weight:bold; margin-bottom:15px; display:none; letter-spacing:1px;">📉 ANOMALY DETECTED: DROP ACTIVATED</div>
         <div class="main-score" id="score">--</div>
-        <div class="precision-idx" id="strength">PRECISION INDEX: 0%</div>
-        <div id="patterns" style="margin-top:20px; display:grid; grid-template-columns:1fr 1fr; gap:10px;"></div>
+        <div class="precision-tag" id="precision">PRECISION INDEX: 0%</div>
+        <div id="alt-patterns" style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
     </div>
 </div>
 
-<div class="live-radar">
-    <div class="radar-title">📡 LIVE EMPIRE RADAR: TOP GLOBAL DROPS</div>
-    <div id="target-list">
-        <!-- أهداف استخباراتية يتم تحديثها بناءً على حركة المال العالمية -->
-        <div class="data-row"><span>🏴 Man City vs Luton</span><span class="drop-tag">-28.4% 📉</span></div>
-        <div class="data-row"><span>🇩🇪 Union Berlin vs Bayern</span><span class="drop-tag">-22.1% 📉</span></div>
-        <div class="data-row"><span>🇪🇸 Mallorca vs Real Madrid</span><span class="drop-tag">-18.5% 📉</span></div>
-        <div class="data-row"><span>🇮🇹 Empoli vs Napoli</span><span class="drop-tag">-15.2% 📉</span></div>
-        <div class="data-row"><span>🇫🇷 Brest vs Monaco</span><span class="drop-tag">-12.8% 📉</span></div>
-    </div>
+<!-- الرادار الكاشف الحي (Sentinel Scraper) -->
+<div class="scraper-container">
+    <div class="scraper-header">📡 LIVE AUTO-SNIPER: DROPPING ODDS RADAR</div>
+    <iframe id="live-scraper" src="https://betexplorer.com" width="100%" height="600px"></iframe>
 </div>
 
 <script>
-    function executeEmpireLogic() {
+    function executeSentinelStrike() {
         const h = parseFloat(document.getElementById('h').value);
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value);
         
-        if(!h || !a) return alert("System Requires Neural Data Input.");
+        if(!h || !a) {
+            alert("Neural Interface: Awaiting Data Input.");
+            return;
+        }
 
-        // حساب الفجوة المالية (Drop)
+        // حساب الفجوة المالية (The Drop)
         const drop = o ? ((o - a) / o) * 100 : 0;
         let s = "1 - 1", p = 38, patterns = [];
 
-        // خوارزمية الحسم الإمبراطورية (The Empire Matrix Logic)
-        if (h <= 1.40) {
-            if (drop > 20) { 
-                s = "1 - 1"; p = 48; 
-                patterns = [{s:"1-2", p:32},{s:"2-1", p:28}];
+        // محرك الحارس v10.0 (Sentinel Master Logic)
+        if (h <= 1.45) {
+            if (drop > 18) { 
+                s = "1 - 1"; p = 52; 
+                patterns = [{s:"1-2", p:34},{s:"2-1", p:29}];
             } else { 
-                s = "3 - 0"; p = 82; 
-                patterns = [{s:"2-0", p:71},{s:"4-0", p:45}];
+                s = "3 - 0"; p = 85; 
+                patterns = [{s:"2-0", p:74},{s:"4-0", p:48}];
             }
-        } else if (h <= 1.80) {
+        } else if (h <= 1.85) {
             if (drop > 12) { 
-                s = "1 - 1"; p = 54; 
-                patterns = [{s:"1-2", p:35},{s:"0-1", p:29}];
+                s = "1 - 1"; p = 58; 
+                patterns = [{s:"1-2", p:38},{s:"0-1", p:31}];
             } else { 
-                s = "2 - 0"; p = 68; 
-                patterns = [{s:"2-1", p:58},{s:"1-0", p:49}];
+                s = "2 - 0"; p = 72; 
+                patterns = [{s:"2-1", p:61},{s:"1-0", p:54}];
             }
         } else {
             s = (drop > 10) ? "1 - 2" : "1 - 1";
-            p = (drop > 10) ? 45 : 38;
-            patterns = [{s:"0-1", p:32},{s:"2-2", p:24}];
+            p = (drop > 10) ? 46 : 38;
+            patterns = [{s:"0-1", p:34},{s:"2-2", p:26}];
         }
 
-        // تحديث الواجهة فوراً
-        document.getElementById('res-box').style.display = 'block';
+        // تفعيل عرض النتائج (Strike Mode)
+        const resBox = document.getElementById('res-box');
+        resBox.style.display = 'block';
         document.getElementById('score').innerText = s;
-        document.getElementById('strength').innerText = `PRECISION INDEX: ${p}%`;
-        document.getElementById('alert').style.display = (drop > 12) ? 'block' : 'none';
+        document.getElementById('precision').innerText = `PRECISION INDEX: ${p}%`;
+        
+        const tag = document.getElementById('alert-tag');
+        tag.style.display = (drop > 10) ? 'block' : 'none';
 
         let phtml = '';
         patterns.forEach(item => {
-            phtml += `<div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:12px; border:1px solid #222;">
-                <div style="font-size:8px; color:#555;">PATTERN</div>
-                <div style="color:var(--gold); font-size:18px; font-weight:900;">${item.s}</div>
-                <div style="color:var(--blue); font-size:10px;">${item.p}%</div>
+            phtml += `
+            <div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:15px; border:1px solid #222; text-align:center;">
+                <div style="font-size:8px; color:#555; margin-bottom:5px; text-transform:uppercase;">Pattern</div>
+                <div style="color:var(--gold); font-size:20px; font-weight:900;">${item.s}</div>
+                <div style="color:var(--blue); font-size:11px; font-weight:bold;">${item.p}%</div>
             </div>`;
         });
-        document.getElementById('patterns').innerHTML = phtml;
+        document.getElementById('alt-patterns').innerHTML = phtml;
 
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
+
+    // وظيفة التحديث الآلي (Auto-Sync) كل 5 دقائق لمواكبة الانهيارات
+    setInterval(function() {
+        const scraper = document.getElementById('live-scraper');
+        scraper.src = scraper.src;
+    }, 300000); 
 </script>
 </body>
 </html>
