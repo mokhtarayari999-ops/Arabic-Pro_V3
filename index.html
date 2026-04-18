@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Master Engine v8.5</title>
+    <title>SOVEREIGN PRO | Sniper Edition v8.6</title>
     <style>
         /* الجزء 1: الهوية البصرية النيونية المتطورة */
         :root { 
@@ -35,7 +35,7 @@
         }
         .radar-btn:hover { background: var(--n-blue); color: #000; box-shadow: 0 0 15px var(--n-blue); }
 
-        /* شريط اختيار الأفرع التسعة المصحح */
+        /* شريط اختيار الأفرع التسعة */
         .league-selector {
             background: #111; color: #aaa; width: 100%; padding: 12px;
             border: 1px solid #222; border-radius: 10px; margin-bottom: 20px;
@@ -65,7 +65,7 @@
         .display-node { 
             margin-top: 30px; padding: 25px; border-radius: 20px; 
             background: #0f0f0f; border: 1px solid #1a1a1a; display: none; 
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.5s ease;
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -73,7 +73,7 @@
         .alt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 25px; }
         .alt-item { background: #151515; border-radius: 15px; padding: 15px; border: 1px solid #222; text-align: center; }
 
-        /* رادار الافتراس العالمي v8.5 */
+        /* رادار الافتراس المباشر v8.6 (أوتوماتيكي الانهيارات) */
         .radar-box { 
             width: 100%; max-width: 450px; background: #fff; 
             border-radius: 25px; overflow: hidden; border: 3px solid var(--n-red); 
@@ -105,26 +105,26 @@
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
 
-    <button class="btn-engage" onclick="masterAnalysis()">Run Master Engine v8.5</button>
+    <button class="btn-engage" onclick="masterAnalysis()">Run Sniper Engine v8.6</button>
 
     <div id="res-box" class="display-node">
-        <div id="alert-tag" style="color:var(--n-red); font-size:10px; font-weight:bold; margin-bottom:10px; display:none; letter-spacing:1px;">⚠️ PREDATOR DROP DETECTED</div>
+        <div id="alert-tag" style="color:var(--n-red); font-size:10px; font-weight:bold; margin-bottom:10px; display:none;">⚠️ MARKET ANOMALY DETECTED</div>
         <div class="score-ultra" id="main-s">--</div>
-        <div id="main-p" style="color:var(--n-blue); font-size:12px; font-weight:bold;">MASTER PROBABILITY: 0%</div>
+        <div id="main-p" style="color:var(--n-blue); font-size:12px; font-weight:bold;">SNIPER PROBABILITY: 0%</div>
         <div id="alts" class="alt-grid"></div>
     </div>
 </div>
 
 <div class="radar-box">
-    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">📡 LIVE PREDATOR RADAR v8.5</div>
-    <iframe src="https://betexplorer.com" width="100%" height="550px" style="border:none;"></iframe>
+    <div style="background:#000; color:#fff; font-size:10px; padding:12px; text-align:center; font-weight:bold;">🚨 LIVE SNIPER RADAR: DROPPING ODDS ONLY</div>
+    <!-- الرابط المحدث الذي يفتح على الانهيارات مباشرة -->
+    <iframe src="https://betexplorer.com" width="100%" height="600px" style="border:none;"></iframe>
 </div>
 
 <script>
-    // تفعيل الإشعارات العصبية
     function enableNotifications() {
         if (!("Notification" in window)) {
-            alert("Browser does not support notifications.");
+            alert("Notification API not supported.");
         } else {
             Notification.requestPermission().then(p => { 
                 if(p === "granted") alert("Neural Radar Active! 🚀"); 
@@ -132,10 +132,9 @@
         }
     }
 
-    // إطلاق تنبيه الافتراس
     function triggerAlert(team, drop) {
         if (Notification.permission === "granted") {
-            new Notification("⚡ SOVEREIGN ALERT", { 
+            new Notification("⚡ SOVEREIGN SNIPER", { 
                 body: `Market Anomaly! ${drop.toFixed(1)}% Drop detected for ${team}.`,
                 icon: 'https://flaticon.com'
             });
@@ -152,13 +151,11 @@
             return;
         }
 
-        // حساب الفجوة المالية (Drop)
         const drop = o ? ((o - a) / o) * 100 : 0;
         let score = "", prob = 0, patterns = [];
 
-        // محرك السيادة v8.5 (Master Logic Matrix)
+        // محرك السيادة v8.6 (Sniper Logic Matrix)
         if (h <= 1.45) {
-            // حالة الفريق العملاق (مان سيتي، بايرن، إنتر)
             if (drop > 20) { 
                 score = "1 - 1"; prob = 42; 
                 patterns = [{s:"1-2",p:28},{s:"2-1",p:35}]; 
@@ -169,7 +166,6 @@
             }
         } 
         else if (h <= 1.85) {
-            // منطقة الفرق المفضلة (مثل لانس أو نيس)
             if (drop > 15) { 
                 score = "1 - 1"; prob = 52; 
                 patterns = [{s:"1-2",p:38},{s:"2-1",p:44}]; 
@@ -180,7 +176,6 @@
             }
         }
         else if (h > 1.85 && h <= 2.45) {
-            // منطقة المباريات المتوازنة
             if (drop > 10) {
                 score = "1 - 1"; prob = 55;
                 patterns = [{s:"0-1",p:32},{s:"1-2",p:26}];
@@ -191,20 +186,14 @@
             }
         }
         else {
-            // حالة الفريق غير المفضل أو التعادل
-            score = (drop > 12) ? "0 - 1" : "1 - 1";
-            prob = 38;
+            score = "1 - 1"; prob = 38;
             patterns = [{s:"0-0",p:33},{s:"1-0",p:29}];
         }
 
-        // عرض النتائج بنقاء برمجي (Fresh Execution)
-        const resBox = document.getElementById('res-box');
-        resBox.style.display = 'block';
+        document.getElementById('res-box').style.display = 'block';
         document.getElementById('main-s').innerText = score;
-        document.getElementById('main-p').innerText = `MASTER PROBABILITY: ${prob}%`;
-        
-        const tag = document.getElementById('alert-tag');
-        tag.style.display = (drop > 10) ? 'block' : 'none';
+        document.getElementById('main-p').innerText = `SNIPER PROBABILITY: ${prob}%`;
+        document.getElementById('alert-tag').style.display = (drop > 10) ? 'block' : 'none';
 
         let html = '';
         patterns.forEach(p => {
@@ -212,7 +201,7 @@
             <div class="alt-item">
                 <div style="font-size:9px; color:#555; margin-bottom:5px; text-transform:uppercase;">Pattern</div>
                 <div style="color:var(--n-gold); font-size:20px; font-weight:900;">${p.s}</div>
-                <div style="color:var(--n-blue); font-size:11px; font-weight:bold;">${p.p}%</div>
+                <div style="color:var(--n-blue); font-size:11px;">${p.p}%</div>
             </div>`;
         });
         document.getElementById('alts').innerHTML = html;
