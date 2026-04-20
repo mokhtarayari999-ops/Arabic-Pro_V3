@@ -31,7 +31,7 @@
         h1 { font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0; font-weight: 900; }
         .tagline { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 30px; font-weight: bold; }
 
-        /* شبكة إدخال البيانات الكمية */
+        /* شبكة إدخال البيانات */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 30px; margin-bottom: 30px; }
         .field { 
             width: 100%; background: #111; border: 1px solid #333; border-bottom: 3px solid var(--gold);
@@ -45,9 +45,8 @@
             padding: 22px; width: 100%; color: #000; font-size: 20px; font-weight: 900; 
             cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 40px rgba(255, 204, 0, 0.3);
         }
-        .btn-strike:active { transform: scale(0.97); }
 
-        /* منطقة عرض النتائج العصبية */
+        /* منطقة النتائج اللحظية */
         .res-box { 
             margin-top: 35px; padding: 25px; border-radius: 35px; background: #0f0f0f; 
             border: 1px solid #1a1a1a; display: none; animation: fadeIn 0.6s ease-out;
@@ -56,7 +55,7 @@
         .score-ultra { font-size: 75px; font-weight: 900; color: #fff; letter-spacing: 6px; margin: 10px 0; }
         .precision-idx { color: var(--blue); font-weight: bold; font-size: 14px; text-transform: uppercase; }
 
-        /* الرادار العالمي */
+        /* الرادار */
         .external-radar-box {
             width: 100%; max-width: 480px; background: #111; border: 3px solid var(--red);
             border-radius: 35px; padding: 30px; text-align: center; box-shadow: 0 0 50px rgba(255, 62, 62, 0.2); margin-bottom: 30px;
@@ -66,45 +65,36 @@
             display: inline-block; background: var(--red); color: #fff; text-decoration: none;
             padding: 22px 35px; border-radius: 20px; font-weight: 900; font-size: 17px;
             text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 10px 30px rgba(255, 62, 62, 0.4);
-            transition: 0.3s; width: 85%;
+            width: 85%; transition: 0.3s;
         }
 
-        /* سجل الانتصارات السيادي (The Sovereign Log) */
+        /* سجل الانتصارات المطور (مع النتائج البديلة) */
         .log-section { width: 100%; max-width: 480px; margin-bottom: 50px; box-sizing: border-box; }
         .log-header { color: #555; font-size: 10px; font-weight: bold; letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 5px; text-transform: uppercase; }
         .log-stream { display: flex; flex-direction: column; gap: 12px; }
         
-        .strike-card { border-radius: 15px; padding: 18px; font-family: monospace; border: 1px solid #222; transition: 0.4s; }
-        .strike-card.confirmed { 
-            border: 2px solid var(--gold); background: linear-gradient(145deg, #0f0f00, #000); 
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1); 
-        }
-        .strike-card.muted { background: #050505; opacity: 0.35; }
-        
-        .card-status { font-size: 9px; font-weight: 900; margin-bottom: 10px; text-transform: uppercase; }
-        .card-teams { font-size: 14px; font-weight: 900; display: block; margin-bottom: 8px; color: #fff; }
-        .card-details { display: flex; justify-content: space-between; font-size: 11px; color: var(--blue); border-top: 1px solid #1a1a1a; padding-top: 8px; }
+        .strike-card { border-radius: 15px; padding: 18px; font-family: monospace; border: 2px solid var(--gold); background: linear-gradient(145deg, #0f0f00, #000); }
+        .card-status { font-size: 9px; font-weight: 900; margin-bottom: 10px; color: var(--gold); text-transform: uppercase; }
+        .card-title { font-size: 14px; font-weight: 900; display: block; margin-bottom: 8px; color: #fff; letter-spacing: 1px; }
+        .card-details { display: flex; justify-content: space-between; font-size: 11px; color: var(--blue); border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; margin-bottom: 8px; }
+        .card-patterns { display: flex; justify-content: space-around; font-size: 10px; color: #555; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <div class="tagline">UNCHAINED v10.6 | ABSOLUTE SNIPER MASTERY</div>
+    <div class="tagline">UNCHAINED v10.6 | FULL DATA ARCHIVE</div>
     <h1>SOVEREIGN PRO</h1>
-
     <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field">
         <input type="number" id="x" placeholder="X" class="field">
         <input type="number" id="a" placeholder="A" class="field">
         <input type="number" id="o" placeholder="OPEN" class="field">
     </div>
-
     <button class="btn-strike" onclick="executeNeuralStrike()">Execute Neural Strike</button>
-
     <div id="res-box" class="res-box">
-        <div id="alert-tag" style="color:var(--red); font-size:11px; font-weight:bold; margin-bottom:15px; display:none; letter-spacing:1px;">📉 ANOMALY DETECTED: DROP ACTIVE</div>
-        <div class="score-ultra" id="score">--</div>
-        <div class="precision-idx" id="precision">PRECISION INDEX: 0%</div>
+        <div id="score" class="score-ultra">--</div>
+        <div id="precision" class="precision-idx">PRECISION INDEX: 0%</div>
         <div id="alt-patterns" style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
     </div>
 </div>
@@ -112,36 +102,26 @@
 <div class="external-radar-box">
     <div class="radar-title">📡 GLOBAL SNIPER RADAR: LIVE DROPS</div>
     <a href="https://betexplorer.com" target="_blank" class="sniper-link">🎯 OPEN LIVE DROPS</a>
-    <div style="color:#555; font-size:10px; margin-top:25px; line-height:1.6; font-weight:bold;">
-        1. اضغط لفتح الانهيارات في صفحة مستقلة<br>
-        2. ابحث عن الفريسة (التي يظهر فيها السهم الأحمر)<br>
-        3. عُد هنا للتحليل بـ "الوحش" والحصول على النتيجة
-    </div>
 </div>
 
 <div class="log-section">
-    <div class="log-header">SYSTEM_ARCHIVE // AUTO_SAVED_STRIKES</div>
-    <div id="strike-log" class="log-stream">
-        <!-- البيانات المحفوظة ستظهر هنا -->
-    </div>
+    <div class="log-header">SYSTEM_ARCHIVE // FULL_STRIKE_DATA</div>
+    <div id="strike-log" class="log-stream"></div>
 </div>
 
 <script>
-    // تحميل السجل المحفوظ عند بدء التشغيل
     window.onload = function() { renderLog(); };
 
     function executeNeuralStrike() {
         const h = parseFloat(document.getElementById('h').value);
-        const x = parseFloat(document.getElementById('x').value); // متاح للاستخدام المستقبلي في الخوارزمية
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value);
-        
-        if(!h || !a) return alert("System Error: Neural Data Required.");
+        if(!h || !a) return alert("Neural Data Required.");
 
-        // منطق التحليل المدقق v10.6
         const drop = o ? ((o - a) / o) * 100 : 0;
         let s = "1 - 1", p = 38, patterns = [];
 
+        // خوارزمية v10.6 المدققة
         if (h <= 1.45) {
             if (drop > 18) { s = "1 - 1"; p = 52; patterns = [{s:"1-2", p:34},{s:"2-1", p:29}]; }
             else { s = "3 - 0"; p = 88; patterns = [{s:"2-0", p:74},{s:"4-0", p:48}]; }
@@ -149,63 +129,57 @@
             if (drop > 12) { s = "1 - 1"; p = 61; patterns = [{s:"1-2", p:38},{s:"0-1", p:31}]; }
             else { s = "2 - 1"; p = 74; patterns = [{s:"2-0", p:61},{s:"1-0", p:54}]; }
         } else {
-            s = (drop > 10) ? "1 - 2" : "1 - 1";
-            p = (drop > 10) ? 48 : 38;
+            s = (drop > 10) ? "1 - 2" : "1 - 1"; p = (drop > 10) ? 48 : 38;
             patterns = [{s:"0-1", p:34},{s:"2-2", p:26}];
         }
 
-        // عرض النتيجة اللحظية
         document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = s;
         document.getElementById('precision').innerText = `PRECISION INDEX: ${p}%`;
-        document.getElementById('alert-tag').style.display = (drop > 12) ? 'block' : 'none';
 
         let phtml = '';
         patterns.forEach(item => {
-            phtml += `
-            <div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:15px; border:1px solid #222; text-align:center;">
-                <div style="font-size:8px; color:#555; margin-bottom:5px; text-transform:uppercase;">Pattern</div>
-                <div style="color:var(--gold); font-size:20px; font-weight:900;">${item.s}</div>
-                <div style="color:var(--blue); font-size:11px; font-weight:bold;">${item.p}%</div>
-            </div>`;
+            phtml += `<div style="background:#111; padding:10px; border-radius:10px; border:1px solid #222;">
+                        <div style="font-size:18px; color:var(--gold); font-weight:900;">${item.s}</div>
+                        <div style="font-size:10px; color:var(--blue);">${item.p}%</div>
+                      </div>`;
         });
         document.getElementById('alt-patterns').innerHTML = phtml;
 
-        // الحفظ التلقائي في السجل
-        saveStrike(s, p);
-        
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        saveToLog(s, p, patterns);
     }
 
-    function saveStrike(target, precision) {
+    function saveToLog(target, prec, patterns) {
         const entry = {
             id: Date.now(),
             target: target,
-            precision: precision,
+            precision: prec,
+            patterns: patterns,
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
-        
         let history = JSON.parse(localStorage.getItem('sovereign_history')) || [];
-        history.unshift(entry); // إضافة الأحدث في الأعلى
-        localStorage.setItem('sovereign_history', JSON.stringify(history.slice(0, 50))); // حفظ آخر 50 عملية فقط
-        
+        history.unshift(entry);
+        localStorage.setItem('sovereign_history', JSON.stringify(history.slice(0, 50)));
         renderLog();
     }
 
     function renderLog() {
         const logStream = document.getElementById('strike-log');
         const history = JSON.parse(localStorage.getItem('sovereign_history')) || [];
-        
         logStream.innerHTML = history.map(item => `
-            <div class="strike-card confirmed">
-                <div class="card-status" style="color:var(--gold)">● STRIKE_SAVED [${item.time}]</div>
-                <span class="card-teams">NEURAL OPERATION RECOVERED</span>
+            <div class="strike-card">
+                <div class="card-status">● STRIKE_SAVED [${item.time}]</div>
+                <span class="card-title">NEURAL OPERATION RECOVERED</span>
                 <div class="card-details">
                     <span>TARGET: ${item.target}</span><span>PRECISION: ${item.precision}%</span><span>ACTIVE</span>
+                </div>
+                <div class="card-patterns">
+                    ${item.patterns.map(p => `<span>ALT: ${p.s} (${p.p}%)</span>`).join('')}
                 </div>
             </div>
         `).join('');
     }
 </script>
 </body>
-</html>
+        </html>
+    
