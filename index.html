@@ -3,105 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOVEREIGN PRO | Unchained Sniper v10.6</title>
+    <title>SOVEREIGN PRO | Neural Sniper v10.6.2</title>
     <style>
+        /* 1. نظام الألوان والهوية البصرية */
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --red: #ff3e3e; --bg: #000; --card-bg: #0a0a0a;
         }
 
         body { 
-            background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; 
+            background: var(--bg); color: #fff; font-family: 'Segoe UI', Roboto, sans-serif; 
             display: flex; flex-direction: column; align-items: center; 
             padding: 15px; margin: 0; min-height: 100vh;
         }
 
+        /* 2. لوحة التحكم الإمبراطورية */
         .master-panel { 
             background: var(--card-bg); border: 2px solid var(--gold); border-radius: 40px; 
             padding: 30px; width: 100%; max-width: 480px; text-align: center; 
-            box-shadow: 0 0 100px #000; margin-bottom: 25px; border-top: 5px solid var(--gold);
+            box-shadow: 0 0 50px rgba(255, 204, 0, 0.1); margin-bottom: 25px; border-top: 5px solid var(--gold);
             box-sizing: border-box;
         }
 
-        h1 { font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0; font-weight: 900; }
-        .tagline { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 30px; font-weight: bold; }
+        .tagline { font-size: 9px; color: #444; letter-spacing: 3px; margin-bottom: 20px; font-weight: bold; }
+        h1 { font-size: 28px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 0 0 25px 0; }
 
-        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 30px; margin-bottom: 30px; }
+        /* 3. شبكة الإدخال (H, X, A, OPEN) */
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
         .field { 
             width: 100%; background: #111; border: 1px solid #333; border-bottom: 3px solid var(--gold);
-            border-radius: 15px; color: var(--gold); padding: 15px 0; font-size: 18px; font-weight: bold;
-            text-align: center; outline: none; box-sizing: border-box;
+            border-radius: 12px; color: var(--gold); padding: 12px 0; font-size: 16px; font-weight: bold;
+            text-align: center; outline: none; transition: 0.3s;
         }
+        .field:focus { border-color: var(--blue); background: #161616; }
 
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 20px;
-            padding: 22px; width: 100%; color: #000; font-size: 20px; font-weight: 900; 
-            cursor: pointer; text-transform: uppercase;
+            padding: 22px; width: 100%; color: #000; font-size: 18px; font-weight: 900; 
+            cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 30px rgba(255, 204, 0, 0.2);
         }
 
-        /* --- زر Anomaly الجديد --- */
+        /* 4. زر الشذوذ (Anomaly Detected) */
         #anomaly-btn {
             display: none; background: linear-gradient(90deg, #ff3e3e, #8b0000);
             color: white; border: none; border-radius: 15px; padding: 15px;
-            width: 100%; margin-top: 15px; font-weight: bold; cursor: pointer;
-            animation: pulse-red 1.5s infinite;
+            width: 100%; margin-top: 15px; font-weight: bold; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 1px; animation: pulse 1.5s infinite;
         }
-        @keyframes pulse-red { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
 
-        .res-box { margin-top: 35px; padding: 25px; border-radius: 35px; background: #0f0f0f; border: 1px solid #1a1a1a; display: none; }
-        .score-ultra { font-size: 75px; font-weight: 900; color: #fff; margin: 10px 0; }
-        .precision-idx { color: var(--blue); font-weight: bold; font-size: 14px; }
-
-        .external-radar-box {
-            width: 100%; max-width: 480px; background: #111; border: 3px solid var(--red);
-            border-radius: 35px; padding: 30px; text-align: center; box-sizing: border-box; margin-bottom: 30px;
+        /* 5. منطقة عرض النتائج البديلة (تحت النتيجة الأساسية) */
+        .res-box { 
+            margin-top: 30px; padding: 25px; border-radius: 35px; background: #0f0f0f; 
+            border: 1px solid #1a1a1a; display: none;
         }
-        .sniper-link {
-            display: inline-block; background: var(--red); color: #fff; text-decoration: none;
-            padding: 22px 35px; border-radius: 20px; font-weight: 900; width: 85%;
-        }
+        .score-ultra { font-size: 70px; font-weight: 900; color: #fff; margin: 10px 0; letter-spacing: 4px; }
+        .precision-idx { color: var(--blue); font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 20px; }
 
-        .log-section { width: 100%; max-width: 480px; margin-bottom: 50px; }
-        .log-header { color: #555; font-size: 10px; font-weight: bold; letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid #222; }
+        .alt-patterns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .alt-card { background: #141414; padding: 12px; border-radius: 12px; border: 1px solid #222; }
+        .alt-score { font-size: 20px; color: var(--gold); font-weight: 900; }
+
+        /* 6. سجل الأرشيف (System Archive) */
+        .log-section { width: 100%; max-width: 480px; margin-top: 30px; }
+        .log-header { color: #555; font-size: 10px; font-weight: bold; letter-spacing: 2px; border-bottom: 1px solid #222; padding-bottom: 5px; margin-bottom: 15px; }
         
-        /* تصميم كرت السجل مع النتائج البديلة */
         .strike-card { 
-            border-radius: 15px; padding: 18px; margin-bottom: 10px; border: 1px solid #333; background: #0a0a0a;
+            background: #0a0a0a; border: 1px solid #1a1a1a; border-left: 4px solid var(--gold); 
+            border-radius: 12px; padding: 15px; margin-bottom: 12px;
         }
-        .card-main { font-size: 24px; font-weight: bold; color: var(--gold); display: block; }
-        .card-alts { display: flex; gap: 15px; margin-top: 10px; font-size: 12px; color: #777; }
+        .card-info { display: flex; justify-content: space-between; align-items: center; }
+        .card-alts { font-size: 10px; color: #666; margin-top: 8px; border-top: 1px solid #111; pt: 5px; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <div class="tagline">UNCHAINED v10.6 | FULL DATA ARCHIVE</div>
+    <div class="tagline">UNCHAINED v10.6.2 | DEEP NEURAL DATA</div>
     <h1>SOVEREIGN PRO</h1>
+    
     <div class="inputs-grid">
-        <input type="number" id="h" placeholder="H" class="field">
-        <input type="number" id="x" placeholder="X" class="field">
-        <input type="number" id="a" placeholder="A" class="field">
-        <input type="number" id="o" placeholder="OPEN" class="field">
+        <input type="number" id="h" placeholder="H" class="field" step="0.01">
+        <input type="number" id="x" placeholder="X" class="field" step="0.01">
+        <input type="number" id="a" placeholder="A" class="field" step="0.01">
+        <input type="number" id="o" placeholder="OPEN" class="field" step="0.01">
     </div>
+
     <button class="btn-strike" onclick="executeNeuralStrike()">Execute Neural Strike</button>
     
-    <!-- زر الشذوذ المضاف -->
-    <button id="anomaly-btn" onclick="alert('Extreme Data Shift Detected! Review Alternatives.')">⚠️ ANOMALY DETECTED</button>
+    <button id="anomaly-btn">⚠️ ANOMALY DETECTED</button>
 
     <div id="res-box" class="res-box">
         <div id="score" class="score-ultra">--</div>
         <div id="precision" class="precision-idx">PRECISION INDEX: 0%</div>
-        <div id="alt-patterns" style="margin-top:25px; display:grid; grid-template-columns:1fr 1fr; gap:12px;"></div>
+        
+        <!-- هنا تظهر النتائج البديلة المجهرية -->
+        <div id="alt-patterns" class="alt-patterns"></div>
     </div>
-</div>
-
-<div class="external-radar-box">
-    <div class="radar-title">📡 GLOBAL SNIPER RADAR: LIVE DROPS</div>
-    <a href="https://betexplorer.com" target="_blank" class="sniper-link">🎯 OPEN LIVE DROPS</a>
 </div>
 
 <div class="log-section">
     <div class="log-header">SYSTEM_ARCHIVE // FULL_STRIKE_DATA</div>
-    <div id="strike-log" class="log-stream"></div>
+    <div id="strike-log"></div>
 </div>
 
 <script>
@@ -111,34 +113,41 @@
         const h = parseFloat(document.getElementById('h').value);
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value);
-        if(!h || !a) return alert("Neural Data Required.");
 
+        if(!h || !a) return alert("System requires H and A data to proceed.");
+
+        // منطق احتساب الـ Drop والشذوذ
         const drop = o ? ((o - a) / o) * 100 : 0;
-        let s = "1 - 1", p = 38, patterns = [];
+        let s = "1 - 1", p = 40, patterns = [];
 
-        // خوارزمية v10.6
-        if (h <= 1.45) {
-            if (drop > 18) { s = "1 - 1"; p = 52; patterns = [{s:"1-2", p:34},{s:"2-1", p:29}]; }
-            else { s = "3 - 0"; p = 88; patterns = [{s:"2-0", p:74},{s:"4-0", p:48}]; }
-        } else if (h <= 1.85) {
-            if (drop > 12) { s = "1 - 1"; p = 61; patterns = [{s:"1-2", p:38},{s:"0-1", p:31}]; }
-            else { s = "2 - 1"; p = 74; patterns = [{s:"2-0", p:61},{s:"1-0", p:54}]; }
+        // خوارزمية v10.6.2 المحدثة
+        if (h <= 1.50) {
+            if (drop > 15) { 
+                s = "1 - 2"; p = 52; 
+                patterns = [{s:"0-1", p:34}, {s:"1-1", p:29}];
+            } else { 
+                s = "3 - 0"; p = 85; 
+                patterns = [{s:"2-0", p:70}, {s:"4-0", p:45}];
+            }
         } else {
-            s = (drop > 10) ? "1 - 2" : "1 - 1"; p = (drop > 10) ? 48 : 38;
-            patterns = [{s:"0-1", p:34},{s:"2-2", p:26}];
+            s = (drop > 12) ? "1 - 2" : "1 - 1";
+            p = (drop > 12) ? 48 : 38;
+            patterns = [{s:"0-1", p:34}, {s:"2-2", p:26}];
         }
 
-        // إظهار زر Anomaly إذا كان الـ Drop عالياً
-        document.getElementById('anomaly-btn').style.display = (drop > 15) ? 'block' : 'none';
+        // تفعيل زر Anomaly إذا كان الـ Drop يتجاوز 20% (شذوذ إحصائي)
+        document.getElementById('anomaly-btn').style.display = (drop > 20) ? 'block' : 'none';
 
+        // عرض النتائج الرئيسية
         document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = s;
         document.getElementById('precision').innerText = `PRECISION INDEX: ${p}%`;
 
+        // عرض النتائج البديلة
         let phtml = '';
         patterns.forEach(item => {
-            phtml += `<div style="background:#111; padding:10px; border-radius:10px; border:1px solid #222;">
-                        <div style="font-size:18px; color:var(--gold); font-weight:900;">${item.s}</div>
+            phtml += `<div class="alt-card">
+                        <div class="alt-score">${item.s}</div>
                         <div style="font-size:10px; color:var(--blue);">${item.p}%</div>
                       </div>`;
         });
@@ -152,12 +161,12 @@
             id: Date.now(),
             target: target,
             precision: prec,
-            patterns: patterns,
+            alternatives: patterns.map(p => p.s).join(' | '),
             time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         };
         let history = JSON.parse(localStorage.getItem('sovereign_history')) || [];
         history.unshift(entry);
-        localStorage.setItem('sovereign_history', JSON.stringify(history.slice(0, 10)));
+        localStorage.setItem('sovereign_history', JSON.stringify(history.slice(0, 8))); // حفظ آخر 8 ضربات
         renderLog();
     }
 
@@ -166,11 +175,14 @@
         const container = document.getElementById('strike-log');
         container.innerHTML = history.map(item => `
             <div class="strike-card">
-                <span class="card-main">${item.target} <small style="font-size:12px; color:var(--blue)">${item.precision}%</small></span>
-                <div class="card-alts">
-                    ${item.patterns.map(p => `<span>Alt: ${p.s} (${p.p}%)</span>`).join('')}
+                <div class="card-info">
+                    <span style="font-size:18px; font-weight:900; color:var(--gold);">${item.target}</span>
+                    <span style="font-size:11px; color:var(--blue); font-weight:bold;">${item.precision}%</span>
                 </div>
-                <div style="font-size:9px; color:#444; margin-top:5px;">TIME: ${item.time} // STRIKE_CONFIRMED</div>
+                <div class="card-alts">
+                    ALTS: <span style="color:#aaa;">${item.alternatives}</span>
+                </div>
+                <div style="font-size:8px; color:#333; margin-top:5px; text-transform:uppercase;">Strike Time: ${item.time}</div>
             </div>
         `).join('');
     }
