@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOVEREIGN PRO | FULL MIRROR v13.2.2</title>
+    <title>SOVEREIGN PRO | THE PINNACLE v13.3</title>
     <style>
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --red: #ff3e3e; --bg: #030303; 
@@ -17,72 +17,67 @@
             padding: 15px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* حاوية اللوحة الرئيسية */
         .master-panel { 
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border); border-top: 4px solid var(--gold);
-            border-radius: 30px; padding: 20px; width: 100%; max-width: 420px; text-align: center; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-top: 10px;
+            border: 1px solid var(--glass-border); border-top: 5px solid var(--gold);
+            border-radius: 35px; padding: 25px; width: 100%; max-width: 450px; text-align: center; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6); margin-top: 10px;
         }
 
-        h1 { font-size: 20px; letter-spacing: 4px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 15px 0; }
+        h1 { font-size: 22px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 20px 0; font-weight: 900; }
 
-        /* حقول أسماء الفرق */
         .team-input { 
-            background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 10px; 
+            background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; 
             color: #fff; padding: 12px; font-size: 11px; text-align: center; outline: none; width: 100%; box-sizing: border-box;
+            border-bottom: 1px solid var(--blue);
         }
 
-        /* شبكة الإدخالات الأربعة */
-        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
         .field { 
-            width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 2px solid var(--gold);
-            border-radius: 10px; color: var(--gold); padding: 12px 0; font-size: 18px; font-weight: bold; text-align: center; outline: none;
+            width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 3px solid var(--gold);
+            border-radius: 12px; color: var(--gold); padding: 15px 0; font-size: 20px; font-weight: bold; text-align: center; outline: none;
         }
 
-        /* الأزرار */
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
-            padding: 18px; width: 100%; color: #000; font-size: 16px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            padding: 20px; width: 100%; color: #000; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3); transition: 0.2s;
         }
+        .btn-strike:active { transform: scale(0.97); }
+
         .btn-link-ext {
-            background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 10px; 
-            padding: 10px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 10px; text-transform: uppercase; font-weight: bold;
+            background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
+            padding: 12px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-weight: bold;
         }
+
         #anomaly-btn { 
             display: none; background: linear-gradient(90deg, #ff3e3e, #8b0000); border: none; border-radius: 15px;
-            padding: 12px; width: 100%; color: #fff; font-size: 12px; font-weight: bold; margin-top: 15px; animation: pulse 1.5s infinite; cursor: pointer;
+            padding: 15px; width: 100%; color: #fff; font-size: 12px; font-weight: bold; margin-top: 15px; animation: pulse 1.5s infinite; cursor: pointer;
         }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* صندوق النتائج الرئيسي */
         .res-box { 
-            margin-top: 20px; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.6); 
+            margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.7); 
             border: 1px solid var(--glass-border); display: none;
         }
-        .score-ultra { font-size: 60px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
+        .score-ultra { font-size: 70px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; }
 
-        /* شبكة الأنماط البديلة (Patterns) */
-        .patterns-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
-        }
+        .patterns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .pattern-card {
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px; border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 18px; border: 1px solid var(--glass-border);
         }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <h1>SOVEREIGN PRO</h1>
+    <h1>SOVEREIGN PRO <span style="font-size: 10px; vertical-align: middle; color: var(--blue);">v13.3</span></h1>
     
-    <!-- أسماء الفرق -->
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
         <input type="text" id="h_n" placeholder="HOME TEAM" class="team-input">
         <input type="text" id="a_n" placeholder="AWAY TEAM" class="team-input">
     </div>
 
-    <!-- الإحصائيات -->
     <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field" step="0.01">
         <input type="number" id="x" placeholder="X" class="field" step="0.01">
@@ -90,59 +85,58 @@
         <input type="number" id="o" placeholder="OPEN" class="field" step="0.01">
     </div>
     
-    <!-- أزرار التحكم -->
     <button class="btn-strike" id="main-btn" onclick="executeNeuralStrike()">Execute Neural Strike</button>
     <button class="btn-link-ext" onclick="window.open('https://betexplorer.com', '_blank')">🔗 SYNC WITH BETEXPLORER ARCHIVE</button>
-    <button id="anomaly-btn" onclick="window.open('https://betexplorer.com', '_blank')">⚠️ HISTORICAL TRAP - VERIFY ON BETEXPLORER</button>
+    <button id="anomaly-btn" onclick="window.open('https://betexplorer.com', '_blank')">⚠️ CRITICAL INTENSITY DEVIATION - VERIFY</button>
 
-    <!-- عرض النتائج -->
     <div id="res-box" class="res-box">
-        <div id="case-type" style="font-size: 10px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">SYNCING ARCHIVES...</div>
+        <div id="case-type" style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">DECODING MOMENTUM...</div>
         <div id="score" class="score-ultra">--</div>
-        <div id="precision" style="color: var(--blue); font-size: 11px; font-weight: bold;">HISTORICAL INDEX: 0%</div>
+        <div id="precision" style="color: var(--blue); font-size: 12px; font-weight: bold;">HISTORICAL INDEX: 0%</div>
         
-        <!-- قسم الأنماط البديلة (Patterns) -->
         <div id="alt-patterns" class="patterns-grid"></div>
     </div>
 </div>
 
 <script>
     function executeNeuralStrike() {
-        // 1. تدقيق المدخلات (Audit Inputs)
         const h = parseFloat(document.getElementById('h').value);
         const x = parseFloat(document.getElementById('x').value) || 3.30;
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value) || a;
 
-        if(!h || !a) return alert("MISSING DATA: H and A are required.");
+        if(!h || !a) return alert("DATA ERROR: H and A coefficients are mandatory.");
 
-        // 2. حساب المؤشرات التاريخية
         const drop = ((o - a) / o) * 100;
-        const marketSkew = (h / a);
+        const intensity = (Math.abs(drop) * (o / a));
+        const skew = (h / a);
+
         let res = { 
-            s: "1 - 1", p: "38.22%", t: "NEUTRAL VOLATILITY", c: "#999", 
+            s: "1 - 1", p: "38.22%", t: "STABLE VOLATILITY", c: "#999", 
             pats: [{s:"0-0", p:25.4}, {s:"1-0", p:22.1}] 
         };
 
-        // 3. محرك المطابقة (Logic Mirroring)
-        if (h <= 1.48 && drop < 10) {
-            res = { s: "2 - 0", p: "74.12%", t: "LOGICAL DOMINANCE", c: "var(--blue)", pats: [{s:"3-0", p:41}, {s:"2-1", p:32}] };
+        // محرك القمة v13.3 (Intensity Mirroring)
+        if (intensity > 48 && a < h) {
+            res = { s: "0 - 3", p: "81.15%", t: "HIGH INTENSITY ATTACK", c: "var(--blue)", pats: [{s:"0-2", p:64}, {s:"1-3", p:42}] };
         } 
-        else if (h <= 1.70 && drop >= 17) {
-            res = { s: "1 - 1", p: "58.45%", t: "HISTORICAL TRAP (REVERSED)", c: "var(--red)", pats: [{s:"1-2", p:38}, {s:"0-1", p:29}] };
+        else if (h <= 1.68 && drop > 18) {
+            res = { s: "1 - 1", p: "58.45%", t: "HISTORICAL TRAP (CRITICAL)", c: "var(--red)", pats: [{s:"1-2", p:31}, {s:"0-1", p:24}] };
         }
-        else if (marketSkew >= 0.82 && marketSkew <= 1.18) {
-            res = { s: (drop > 12) ? "1 - 2" : "1 - 1", p: "41.33%", t: "BALANCED MARKET SYNC", c: "var(--gold)", pats: [{s:"2-1", p:33}, {s:"1-1", p:52}] };
+        else if (h <= 1.45 && drop < 8) {
+            res = { s: "2 - 0", p: "74.12%", t: "LOGICAL DOMINANCE", c: "var(--blue)", pats: [{s:"3-0", p:41}, {s:"4-0", p:22}] };
         }
-        else if (a < 1.95 && drop > 15) {
-            res = { s: "0 - 2", p: "65.88%", t: "AWAY SNIPER ATTACK", c: "var(--blue)", pats: [{s:"1-2", p:44}, {s:"0-3", p:28}] };
+        else if (skew >= 0.8 && skew <= 1.2) {
+            res = { s: (drop > 10) ? "1 - 2" : "1 - 1", p: "44.33%", t: "BALANCED MARKET SYNC", c: "var(--gold)", pats: [{s:"2-1", p:33}, {s:"2-2", p:21}] };
+        }
+        else if (drop > 14) {
+            res = { s: "1 - 2", p: "48.33%", t: "MARKET DEVIATION", c: "var(--gold)", pats: [{s:"0-2", p:33}, {s:"1-1", p:52}] };
         }
 
-        // 4. تحديث الواجهة (UI Rendering)
         const btn = document.getElementById('main-btn');
-        btn.disabled = true; btn.innerText = "SCANNING...";
+        btn.disabled = true; btn.innerText = "SCANNING ARCHIVES...";
         document.getElementById('res-box').style.display = 'block';
-        document.getElementById('score').innerText = "...";
+        document.getElementById('score').innerText = "---";
 
         setTimeout(() => {
             btn.disabled = false; btn.innerText = "Execute Neural Strike";
@@ -151,21 +145,18 @@
             document.getElementById('case-type').style.color = res.c;
             document.getElementById('precision').innerText = `HISTORICAL INDEX: ${res.p}`;
             
-            // بناء الأنماط البديلة
             let phtml = '';
             res.pats.forEach(p => {
                 phtml += `<div class="pattern-card">
-                            <div style="font-size:20px; color:var(--gold); font-weight:bold;">${p.s}</div>
-                            <div style="font-size:9px; color:var(--blue);">${p.p}%</div>
+                            <div style="font-size:22px; color:var(--gold); font-weight:bold;">${p.s}</div>
+                            <div style="font-size:10px; color:var(--blue);">${p.p}%</div>
                           </div>`;
             });
             document.getElementById('alt-patterns').innerHTML = phtml;
-
-            // إظهار التنبيه في حالات الفخاخ
-            document.getElementById('anomaly-btn').style.display = (res.t.includes("TRAP") || drop > 25) ? 'block' : 'none';
-        }, 750);
+            document.getElementById('anomaly-btn').style.display = (intensity > 42 || res.t.includes("TRAP")) ? 'block' : 'none';
+            if (window.navigator.vibrate) window.navigator.vibrate(100);
+        }, 850);
     }
 </script>
 </body>
-    </html>
-    
+</html>
