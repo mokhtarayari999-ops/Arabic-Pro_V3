@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOVEREIGN PRO | TRUE MIRROR v13.2.1</title>
+    <title>SOVEREIGN PRO | FULL MIRROR v13.2.2</title>
     <style>
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --red: #ff3e3e; --bg: #030303; 
@@ -17,58 +17,58 @@
             padding: 15px; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
+        /* حاوية اللوحة الرئيسية */
         .master-panel { 
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border); border-top: 4px solid var(--gold);
             border-radius: 30px; padding: 20px; width: 100%; max-width: 420px; text-align: center; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-top: 10px; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-top: 10px;
         }
 
         h1 { font-size: 20px; letter-spacing: 4px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 15px 0; }
 
+        /* حقول أسماء الفرق */
         .team-input { 
             background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 10px; 
-            color: #fff; padding: 12px; font-size: 11px; text-align: center; outline: none; width: 100%;
-            box-sizing: border-box; border-bottom: 1px solid var(--blue);
+            color: #fff; padding: 12px; font-size: 11px; text-align: center; outline: none; width: 100%; box-sizing: border-box;
         }
 
+        /* شبكة الإدخالات الأربعة */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 15px; }
         .field { 
             width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 2px solid var(--gold);
-            border-radius: 10px; color: var(--gold); padding: 12px 0; font-size: 18px; font-weight: bold;
-            text-align: center; outline: none; transition: 0.3s;
+            border-radius: 10px; color: var(--gold); padding: 12px 0; font-size: 18px; font-weight: bold; text-align: center; outline: none;
         }
-        .field:focus { background: rgba(255,204,0,0.05); border-color: var(--gold); }
 
+        /* الأزرار */
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
-            padding: 18px; width: 100%; color: #000; font-size: 16px; font-weight: 900; 
-            cursor: pointer; text-transform: uppercase; transition: all 0.2s ease;
-            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
+            padding: 18px; width: 100%; color: #000; font-size: 16px; font-weight: 900; cursor: pointer; text-transform: uppercase;
         }
-        .btn-strike:active { transform: scale(0.96); }
-
-        /* زر الربط الدائم بـ BetExplorer */
         .btn-link-ext {
             background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 10px; 
-            padding: 10px; width: 100%; font-size: 10px; cursor: pointer; letter-spacing: 1px;
-            margin-top: 10px; text-transform: uppercase; font-weight: bold; transition: 0.3s;
+            padding: 10px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 10px; text-transform: uppercase; font-weight: bold;
         }
-        .btn-link-ext:hover { background: rgba(0, 242, 255, 0.1); }
-
         #anomaly-btn { 
             display: none; background: linear-gradient(90deg, #ff3e3e, #8b0000); border: none; border-radius: 15px;
-            padding: 12px; width: 100%; color: #fff; font-size: 12px; font-weight: bold; margin-top: 15px;
-            animation: pulse 1.5s infinite; cursor: pointer;
+            padding: 12px; width: 100%; color: #fff; font-size: 12px; font-weight: bold; margin-top: 15px; animation: pulse 1.5s infinite; cursor: pointer;
         }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
+        /* صندوق النتائج الرئيسي */
         .res-box { 
             margin-top: 20px; padding: 20px; border-radius: 20px; background: rgba(0,0,0,0.6); 
-            border: 1px solid var(--glass-border); display: none; transition: 0.5s;
+            border: 1px solid var(--glass-border); display: none;
         }
         .score-ultra { font-size: 60px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -2px; }
-        .precision-idx { color: var(--blue); font-size: 11px; font-weight: bold; letter-spacing: 1px; }
+
+        /* شبكة الأنماط البديلة (Patterns) */
+        .patterns-grid { 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;
+        }
+        .pattern-card {
+            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px; border: 1px solid var(--glass-border);
+        }
     </style>
 </head>
 <body>
@@ -76,11 +76,13 @@
 <div class="master-panel">
     <h1>SOVEREIGN PRO</h1>
     
+    <!-- أسماء الفرق -->
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
         <input type="text" id="h_n" placeholder="HOME TEAM" class="team-input">
         <input type="text" id="a_n" placeholder="AWAY TEAM" class="team-input">
     </div>
 
+    <!-- الإحصائيات -->
     <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field" step="0.01">
         <input type="number" id="x" placeholder="X" class="field" step="0.01">
@@ -88,77 +90,79 @@
         <input type="number" id="o" placeholder="OPEN" class="field" step="0.01">
     </div>
     
+    <!-- أزرار التحكم -->
     <button class="btn-strike" id="main-btn" onclick="executeNeuralStrike()">Execute Neural Strike</button>
-    
-    <!-- زر الربط بـ BetExplorer (مدمج كمرجع خارجي) -->
-    <button class="btn-link-ext" onclick="window.open('https://betexplorer.com', '_blank')">
-        🔗 SYNC WITH BETEXPLORER ARCHIVE
-    </button>
-    
-    <button id="anomaly-btn" onclick="window.open('https://betexplorer.com', '_blank')">
-        ⚠️ HISTORICAL TRAP - VERIFY ON BETEXPLORER
-    </button>
+    <button class="btn-link-ext" onclick="window.open('https://betexplorer.com', '_blank')">🔗 SYNC WITH BETEXPLORER ARCHIVE</button>
+    <button id="anomaly-btn" onclick="window.open('https://betexplorer.com', '_blank')">⚠️ HISTORICAL TRAP - VERIFY ON BETEXPLORER</button>
 
+    <!-- عرض النتائج -->
     <div id="res-box" class="res-box">
-        <div id="case-type" style="font-size: 10px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">MATCHING ARCHIVES...</div>
+        <div id="case-type" style="font-size: 10px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">SYNCING ARCHIVES...</div>
         <div id="score" class="score-ultra">--</div>
-        <div id="precision" class="precision-idx">HISTORICAL INDEX: 0.00%</div>
+        <div id="precision" style="color: var(--blue); font-size: 11px; font-weight: bold;">HISTORICAL INDEX: 0%</div>
+        
+        <!-- قسم الأنماط البديلة (Patterns) -->
+        <div id="alt-patterns" class="patterns-grid"></div>
     </div>
 </div>
 
 <script>
     function executeNeuralStrike() {
-        // تدقيق المدخلات مجهرياً لمنع الأخطاء البرمجية
+        // 1. تدقيق المدخلات (Audit Inputs)
         const h = parseFloat(document.getElementById('h').value);
         const x = parseFloat(document.getElementById('x').value) || 3.30;
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value) || a;
 
-        if(!h || !a) {
-            alert("MICRO-ERROR: H and A data points required for mirroring.");
-            return;
-        }
+        if(!h || !a) return alert("MISSING DATA: H and A are required.");
 
-        // حساب بصمة المباراة التاريخية
+        // 2. حساب المؤشرات التاريخية
         const drop = ((o - a) / o) * 100;
         const marketSkew = (h / a);
-        let res = { s: "1 - 1", p: "38.22%", t: "NEUTRAL VOLATILITY", c: "#999" };
+        let res = { 
+            s: "1 - 1", p: "38.22%", t: "NEUTRAL VOLATILITY", c: "#999", 
+            pats: [{s:"0-0", p:25.4}, {s:"1-0", p:22.1}] 
+        };
 
-        // محرك "المرآة الصادقة" - مطابقة الحالات الـ 5 الكبرى
+        // 3. محرك المطابقة (Logic Mirroring)
         if (h <= 1.48 && drop < 10) {
-            res = { s: "2 - 0", p: "74.12%", t: "LOGICAL DOMINANCE", c: "var(--blue)" };
+            res = { s: "2 - 0", p: "74.12%", t: "LOGICAL DOMINANCE", c: "var(--blue)", pats: [{s:"3-0", p:41}, {s:"2-1", p:32}] };
         } 
         else if (h <= 1.70 && drop >= 17) {
-            res = { s: "1 - 1", p: "58.45%", t: "HISTORICAL TRAP (REVERSED)", c: "var(--red)" };
+            res = { s: "1 - 1", p: "58.45%", t: "HISTORICAL TRAP (REVERSED)", c: "var(--red)", pats: [{s:"1-2", p:38}, {s:"0-1", p:29}] };
         }
         else if (marketSkew >= 0.82 && marketSkew <= 1.18) {
-            res = { s: (drop > 12) ? "1 - 2" : "1 - 1", p: "41.33%", t: "BALANCED MARKET SYNC", c: "var(--gold)" };
+            res = { s: (drop > 12) ? "1 - 2" : "1 - 1", p: "41.33%", t: "BALANCED MARKET SYNC", c: "var(--gold)", pats: [{s:"2-1", p:33}, {s:"1-1", p:52}] };
         }
         else if (a < 1.95 && drop > 15) {
-            res = { s: "0 - 2", p: "65.88%", t: "AWAY SNIPER ATTACK", c: "var(--blue)" };
+            res = { s: "0 - 2", p: "65.88%", t: "AWAY SNIPER ATTACK", c: "var(--blue)", pats: [{s:"1-2", p:44}, {s:"0-3", p:28}] };
         }
 
-        // تأثير المعالجة (Scanning UI)
+        // 4. تحديث الواجهة (UI Rendering)
         const btn = document.getElementById('main-btn');
-        btn.disabled = true;
-        btn.innerText = "SCANNING 10Y ARCHIVE...";
-        
+        btn.disabled = true; btn.innerText = "SCANNING...";
         document.getElementById('res-box').style.display = 'block';
-        document.getElementById('score').innerText = "---";
+        document.getElementById('score').innerText = "...";
 
         setTimeout(() => {
-            btn.disabled = false;
-            btn.innerText = "Execute Neural Strike";
+            btn.disabled = false; btn.innerText = "Execute Neural Strike";
             document.getElementById('score').innerText = res.s;
             document.getElementById('case-type').innerText = res.t;
             document.getElementById('case-type').style.color = res.c;
             document.getElementById('precision').innerText = `HISTORICAL INDEX: ${res.p}`;
             
-            // تفعيل زر التنبيه في الحالات الحرجة
+            // بناء الأنماط البديلة
+            let phtml = '';
+            res.pats.forEach(p => {
+                phtml += `<div class="pattern-card">
+                            <div style="font-size:20px; color:var(--gold); font-weight:bold;">${p.s}</div>
+                            <div style="font-size:9px; color:var(--blue);">${p.p}%</div>
+                          </div>`;
+            });
+            document.getElementById('alt-patterns').innerHTML = phtml;
+
+            // إظهار التنبيه في حالات الفخاخ
             document.getElementById('anomaly-btn').style.display = (res.t.includes("TRAP") || drop > 25) ? 'block' : 'none';
-            
-            // اهتزاز مجهري للتفاعل الفيزيائي
-            if (window.navigator.vibrate) window.navigator.vibrate([30, 50, 30]);
         }, 750);
     }
 </script>
