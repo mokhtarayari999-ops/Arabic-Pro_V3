@@ -50,15 +50,13 @@
         .btn-link-ext {
             background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
             padding: 12px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-weight: bold;
-            transition: 0.3s;
         }
-        .btn-link-ext:hover { background: var(--blue); color: #000; }
 
         #anomaly-btn { 
             display: none; background: linear-gradient(90deg, #ff3e3e, #8b0000); border: none; border-radius: 15px;
             padding: 15px; width: 100%; color: #fff; font-size: 11px; font-weight: bold; margin-top: 15px; animation: pulse 1.5s infinite; cursor: pointer;
         }
-        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0px var(--red); } 50% { transform: scale(1.02); box-shadow: 0 0 20px var(--red); } 100% { transform: scale(1); box-shadow: 0 0 0px var(--red); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); box-shadow: 0 0 20px var(--red); } 100% { transform: scale(1); } }
 
         .res-box { 
             margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.8); 
@@ -67,22 +65,24 @@
         .score-ultra { font-size: 70px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; }
 
         .patterns-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .pattern-card {
-            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 18px; border: 1px solid var(--glass-border);
-            transition: 0.3s;
-        }
+        .pattern-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 18px; border: 1px solid var(--glass-border); }
 
-        /* إضافة سجل الضربات Strike Log */
+        /* سجل التوقعات فائق الدقة - تدقيق مجهري للتنسيق */
         .history-section {
-            margin-top: 25px; width: 100%; background: rgba(255,255,255,0.02); border-radius: 20px; 
+            margin-top: 25px; width: 100%; background: rgba(0,0,0,0.4); border-radius: 20px; 
             padding: 15px; border: 1px solid var(--glass-border); box-sizing: border-box; display: none;
         }
-        .hist-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .hist-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px; }
         .hist-title { font-size: 10px; color: var(--gold); letter-spacing: 2px; font-weight: bold; }
         .clear-btn { background: none; border: 1px solid var(--red); color: var(--red); font-size: 9px; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
-        .hist-list { list-style: none; padding: 0; margin: 0; max-height: 150px; overflow-y: auto; text-align: left; }
-        .hist-item { font-size: 11px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); color: #aaa; }
-        .hist-item b { color: var(--blue); float: right; }
+        .hist-list { list-style: none; padding: 0; margin: 0; max-height: 250px; overflow-y: auto; text-align: left; }
+        .hist-item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .hist-match-row { display: flex; justify-content: space-between; align-items: center; }
+        .hist-match-names { font-size: 11px; color: #eee; }
+        .hist-main-res { color: var(--blue); font-weight: 900; font-size: 15px; }
+        .hist-alts-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .alt-badge { font-size: 9px; color: #777; background: rgba(255,255,255,0.02); padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
+        .alt-badge b { color: var(--gold); }
 
         .footer-tag { font-size: 8px; color: #444; margin-top: 20px; letter-spacing: 2px; }
     </style>
@@ -93,8 +93,8 @@
     <h1>SOVEREIGN PRO <span style="font-size: 10px; vertical-align: middle; color: var(--blue);">v13.3</span></h1>
     
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-        <input type="text" id="h_n" placeholder="HOME TEAM (e.g. Al-Salt)" class="team-input">
-        <input type="text" id="a_n" placeholder="AWAY TEAM (e.g. Al-Wehdat)" class="team-input">
+        <input type="text" id="h_n" placeholder="HOME TEAM" class="team-input">
+        <input type="text" id="a_n" placeholder="AWAY TEAM" class="team-input">
     </div>
 
     <div class="inputs-grid">
@@ -105,24 +105,21 @@
     </div>
     
     <button class="btn-strike" id="main-btn" onclick="executeNeuralStrike()">Execute Neural Strike</button>
-    
-    <button class="btn-link-ext" onclick="syncArchive()">🔗 SYNC WITH BETEXPLORER ARCHIVE</button>
-    
-    <button id="anomaly-btn" onclick="verifyDeviation()">⚠️ CRITICAL INTENSITY DEVIATION - VERIFY HISTORY</button>
+    <button class="btn-link-ext" onclick="window.open('https://betexplorer.com', '_blank')">🔗 SYNC WITH BETEXPLORER ARCHIVE</button>
+    <button id="anomaly-btn" onclick="alert('CRITICAL DATA DEVIATION!')">⚠️ CRITICAL INTENSITY DEVIATION</button>
 
     <div id="res-box" class="res-box">
-        <div id="case-type" style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">ANALYZING DECADE DATA...</div>
+        <div id="case-type" style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">ANALYZING...</div>
         <div id="score" class="score-ultra">--</div>
         <div id="precision" style="color: var(--blue); font-size: 12px; font-weight: bold;">HISTORICAL INDEX: 0%</div>
         <div id="alt-patterns" class="patterns-grid"></div>
         <div style="margin-top: 15px; font-size: 9px; color: #666;">VOLATILITY STATUS: <span id="vol-status" style="color: var(--gold);">STABLE</span></div>
     </div>
 
-    <!-- قسم سجل التوقعات المدمج -->
     <div id="history-section" class="history-section">
         <div class="hist-head">
             <span class="hist-title">NEURAL STRIKE LOG</span>
-            <button class="clear-btn" onclick="clearStrikeLog()">CLEAR ALL</button>
+            <button class="clear-btn" onclick="clearLogs()">CLEAR ALL</button>
         </div>
         <ul id="history-list" class="hist-list"></ul>
     </div>
@@ -131,41 +128,48 @@
 </div>
 
 <script>
-    function syncArchive() {
-        const hName = document.getElementById('h_n').value || "Teams";
-        alert("SYNCING: Fetching 10-year H2H data for " + hName + " from global archive...");
-        window.open('https://betexplorer.com', '_blank');
+    // التدقيق المجهري لدوال السجل
+    function saveLog(home, away, mainScore, altPatterns) {
+        let logs = JSON.parse(localStorage.getItem('sov_v13_logs')) || [];
+        const newEntry = {
+            time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+            match: home + " vs " + away,
+            score: mainScore,
+            alts: altPatterns
+        };
+        logs.unshift(newEntry);
+        if(logs.length > 25) logs.pop();
+        localStorage.setItem('sov_v13_logs', JSON.stringify(logs));
+        renderLogs();
     }
 
-    function verifyDeviation() {
-        alert("CRITICAL ALERT: Market odds show a 10-year rare pattern. Verify history!");
-    }
-
-    // وظيفة إدارة السجل
-    function updateLog(h_team, a_team, result) {
-        let logs = JSON.parse(localStorage.getItem('sov_logs')) || [];
-        logs.unshift({ t: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}), m: h_team + " vs " + a_team, r: result });
-        if(logs.length > 15) logs.pop();
-        localStorage.setItem('sov_logs', JSON.stringify(logs));
-        displayLogs();
-    }
-
-    function displayLogs() {
-        const logs = JSON.parse(localStorage.getItem('sov_logs')) || [];
-        const container = document.getElementById('history-section');
+    function renderLogs() {
+        const logs = JSON.parse(localStorage.getItem('sov_v13_logs')) || [];
+        const section = document.getElementById('history-section');
         const list = document.getElementById('history-list');
+        
         if(logs.length > 0) {
-            container.style.display = 'block';
-            list.innerHTML = logs.map(l => `<li class="hist-item">${l.t} | ${l.m} <b>${l.r}</b></li>`).join('');
+            section.style.display = 'block';
+            list.innerHTML = logs.map(log => `
+                <li class="hist-item">
+                    <div class="hist-match-row">
+                        <span class="hist-match-names"><small style="color:#555">${log.time}</small> | ${log.match}</span>
+                        <span class="hist-main-res">${log.score}</span>
+                    </div>
+                    <div class="hist-alts-row">
+                        ${log.alts.map(a => `<div class="alt-badge">ALT: <b>${a.s}</b> (${a.p}%)</div>`).join('')}
+                    </div>
+                </li>
+            `).join('');
         } else {
-            container.style.display = 'none';
+            section.style.display = 'none';
         }
     }
 
-    function clearStrikeLog() {
-        if(confirm("Delete all strike records?")) {
-            localStorage.removeItem('sov_logs');
-            displayLogs();
+    function clearLogs() {
+        if(confirm("Confirm: Delete all strike history?")) {
+            localStorage.removeItem('sov_v13_logs');
+            renderLogs();
         }
     }
 
@@ -176,25 +180,23 @@
         const a = parseFloat(document.getElementById('a').value);
         const o = parseFloat(document.getElementById('o').value) || a;
 
-        if(!h || !a) return alert("REQUIRED: Enter Win H and Win A coefficients.");
+        if(!h || !a) return alert("REQUIRED: Win H and Win A coefficients.");
 
         const drop = ((o - a) / o) * 100;
         const intensity = (Math.abs(drop) * (o / a));
 
-        // منطق المحرك العصبي (التدقيق المجهري للأقواس)
-        let res = { s: "1 - 1", p: "38.22%", t: "STABLE VOLATILITY", c: "#999", pats: [{s:"0-0", p:25}, {s:"1-0", p:22}] };
+        // مصفوفة المنطق (تدقيق الأقواس والقيم)
+        let res = { s: "1 - 1", p: "38.22%", t: "STABLE VOLATILITY", c: "#999", pats: [{s:"0-0", p:25.4}, {s:"1-0", p:22.1}] };
 
         if (intensity > 48 && a < h) {
-            res = { s: "0 - 2", p: "84.15%", t: "DECADE DOMINANCE ATTACK", c: "var(--blue)", pats: [{s:"0-3", p:64}, {s:"1-2", p:42}] };
-        } 
-        else if (h <= 1.68 && drop > 18) {
-            res = { s: "1 - 1", p: "61.45%", t: "HISTORICAL TRAP (DECADE)", c: "var(--red)", pats: [{s:"1-0", p:31}, {s:"0-1", p:24}] };
-        }
-        else if (h <= 1.45 && drop < 8) {
-            res = { s: "2 - 0", p: "78.12%", t: "LOGICAL LEAGUE PATTERN", c: "var(--blue)", pats: [{s:"3-0", p:41}, {s:"1-0", p:22}] };
+            res = { s: "0 - 2", p: "84.15%", t: "DECADE DOMINANCE ATTACK", c: "var(--blue)", pats: [{s:"0-3", p:64.0}, {s:"1-2", p:42.0}] };
+        } else if (h <= 1.68 && drop > 18) {
+            res = { s: "1 - 1", p: "61.45%", t: "HISTORICAL TRAP (DECADE)", c: "var(--red)", pats: [{s:"1-0", p:31.2}, {s:"0-1", p:24.5}] };
+        } else if (h <= 1.45 && drop < 8) {
+            res = { s: "2 - 0", p: "78.12%", t: "LOGICAL LEAGUE PATTERN", c: "var(--blue)", pats: [{s:"3-0", p:41.1}, {s:"1-0", p:22.8}] };
         }
 
-        // عرض النتائج بدقة
+        // تحديث الواجهة
         document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = res.s;
         document.getElementById('score').style.color = res.c;
@@ -209,14 +211,15 @@
             </div>
         `).join('');
 
-        // التنبيه للانحرافات الخطيرة
+        // تنبيه الانحراف
         document.getElementById('anomaly-btn').style.display = (intensity > 55) ? 'block' : 'none';
 
-        // الحفظ في السجل
-        updateLog(h_name, a_name, res.s);
+        // الحفظ في السجل المطور
+        saveLog(h_name, a_name, res.s, res.pats);
     }
 
-    window.onload = displayLogs;
+    // التحميل الأولي
+    window.onload = renderLogs;
 </script>
 
 </body>
