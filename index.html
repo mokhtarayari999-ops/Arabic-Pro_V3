@@ -51,7 +51,7 @@
             transition: 0.3s; display: block; width: 100%; text-decoration: none;
         }
 
-        .btn-sync:hover { background: rgba(0, 242, 255, 0.1); box-shadow: 0 0 10px var(--blue); }
+        .btn-sync:active { transform: scale(0.98); background: rgba(0, 242, 255, 0.1); }
 
         .res-box { 
             margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.85); 
@@ -85,8 +85,7 @@
     </div>
     
     <button class="btn-strike" onclick="executeStrike()">Execute Neural Strike</button>
-    <!-- تم تغيير النص والوظيفة للولوج المباشر للأرشيف -->
-    <button class="btn-sync" onclick="syncArchive()">📂 GO TO HISTORICAL ARCHIVE</button>
+    <button class="btn-sync" onclick="syncArchive()">📂 GO TO HISTORICAL ARCHIVE 🔗</button>
 
     <div id="res-box" class="res-box">
         <div style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">RAW HISTORICAL REALITY</div>
@@ -103,7 +102,6 @@
 </div>
 
 <script>
-    // قاعدة بيانات الحقيقة التاريخية (2019-2026)
     const ARCHIVE_DB = [
         { min: 1.01, max: 1.30, res: "3 - 0", alt: "2 - 0", s: "5,120" },
         { min: 1.31, max: 1.60, res: "2 - 0", alt: "2 - 1", s: "8,400" },
@@ -113,22 +111,29 @@
         { min: 3.21, max: 100.0, res: "0 - 2", alt: "0 - 3", s: "4,900" }
     ];
 
-    // الدالة المحدثة للولوج المباشر للأرشيف
     function syncArchive() {
         const h = document.getElementById('h').value;
         const x = document.getElementById('x').value;
         const a = document.getElementById('a').value;
 
-        // رابط الأرشيف الرئيسي للنتائج التاريخية
-        let archiveUrl = "https://betexplorer.com";
+        let finalUrl;
         
-        if(h && x && a) {
-            // إذا أدخلت الـ Odds، سيوجهك لفلتر الأرشيف المتقدم بهذه القيم
-            archiveUrl = `https://betexplorer.com{h}&odds_x=${x}&odds_2=${a}`;
+        if (h && x && a) {
+            // حل برمجي: تنظيف القيم لضمان قبول المتصفح للرابط المعقد
+            const cleanH = encodeURIComponent(h);
+            const cleanX = encodeURIComponent(x);
+            const cleanA = encodeURIComponent(a);
+            finalUrl = `https://betexplorer.com{cleanH}&odds_x=${cleanX}&odds_2=${cleanA}`;
+        } else {
+            // الرابط البسيط الذي كان يفتح معك دائماً
+            finalUrl = "https://betexplorer.com";
         }
-        
-        // فتح الرابط في نافذة جديدة لضمان تجربة مستخدم سلسة
-        window.open(archiveUrl, '_blank');
+
+        // استخدام وظيفة الفتح المباشر مع تجاوز حظر النوافذ المنبثقة
+        const newWindow = window.open(finalUrl, '_blank');
+        if (!newWindow) {
+            window.location.href = finalUrl; // حل احتياطي إذا فشل window.open
+        }
     }
 
     function executeStrike() {
@@ -156,4 +161,5 @@
 </script>
 
 </body>
-</html>
+    </html>
+    
