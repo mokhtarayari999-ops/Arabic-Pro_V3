@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -68,9 +68,9 @@
     <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">ULTRA v6.0</span></h1>
     
     <div class="league-selector">
-        <button class="l-btn active" onclick="setLeague('INT', this)">عام</button>
-        <button class="l-btn" onclick="setLeague('ENG', this)">إنجليزي</button>
-        <button class="l-btn" onclick="setLeague('ITA', this)">إيطالي</button>
+        <button class="l-btn active" onclick="setLeague('INT', this)">GENERAL</button>
+        <button class="l-btn" onclick="setLeague('ENG', this)">ENGLISH</button>
+        <button class="l-btn" onclick="setLeague('ITA', this)">ITALIAN</button>
     </div>
 
     <div class="inputs-grid">
@@ -89,8 +89,8 @@
         <div class="trust-bar"><div id="trust-fill" class="trust-fill"></div></div>
 
         <div class="metrics-grid">
-            <div class="metric-card"><span class="m-label">عينة الأرشيف</span><span id="sample-val" class="m-value">--</span></div>
-            <div class="metric-card"><span class="m-label">انحراف OPEN</span><span id="dev-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">ARCHIVE SAMPLE</span><span id="sample-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">OPEN DEVIATION</span><span id="dev-val" class="m-value">--</span></div>
         </div>
         <div id="strategy-note" style="margin-top: 12px; font-size: 9px; color: var(--gold); padding-top: 8px; border-top: 1px solid #222;"></div>
     </div>
@@ -100,6 +100,7 @@
 <script>
     let currentLeague = 'INT';
 
+    // The Core: Historical Cluster Database
     const CLUSTERS = [
         { min: 1.01, max: 1.25, res: "3 - 0", s: 12500, trust: "GOLDEN ARC", color: "#00ff88" },
         { min: 1.26, max: 1.45, res: "2 - 0", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff" },
@@ -121,27 +122,28 @@
         const a = parseFloat(document.getElementById('a').value);
         const op = parseFloat(document.getElementById('open').value);
 
-        if(isNaN(h) || isNaN(a)) return alert("أدخل البيانات!");
+        if(isNaN(h) || isNaN(a)) return alert("Please enter the data!");
 
         const key = Math.min(h, a);
-        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[3];
+        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[6];
 
         let finalScore = match.res;
         
-        // منطق "الانحراف الافتتاحي" برمجياً
-        let devStatus = "ثابت";
+        // Open Deviation Logic
+        let devStatus = "STABLE";
         if(!isNaN(op)) {
             const devCalc = Math.abs(h - op).toFixed(2);
-            devStatus = devCalc > 0.20 ? "انحراف خطير" : (devCalc > 0.05 ? "تحرك طفيف" : "مثالي");
+            devStatus = devCalc > 0.20 ? "CRITICAL" : (devCalc > 0.05 ? "SHIFTING" : "IDEAL");
             document.getElementById('dev-val').innerText = devStatus + " (" + devCalc + ")";
         } else {
-            document.getElementById('dev-val').innerText = "غير متوفر";
+            document.getElementById('dev-val').innerText = "N/A";
         }
 
-        // تطبيق فلاتر الدوريات التاريخية
+        // League Historical Filters
         if (currentLeague === 'ENG') finalScore = finalScore.replace('0', '1');
         if (currentLeague === 'ITA' && key > 2.00) finalScore = "1 - 1";
 
+        // Mirroring Logic
         if (a < h) finalScore = finalScore.split(" - ").reverse().join(" - ");
 
         const resBox = document.getElementById('res-box');
@@ -156,7 +158,7 @@
         const confidence = match.s > 10000 ? 92 : (match.s > 8000 ? 65 : 35);
         document.getElementById('trust-fill').style.width = confidence + "%";
         document.getElementById('trust-fill').style.background = match.color;
-        document.getElementById('strategy-note').innerText = `تحليل عنقودي لـ ${match.s} مباراة بنمط ${currentLeague}.`;
+        document.getElementById('strategy-note').innerText = `Cluster analysis for ${match.s} matches in ${currentLeague} pattern.`;
     }
 </script>
 </body>
