@@ -90,7 +90,9 @@
 
         <div class="metrics-grid">
             <div class="metric-card"><span class="m-label">ARCHIVE SAMPLE</span><span id="sample-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">ALT PATTERN</span><span id="alt-val" class="m-value" style="color:var(--gold)">--</span></div>
             <div class="metric-card"><span class="m-label">OPEN DEVIATION</span><span id="dev-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">CLUSTER RANGE</span><span id="range-val" class="m-value">--</span></div>
         </div>
         <div id="strategy-note" style="margin-top: 12px; font-size: 9px; color: var(--gold); padding-top: 8px; border-top: 1px solid #222;"></div>
     </div>
@@ -100,15 +102,15 @@
 <script>
     let currentLeague = 'INT';
 
-    // The Core: Historical Cluster Database
+    // The Core Archive with Alternative Patterns
     const CLUSTERS = [
-        { min: 1.01, max: 1.25, res: "3 - 0", s: 12500, trust: "GOLDEN ARC", color: "#00ff88" },
-        { min: 1.26, max: 1.45, res: "2 - 0", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff" },
-        { min: 1.46, max: 1.70, res: "2 - 1", s: 14200, trust: "STABLE CLUSTER", color: "#00f2ff" },
-        { min: 1.71, max: 1.95, res: "1 - 1", s: 18500, trust: "HIGH REPETITION", color: "#ffcc00" },
-        { min: 1.96, max: 2.40, res: "1 - 1", s: 11200, trust: "MARKET SHIFT", color: "#ffcc00" },
-        { min: 2.41, max: 3.20, res: "0 - 1", s: 8400, trust: "LOW DENSITY", color: "#ff3e3e" },
-        { min: 3.21, max: 100.0, res: "0 - 2", s: 5100, trust: "VOLATILE RANGE", color: "#ff3e3e" }
+        { min: 1.01, max: 1.25, res: "3 - 0", alt: "2 - 0", s: 12500, trust: "GOLDEN ARC", color: "#00ff88" },
+        { min: 1.26, max: 1.45, res: "2 - 0", alt: "2 - 1", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff" },
+        { min: 1.46, max: 1.70, res: "2 - 1", alt: "1 - 1", s: 14200, trust: "STABLE CLUSTER", color: "#00f2ff" },
+        { min: 1.71, max: 1.95, res: "1 - 1", alt: "2 - 1", s: 18500, trust: "HIGH REPETITION", color: "#ffcc00" },
+        { min: 1.96, max: 2.40, res: "1 - 1", alt: "1 - 0", s: 11200, trust: "MARKET SHIFT", color: "#ffcc00" },
+        { min: 2.41, max: 3.20, res: "0 - 1", alt: "1 - 1", s: 8400, trust: "LOW DENSITY", color: "#ff3e3e" },
+        { min: 3.21, max: 100.0, res: "0 - 2", alt: "0 - 1", s: 5100, trust: "VOLATILE RANGE", color: "#ff3e3e" }
     ];
 
     function setLeague(type, btn) {
@@ -125,40 +127,38 @@
         if(isNaN(h) || isNaN(a)) return alert("Please enter the data!");
 
         const key = Math.min(h, a);
-        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[6];
+        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[3];
 
         let finalScore = match.res;
+        let altScore = match.alt;
         
-        // Open Deviation Logic
-        let devStatus = "STABLE";
+        // Deviation Logic
         if(!isNaN(op)) {
             const devCalc = Math.abs(h - op).toFixed(2);
-            devStatus = devCalc > 0.20 ? "CRITICAL" : (devCalc > 0.05 ? "SHIFTING" : "IDEAL");
-            document.getElementById('dev-val').innerText = devStatus + " (" + devCalc + ")";
-        } else {
-            document.getElementById('dev-val').innerText = "N/A";
+            document.getElementById('dev-val').innerText = (devCalc > 0.20 ? "CRITICAL" : "STABLE") + " (" + devCalc + ")";
         }
 
-        // League Historical Filters
-        if (currentLeague === 'ENG') finalScore = finalScore.replace('0', '1');
-        if (currentLeague === 'ITA' && key > 2.00) finalScore = "1 - 1";
+        // League Filters
+        if (currentLeague === 'ENG') { finalScore = finalScore.replace('0', '1'); altScore = altScore.replace('0', '1'); }
+        if (currentLeague === 'ITA' && key > 2.00) { finalScore = "1 - 1"; altScore = "0 - 0"; }
 
-        // Mirroring Logic
-        if (a < h) finalScore = finalScore.split(" - ").reverse().join(" - ");
+        // Mirroring
+        if (a < h) {
+            finalScore = finalScore.split(" - ").reverse().join(" - ");
+            altScore = altScore.split(" - ").reverse().join(" - ");
+        }
 
-        const resBox = document.getElementById('res-box');
-        resBox.style.display = 'block';
-        resBox.style.borderColor = match.color;
-
+        document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = finalScore;
+        document.getElementById('alt-val').innerText = altScore;
+        document.getElementById('sample-val').innerText = match.s.toLocaleString();
+        document.getElementById('range-val').innerText = match.min + "-" + match.max;
         document.getElementById('trust-tag').innerText = match.trust;
         document.getElementById('trust-tag').style.color = match.color;
-        document.getElementById('sample-val').innerText = match.s.toLocaleString();
         
-        const confidence = match.s > 10000 ? 92 : (match.s > 8000 ? 65 : 35);
-        document.getElementById('trust-fill').style.width = confidence + "%";
+        document.getElementById('trust-fill').style.width = (match.s > 10000 ? 92 : 65) + "%";
         document.getElementById('trust-fill').style.background = match.color;
-        document.getElementById('strategy-note').innerText = `Cluster analysis for ${match.s} matches in ${currentLeague} pattern.`;
+        document.getElementById('res-box').style.borderColor = match.color;
     }
 </script>
 </body>
