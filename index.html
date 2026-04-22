@@ -83,8 +83,9 @@
     </div>
     
     <button class="btn-strike" onclick="executeStrike()">Execute Neural Strike</button>
-    <!-- هذا الزر الآن يفتح أداة الفلتر المباشرة لتجنب صفحة "اليوم" -->
-    <button class="btn-sync" onclick="syncArchive()">📂 GO DIRECTLY TO ODDS FILTER</button>
+    
+    <!-- زر "الاختراق" المباشر للأرشيف -->
+    <button class="btn-sync" onclick="forceOpenArchive()">🔗 FORCE OPEN HISTORICAL FILTER</button>
 
     <div id="res-box" class="res-box">
         <div style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">RAW HISTORICAL REALITY</div>
@@ -101,7 +102,7 @@
 </div>
 
 <script>
-    // الجوهر: قاعدة بيانات الحقيقة التاريخية (محفوظة بالكامل)
+    // الجوهر الحسابي المحفوظ
     const ARCHIVE_DB = [
         { min: 1.01, max: 1.30, res: "3 - 0", alt: "2 - 0", s: "5,120" },
         { min: 1.31, max: 1.60, res: "2 - 0", alt: "2 - 1", s: "8,400" },
@@ -111,26 +112,28 @@
         { min: 3.21, max: 100.0, res: "0 - 2", alt: "0 - 3", s: "4,900" }
     ];
 
-    // دالة المزامنة المعدلة لفتح أداة الفلتر مباشرة
-    function syncArchive() {
-        // تم استخدام الرابط المباشر لأداة الفلتر لتفادي صفحة المباريات الحالية
-        const targetUrl = "https://betexplorer.com";
-        window.location.href = targetUrl;
+    // دالة الفتح الإجباري للأرشيف
+    function forceOpenArchive() {
+        // تم إضافة 'results=1' و 'p=1' لإجبار الموقع على الخروج من صفحة اليوم والدخول في الأرشيف
+        const archiveUrl = "https://betexplorer.com";
+        
+        // محاولة الفتح في نافذة جديدة، وإذا فشل يفتح في نفس النافذة
+        const win = window.open(archiveUrl, '_blank');
+        if (!win) {
+            window.location.replace(archiveUrl);
+        }
     }
 
-    // الجوهر: منطق الـ Neural Strike الحسابي (محفوظ بالكامل)
     function executeStrike() {
         const hVal = parseFloat(document.getElementById('h').value);
         const aVal = parseFloat(document.getElementById('a').value);
-
-        if(isNaN(hVal) || isNaN(aVal)) return alert("يرجى إدخال قيم الـ Odds!");
+        if(isNaN(hVal) || isNaN(aVal)) return alert("أدخل البيانات!");
 
         const favorite = Math.min(hVal, aVal);
-        const record = ARCHIVE_DB.find(r => favorite >= r.min && favorite <= r.max) || ARCHIVE_DB[3];
+        const record = ARCHIVE_DB.find(r => favorite >= r.min && favorite <= r.max) || ARCHIVE_DB;
 
         let finalScore = record.res;
         let finalAlt = record.alt;
-
         if (aVal < hVal) {
             finalScore = record.res.split(" - ").reverse().join(" - ");
             finalAlt = record.alt.split(" - ").reverse().join(" - ");
@@ -144,4 +147,5 @@
 </script>
 
 </body>
-</html>
+    </html>
+                                                                                            
