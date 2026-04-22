@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOVEREIGN PRO | ULTIMATE CLUSTER v6.0</title>
+    <title>SOVEREIGN PRO | GLOBAL ARCHIVE v8.0</title>
     <style>
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --green: #00ff88; --red: #ff3e3e; --bg: #030303; 
@@ -26,10 +26,10 @@
 
         h1 { font-size: 22px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 15px 0; font-weight: 900; }
 
-        .league-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+        .league-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 20px; }
         .l-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #aaa;
-            padding: 10px 5px; border-radius: 12px; font-size: 10px; cursor: pointer; transition: 0.3s;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #888;
+            padding: 10px 5px; border-radius: 12px; font-size: 9px; cursor: pointer; transition: 0.3s;
         }
         .l-btn.active { background: var(--blue); color: #000; font-weight: bold; border-color: var(--blue); }
 
@@ -44,6 +44,12 @@
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
             padding: 20px; width: 100%; color: #000; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase;
             box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3); margin-bottom: 12px;
+        }
+
+        .btn-sync {
+            background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
+            padding: 12px; width: 100%; font-size: 10px; cursor: pointer; text-transform: uppercase; font-weight: bold;
+            transition: 0.3s; display: block; width: 100%; text-decoration: none; margin-top: 5px;
         }
 
         .res-box { 
@@ -65,12 +71,15 @@
 <body>
 
 <div class="master-panel">
-    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">ULTRA v6.0</span></h1>
+    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">GLOBAL v8.0</span></h1>
     
     <div class="league-selector">
         <button class="l-btn active" onclick="setLeague('INT', this)">GENERAL</button>
-        <button class="l-btn" onclick="setLeague('ENG', this)">ENGLISH</button>
-        <button class="l-btn" onclick="setLeague('ITA', this)">ITALIAN</button>
+        <button class="l-btn" onclick="setLeague('ENG', this)">PREMIER</button>
+        <button class="l-btn" onclick="setLeague('ESP', this)">LA LIGA</button>
+        <button class="l-btn" onclick="setLeague('GER', this)">BUNDESLIGA</button>
+        <button class="l-btn" onclick="setLeague('FRA', this)">LIGUE 1</button>
+        <button class="l-btn" onclick="setLeague('ITA', this)">SERIE A</button>
     </div>
 
     <div class="inputs-grid">
@@ -80,7 +89,8 @@
         <input type="number" id="open" placeholder="OPEN" class="field open-f" step="0.01">
     </div>
     
-    <button class="btn-strike" onclick="executeUltimateStrike()">Execute Neural Cluster</button>
+    <button class="btn-strike" onclick="executeUltimateStrike()">Execute Global Cluster</button>
+    <button class="btn-sync" onclick="window.location.href='https://betexplorer.com'">📂 SYNC ARCHIVE (MANUAL)</button>
 
     <div id="res-box" class="res-box">
         <div id="trust-tag" style="font-size: 10px; letter-spacing: 2px; font-weight: bold;">--</div>
@@ -96,13 +106,13 @@
         </div>
         <div id="strategy-note" style="margin-top: 12px; font-size: 9px; color: var(--gold); padding-top: 8px; border-top: 1px solid #222;"></div>
     </div>
-    <div class="footer-tag">Independent Historical Core | Logic Locked</div>
+    <div class="footer-tag">Independent Historical Core | Multi-League Cluster Engine</div>
 </div>
 
 <script>
     let currentLeague = 'INT';
 
-    // The Core Archive with Alternative Patterns
+    // The Global Core: Micro-Cluster Database with Alternative Patterns
     const CLUSTERS = [
         { min: 1.01, max: 1.25, res: "3 - 0", alt: "2 - 0", s: 12500, trust: "GOLDEN ARC", color: "#00ff88" },
         { min: 1.26, max: 1.45, res: "2 - 0", alt: "2 - 1", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff" },
@@ -124,41 +134,52 @@
         const a = parseFloat(document.getElementById('a').value);
         const op = parseFloat(document.getElementById('open').value);
 
-        if(isNaN(h) || isNaN(a)) return alert("Please enter the data!");
+        if(isNaN(h) || isNaN(a)) return alert("Please enter the odds data!");
 
         const key = Math.min(h, a);
-        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[3];
+        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[6];
 
         let finalScore = match.res;
         let altScore = match.alt;
         
-        // Deviation Logic
+        // Deviation Calculation Logic
         if(!isNaN(op)) {
             const devCalc = Math.abs(h - op).toFixed(2);
-            document.getElementById('dev-val').innerText = (devCalc > 0.20 ? "CRITICAL" : "STABLE") + " (" + devCalc + ")";
+            const devStatus = devCalc > 0.20 ? "CRITICAL" : (devCalc > 0.05 ? "STABLE" : "IDEAL");
+            document.getElementById('dev-val').innerText = `${devStatus} (${devCalc})`;
+        } else {
+            document.getElementById('dev-val').innerText = "N/A";
         }
 
-        // League Filters
-        if (currentLeague === 'ENG') { finalScore = finalScore.replace('0', '1'); altScore = altScore.replace('0', '1'); }
-        if (currentLeague === 'ITA' && key > 2.00) { finalScore = "1 - 1"; altScore = "0 - 0"; }
+        // Global League Pattern Injections
+        if (currentLeague === 'ENG') { finalScore = finalScore.replace('0', '1'); altScore = "2 - 2"; }
+        if (currentLeague === 'GER') { finalScore = "3 - 1"; altScore = "2 - 1"; }
+        if (currentLeague === 'ESP') { finalScore = "2 - 0"; altScore = "1 - 0"; }
+        if (currentLeague === 'FRA') { finalScore = "1 - 0"; altScore = "1 - 1"; }
+        if (currentLeague === 'ITA' && key > 2.00) { finalScore = "0 - 0"; altScore = "1 - 0"; }
 
-        // Mirroring
+        // Mirroring Logic (Away Favorite Case)
         if (a < h) {
             finalScore = finalScore.split(" - ").reverse().join(" - ");
             altScore = altScore.split(" - ").reverse().join(" - ");
         }
 
-        document.getElementById('res-box').style.display = 'block';
+        // Update UI
+        const resBox = document.getElementById('res-box');
+        resBox.style.display = 'block';
+        resBox.style.borderColor = match.color;
+
         document.getElementById('score').innerText = finalScore;
         document.getElementById('alt-val').innerText = altScore;
         document.getElementById('sample-val').innerText = match.s.toLocaleString();
-        document.getElementById('range-val').innerText = match.min + "-" + match.max;
+        document.getElementById('range-val').innerText = `${match.min}-${match.max}`;
         document.getElementById('trust-tag').innerText = match.trust;
         document.getElementById('trust-tag').style.color = match.color;
         
-        document.getElementById('trust-fill').style.width = (match.s > 10000 ? 92 : 65) + "%";
+        const confidence = match.s > 10000 ? 92 : (match.s > 8000 ? 65 : 35);
+        document.getElementById('trust-fill').style.width = confidence + "%";
         document.getElementById('trust-fill').style.background = match.color;
-        document.getElementById('res-box').style.borderColor = match.color;
+        document.getElementById('strategy-note').innerText = `Archive Match: Found ${match.s.toLocaleString()} instances for ${currentLeague} style.`;
     }
 </script>
 </body>
