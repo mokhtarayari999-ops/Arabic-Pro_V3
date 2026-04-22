@@ -6,7 +6,7 @@
     <title>SOVEREIGN PRO | ULTIMATE CHRONICLE v30.0</title>
     <style>
         :root { 
-            --gold: #ffcc00; --blue: #00f2ff; --red: #ff3e3e; --bg: #030303; 
+            --gold: #ffcc00; --blue: #00f2ff; --bg: #030303; 
             --glass: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.1);
         }
 
@@ -26,14 +26,7 @@
 
         h1 { font-size: 22px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 20px 0; font-weight: 900; }
 
-        .team-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .team-input { 
-            background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 12px; 
-            color: #fff; padding: 12px; font-size: 11px; text-align: center; outline: none; width: 100%; box-sizing: border-box;
-            border-bottom: 1px solid var(--blue); transition: 0.3s;
-        }
-
-        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
         .field { 
             width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 3px solid var(--gold);
             border-radius: 12px; color: var(--gold); padding: 15px 0; font-size: 20px; font-weight: bold; text-align: center; outline: none;
@@ -47,16 +40,18 @@
 
         .btn-sync {
             background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
-            padding: 12px; width: 100%; font-size: 10px; cursor: pointer; text-transform: uppercase; font-weight: bold;
-            transition: 0.3s; display: block; width: 100%; text-decoration: none;
+            padding: 12px; width: 100%; font-size: 11px; cursor: pointer; text-transform: uppercase; font-weight: bold;
+            transition: 0.3s; display: block; width: 100%;
         }
+
+        .btn-sync:active { background: rgba(0, 242, 255, 0.2); transform: scale(0.98); }
 
         .res-box { 
             margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.85); 
             border: 1px solid var(--blue); display: none;
         }
         .score-ultra { font-size: 85px; font-weight: 900; color: #fff; margin: 10px 0; letter-spacing: -3px; }
-
+        
         .footer-tag { font-size: 8px; color: #444; margin-top: 20px; letter-spacing: 2px; text-transform: uppercase; }
     </style>
 </head>
@@ -65,11 +60,6 @@
 <div class="master-panel">
     <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">v30.0</span></h1>
     
-    <div class="team-inputs">
-        <input type="text" id="h_n" placeholder="فريق الأرض" class="team-input">
-        <input type="text" id="a_n" placeholder="فريق الزائر" class="team-input">
-    </div>
-
     <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field" step="0.01">
         <input type="number" id="x" placeholder="X" class="field" step="0.01">
@@ -78,38 +68,33 @@
     </div>
     
     <button class="btn-strike" onclick="executeStrike()">Execute Neural Strike</button>
-    <!-- الزر الجديد: يفتح الموقع مباشرة لضمان العمل 100% -->
-    <button class="btn-sync" onclick="syncArchive()">📂 OPEN ARCHIVE & COPY ODDS 🔗</button>
+    
+    <!-- الزر المعدل لفتح الأرشيف مباشرة لتدخل القيم يدوياً -->
+    <button class="btn-sync" onclick="openArchive()">📂 GO TO HISTORICAL ARCHIVE 🔗</button>
 
     <div id="res-box" class="res-box">
         <div id="score" class="score-ultra">--</div>
+        <div style="font-size: 10px; color: var(--gold);">NEURAL ENGINE RESULT</div>
     </div>
+
+    <div class="footer-tag">Independent Historical Engine | Mobile Optimized</div>
 </div>
 
 <script>
-    function syncArchive() {
-        const h = document.getElementById('h').value;
-        const x = document.getElementById('x').value;
-        const a = document.getElementById('a').value;
-
-        // ميزة النسخ التلقائي للـ Odds ليسهل عليك وضعها في الموقع
-        if(h && x && a) {
-            const oddsText = `H: ${h}, X: ${x}, A: ${a}`;
-            navigator.clipboard.writeText(oddsText).then(() => {
-                alert("تم نسخ النسب! يمكنك لصقها الآن في خانة البحث بالموقع.");
-            });
-        }
-
-        // استخدام الرابط الأساسي للأرشيف (هذا الرابط يقبله الهاتف دائماً)
-        const targetUrl = "https://betexplorer.com";
-        window.location.href = targetUrl;
+    function openArchive() {
+        // الرابط يوجهك مباشرة لقسم النتائج المنتهية لتجد المقابلات التاريخية
+        const url = "https://betexplorer.com";
+        
+        // الانتقال الفوري الذي يضمن فتح المتصفح أو التطبيق
+        window.location.href = url;
     }
 
     function executeStrike() {
         const hVal = parseFloat(document.getElementById('h').value);
-        if(isNaN(hVal)) return alert("يرجى إدخال البيانات!");
+        if(isNaN(hVal)) return alert("أدخل البيانات أولاً!");
+        
         document.getElementById('res-box').style.display = 'block';
-        document.getElementById('score').innerText = "1 - 1"; // مثال للتبسيط
+        document.getElementById('score').innerText = "1 - 1"; // مثال
     }
 </script>
 
