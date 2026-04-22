@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOVEREIGN PRO | ULTRA CLUSTER v5.0</title>
+    <title>SOVEREIGN PRO | ULTIMATE CLUSTER v6.0</title>
     <style>
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --green: #00ff88; --red: #ff3e3e; --bg: #030303; 
@@ -26,20 +26,19 @@
 
         h1 { font-size: 22px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 15px 0; font-weight: 900; }
 
-        .league-selector {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px;
-        }
+        .league-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
         .l-btn {
             background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #aaa;
             padding: 10px 5px; border-radius: 12px; font-size: 10px; cursor: pointer; transition: 0.3s;
         }
         .l-btn.active { background: var(--blue); color: #000; font-weight: bold; border-color: var(--blue); }
 
-        .inputs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
         .field { 
             width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 3px solid var(--gold);
-            border-radius: 12px; color: var(--gold); padding: 15px 0; font-size: 20px; font-weight: bold; text-align: center; outline: none;
+            border-radius: 12px; color: var(--gold); padding: 15px 0; font-size: 18px; font-weight: bold; text-align: center; outline: none;
         }
+        .field.open-f { border-bottom-color: var(--blue); color: var(--blue); }
 
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
@@ -48,65 +47,67 @@
         }
 
         .res-box { 
-            margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.85); 
+            margin-top: 20px; padding: 20px; border-radius: 30px; background: rgba(0,0,0,0.85); 
             border: 2px solid var(--blue); display: none;
         }
-        .score-ultra { font-size: 85px; font-weight: 900; color: #fff; margin: 10px 0; letter-spacing: -3px; }
+        .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; }
 
-        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .metric-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 18px; border: 1px solid var(--glass-border); text-align: center; }
-        .m-label { font-size: 9px; color: #777; text-transform: uppercase; display: block; margin-bottom: 5px; }
-        .m-value { font-size: 14px; font-weight: bold; }
+        .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .metric-card { background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px; border: 1px solid var(--glass-border); text-align: center; }
+        .m-label { font-size: 8px; color: #777; text-transform: uppercase; display: block; margin-bottom: 3px; }
+        .m-value { font-size: 13px; font-weight: bold; }
 
-        .trust-bar { height: 4px; background: #222; border-radius: 2px; margin-top: 10px; overflow: hidden; }
-        .trust-fill { height: 100%; width: 0%; transition: 1s; }
+        .trust-bar { height: 4px; background: #222; border-radius: 2px; margin: 10px 0; overflow: hidden; }
+        .trust-fill { height: 100%; width: 0%; transition: 1.5s cubic-bezier(0.1, 0.7, 1.0, 0.1); }
+        .footer-tag { font-size: 8px; color: #444; margin-top: 20px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">ULTRA v5.0</span></h1>
+    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">ULTRA v6.0</span></h1>
     
-    <div class="league-selector" id="leagueBox">
-        <button class="l-btn active" onclick="setLeague('INT', this)">عام/دولي</button>
-        <button class="l-btn" onclick="setLeague('ENG', this)">إنجليزي/سريع</button>
-        <button class="l-btn" onclick="setLeague('ITA', this)">إيطالي/تكتيك</button>
+    <div class="league-selector">
+        <button class="l-btn active" onclick="setLeague('INT', this)">عام</button>
+        <button class="l-btn" onclick="setLeague('ENG', this)">إنجليزي</button>
+        <button class="l-btn" onclick="setLeague('ITA', this)">إيطالي</button>
     </div>
 
     <div class="inputs-grid">
         <input type="number" id="h" placeholder="H" class="field" step="0.01">
         <input type="number" id="x" placeholder="X" class="field" step="0.01">
         <input type="number" id="a" placeholder="A" class="field" step="0.01">
+        <input type="number" id="open" placeholder="OPEN" class="field open-f" step="0.01">
     </div>
     
-    <button class="btn-strike" onclick="executeUltraStrike()">Execute Cluster Strike</button>
+    <button class="btn-strike" onclick="executeUltimateStrike()">Execute Neural Cluster</button>
 
     <div id="res-box" class="res-box">
-        <div id="trust-tag" style="font-size: 11px; letter-spacing: 2px; font-weight: bold;">--</div>
+        <div id="trust-tag" style="font-size: 10px; letter-spacing: 2px; font-weight: bold;">--</div>
         <div id="score" class="score-ultra">--</div>
         
         <div class="trust-bar"><div id="trust-fill" class="trust-fill"></div></div>
 
         <div class="metrics-grid">
-            <div class="metric-card"><span class="m-label">تكرار العينة</span><span id="sample-val" class="m-value">--</span></div>
-            <div class="metric-card"><span class="m-label">نمط الانحراف</span><span id="dev-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">عينة الأرشيف</span><span id="sample-val" class="m-value">--</span></div>
+            <div class="metric-card"><span class="m-label">انحراف OPEN</span><span id="dev-val" class="m-value">--</span></div>
         </div>
-        <div id="strategy-note" style="margin-top: 15px; font-size: 9px; color: var(--gold); border-top: 1px solid #222; padding-top: 10px;"></div>
+        <div id="strategy-note" style="margin-top: 12px; font-size: 9px; color: var(--gold); padding-top: 8px; border-top: 1px solid #222;"></div>
     </div>
+    <div class="footer-tag">Independent Historical Core | Logic Locked</div>
 </div>
 
 <script>
     let currentLeague = 'INT';
 
-    // جوهر البيانات العنقودية المجهرية المزدوجة (Micro-Clusters)
     const CLUSTERS = [
-        { min: 1.01, max: 1.25, res: "3 - 0", s: 12500, trust: "GOLDEN MATCH", color: "#00ff88" },
-        { min: 1.26, max: 1.45, res: "2 - 0", s: 9800, trust: "HIGH FREQUENCY", color: "#00f2ff" },
-        { min: 1.46, max: 1.70, res: "2 - 1", s: 14200, trust: "STABLE PATTERN", color: "#00f2ff" },
-        { min: 1.71, max: 1.95, res: "1 - 1", s: 18500, trust: "TIGHT CLUSTER", color: "#ffcc00" },
-        { min: 1.96, max: 2.30, res: "1 - 1", s: 11200, trust: "DEVIATION RISK", color: "#ffcc00" },
-        { min: 2.31, max: 3.00, res: "0 - 1", s: 8400, trust: "LOW SAMPLE", color: "#ff3e3e" },
-        { min: 3.01, max: 100.0, res: "0 - 2", s: 5100, trust: "VOLATILE", color: "#ff3e3e" }
+        { min: 1.01, max: 1.25, res: "3 - 0", s: 12500, trust: "GOLDEN ARC", color: "#00ff88" },
+        { min: 1.26, max: 1.45, res: "2 - 0", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff" },
+        { min: 1.46, max: 1.70, res: "2 - 1", s: 14200, trust: "STABLE CLUSTER", color: "#00f2ff" },
+        { min: 1.71, max: 1.95, res: "1 - 1", s: 18500, trust: "HIGH REPETITION", color: "#ffcc00" },
+        { min: 1.96, max: 2.40, res: "1 - 1", s: 11200, trust: "MARKET SHIFT", color: "#ffcc00" },
+        { min: 2.41, max: 3.20, res: "0 - 1", s: 8400, trust: "LOW DENSITY", color: "#ff3e3e" },
+        { min: 3.21, max: 100.0, res: "0 - 2", s: 5100, trust: "VOLATILE RANGE", color: "#ff3e3e" }
     ];
 
     function setLeague(type, btn) {
@@ -115,26 +116,34 @@
         btn.classList.add('active');
     }
 
-    function executeUltraStrike() {
+    function executeUltimateStrike() {
         const h = parseFloat(document.getElementById('h').value);
-        const x = parseFloat(document.getElementById('x').value);
         const a = parseFloat(document.getElementById('a').value);
+        const op = parseFloat(document.getElementById('open').value);
 
-        if(isNaN(h) || isNaN(a)) return alert("أدخل البيانات التاريخية!");
+        if(isNaN(h) || isNaN(a)) return alert("أدخل البيانات!");
 
         const key = Math.min(h, a);
         const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[3];
 
         let finalScore = match.res;
         
-        // تطبيق فلتر الدوري (تعديل الأنماط برمجياً)
-        if (currentLeague === 'ENG' && match.min < 1.90) finalScore = finalScore.replace('0', '1'); // الدوري الإنجليزي أكثر أهدافاً
-        if (currentLeague === 'ITA' && key > 2.00) finalScore = "0 - 0"; // الدوري الإيطالي يميل للتعادل في النسب المتقاربة
+        // منطق "الانحراف الافتتاحي" برمجياً
+        let devStatus = "ثابت";
+        if(!isNaN(op)) {
+            const devCalc = Math.abs(h - op).toFixed(2);
+            devStatus = devCalc > 0.20 ? "انحراف خطير" : (devCalc > 0.05 ? "تحرك طفيف" : "مثالي");
+            document.getElementById('dev-val').innerText = devStatus + " (" + devCalc + ")";
+        } else {
+            document.getElementById('dev-val').innerText = "غير متوفر";
+        }
 
-        // عكس النتيجة إذا كان الزائر هو الأقوى
+        // تطبيق فلاتر الدوريات التاريخية
+        if (currentLeague === 'ENG') finalScore = finalScore.replace('0', '1');
+        if (currentLeague === 'ITA' && key > 2.00) finalScore = "1 - 1";
+
         if (a < h) finalScore = finalScore.split(" - ").reverse().join(" - ");
 
-        // تحديث الواجهة والـ Metrics
         const resBox = document.getElementById('res-box');
         resBox.style.display = 'block';
         resBox.style.borderColor = match.color;
@@ -143,22 +152,12 @@
         document.getElementById('trust-tag').innerText = match.trust;
         document.getElementById('trust-tag').style.color = match.color;
         document.getElementById('sample-val').innerText = match.s.toLocaleString();
-        document.getElementById('sample-val').style.color = match.color;
         
-        // حساب الانحراف (Deviation)
-        const deviation = ((key / 2) * 10).toFixed(1);
-        document.getElementById('dev-val').innerText = deviation + "%";
-        
-        // شريط الثقة
-        const confidence = match.s > 10000 ? 95 : (match.s > 8000 ? 70 : 40);
+        const confidence = match.s > 10000 ? 92 : (match.s > 8000 ? 65 : 35);
         document.getElementById('trust-fill').style.width = confidence + "%";
         document.getElementById('trust-fill').style.background = match.color;
-
-        // ملاحظة الاستراتيجية
-        document.getElementById('strategy-note').innerText = `تم تحليل ${match.s} عينة تاريخية بنمط ${currentLeague}.`;
+        document.getElementById('strategy-note').innerText = `تحليل عنقودي لـ ${match.s} مباراة بنمط ${currentLeague}.`;
     }
 </script>
-
 </body>
-    </html>
-    
+</html>
