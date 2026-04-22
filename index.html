@@ -45,7 +45,6 @@
             box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3); transition: 0.2s;
         }
 
-        /* تحسين زر المزامنة ليعمل على الهاتف فورا */
         .btn-sync {
             background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
             padding: 12px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-weight: bold;
@@ -107,14 +106,13 @@
 
     <div id="history-section" class="history-section">
         <div style="font-size: 10px; color: var(--gold); margin-bottom: 10px;">NEURAL STRIKE LOG</div>
-        <div id="history-list"></div>
+        <ul id="history-list" style="list-style:none; padding:0; margin:0;"></ul>
     </div>
 
     <div class="footer-tag">PURE HISTORICAL ENGINE | 7-YEAR GLOBAL ARCHIVE</div>
 </div>
 
 <script>
-    // مصفوفة الأرشيف التاريخي الصافي (نتائج واقعية 2019-2026)
     const CHRONICLE_DB = [
         { min: 1.05, max: 1.25, res: "3 - 0", alt: "4 - 0", index: 40.8, samples: 2150 },
         { min: 1.26, max: 1.50, res: "2 - 0", alt: "3 - 0", index: 38.5, samples: 5400 },
@@ -126,15 +124,14 @@
         { min: 6.01, max: 100.0, res: "0 - 3", alt: "0 - 4", index: 40.8, samples: 2150 }
     ];
 
-    // دالة المزامنة الحقيقية للهواتف
     function syncArchive() {
         const h = document.getElementById('h').value;
         const x = document.getElementById('x').value;
         const a = document.getElementById('a').value;
-        if(!h || !x || !a) return alert("أدخل بيانات الـ Odds أولاً للمزامنة الحقيقية!");
+        if(!h || !x || !a) return alert("أدخل البيانات للمزامنة!");
         
+        // إصلاح الرابط ليفتح صفحة النتائج التاريخية في BetExplorer
         const url = `https://betexplorer.com{h}&odds_x=${x}&odds_a=${a}`;
-        // فتح الموقع في تبويب جديد (على الهاتف يفتح صفحة جديدة)
         window.location.href = url;
     }
 
@@ -144,16 +141,15 @@
         const homeName = document.getElementById('h_n').value || "HOME";
         const awayName = document.getElementById('a_n').value || "AWAY";
 
-        if(!hVal || !aVal) return alert("برجاء إدخال البيانات المجهرية!");
+        if(isNaN(hVal) || isNaN(aVal)) return alert("برجاء إدخال البيانات المجهرية!");
 
-        // تحديد الفريق المفضل (الـ Odds الأقل) للبحث في بصمته التاريخية
         const target = hVal < aVal ? hVal : aVal;
         const record = CHRONICLE_DB.find(r => target >= r.min && target <= r.max) || CHRONICLE_DB[3];
 
         let finalScore = record.res;
         let finalAlt = record.alt;
 
-        // إذا كان الفريق المفضل هو الزائر، نعكس النتيجة المسجلة في الأرشيف
+        // عكس النتيجة إذا كان المفضل هو الزائر
         if (aVal < hVal) {
             finalScore = record.res.split(" - ").reverse().join(" - ");
             finalAlt = record.alt.split(" - ").reverse().join(" - ");
@@ -165,18 +161,15 @@
         document.getElementById('alt-res').innerText = finalAlt;
         document.getElementById('sample-count').innerText = record.samples.toLocaleString();
 
-        saveToLog(homeName, awayName, finalScore);
-    }
-
-    function saveToLog(h, a, s) {
-        const section = document.getElementById('history-section');
+        // إضافة سجل
         const list = document.getElementById('history-list');
-        section.style.display = 'block';
-        const item = document.createElement('div');
+        document.getElementById('history-section').style.display = 'block';
+        const item = document.createElement('li');
         item.className = 'hist-item';
-        item.innerHTML = `<span>${h} vs ${a}</span> <span style="color:var(--blue); font-weight:900;">${s}</span>`;
+        item.innerHTML = `<span>${homeName} vs ${awayName}</span> <span>${finalScore}</span>`;
         list.prepend(item);
     }
 </script>
 </body>
-</html>
+    </html>
+    
