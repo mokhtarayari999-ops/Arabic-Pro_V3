@@ -83,8 +83,8 @@
     </div>
     
     <button class="btn-strike" onclick="executeStrike()">Execute Neural Strike</button>
-    <!-- تم تعديل الزر لفتح أداة الأرشيف المباشرة مع الحفاظ على التصميم والجوهر -->
-    <button class="btn-sync" onclick="syncArchive()">📂 GO TO ODDS FILTER (ARCHIVE)</button>
+    <!-- هذا الزر الآن يفتح أداة الفلتر المباشرة لتجنب صفحة "اليوم" -->
+    <button class="btn-sync" onclick="syncArchive()">📂 GO DIRECTLY TO ODDS FILTER</button>
 
     <div id="res-box" class="res-box">
         <div style="font-size: 11px; letter-spacing: 2px; font-weight: bold; color: var(--blue);">RAW HISTORICAL REALITY</div>
@@ -111,10 +111,11 @@
         { min: 3.21, max: 100.0, res: "0 - 2", alt: "0 - 3", s: "4,900" }
     ];
 
-    // دالة المزامنة المحدثة للوصول المباشر للأرشيف دون المساس بجوهر التطبيق
+    // دالة المزامنة المعدلة لفتح أداة الفلتر مباشرة
     function syncArchive() {
+        // تم استخدام الرابط المباشر لأداة الفلتر لتفادي صفحة المباريات الحالية
         const targetUrl = "https://betexplorer.com";
-        window.location.assign(targetUrl);
+        window.location.href = targetUrl;
     }
 
     // الجوهر: منطق الـ Neural Strike الحسابي (محفوظ بالكامل)
@@ -124,20 +125,17 @@
 
         if(isNaN(hVal) || isNaN(aVal)) return alert("يرجى إدخال قيم الـ Odds!");
 
-        // البحث في الأنماط التاريخية
         const favorite = Math.min(hVal, aVal);
         const record = ARCHIVE_DB.find(r => favorite >= r.min && favorite <= r.max) || ARCHIVE_DB[3];
 
         let finalScore = record.res;
         let finalAlt = record.alt;
 
-        // عكس النتيجة في حال كان الزائر هو المفضل
         if (aVal < hVal) {
             finalScore = record.res.split(" - ").reverse().join(" - ");
             finalAlt = record.alt.split(" - ").reverse().join(" - ");
         }
 
-        // عرض النتائج في واجهة المستخدم
         document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = finalScore;
         document.getElementById('samples-val').innerText = record.s;
@@ -146,5 +144,4 @@
 </script>
 
 </body>
-    </html>
-    
+</html>
