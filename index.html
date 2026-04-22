@@ -48,13 +48,12 @@
         .btn-sync {
             background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
             padding: 12px; width: 100%; font-size: 10px; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-weight: bold;
-            transition: 0.3s;
+            transition: 0.3s; display: block; width: 100%;
         }
-        .btn-sync:active { background: rgba(0, 242, 255, 0.2); }
 
         .res-box { 
             margin-top: 25px; padding: 25px; border-radius: 30px; background: rgba(0,0,0,0.8); 
-            border: 1px solid var(--glass-border); display: none;
+            border: 1px solid var(--glass-border); display: block;
         }
         .score-ultra { font-size: 85px; font-weight: 900; color: #fff; margin: 10px 0; letter-spacing: -3px; }
 
@@ -62,12 +61,6 @@
         .metric-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 18px; border: 1px solid var(--glass-border); }
         .m-label { font-size: 8px; color: #555; text-transform: uppercase; display: block; margin-bottom: 5px; }
         .m-value { font-size: 14px; color: var(--gold); font-weight: bold; }
-
-        .history-section {
-            margin-top: 25px; width: 100%; background: rgba(0,0,0,0.4); border-radius: 20px; 
-            padding: 15px; border: 1px solid var(--glass-border); box-sizing: border-box; display: none;
-        }
-        .hist-item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; font-size: 11px; }
 
         .footer-tag { font-size: 8px; color: #444; margin-top: 20px; letter-spacing: 2px; text-transform: uppercase; }
     </style>
@@ -104,11 +97,6 @@
         <div id="sync-status" style="margin-top: 15px; font-size: 9px; color: var(--gold);">ARCHIVE: READY FOR EXTRACTION</div>
     </div>
 
-    <div id="history-section" class="history-section">
-        <div style="font-size: 10px; color: var(--gold); margin-bottom: 10px;">NEURAL STRIKE LOG</div>
-        <ul id="history-list" style="list-style:none; padding:0; margin:0;"></ul>
-    </div>
-
     <div class="footer-tag">PURE HISTORICAL ENGINE | 7-YEAR GLOBAL ARCHIVE</div>
 </div>
 
@@ -128,9 +116,9 @@
         const h = document.getElementById('h').value;
         const x = document.getElementById('x').value;
         const a = document.getElementById('a').value;
-        if(!h || !x || !a) return alert("أدخل البيانات للمزامنة!");
+        if(!h || !x || !a) return alert("أدخل البيانات أولاً للمزامنة الحقيقية!");
         
-        // إصلاح الرابط ليفتح صفحة النتائج التاريخية في BetExplorer
+        // إصلاح الرابط التاريخي الحقيقي - التوجيه المباشر للهواتف
         const url = `https://betexplorer.com{h}&odds_x=${x}&odds_a=${a}`;
         window.location.href = url;
     }
@@ -138,38 +126,25 @@
     function executeNeuralStrike() {
         const hVal = parseFloat(document.getElementById('h').value);
         const aVal = parseFloat(document.getElementById('a').value);
-        const homeName = document.getElementById('h_n').value || "HOME";
-        const awayName = document.getElementById('a_n').value || "AWAY";
 
         if(isNaN(hVal) || isNaN(aVal)) return alert("برجاء إدخال البيانات المجهرية!");
 
         const target = hVal < aVal ? hVal : aVal;
-        const record = CHRONICLE_DB.find(r => target >= r.min && target <= r.max) || CHRONICLE_DB[3];
+        const record = CHRONICLE_DB.find(r => target >= r.min && target <= r.max) || CHRONICLE_DB[4];
 
         let finalScore = record.res;
         let finalAlt = record.alt;
 
-        // عكس النتيجة إذا كان المفضل هو الزائر
         if (aVal < hVal) {
             finalScore = record.res.split(" - ").reverse().join(" - ");
             finalAlt = record.alt.split(" - ").reverse().join(" - ");
         }
 
-        document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = finalScore;
         document.getElementById('precision').innerText = `HISTORICAL INDEX: ${record.index}%`;
         document.getElementById('alt-res').innerText = finalAlt;
         document.getElementById('sample-count').innerText = record.samples.toLocaleString();
-
-        // إضافة سجل
-        const list = document.getElementById('history-list');
-        document.getElementById('history-section').style.display = 'block';
-        const item = document.createElement('li');
-        item.className = 'hist-item';
-        item.innerHTML = `<span>${homeName} vs ${awayName}</span> <span>${finalScore}</span>`;
-        list.prepend(item);
     }
 </script>
 </body>
-    </html>
-    
+</html>
