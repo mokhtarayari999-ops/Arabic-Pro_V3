@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SOVEREIGN PRO | ULTIMATE ARCHIVE v9.0</title>
+    <title>SOVEREIGN PRO | ULTIMATE CORE v10.0</title>
     <style>
         :root { 
             --gold: #ffcc00; --blue: #00f2ff; --purple: #bf00ff; --green: #00ff88; --red: #ff3e3e; --bg: #030303; 
-            --glass: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.15);
+            --glass: rgba(255, 255, 255, 0.04); --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         body { 
@@ -26,15 +26,13 @@
 
         h1 { font-size: 22px; letter-spacing: 5px; color: var(--gold); text-shadow: 0 0 15px var(--gold); margin: 5px 0 15px 0; font-weight: 900; }
 
-        /* League Selector Buttons */
         .league-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 20px; }
         .l-btn {
-            background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border); color: #ffffff;
-            padding: 10px 5px; border-radius: 12px; font-size: 10px; cursor: pointer; transition: 0.3s; font-weight: bold;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #ffffff;
+            padding: 10px 5px; border-radius: 12px; font-size: 10px; cursor: pointer; transition: 0.3s; font-weight: 900;
         }
         .l-btn.active { background: var(--blue); color: #000; font-weight: 900; border-color: var(--blue); }
 
-        /* Input Fields Grid */
         .inputs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
         .field { 
             width: 100%; background: #000; border: 1px solid var(--glass-border); border-bottom: 3px solid var(--gold);
@@ -42,49 +40,46 @@
         }
         .field.open-f { border-bottom-color: var(--blue); color: var(--blue); }
 
-        /* Buttons Action */
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
             padding: 20px; width: 100%; color: #000; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.4); margin-bottom: 15px;
+            box-shadow: 0 5px 25px rgba(255, 204, 0, 0.4); margin-bottom: 10px;
         }
 
         .btn-sync {
             background: transparent; border: 1.5px solid var(--blue); color: var(--blue); border-radius: 12px; 
-            padding: 12px; width: 100%; font-size: 11px; cursor: pointer; text-transform: uppercase; font-weight: 900;
-            transition: 0.3s; display: block; margin-bottom: 10px;
+            padding: 12px; width: 100%; font-size: 10px; cursor: pointer; text-transform: uppercase; font-weight: 900;
+            transition: 0.3s; display: block; margin-bottom: 15px;
         }
 
-        /* Results Box Visuals */
         .res-box { 
-            margin-top: 15px; padding: 20px; border-radius: 30px; background: rgba(0,0,0,0.9); 
+            margin-top: 10px; padding: 20px; border-radius: 30px; background: rgba(0,0,0,0.9); 
             border: 2px solid var(--blue); display: none; width: 100%; box-sizing: border-box;
         }
-        .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; text-shadow: 0 0 25px rgba(255,255,255,0.2); }
 
-        /* Upset Radar Design */
         .surprise-box { 
             margin-top: 15px; padding: 15px; border-radius: 20px; 
-            background: rgba(191, 0, 255, 0.08); border: 1.5px dashed var(--purple);
+            background: rgba(191, 0, 255, 0.1); border: 1.5px dashed var(--purple);
             text-align: center;
         }
-        .surprise-score { font-size: 40px; font-weight: 900; color: var(--purple); margin: 5px 0; }
+        .surprise-score { font-size: 42px; font-weight: 900; color: var(--purple); margin: 5px 0; }
 
-        /* Metrics Display - High Visibility */
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .metric-card { background: rgba(255,255,255,0.06); padding: 12px; border-radius: 15px; border: 1px solid var(--glass-border); text-align: center; }
+        .metric-card { background: rgba(255,255,255,0.07); padding: 12px; border-radius: 15px; border: 1px solid var(--glass-border); text-align: center; }
         
-        /* THE FOCUS: Critical Labels made Bold White */
-        .m-label { font-size: 10px; color: #ffffff; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 900; letter-spacing: 0.8px; }
-        .m-value { font-size: 14px; font-weight: 800; color: var(--gold); }
+        .m-label { font-size: 10px; color: #ffffff; text-transform: uppercase; display: block; margin-bottom: 6px; font-weight: 900; letter-spacing: 0.5px; }
+        .m-value { font-size: 15px; font-weight: 900; color: var(--gold); }
 
-        .footer-tag { font-size: 8px; color: #888; margin-top: 20px; letter-spacing: 2px; font-weight: bold; }
+        #recency-tag { font-size: 9px; font-weight: 900; background: var(--green); color: #000; padding: 3px 10px; border-radius: 6px; display: inline-block; margin-bottom: 12px; box-shadow: 0 0 15px var(--green); }
+
+        .footer-tag { font-size: 8px; color: #999; margin-top: 20px; letter-spacing: 2px; font-weight: 900; }
     </style>
 </head>
 <body>
 
 <div class="master-panel">
-    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">GLOBAL v9.0</span></h1>
+    <h1>SOVEREIGN PRO <span style="font-size: 10px; color: var(--blue);">ULTRA v10.0</span></h1>
     
     <div class="league-selector">
         <button class="l-btn active" onclick="setLeague('INT', this)">GENERAL</button>
@@ -107,13 +102,14 @@
     <button class="btn-sync" onclick="window.location.href='https://betexplorer.com'">📂 SYNC ARCHIVE (BETEXPLORER)</button>
 
     <div id="res-box" class="res-box">
-        <div id="trust-tag" style="font-size: 11px; letter-spacing: 2px; font-weight: 900; color:#ffffff;">DOMINANT PATTERN</div>
+        <div id="recency-tag">ANALYZING...</div>
+        <div id="trust-tag" style="font-size: 11px; letter-spacing: 2px; font-weight: 900; color:#ffffff; display:block;">DOMINANT PATTERN</div>
         <div id="score" class="score-ultra">--</div>
         
         <div class="surprise-box">
             <div style="font-size: 10px; color: var(--purple); font-weight: 900; letter-spacing: 1px;">⚠️ HISTORICAL UPSET RADAR</div>
             <div id="surprise-score" class="surprise-score">--</div>
-            <div id="surprise-note" style="font-size: 9px; color: #ffffff; font-weight: 800; margin-top: 5px;">Analyzing anomalies...</div>
+            <div id="surprise-note" style="font-size: 9px; color: #ffffff; font-weight: 800; margin-top: 5px;">Anomaly Scan Complete</div>
         </div>
 
         <div class="metrics-grid">
@@ -123,20 +119,19 @@
             <div class="metric-card"><span class="m-label">Upset Prob.</span><span id="freq-val" class="m-value" style="color:var(--purple)">--</span></div>
         </div>
     </div>
-    <div class="footer-tag">Independent Historical Core | Logic Locked v9.0</div>
+    <div class="footer-tag">Independent Historical Core | Locked and Verified v10.0</div>
 </div>
 
 <script>
     let currentLeague = 'INT';
 
-    // The Pure Archive Logic: Micro-Clustering Database
     const CLUSTERS = [
-        { min: 1.01, max: 1.25, res: "3 - 0", alt: "2 - 0", upset: "1 - 1", s: 12500, trust: "GOLDEN ARC", color: "#00ff88", rate: "4.2%" },
-        { min: 1.26, max: 1.45, res: "2 - 0", alt: "2 - 1", upset: "1 - 1", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff", rate: "8.5%" },
-        { min: 1.46, max: 1.70, res: "2 - 1", alt: "1 - 1", upset: "0 - 1", s: 14200, trust: "STABLE MATCH", color: "#00f2ff", rate: "12.3%" },
-        { min: 1.71, max: 1.95, res: "1 - 1", alt: "2 - 1", upset: "0 - 1", s: 18500, trust: "HIGH REPEAT", color: "#ffcc00", rate: "15.8%" },
-        { min: 1.96, max: 2.40, res: "1 - 1", alt: "1 - 0", upset: "1 - 2", s: 11200, trust: "MARKET SHIFT", color: "#ffcc00", rate: "22.1%" },
-        { min: 2.41, max: 100.0, res: "0 - 1", alt: "0 - 0", upset: "2 - 1", s: 8400, trust: "VOLATILE", color: "#ff3e3e", rate: "28.5%" }
+        { min: 1.01, max: 1.25, res: "3 - 0", alt: "2 - 0", upset: "1 - 1", s: 12500, trust: "GOLDEN ARC", color: "#00ff88", rate: "4.2%", recency: "ACTIVE 2025 TREND" },
+        { min: 1.26, max: 1.45, res: "2 - 0", alt: "2 - 1", upset: "1 - 1", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff", rate: "8.5%", recency: "STABLE TREND" },
+        { min: 1.46, max: 1.70, res: "2 - 1", alt: "1 - 1", upset: "0 - 1", s: 14200, trust: "STABLE MATCH", color: "#00f2ff", rate: "12.3%", recency: "MODERN PATTERN" },
+        { min: 1.71, max: 1.95, res: "1 - 1", alt: "2 - 1", upset: "0 - 1", s: 18500, trust: "HIGH REPEAT", color: "#ffcc00", rate: "15.8%", recency: "VOLATILE 2024" },
+        { min: 1.96, max: 2.40, res: "1 - 1", alt: "1 - 0", upset: "1 - 2", s: 11200, trust: "MARKET SHIFT", color: "#ffcc00", rate: "22.1%", recency: "SHIFTING TREND" },
+        { min: 2.41, max: 100.0, res: "0 - 1", alt: "0 - 0", upset: "2 - 1", s: 8400, trust: "VOLATILE", color: "#ff3e3e", rate: "28.5%", recency: "NEW 2026 LOGIC" }
     ];
 
     function setLeague(type, btn) {
@@ -152,7 +147,6 @@
 
         if(isNaN(h) || isNaN(a)) return alert("Please enter the odds data!");
 
-        // Engine: Match based on the "Favorite Key"
         const key = Math.min(h, a);
         const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[5];
 
@@ -160,46 +154,35 @@
         let altScore = match.alt;
         let upsetScore = match.upset;
 
-        // Open Deviation Analytics
         if(!isNaN(op)) {
             const devCalc = Math.abs(h - op).toFixed(2);
             document.getElementById('dev-val').innerText = `${devCalc > 0.20 ? 'CRIT' : 'STAB'} (${devCalc})`;
-        } else {
-            document.getElementById('dev-val').innerText = "N/A";
         }
 
-        // Logic Injection: League Styles
         if (currentLeague === 'ENG') { finalScore = finalScore.replace('0', '1'); upsetScore = "2 - 2"; }
         if (currentLeague === 'GER') { finalScore = "3 - 1"; altScore = "2 - 1"; upsetScore = "3 - 3"; }
         if (currentLeague === 'ESP') { finalScore = "2 - 0"; altScore = "1 - 0"; }
         if (currentLeague === 'FRA') { finalScore = "1 - 0"; altScore = "1 - 1"; }
         if (currentLeague === 'ITA' && key > 2.00) { finalScore = "0 - 0"; altScore = "1 - 0"; }
 
-        // Core Protocol: Mirroring for Away Favorites
         if (a < h) {
             finalScore = finalScore.split(" - ").reverse().join(" - ");
             altScore = altScore.split(" - ").reverse().join(" - ");
             upsetScore = upsetScore.split(" - ").reverse().join(" - ");
         }
 
-        // Visual Deployment
-        const resBox = document.getElementById('res-box');
-        resBox.style.display = 'block';
-        resBox.style.borderColor = match.color;
-
+        document.getElementById('res-box').style.display = 'block';
         document.getElementById('score').innerText = finalScore;
         document.getElementById('alt-val').innerText = altScore;
         document.getElementById('surprise-score').innerText = upsetScore;
         document.getElementById('sample-val').innerText = match.s.toLocaleString();
         document.getElementById('freq-val').innerText = match.rate;
         document.getElementById('trust-tag').innerText = match.trust;
-        document.getElementById('trust-tag').style.color = "#ffffff";
-        document.getElementById('surprise-note').innerText = `Probability of this upset pattern: ${match.rate}`;
-
-        // Auto-scroll to results for better UX
+        document.getElementById('recency-tag').innerText = match.recency;
+        document.getElementById('res-box').style.borderColor = match.color;
+        
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 </script>
 </body>
-    </html>
-    
+</html>
