@@ -43,12 +43,18 @@
         .btn-strike { 
             background: linear-gradient(180deg, var(--gold), #b8860b); border: none; border-radius: 15px;
             padding: 20px; width: 100%; color: #000; font-size: 18px; font-weight: 900; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3); margin-bottom: 12px;
+            box-shadow: 0 5px 20px rgba(255, 204, 0, 0.3); margin-bottom: 10px;
+        }
+
+        .btn-sync {
+            background: transparent; border: 1px solid var(--blue); color: var(--blue); border-radius: 12px; 
+            padding: 12px; width: 100%; font-size: 10px; cursor: pointer; text-transform: uppercase; font-weight: bold;
+            transition: 0.3s; display: block; margin-bottom: 15px;
         }
 
         .res-box { 
-            margin-top: 20px; padding: 20px; border-radius: 30px; background: rgba(0,0,0,0.85); 
-            border: 2px solid var(--blue); display: none;
+            margin-top: 10px; padding: 20px; border-radius: 30px; background: rgba(0,0,0,0.85); 
+            border: 2px solid var(--blue); display: none; width: 100%; box-sizing: border-box;
         }
         .score-ultra { font-size: 80px; font-weight: 900; color: #fff; margin: 5px 0; letter-spacing: -3px; }
 
@@ -57,7 +63,6 @@
             background: rgba(191, 0, 255, 0.05); border: 1px dashed var(--purple);
             text-align: center;
         }
-        .surprise-title { font-size: 9px; color: var(--purple); font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
         .surprise-score { font-size: 38px; font-weight: 900; color: var(--purple); margin: 5px 0; }
 
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
@@ -90,13 +95,15 @@
     </div>
     
     <button class="btn-strike" onclick="executeUltimateStrike()">Execute Neural Cluster</button>
+    
+    <button class="btn-sync" onclick="window.location.href='https://betexplorer.com'">📂 SYNC ARCHIVE (BETEXPLORER)</button>
 
     <div id="res-box" class="res-box">
         <div id="trust-tag" style="font-size: 10px; letter-spacing: 2px; font-weight: bold;">DOMINANT PATTERN</div>
         <div id="score" class="score-ultra">--</div>
         
         <div class="surprise-box">
-            <div class="surprise-title">⚠️ Historical Upset Radar</div>
+            <div style="font-size: 9px; color: var(--purple); font-weight: bold;">⚠️ HISTORICAL UPSET RADAR</div>
             <div id="surprise-score" class="surprise-score">--</div>
             <div id="surprise-note" style="font-size: 8px; color: #777;">Scanning anomalies in 12,500+ cases...</div>
         </div>
@@ -114,7 +121,7 @@
 <script>
     let currentLeague = 'INT';
 
-    // The Global Core: Micro-Clusters with Upset Anomaly Data
+    // الحقيقة التاريخية: العناقيد المجهرية مع بيانات الشذوذ والمفاجآت
     const CLUSTERS = [
         { min: 1.01, max: 1.25, res: "3 - 0", alt: "2 - 0", upset: "1 - 1", s: 12500, trust: "GOLDEN ARC", color: "#00ff88", rate: "4.2%" },
         { min: 1.26, max: 1.45, res: "2 - 0", alt: "2 - 1", upset: "1 - 1", s: 9800, trust: "PRIME SAMPLE", color: "#00f2ff", rate: "8.5%" },
@@ -138,33 +145,34 @@
         if(isNaN(h) || isNaN(a)) return alert("Please enter the odds data!");
 
         const key = Math.min(h, a);
-        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS;
+        const match = CLUSTERS.find(c => key >= c.min && key <= c.max) || CLUSTERS[5];
 
         let finalScore = match.res;
         let altScore = match.alt;
         let upsetScore = match.upset;
-        
-        // Deviation Calculation
+
+        // حساب انحراف السعر الافتتاحي برمجياً
         if(!isNaN(op)) {
             const devCalc = Math.abs(h - op).toFixed(2);
             document.getElementById('dev-val').innerText = `${devCalc > 0.20 ? 'CRITICAL' : 'STABLE'} (${devCalc})`;
+        } else {
+            document.getElementById('dev-val').innerText = "N/A";
         }
 
-        // Global League Pattern Injections
+        // حقن منطق الدوريات المجهري
         if (currentLeague === 'ENG') { finalScore = finalScore.replace('0', '1'); upsetScore = "2 - 2"; }
         if (currentLeague === 'GER') { finalScore = "3 - 1"; altScore = "2 - 1"; upsetScore = "3 - 3"; }
         if (currentLeague === 'ESP') { finalScore = "2 - 0"; altScore = "1 - 0"; }
         if (currentLeague === 'FRA') { finalScore = "1 - 0"; altScore = "1 - 1"; }
         if (currentLeague === 'ITA' && key > 2.00) { finalScore = "0 - 0"; altScore = "1 - 0"; }
 
-        // Mirroring Logic (Away Favorite Case)
+        // منطق المرآة (Mirroring)
         if (a < h) {
             finalScore = finalScore.split(" - ").reverse().join(" - ");
             altScore = altScore.split(" - ").reverse().join(" - ");
             upsetScore = upsetScore.split(" - ").reverse().join(" - ");
         }
 
-        // Update UI Results
         const resBox = document.getElementById('res-box');
         resBox.style.display = 'block';
         resBox.style.borderColor = match.color;
@@ -176,7 +184,9 @@
         document.getElementById('freq-val').innerText = match.rate;
         document.getElementById('trust-tag').innerText = match.trust;
         document.getElementById('trust-tag').style.color = match.color;
-        document.getElementById('surprise-note').innerText = `This specific upset pattern appeared in ${match.rate} of archived cases.`;
+        
+        // التمرير التلقائي لرؤية النتيجة
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 </script>
 </body>
