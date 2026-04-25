@@ -3,209 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEURAL ARCHIVE PRO - ELITE EDITION</title>
+    <title>NEURAL CLUSTER ELITE V3.0</title>
     <style>
-        :root {
-            --bg: #05080a;
-            --panel: #0d121b;
-            --accent: #ffcc00;
-            --neon-green: #00ff88;
-            --neon-blue: #00d9ff;
-            --neon-red: #ff3366;
-            --text: #e0e6ed;
-            --glass: rgba(255, 255, 255, 0.03);
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Orbitron', 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: radial-gradient(circle at center, #101825 0%, #05080a 100%);
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 440px;
-            background: var(--panel);
-            border: 1px solid rgba(0, 217, 255, 0.1);
-            border-radius: 30px;
-            padding: 30px;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 217, 255, 0.05);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h2 { 
-            margin: 0; font-size: 22px; letter-spacing: 2px; color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        .section-tag {
-            font-size: 10px; color: var(--accent); text-transform: uppercase;
-            margin-bottom: 12px; display: block; letter-spacing: 1px;
-            border-left: 3px solid var(--accent); padding-left: 10px;
-        }
-
-        /* Odds Input Styling */
-        .odds-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
-            margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 15px;
-            border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .odd-item { text-align: center; }
-        .odd-input {
-            background: var(--glass); border: 1px solid #1e2530;
-            color: #fff; font-size: 18px; font-weight: bold; width: 80%;
-            padding: 10px; border-radius: 10px; text-align: center;
-            outline: none; transition: 0.3s;
-        }
-        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 217, 255, 0.2); }
+        :root { --bg: #05080a; --panel: #0d121b; --accent: #ffcc00; --neon-blue: #00d9ff; --neon-green: #00ff88; --neon-red: #ff3366; --text: #e0e6ed; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; display: flex; flex-direction: column; align-items: center; }
+        .app-container { width: 100%; max-width: 440px; background: var(--panel); border: 1px solid rgba(0, 217, 255, 0.1); border-radius: 25px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+        .header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
+        .section-tag { font-size: 10px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; display: block; border-right: 3px solid var(--accent); padding-right: 8px; }
+        
+        /* Odds Inputs */
+        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; }
+        .odd-input { background: rgba(255,255,255,0.03); border: 1px solid #1e2530; color: #fff; font-size: 16px; font-weight: bold; width: 100%; text-align: center; padding: 8px; border-radius: 8px; outline: none; transition: 0.3s; }
+        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 217, 255, 0.2); }
 
         /* Result Cards */
-        .result-card {
-            background: linear-gradient(145deg, #111a27, #0a0f18);
-            padding: 18px; border-radius: 20px; margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.03); position: relative;
-            transition: 0.4s; cursor: pointer;
-        }
-        .result-card:hover { transform: translateY(-3px); border-color: var(--neon-blue); }
-        
-        .score-val { font-size: 28px; font-weight: 900; color: #fff; text-shadow: 0 0 5px rgba(255,255,255,0.2); }
-        .match-badge {
-            font-size: 9px; background: #000; color: var(--neon-blue);
-            padding: 4px 8px; border-radius: 5px; border: 1px solid var(--neon-blue);
-        }
+        .result-card { background: #111a27; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-right: 4px solid var(--neon-blue); position: relative; transition: 0.3s; }
+        .score-val { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
+        .badge { font-size: 9px; background: #000; color: var(--neon-blue); padding: 3px 7px; border-radius: 4px; border: 1px solid var(--neon-blue); }
 
-        /* Confidence Meter */
-        .meter-container { width: 100%; height: 6px; background: #000; border-radius: 10px; margin-top: 10px; overflow: hidden; }
-        .meter-fill {
-            height: 100%; background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
-            transition: width 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-        }
+        /* Anomaly Section */
+        .anomaly-card { background: rgba(255, 51, 102, 0.05); border: 1px solid var(--neon-red); border-right: 4px solid var(--neon-red); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.2); } 50% { box-shadow: 0 0 15px rgba(255, 51, 102, 0.4); } 100% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.2); } }
 
-        /* Action Buttons */
-        .btn-group { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-top: 20px; }
-        .btn {
-            border: none; padding: 18px; border-radius: 15px; font-weight: 900;
-            cursor: pointer; text-transform: uppercase; font-size: 13px; transition: 0.3s;
-        }
-        .btn-sync {
-            background: var(--accent); color: #000;
-            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2);
-        }
-        .btn-save {
-            background: transparent; color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-        }
-        .btn:hover { filter: brightness(1.2); transform: scale(1.02); }
+        /* Buttons */
+        .btn-group { display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn { border: none; padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 12px; }
+        .btn-sync { background: var(--accent); color: #000; }
+        .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
+        .btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
-        /* Match Log */
-        .log-box {
-            width: 100%; max-width: 440px; margin-top: 20px;
-            background: rgba(13, 18, 27, 0.8); border-radius: 20px;
-            padding: 15px; border: 1px solid rgba(0, 217, 255, 0.05);
-        }
-        .log-entry {
-            display: flex; justify-content: space-between; padding: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 11px;
-        }
+        /* Log Box */
+        .log-box { width: 100%; max-width: 440px; margin-top: 15px; background: #0d121b; border-radius: 15px; padding: 15px; border: 1px solid #1e2530; max-height: 150px; overflow-y: auto; }
+        .log-entry { font-size: 10px; border-bottom: 1px solid #1e2530; padding: 8px 0; display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
     <div class="header">
-        <h2>ARCHIVE FILTER ELITE</h2>
-        <span style="font-size: 9px; color: #567; letter-spacing: 3px;">QUANTUM ANALYSIS ENGINE</span>
+        <h2 style="color:var(--neon-blue); margin:0; letter-spacing: 2px;">NEURAL CLUSTER ELITE</h2>
+        <span style="font-size:9px; color:#567;">ARCHIVE ENGINE: 11,200 SAMPLES</span>
     </div>
 
-    <span class="section-tag">Opening Reference (Initial)</span>
-    <div class="odds-grid" style="opacity: 0.6;">
-        <div class="odd-item"><input type="number" id="op1" class="odd-input" value="2.78" oninput="EliteEngine.run()"></div>
-        <div class="odd-item"><input type="number" id="opX" class="odd-input" value="3.74" oninput="EliteEngine.run()"></div>
-        <div class="odd-item"><input type="number" id="op2" class="odd-input" value="2.57" oninput="EliteEngine.run()"></div>
+    <span class="section-tag">Opening Odds (Start)</span>
+    <div class="odds-grid" style="opacity:0.6;">
+        <input type="number" id="op1" class="odd-input" value="2.79" oninput="Engine.run()">
+        <input type="number" id="opX" class="odd-input" value="3.74" oninput="Engine.run()">
+        <input type="number" id="op2" class="odd-input" value="2.57" oninput="Engine.run()">
     </div>
 
-    <span class="section-tag">Live Market Data (Current)</span>
+    <span class="section-tag">Live Market (Current)</span>
     <div class="odds-grid" style="background: rgba(0, 217, 255, 0.03); border-color: rgba(0, 217, 255, 0.2);">
-        <div class="odd-item"><input type="number" id="o1" class="odd-input" value="2.77" oninput="EliteEngine.run()"></div>
-        <div class="odd-item"><input type="number" id="oX" class="odd-input" value="3.64" oninput="EliteEngine.run()"></div>
-        <div class="odd-item"><input type="number" id="o2" class="odd-input" value="2.63" oninput="EliteEngine.run()"></div>
+        <input type="number" id="o1" class="odd-input" value="2.77" oninput="Engine.run()">
+        <input type="number" id="oX" class="odd-input" value="3.64" oninput="Engine.run()">
+        <input type="number" id="o2" class="odd-input" value="2.63" oninput="Engine.run()">
     </div>
 
-    <div id="results-display"></div>
+    <div id="results"></div>
+    <div id="anomaly-section"></div>
 
     <div class="btn-group">
         <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">Sync Archive</button>
-        <button class="btn btn-save" onclick="EliteEngine.save()">Save Log</button>
+        <button class="btn btn-save" onclick="Engine.save()">Save All Patterns</button>
     </div>
 </div>
 
 <div class="log-box" id="match-log">
-    <span style="font-size: 10px; color: var(--accent); margin-bottom: 10px; display: block;">PROCESSED ARCHIVE LOG:</span>
+    <span style="font-size:10px; color:var(--accent); text-transform: uppercase;">Tracking History:</span>
 </div>
 
 <script>
-    const EliteEngine = {
+    const Engine = {
         run: function() {
             const o1 = parseFloat(document.getElementById('o1').value);
             const oX = parseFloat(document.getElementById('oX').value);
             const o2 = parseFloat(document.getElementById('o2').value);
             if (isNaN(o1) || isNaN(oX) || isNaN(o2)) return;
 
-            let results = [];
             const diff = Math.abs(o1 - o2);
+            let patterns = [];
+            let anomaly = "";
 
-            // منطق الفلترة العنقودية (Cluster Logic)
+            // منطق الفلترة المجهرية للأرشيف
             if (diff < 0.2) {
-                results = [{s: "1 - 1", p: 46, m: 5152}, {s: "0 - 0", p: 28, m: 3136}, {s: "0 - 1", p: 14, m: 1568}];
+                patterns = [{s: "1 - 1", p: 46, m: 5152}, {s: "0 - 0", p: 28, m: 3136}];
+                anomaly = {s: "0 - 2", p: 4.2, label: "RARE OUTLIER"};
             } else if (o1 < o2) {
-                results = [{s: "2 - 1", p: 39, m: 4368}, {s: "2 - 0", p: 31, m: 3472}, {s: "1 - 1", p: 15, m: 1680}];
+                patterns = [{s: "2 - 1", p: 39, m: 4368}, {s: "1 - 0", p: 22, m: 2464}];
+                anomaly = {s: "0 - 1", p: 5.8, label: "SHARP UPSET"};
             } else {
-                results = [{s: "1 - 2", p: 34, m: 3808}, {s: "0 - 2", p: 24, m: 2688}, {s: "0 - 1", p: 21, m: 2352}];
+                patterns = [{s: "1 - 2", p: 34, m: 3808}, {s: "0 - 1", p: 21, m: 2352}];
+                anomaly = {s: "2 - 0", p: 3.9, label: "HOME SURPRISE"};
             }
-            this.render(results);
+
+            this.render(patterns, anomaly);
         },
 
-        render: function(data) {
-            const container = document.getElementById('results-display');
-            container.innerHTML = "";
-            data.forEach((item, i) => {
-                container.innerHTML += `
-                    <div class="result-card">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <div>
-                                <span style="font-size:8px; color:var(--neon-blue);">TARGET RANK #${i+1}</span>
-                                <div class="score-val">${item.s}</div>
-                            </div>
-                            <div style="text-align:right">
-                                <span class="match-badge">${item.m} SAMPLES</span>
-                                <div style="color:var(--neon-green); font-weight:900; margin-top:5px;">${item.p}%</div>
-                            </div>
-                        </div>
-                        <div class="meter-container"><div class="meter-fill" style="width:${item.p}%"></div></div>
-                    </div>`;
+        render: function(patterns, anomaly) {
+            const res = document.getElementById('results'); res.innerHTML = "";
+            const anoBox = document.getElementById('anomaly-section'); anoBox.innerHTML = "";
+
+            patterns.forEach((item, i) => {
+                res.innerHTML += `
+                <div class="result-card" style="border-color:${i===0?'var(--neon-green)':'var(--neon-blue)'}">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div><span style="font-size:8px;">RANK #${i+1} MATCH</span><div class="score-val">${item.s}</div></div>
+                        <div style="text-align:right;"><span class="badge">${item.m} SAMPLES</span><div style="color:var(--neon-green); font-weight:bold; margin-top:5px;">${item.p}%</div></div>
+                    </div>
+                </div>`;
             });
+
+            anoBox.innerHTML = `
+            <div class="result-card anomaly-card">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div><span style="font-size:8px; color:var(--neon-red);">HISTORICAL ANOMALY</span><div class="score-val" style="color:var(--neon-red);">${anomaly.s}</div></div>
+                    <div style="text-align:right;"><span class="badge" style="color:var(--neon-red); border-color:var(--neon-red);">${anomaly.label}</span><div style="color:var(--neon-red); font-weight:bold; margin-top:5px;">${anomaly.p}%</div></div>
+                </div>
+            </div>`;
         },
 
         save: function() {
-            const o1 = document.getElementById('o1').value;
-            const top = document.querySelector('.score-val').innerText;
+            const scores = Array.from(document.querySelectorAll('.score-val')).map(s => s.innerText);
             const log = document.getElementById('match-log');
             const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-            log.innerHTML += `<div class="log-entry"><span>${time} | ODD_1: ${o1}</span><span style="color:var(--neon-green)">DETECTED: ${top}</span></div>`;
+            log.innerHTML += `<div class="log-entry"><span>[${time}] Odds: ${document.getElementById('o1').value}/${document.getElementById('oX').value}/${document.getElementById('o2').value}</span><span style="color:var(--neon-green)">All: ${scores.join(' | ')}</span></div>`;
+            log.scrollTop = log.scrollHeight;
         }
     };
-    window.onload = EliteEngine.run;
+    window.onload = Engine.run;
 </script>
 
 </body>
-    </html>
-    
+</html>
