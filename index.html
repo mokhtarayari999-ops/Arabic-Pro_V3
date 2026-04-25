@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEURAL CLUSTER ELITE V3.0 - THE MASTERPIECE</title>
+    <title>NEURAL CLUSTER ELITE V3.0 - THE MASTER COPY</title>
     <style>
         :root { --bg: #05080a; --panel: #0d121b; --accent: #ffcc00; --neon-blue: #00d9ff; --neon-green: #00ff88; --neon-red: #ff3366; --text: #e0e6ed; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 15px; display: flex; flex-direction: column; align-items: center; }
@@ -11,24 +11,25 @@
         .header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
         .section-tag { font-size: 10px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; display: block; border-right: 3px solid var(--accent); padding-right: 8px; }
         
-        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; }
+        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; direction: ltr; }
         .odd-input { background: rgba(255,255,255,0.03); border: 1px solid #1e2530; color: #fff; font-size: 16px; font-weight: bold; width: 100%; text-align: center; padding: 8px; border-radius: 8px; outline: none; transition: 0.3s; }
+        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 217, 255, 0.2); }
 
         .result-card { background: #111a27; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-right: 4px solid var(--neon-blue); position: relative; transition: 0.3s; }
         .score-val { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
         .badge { font-size: 9px; background: #000; color: var(--neon-blue); padding: 3px 7px; border-radius: 4px; border: 1px solid var(--neon-blue); }
 
         .anomaly-card { background: rgba(255, 51, 102, 0.05); border: 1px solid var(--neon-red); border-right: 4px solid var(--neon-red); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.1); } 50% { box-shadow: 0 0 15px rgba(255, 51, 102, 0.3); } 100% { box-shadow: 0 0 5px rgba(255, 51, 102, 0.1); } }
+        @keyframes pulse { 0% { opacity: 0.7; } 50% { opacity: 1; } 100% { opacity: 0.7; } }
 
-        .btn-group { display: grid; grid-template-columns: 1.5fr 1.2fr; gap: 10px; margin-top: 15px; }
+        .btn-group { display: grid; grid-template-columns: 1fr 1.2fr; gap: 10px; margin-top: 15px; }
         .btn { border: none; padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 11px; }
         .btn-sync { background: var(--accent); color: #000; }
         .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
-        .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); padding: 5px 10px; border-radius: 6px; font-size: 9px; float: left; margin-top: -5px; cursor:pointer;}
+        .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); padding: 4px 8px; border-radius: 5px; font-size: 9px; cursor: pointer; float: left; margin-top: -5px; }
 
-        .log-box { width: 100%; max-width: 440px; margin-top: 15px; background: #0d121b; border-radius: 15px; padding: 15px; border: 1px solid #1e2530; max-height: 200px; overflow-y: auto; position: relative; }
-        .log-entry { font-size: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0; display: flex; flex-direction: column; gap: 4px; text-align: left; direction: ltr; }
+        .log-box { width: 100%; max-width: 440px; margin-top: 15px; background: #0d121b; border-radius: 15px; padding: 15px; border: 1px solid #1e2530; max-height: 200px; overflow-y: auto; text-align: left; }
+        .log-entry { font-size: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0; direction: ltr; }
     </style>
 </head>
 <body>
@@ -40,27 +41,31 @@
     </div>
 
     <span class="section-tag">Opening Odds (Start)</span>
-    <div class="odds-grid" style="opacity:0.6;">
-        <input type="number" id="op1" class="odd-input" value="1.53"><input type="number" id="opX" class="odd-input" value="4.83"><input type="number" id="op2" class="odd-input" value="6.40">
+    <div class="odds-grid" style="opacity: 0.6;">
+        <input type="number" id="op1" class="odd-input" value="6.40" oninput="Engine.run()">
+        <input type="number" id="opX" class="odd-input" value="4.83" oninput="Engine.run()">
+        <input type="number" id="op2" class="odd-input" value="1.53" oninput="Engine.run()">
     </div>
 
     <span class="section-tag">Live Market (Current)</span>
     <div class="odds-grid" style="background: rgba(0, 217, 255, 0.03); border-color: rgba(0, 217, 255, 0.2);">
-        <input type="number" id="o1" class="odd-input" value="1.56" oninput="Engine.run()"><input type="number" id="oX" class="odd-input" value="4.83" oninput="Engine.run()"><input type="number" id="o2" class="odd-input" value="6.04" oninput="Engine.run()">
+        <input type="number" id="o1" class="odd-input" value="6.04" oninput="Engine.run()">
+        <input type="number" id="oX" class="odd-input" value="4.83" oninput="Engine.run()">
+        <input type="number" id="o2" class="odd-input" value="1.56" oninput="Engine.run()">
     </div>
 
     <div id="results"></div>
     <div id="anomaly-section"></div>
 
     <div class="btn-group">
-        <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">Sync Archive</button>
         <button class="btn btn-save" onclick="Engine.save()">Save Patterns</button>
+        <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">Sync Archive</button>
     </div>
 </div>
 
 <div class="log-box">
     <button class="btn-clear" onclick="Engine.clearLog()">Clear Log</button>
-    <span style="font-size:10px; color:var(--accent); text-transform: uppercase;">:TRACKING HISTORY</span>
+    <span style="font-size:10px; color:var(--accent); text-transform: uppercase;">Tracking History:</span>
     <div id="match-log" style="margin-top:10px;"></div>
 </div>
 
@@ -68,50 +73,38 @@
     const Engine = {
         run: function() {
             const o1 = parseFloat(document.getElementById('o1').value) || 0;
-            const oX = parseFloat(document.getElementById('oX').value) || 0;
             const o2 = parseFloat(document.getElementById('o2').value) || 0;
-            
-            let patterns = [], anomaly = "";
-            
-            // محرك الفلترة المجهري المبني على الأرشيف
-            if (o1 < o2) {
-                patterns = [
-                    {s: "2 - 1", p: 34, m: 3808, c: 'var(--neon-green)'}, 
-                    {s: "1 - 0", p: 21, m: 2352, c: 'var(--neon-blue)'}
-                ];
-                anomaly = {s: "0 - 2", p: 3.9, label: "HOME SURPRISE"};
+            let p = [], a = "";
+
+            // تدقيق مجهري للاتجاهات: o1 هو صاحب الأرض دائماً
+            if (o1 > o2) {
+                // الضيف أقوى
+                p = [{s: "1 - 2", p: 34, m: 3808, c: 'var(--neon-green)'}, {s: "0 - 1", p: 21, m: 2352, c: 'var(--neon-blue)'}];
+                a = {s: "2 - 0", p: 3.9, label: "HOME SURPRISE"};
             } else {
-                patterns = [
-                    {s: "1 - 2", p: 34, m: 3808, c: 'var(--neon-green)'}, 
-                    {s: "0 - 1", p: 21, m: 2352, c: 'var(--neon-blue)'}
-                ];
-                anomaly = {s: "2 - 0", p: 3.9, label: "AWAY SURPRISE"};
+                // الأرض أقوى
+                p = [{s: "2 - 1", p: 34, m: 3808, c: 'var(--neon-green)'}, {s: "1 - 0", p: 21, m: 2352, c: 'var(--neon-blue)'}];
+                a = {s: "0 - 2", p: 3.9, label: "AWAY SURPRISE"};
             }
-            this.render(patterns, anomaly);
+            this.render(p, a);
         },
 
-        render: function(patterns, anomaly) {
-            const res = document.getElementById('results');
-            const anoBox = document.getElementById('anomaly-section');
-            res.innerHTML = ""; anoBox.innerHTML = "";
-
-            patterns.forEach((item, i) => {
-                res.innerHTML += `
+        render: function(p, a) {
+            document.getElementById('results').innerHTML = p.map((item, i) => `
                 <div class="result-card" style="border-color:${item.c}">
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <div><span style="font-size:8px;">TARGET RANK #${i+1} MATCH</span><div class="score-val" id="val-rank-${i+1}">${item.s}</div></div>
+                        <div><span style="font-size:8px;">TARGET RANK #${i+1}</span><div class="score-val" id="val-${i+1}">${item.s}</div></div>
                         <div style="text-align:right;"><span class="badge">SAMPLES ${item.m}</span><div style="color:var(--neon-green); font-weight:bold; margin-top:5px;">${item.p}%</div></div>
                     </div>
-                </div>`;
-            });
+                </div>`).join('');
 
-            anoBox.innerHTML = `
-            <div class="result-card anomaly-card">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div><span style="font-size:8px; color:var(--neon-red);">HISTORICAL ANOMALY</span><div class="score-val" id="val-anomaly" style="color:var(--neon-red);">${anomaly.s}</div></div>
-                    <div style="text-align:right;"><span class="badge" style="color:var(--neon-red); border-color:var(--neon-red);">${anomaly.label}</span><div style="color:var(--neon-red); font-weight:bold; margin-top:5px;">${anomaly.p}%</div></div>
-                </div>
-            </div>`;
+            document.getElementById('anomaly-section').innerHTML = `
+                <div class="result-card anomaly-card">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div><span style="font-size:8px; color:var(--neon-red);">HISTORICAL ANOMALY</span><div class="score-val" id="val-ano" style="color:var(--neon-red);">${a.s}</div></div>
+                        <div style="text-align:right;"><span class="badge" style="color:var(--neon-red); border-color:var(--neon-red);">${a.label}</span><div style="color:var(--neon-red); font-weight:bold; margin-top:5px;">${a.p}%</div></div>
+                    </div>
+                </div>`;
         },
 
         save: function() {
@@ -119,37 +112,27 @@
             const lX = document.getElementById('oX').value;
             const l2 = document.getElementById('o2').value;
             
-            // سحب دقيق للقيم من الـ DOM لمنع الانقلاب
-            const r1 = document.getElementById('val-rank-1').innerText;
-            const r2 = document.getElementById('val-rank-2').innerText;
-            const ra = document.getElementById('val-anomaly').innerText;
+            // سحب مباشر للقيم عبر الـ IDs لضمان عدم الانقلاب
+            const r1 = document.getElementById('val-1').innerText;
+            const r2 = document.getElementById('val-2').innerText;
+            const ra = document.getElementById('val-ano').innerText;
             
             const log = document.getElementById('match-log');
             const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', hour12:false});
             
-            log.innerHTML += `
-                <div class="log-entry">
-                    <span style="color:var(--accent)">Odds: ${l1} / ${lX} / ${l2} [${time}]</span>
-                    <span>Patterns: <b style="color:var(--neon-green)">${r1}</b> | <b>${r2}</b> | <b style="color:var(--neon-red)">${ra}</b></span>
-                </div>`;
-            log.parentElement.scrollTop = log.parentElement.scrollHeight;
+            // إنشاء عنصر السجل الجديد وإضافته في الأعلى
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span style="color:var(--accent)">Odds: ${l1} / ${lX} / ${l2} [${time}]</span><br>
+                               <span>Patterns: <b style="color:var(--neon-green)">${r1}</b> | <b>${r2}</b> | <b style="color:var(--neon-red)">${ra}</b></span>`;
+            log.prepend(entry);
         },
 
-        clearLog: function() { document.getElementById('match-log').innerHTML = ""; },
-        
-        // ميزة التحديث التلقائي المجهري كل 30 ثانية
-        initAutoSync: function() {
-            setInterval(() => {
-                console.log("Auto-Syncing Cluster Data...");
-                this.run();
-            }, 30000);
+        clearLog: function() {
+            document.getElementById('match-log').innerHTML = "";
         }
     };
-    
-    window.onload = () => {
-        Engine.run();
-        Engine.initAutoSync();
-    };
+    window.onload = () => Engine.run();
 </script>
 </body>
 </html>
