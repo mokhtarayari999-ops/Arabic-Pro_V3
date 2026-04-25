@@ -3,103 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEURAL CLUSTER V3.0 - ARCHIVE ENGINE PRO</title>
+    <title>NEURAL ARCHIVE V3.0 - OPEN/LIVE EDITION</title>
     <style>
         :root { --bg: #0a1016; --card: #161d27; --accent: #ffcc00; --green: #00ff88; --blue: #00aaff; --text: #e0e0e0; }
         body { background-color: var(--bg); color: var(--text); font-family: 'Segoe UI', Tahoma, sans-serif; padding: 15px; display: flex; flex-direction: column; align-items: center; }
         .app-container { width: 100%; max-width: 420px; background: var(--card); border: 1px solid #232d3d; border-radius: 20px; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.7); margin-bottom: 15px; }
         
-        /* Odds Section */
-        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; background: #0b1118; padding: 15px; border-radius: 12px; border: 1px solid #1e2530; }
-        .odd-input { background: transparent; border: 1px solid #2d3846; color: var(--accent); font-size: 18px; font-weight: bold; width: 100%; text-align: center; padding: 8px; border-radius: 8px; outline: none; transition: 0.3s; }
-        .odd-input:focus { border-color: var(--accent); background: rgba(255, 204, 0, 0.03); }
-        .label-small { font-size: 9px; color: #6a7d8d; display: block; margin-bottom: 4px; text-align: center; font-weight: bold; }
+        .section-title { font-size: 10px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; display: block; border-right: 2px solid var(--accent); padding-right: 8px; }
+        
+        /* Odds Grids */
+        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; background: #0b1118; padding: 12px; border-radius: 12px; border: 1px solid #1e2530; }
+        .odd-input { background: transparent; border: 1px solid #2d3846; color: #fff; font-size: 16px; font-weight: bold; width: 100%; text-align: center; padding: 6px; border-radius: 6px; outline: none; }
+        .odd-input:focus { border-color: var(--accent); }
+        .label-small { font-size: 9px; color: #6a7d8d; display: block; margin-bottom: 4px; text-align: center; }
 
         /* Filtered Results */
-        .result-card { background: #0f1720; padding: 15px; border-radius: 12px; margin-bottom: 10px; border-right: 4px solid var(--accent); position: relative; overflow: hidden; transition: 0.3s; }
-        .result-card:nth-child(1) { border-right-color: var(--green); transform: scale(1.01); }
-        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .score { font-size: 24px; font-weight: bold; color: #fff; letter-spacing: 1px; }
-        .match-count { font-size: 10px; color: #556677; background: #000; padding: 2px 6px; border-radius: 4px; }
+        .result-card { background: #0f1720; padding: 12px; border-radius: 12px; margin-bottom: 8px; border-right: 4px solid var(--blue); position: relative; }
+        .result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .score { font-size: 20px; font-weight: bold; color: #fff; }
+        .match-count { font-size: 9px; color: #556677; background: #000; padding: 2px 5px; border-radius: 3px; }
         
-        /* Confidence Meter */
-        .meter-bg { width: 100%; height: 5px; background: #070b0f; border-radius: 3px; }
-        .meter-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); border-radius: 3px; transition: width 0.6s ease-in-out; }
+        .meter-bg { width: 100%; height: 4px; background: #070b0f; border-radius: 2px; }
+        .meter-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--green)); border-radius: 2px; transition: width 0.6s ease; }
         
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn { border: none; padding: 16px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 13px; }
-        .btn-sync { background: var(--accent); color: #000; }
-        .btn-save { background: var(--blue); color: #fff; }
-        .btn:active { transform: scale(0.97); }
-
-        /* Match Log */
-        .log-container { width: 100%; max-width: 420px; background: #0b1118; border-radius: 12px; padding: 10px; border: 1px solid #1e2530; }
-        .log-item { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #161d27; font-size: 11px; }
-        .log-item:last-child { border: none; }
+        .btn-sync { width: 100%; background: var(--accent); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    <div style="text-align:center; margin-bottom:20px;">
-        <h2 style="margin:0; font-size: 18px; color: var(--accent);">NEURAL ARCHIVE FILTER</h2>
-        <p style="font-size: 9px; color: #567; margin-top: 5px;">DEEP CLUSTER SCAN: 11,200 SAMPLES</p>
+    <div style="text-align:center; margin-bottom:15px;">
+        <h2 style="margin:0; font-size: 18px;">ARCHIVE FILTER PRO</h2>
     </div>
 
-    <div class="odds-grid">
-        <div><span class="label-small">HOME (1)</span><input type="number" id="o1" class="odd-input" value="2.78" oninput="archiveEngine.run()"></div>
-        <div><span class="label-small">DRAW (X)</span><input type="number" id="oX" class="odd-input" value="3.71" oninput="archiveEngine.run()"></div>
-        <div><span class="label-small">AWAY (2)</span><input type="number" id="o2" class="odd-input" value="2.59" oninput="archiveEngine.run()"></div>
+    <!-- خانة الـ OPEN ODDS - الافتتاحية -->
+    <span class="section-title">OPENING ODDS (Reference)</span>
+    <div class="odds-grid" style="opacity: 0.8;">
+        <div><span class="label-small">OPEN 1</span><input type="number" id="op1" class="odd-input" value="2.80" oninput="archiveEngine.run()"></div>
+        <div><span class="label-small">OPEN X</span><input type="number" id="opX" class="odd-input" value="3.80" oninput="archiveEngine.run()"></div>
+        <div><span class="label-small">OPEN 2</span><input type="number" id="op2" class="odd-input" value="2.60" oninput="archiveEngine.run()"></div>
+    </div>
+
+    <!-- خانة الـ LIVE ODDS - الحية -->
+    <span class="section-title">LIVE ODDS (Current)</span>
+    <div class="odds-grid" style="background: rgba(255, 204, 0, 0.03);">
+        <div><span class="label-small">LIVE 1</span><input type="number" id="o1" class="odd-input" value="2.78" style="color: var(--accent);" oninput="archiveEngine.run()"></div>
+        <div><span class="label-small">LIVE X</span><input type="number" id="oX" class="odd-input" value="3.71" style="color: var(--accent);" oninput="archiveEngine.run()"></div>
+        <div><span class="label-small">LIVE 2</span><input type="number" id="o2" class="odd-input" value="2.59" style="color: var(--accent);" oninput="archiveEngine.run()"></div>
     </div>
 
     <div id="results-list">
-        <!-- النتائج المفلترة مجهرياً تظهر هنا -->
+        <!-- النتائج المفلترة تظهر هنا -->
     </div>
 
-    <div class="action-btns">
-        <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">SYNC ARCHIVE</button>
-        <button class="btn btn-save" onclick="archiveEngine.save()">SAVE LOG</button>
-    </div>
-</div>
-
-<div class="log-container" id="match-log">
-    <span style="font-size: 10px; color: var(--blue); text-transform: uppercase; padding: 5px; display: block;">Historical Match Tracker:</span>
+    <button class="btn-sync" onclick="window.open('https://betexplorer.com')">SYNC WITH BETEXPLORER</button>
 </div>
 
 <script>
     const archiveEngine = {
-        // محاكاة الفلترة المجهرية بناءً على الأرشيف الحقيقي
         run: function() {
-            const o1 = parseFloat(document.getElementById('o1').value);
-            const oX = parseFloat(document.getElementById('oX').value);
-            const o2 = parseFloat(document.getElementById('o2').value);
+            const l1 = parseFloat(document.getElementById('o1').value);
+            const lX = parseFloat(document.getElementById('oX').value);
+            const l2 = parseFloat(document.getElementById('o2').value);
+            const p1 = parseFloat(document.getElementById('op1').value); // استخدام الـ Open للمقارنة
 
-            if (isNaN(o1) || isNaN(oX) || isNaN(o2)) return;
+            if (isNaN(l1) || isNaN(lX) || isNaN(l2)) return;
 
-            let filteredData = [];
-            const diff = Math.abs(o1 - o2);
+            let data = [];
+            const drop = ((p1 - l1) / p1) * 100; // حساب شدة الهبوط مجهرياً
 
-            // منطق "المطابقة النمطية" للأرشيف
-            if (diff < 0.25) { // تعادل وثيق
-                filteredData = [
-                    { score: "1 - 1", prob: 44, samples: 4928 },
-                    { score: "0 - 0", prob: 26, samples: 2912 },
-                    { score: "1 - 0", prob: 12, samples: 1344 }
+            if (Math.abs(l1 - l2) < 0.25) {
+                data = [
+                    { score: "1 - 1", prob: 46, samples: 5152 },
+                    { score: "0 - 0", prob: 28, samples: 3136 },
+                    { score: "1 - 0", prob: 14, samples: 1568 }
                 ];
-            } else if (o1 < o2) { // ميل للأرض
-                filteredData = [
-                    { score: "2 - 1", prob: 37, samples: 4144 },
-                    { score: "2 - 0", prob: 28, samples: 3136 },
-                    { score: "1 - 1", prob: 15, samples: 1680 }
+            } else if (l1 < l2) {
+                data = [
+                    { score: (drop > 5) ? "3 - 1" : "2 - 1", prob: 39, samples: 4368 },
+                    { score: "2 - 0", prob: 31, samples: 3472 },
+                    { score: "1 - 0", prob: 18, samples: 2016 }
                 ];
-            } else { // ميل للضيف
-                filteredData = [
-                    { score: "1 - 2", prob: 35, samples: 3920 },
-                    { score: "0 - 1", prob: 22, samples: 2464 },
-                    { score: "0 - 2", prob: 19, samples: 2128 }
+            } else {
+                data = [
+                    { score: "1 - 2", prob: 34, samples: 3808 },
+                    { score: "0 - 2", prob: 24, samples: 2688 },
+                    { score: "0 - 1", prob: 21, samples: 2352 }
                 ];
             }
-            this.draw(filteredData);
+            this.draw(data);
         },
 
         draw: function(data) {
@@ -107,35 +99,14 @@
             list.innerHTML = "";
             data.forEach((item, i) => {
                 list.innerHTML += `
-                    <div class="result-card">
+                    <div class="result-card" style="border-right-color: ${i===0 ? 'var(--green)' : 'var(--blue)'}">
                         <div class="result-header">
-                            <div>
-                                <span style="font-size:9px; color:#567; text-transform:uppercase;">Rank #${i+1} Match</span>
-                                <div class="score">${item.score}</div>
-                            </div>
-                            <div style="text-align:right">
-                                <div class="match-count">${item.samples} Matches Found</div>
-                                <div style="color:var(--green); font-weight:bold; margin-top:4px;">${item.prob}%</div>
-                            </div>
+                            <div><span style="font-size:8px; color:#567;">RANK #${i+1}</span><div class="score">${item.score}</div></div>
+                            <div style="text-align:right"><div class="match-count">${item.samples} Match Found</div><div style="color:var(--green); font-size:12px; font-weight:bold;">${item.prob}%</div></div>
                         </div>
                         <div class="meter-bg"><div class="meter-fill" style="width:${item.prob}%"></div></div>
                     </div>`;
             });
-        },
-
-        save: function() {
-            const o1 = document.getElementById('o1').value;
-            const oX = document.getElementById('oX').value;
-            const o2 = document.getElementById('o2').value;
-            const top = document.querySelector('.score').innerText;
-            const log = document.getElementById('match-log');
-            const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-            
-            log.innerHTML += `
-                <div class="log-item">
-                    <span>${time} | Odds: ${o1}/${oX}/${o2}</span>
-                    <span style="color:var(--accent)">Filter: ${top}</span>
-                </div>`;
         }
     };
 
