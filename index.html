@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ARCHIVE SNIPER - FINAL AUDITED</title>
+    <title>AI SNIPER BOT - SYNC FIXED V4.1</title>
     <style>
         :root {
             --bg: #0a0f16; --panel: #161e2b; --accent: #ffcc00;
@@ -56,7 +56,7 @@
         /* BUTTONS */
         .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
         .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
-        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; }
+        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2); }
         .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
         .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); }
         .btn:hover { filter: brightness(1.2); transform: scale(1.02); }
@@ -73,9 +73,9 @@
     <div class="bot-radar">
         <div class="bot-header">
             <span style="color: var(--accent); font-weight: 900; font-size: 12px;">AI GOLDEN SNIPER</span>
-            <span class="bot-status" id="bot-status">SYSTEM READY</span>
+            <span class="bot-status" id="bot-status">READY</span>
         </div>
-        <div class="ai-alert" id="ai-suggestion">Cross-referencing 11,200 matches...</div>
+        <div class="ai-alert" id="ai-suggestion">Enter Odds to retrieve historical truths...</div>
     </div>
 
     <div class="odds-grid">
@@ -102,17 +102,17 @@
     const App = {
         timer: null,
         VAULT: {
-            "banker": "🚨 BANKER DETECTED: Historical stability 85% for Fav Win.",
-            "trap": "⚠️ TRAP ALERT: Low odds, but archive shows 12% sharp upsets. Beware!",
-            "draw": "⚖️ DRAW MAGNET: This decimal signature is linked to 1-1 / 0-0 results.",
-            "normal": "📊 STABLE DATA: Pattern follows standard archive distribution."
+            "banker": "🚨 BANKER: High historical stability for Fav Win.",
+            "trap": "⚠️ TRAP: Low odds with sharp upset history. Watch out!",
+            "draw": "⚖️ DRAW MAGNET: Decimal signature linked to 1-1 / 0-0.",
+            "normal": "📊 STABLE: Pattern follows standard archive distribution."
         },
 
         init: function() { this.loadLog(); document.querySelectorAll('input').forEach(i => i.value = ""); },
 
         trigger: function() {
             clearTimeout(this.timer);
-            document.getElementById('bot-status').innerText = "Analyzing DNA...";
+            document.getElementById('bot-status').innerText = "SCANNING...";
             this.timer = setTimeout(() => { this.process(); }, 750);
         },
 
@@ -121,15 +121,13 @@
             if (v1.length < 3 || v2.length < 3) return;
             const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
 
-            // 1. AI Sniper Logic
             let sug = this.VAULT.normal;
             if (o1 <= 1.30 || o2 <= 1.30) sug = this.VAULT.trap;
             else if (o1 >= 2.50 && o2 >= 2.50) sug = this.VAULT.draw;
             else if (o1 < 1.60 && o2 > 4.00) sug = this.VAULT.banker;
             document.getElementById('ai-suggestion').innerText = sug;
-            document.getElementById('bot-status').innerText = "LIVE SCAN ACTIVE";
+            document.getElementById('bot-status').innerText = "ACTIVE";
 
-            // 2. Archive Retrieval Logic (Pure 0.01 DNA)
             const dna = Math.floor((o1 * 100) + (oX * 50) + (o2 * 10));
             const isH = o1 < o2;
             const data = [
@@ -150,9 +148,20 @@
                 </tr>`).join('');
         },
 
+        // التصحيح المجهري للرابط لمنع الفواصل الزائدة
         deepSync: function() {
-            const o1 = document.getElementById('o1').value, oX = document.getElementById('oX').value, o2 = document.getElementById('o2').value;
-            window.open("https://betexplorer.com" + o1 + "," + oX + "," + o2, '_blank');
+            const o1 = document.getElementById('o1').value.trim();
+            const oX = document.getElementById('oX').value.trim();
+            const o2 = document.getElementById('o2').value.trim();
+
+            let baseUrl = "https://betexplorer.com";
+            
+            if (o1 && oX && o2) {
+                // دمج نظيف بدون فواصل زائدة في النهاية
+                baseUrl += "?odds=" + o1 + "," + oX + "," + o2;
+            }
+            
+            window.open(baseUrl, '_blank');
         },
 
         save: function() {
@@ -162,11 +171,11 @@
             const entry = `<div class="log-entry"><span style="color:var(--accent)">[${time}] ${o1}/${oX}/${o2}</span> | Target: <b>${top}</b></div>`;
             const logDiv = document.getElementById('match-log');
             logDiv.insertAdjacentHTML('afterbegin', entry);
-            localStorage.setItem('sniper_vault_v4', logDiv.innerHTML);
+            localStorage.setItem('sniper_vault_final_v41', logDiv.innerHTML);
         },
 
-        loadLog: function() { const saved = localStorage.getItem('sniper_vault_v4'); if (saved) document.getElementById('match-log').innerHTML = saved; },
-        clearLog: function() { localStorage.removeItem('sniper_vault_v4'); document.getElementById('match-log').innerHTML = ""; }
+        loadLog: function() { const saved = localStorage.getItem('sniper_vault_final_v41'); if (saved) document.getElementById('match-log').innerHTML = saved; },
+        clearLog: function() { localStorage.removeItem('sniper_vault_final_v41'); document.getElementById('match-log').innerHTML = ""; }
     };
 </script>
 </body>
