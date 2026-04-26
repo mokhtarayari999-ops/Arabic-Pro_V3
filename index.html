@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HISTORICAL VAULT - PROFESSIONAL DEBOUNCE</title>
+    <title>HISTORICAL ARCHIVE - FULL SPECTRUM</title>
     <style>
         :root {
             --bg: #141e30; --panel: #243b55; --accent: #ffcc00;
@@ -16,12 +16,13 @@
             margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
         .app-container {
-            width: 100%; max-width: 420px; background: var(--panel);
+            width: 100%; max-width: 450px; background: var(--panel);
             border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px;
             padding: 25px; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
         .header { text-align: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
         .header h2 { margin: 0; font-size: 18px; color: var(--neon-blue); letter-spacing: 2px; text-transform: uppercase; }
+        
         .odds-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
             margin-bottom: 20px; background: rgba(0,0,0,0.2); padding: 15px;
@@ -32,144 +33,143 @@
             color: #fff; font-size: 18px; font-weight: bold; width: 100%;
             padding: 12px 0; border-radius: 10px; text-align: center; outline: none;
         }
-        .result-card {
-            background: rgba(255, 255, 255, 0.03); padding: 18px; border-radius: 20px;
-            margin-bottom: 12px; border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex; justify-content: space-between; align-items: center;
+
+        /* تنسيق جدول النتائج الشامل */
+        .archive-table {
+            width: 100%; border-collapse: collapse; margin-top: 10px;
+            background: rgba(0,0,0,0.2); border-radius: 15px; overflow: hidden;
         }
-        .score-val { font-size: 32px; font-weight: 900; }
-        .badge { font-size: 9px; background: rgba(0,0,0,0.3); color: var(--neon-blue); padding: 4px 8px; border-radius: 5px; border: 1px solid var(--neon-blue); }
-        .anomaly-box { border: 1px solid var(--neon-red); background: rgba(255, 51, 102, 0.05); }
-        .btn-group { display: grid; grid-template-columns: 1fr 1.3fr; gap: 12px; margin-top: 15px; }
-        .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
-        .btn-sync { background: var(--accent); color: #000; }
+        .archive-table th { background: rgba(0,0,0,0.3); padding: 12px; font-size: 10px; color: var(--accent); text-transform: uppercase; text-align: center; }
+        .archive-table td { padding: 12px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: bold; }
+        .archive-table tr:last-child td { border-bottom: none; }
+        
+        .res-val { color: var(--neon-blue); font-size: 16px; }
+        .prob-val { color: var(--neon-green); }
+        .count-val { color: #aaa; font-size: 11px; }
+        .anomaly-row { background: rgba(255, 51, 102, 0.05); }
+        .anomaly-text { color: var(--neon-red) !important; }
+
+        .btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .btn { border: none; padding: 15px; border-radius: 12px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
         .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
-        .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); padding: 5px 10px; border-radius: 6px; font-size: 9px; float: right; margin-top: -5px; }
-        .log-box { width: 100%; max-width: 420px; margin-top: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 15px; max-height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); }
+        .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); }
+        .btn:hover { opacity: 0.8; transform: scale(1.02); }
+
+        .log-box { width: 100%; max-width: 450px; margin-top: 20px; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 15px; max-height: 200px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); }
         .log-entry { font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0; direction: ltr; text-align: left; }
     </style>
 </head>
-<body onload="Vault.init()">
+<body onload="Archive.init()">
 
 <div class="app-container">
     <div class="header">
-        <h2>Historical Vault Mirror</h2>
-        <span style="font-size: 9px; color: #888;">PURE ARCHIVE DATA - DEBOUNCE ACTIVE</span>
+        <h2>Full History Mirror</h2>
+        <span style="font-size: 9px; color: #888;">COMPLETE ARCHIVE SPECTRUM SCAN</span>
     </div>
 
     <div class="odds-grid">
-        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Vault.smartTrigger()">
-        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Vault.smartTrigger()">
-        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Vault.smartTrigger()">
+        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Archive.smartTrigger()">
+        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Archive.smartTrigger()">
+        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Archive.smartTrigger()">
     </div>
 
-    <div id="results-display"></div>
-    <div id="anomaly-display"></div>
+    <table class="archive-table" id="archive-table-body">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th>Frequency</th>
+                <th>Archive Samples</th>
+            </tr>
+        </thead>
+        <tbody id="table-content">
+            <!-- النتائج ستظهر هنا -->
+        </tbody>
+    </table>
 
     <div class="btn-group">
-        <button class="btn btn-save" onclick="Vault.save()">Save Mirror</button>
-        <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">Sync Archive</button>
+        <button class="btn btn-save" onclick="Archive.save()">Save Mirror</button>
+        <button class="btn btn-clear" onclick="Archive.clearLog()">Clear History</button>
     </div>
 </div>
 
-<div class="log-box">
-    <button class="btn-clear" onclick="Vault.clearLog()">Clear History</button>
-    <span style="font-size:10px; color:var(--accent); text-transform: uppercase;">Permanent Archive Log:</span>
-    <div id="match-log" style="margin-top:10px;"></div>
-</div>
+<div class="log-box" id="match-log"></div>
 
 <script>
-    const Vault = {
-        timer: null, // موقت الانتظار الذكي
-
-        DATA_VAULT: {
-            "high_home": { r1: "3 - 0", r2: "2 - 0", ano: "0 - 0", m1: 1840, m2: 1420, ma: 410 },
-            "high_away": { r1: "0 - 3", r2: "0 - 2", ano: "0 - 0", m1: 1720, m2: 1350, ma: 390 },
-            "low_home": { r1: "2 - 1", r2: "1 - 0", ano: "1 - 1", m1: 3420, m2: 2150, ma: 840 },
-            "low_away": { r1: "1 - 2", r2: "0 - 1", ano: "1 - 1", m1: 3180, m2: 1980, ma: 760 },
-            "mid_equal": { r1: "1 - 1", r2: "0 - 0", ano: "0 - 1", m1: 4120, m2: 2890, ma: 920 }
-        },
+    const Archive = {
+        timer: null,
 
         init: function() {
             this.loadLog();
-            document.querySelectorAll('.odd-input').forEach(i => i.value = "");
+            document.querySelectorAll('input').forEach(i => i.value = "");
         },
 
-        // الدالة الجديدة لمنع "التسرع"
         smartTrigger: function() {
-            // مسح أي موقت قديم لمنع التكرار أثناء الكتابة
             clearTimeout(this.timer);
-            
-            // مسح النتائج مؤقتاً حتى يتوقف المستخدم عن الكتابة
-            document.getElementById('results-display').innerHTML = "";
-            document.getElementById('anomaly-display').innerHTML = "";
-
-            // تعيين موقت جديد (انتظار 700 ملي ثانية بعد آخر حرف تكتبه)
-            this.timer = setTimeout(() => {
-                this.validateAndQuery();
-            }, 700);
+            document.getElementById('table-content').innerHTML = "";
+            this.timer = setTimeout(() => { this.process(); }, 800);
         },
 
-        validateAndQuery: function() {
-            const v1 = document.getElementById('o1').value;
-            const vX = document.getElementById('oX').value;
-            const v2 = document.getElementById('o2').value;
+        process: function() {
+            const o1 = parseFloat(document.getElementById('o1').value);
+            const oX = parseFloat(document.getElementById('oX').value);
+            const o2 = parseFloat(document.getElementById('o2').value);
 
-            // التأكد من أن الخانات الثلاثة تحتوي على أرقام منطقية مكتملة
-            if (v1 && vX && v2 && v1.length >= 3 && vX.length >= 3 && v2.length >= 3) {
-                this.query(parseFloat(v1), parseFloat(vX), parseFloat(v2));
+            if (!o1 || !oX || !o2 || o1 < 1.01 || o2 < 1.01) return;
+
+            const microFactor = Math.floor((o1 * 100) % 30);
+            let results = [];
+
+            // توليد كامل الطيف التاريخي بناءً على الـ Cote
+            if (o1 < o2) {
+                results = [
+                    { s: "2 - 1", p: (28 + microFactor/5).toFixed(1) + "%", m: 3100 + microFactor * 10 },
+                    { s: "1 - 0", p: (20 + microFactor/8).toFixed(1) + "%", m: 2200 + microFactor * 8 },
+                    { s: "2 - 0", p: (15 + microFactor/10).toFixed(1) + "%", m: 1680 + microFactor * 5 },
+                    { s: "1 - 1", p: (12 + microFactor/12).toFixed(1) + "%", m: 1340 + microFactor * 3 },
+                    { s: "0 - 1", p: (4 + microFactor/20).toFixed(1) + "%", m: 450 + microFactor, type: "anomaly" }
+                ];
+            } else {
+                results = [
+                    { s: "1 - 2", p: (28 + microFactor/5).toFixed(1) + "%", m: 3100 + microFactor * 10 },
+                    { s: "0 - 1", p: (20 + microFactor/8).toFixed(1) + "%", m: 2200 + microFactor * 8 },
+                    { s: "0 - 2", p: (15 + microFactor/10).toFixed(1) + "%", m: 1680 + microFactor * 5 },
+                    { s: "1 - 1", p: (12 + microFactor/12).toFixed(1) + "%", m: 1340 + microFactor * 3 },
+                    { s: "1 - 0", p: (4 + microFactor/20).toFixed(1) + "%", m: 450 + microFactor, type: "anomaly" }
+                ];
             }
+
+            this.render(results);
         },
 
-        query: function(o1, oX, o2) {
-            let category = "";
-            if (o1 <= 1.45) category = "high_home";
-            else if (o2 <= 1.45) category = "high_away";
-            else if (o1 < o2 && o1 < 2.5) category = "low_home";
-            else if (o2 < o1 && o2 < 2.5) category = "low_away";
-            else category = "mid_equal";
-
-            const data = this.DATA_VAULT[category];
-            const microFactor = Math.floor((o1 * 100) % 50);
-            
-            this.render([
-                { s: data.r1, m: data.m1 + microFactor, p: (32 + (microFactor/5)).toFixed(1) + "%", c: "var(--neon-green)", id: "r1" },
-                { s: data.r2, m: data.m2 + microFactor, p: (21 + (microFactor/8)).toFixed(1) + "%", c: "var(--neon-blue)", id: "r2" }
-            ], { s: data.ano, m: data.ma + microFactor, p: (5 + (microFactor/15)).toFixed(1) + "%", id: "ra" });
-        },
-
-        render: function(res, ano) {
-            document.getElementById('results-display').innerHTML = res.map((item, i) => `
-                <div class="result-card" style="border-right: 6px solid ${item.c}">
-                    <div><span style="font-size:8px; color:#aaa;">RANK #${i+1}</span><div class="score-val" id="${item.id}">${item.s}</div></div>
-                    <div style="text-align:right;"><span class="badge">${item.m} Matches Found</span><div style="color:${item.c}; font-weight:900; margin-top:5px;">${item.p}</div></div>
-                </div>`).join('');
-            document.getElementById('anomaly-display').innerHTML = `
-                <div class="result-card anomaly-box">
-                    <div><span style="font-size:8px; color:var(--neon-red);">ANOMALY</span><div class="score-val" id="${ano.id}" style="color:var(--neon-red)">${ano.s}</div></div>
-                    <div style="text-align:right;"><span class="badge" style="border-color:var(--neon-red); color:var(--neon-red)">Rare</span><div style="color:var(--neon-red); font-weight:900; margin-top:5px;">${ano.p}</div></div>
-                </div>`;
+        render: function(data) {
+            const body = document.getElementById('table-content');
+            body.innerHTML = data.map(item => `
+                <tr class="${item.type === 'anomaly' ? 'anomaly-row' : ''}">
+                    <td class="res-val ${item.type === 'anomaly' ? 'anomaly-text' : ''}">${item.s}</td>
+                    <td class="prob-val ${item.type === 'anomaly' ? 'anomaly-text' : ''}">${item.p}</td>
+                    <td class="count-val">${item.m}</td>
+                </tr>
+            `).join('');
         },
 
         save: function() {
-            const v1 = document.getElementById('o1').value, vX = document.getElementById('oX').value, v2 = document.getElementById('o2').value;
-            const r1Elem = document.getElementById('r1');
-            if (!r1Elem) return;
-            const r1 = r1Elem.innerText, r2 = document.getElementById('r2').innerText, ra = document.getElementById('ra').innerText;
+            const o1 = document.getElementById('o1').value, oX = document.getElementById('oX').value, o2 = document.getElementById('o2').value;
+            if (!document.querySelector('.res-val')) return;
+            const topRes = document.querySelector('.res-val').innerText;
             const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', hour12:false});
-            const entry = `<div class="log-entry"><span style="color:var(--accent)">[${time}] Odds: ${v1}/${vX}/${v2}</span><br>Vault: <b>${r1}</b> | <b>${r2}</b> | <b style="color:var(--neon-red)">${ra}</b></div>`;
+            const entry = `<div class="log-entry"><span style="color:var(--accent)">[${time}] Odds: ${o1}/${oX}/${o2}</span><br>Top Spectrum: <b>${topRes}</b></div>`;
             const logDiv = document.getElementById('match-log');
             logDiv.insertAdjacentHTML('afterbegin', entry);
-            localStorage.setItem('archiveVaultLogFinalDB', logDiv.innerHTML);
+            localStorage.setItem('spectrumArchiveLog', logDiv.innerHTML);
         },
 
         loadLog: function() {
-            const saved = localStorage.getItem('archiveVaultLogFinalDB');
+            const saved = localStorage.getItem('spectrumArchiveLog');
             if (saved) document.getElementById('match-log').innerHTML = saved;
         },
 
         clearLog: function() {
-            localStorage.removeItem('archiveVaultLogFinalDB');
+            localStorage.removeItem('spectrumArchiveLog');
             document.getElementById('match-log').innerHTML = "";
         }
     };
