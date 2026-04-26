@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HISTORICAL VAULT - PURE ARCHIVE</title>
+    <title>HISTORICAL VAULT - PROFESSIONAL DEBOUNCE</title>
     <style>
         :root {
             --bg: #141e30; --panel: #243b55; --accent: #ffcc00;
@@ -54,13 +54,13 @@
 <div class="app-container">
     <div class="header">
         <h2>Historical Vault Mirror</h2>
-        <span style="font-size: 9px; color: #888;">PURE ARCHIVE DATA - SMART SYNC</span>
+        <span style="font-size: 9px; color: #888;">PURE ARCHIVE DATA - DEBOUNCE ACTIVE</span>
     </div>
 
     <div class="odds-grid">
-        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Vault.validateAndQuery()">
-        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Vault.validateAndQuery()">
-        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Vault.validateAndQuery()">
+        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Vault.smartTrigger()">
+        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Vault.smartTrigger()">
+        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Vault.smartTrigger()">
     </div>
 
     <div id="results-display"></div>
@@ -80,6 +80,8 @@
 
 <script>
     const Vault = {
+        timer: null, // موقت الانتظار الذكي
+
         DATA_VAULT: {
             "high_home": { r1: "3 - 0", r2: "2 - 0", ano: "0 - 0", m1: 1840, m2: 1420, ma: 410 },
             "high_away": { r1: "0 - 3", r2: "0 - 2", ano: "0 - 0", m1: 1720, m2: 1350, ma: 390 },
@@ -90,10 +92,22 @@
 
         init: function() {
             this.loadLog();
-            // تصفير الخانات عند البداية لضمان نظافة العملية
-            document.getElementById('o1').value = "";
-            document.getElementById('oX').value = "";
-            document.getElementById('o2').value = "";
+            document.querySelectorAll('.odd-input').forEach(i => i.value = "");
+        },
+
+        // الدالة الجديدة لمنع "التسرع"
+        smartTrigger: function() {
+            // مسح أي موقت قديم لمنع التكرار أثناء الكتابة
+            clearTimeout(this.timer);
+            
+            // مسح النتائج مؤقتاً حتى يتوقف المستخدم عن الكتابة
+            document.getElementById('results-display').innerHTML = "";
+            document.getElementById('anomaly-display').innerHTML = "";
+
+            // تعيين موقت جديد (انتظار 700 ملي ثانية بعد آخر حرف تكتبه)
+            this.timer = setTimeout(() => {
+                this.validateAndQuery();
+            }, 700);
         },
 
         validateAndQuery: function() {
@@ -101,13 +115,9 @@
             const vX = document.getElementById('oX').value;
             const v2 = document.getElementById('o2').value;
 
-            // التحقق المجهري: لا تظهر النتائج إلا إذا كانت الخانات الثلاث تحتوي على أرقام مكتملة (أكثر من خانتين مثل 1.2)
-            if (v1.length >= 3 && vX.length >= 3 && v2.length >= 3) {
+            // التأكد من أن الخانات الثلاثة تحتوي على أرقام منطقية مكتملة
+            if (v1 && vX && v2 && v1.length >= 3 && vX.length >= 3 && v2.length >= 3) {
                 this.query(parseFloat(v1), parseFloat(vX), parseFloat(v2));
-            } else {
-                // مسح النتائج إذا كان المستخدم لا يزال يكتب أو مسح الأرقام
-                document.getElementById('results-display').innerHTML = "";
-                document.getElementById('anomaly-display').innerHTML = "";
             }
         },
 
@@ -142,31 +152,24 @@
         },
 
         save: function() {
-            const v1 = document.getElementById('o1').value;
-            const vX = document.getElementById('oX').value;
-            const v2 = document.getElementById('o2').value;
+            const v1 = document.getElementById('o1').value, vX = document.getElementById('oX').value, v2 = document.getElementById('o2').value;
             const r1Elem = document.getElementById('r1');
-            
             if (!r1Elem) return;
-
-            const r1 = r1Elem.innerText;
-            const r2 = document.getElementById('r2').innerText;
-            const ra = document.getElementById('ra').innerText;
+            const r1 = r1Elem.innerText, r2 = document.getElementById('r2').innerText, ra = document.getElementById('ra').innerText;
             const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', hour12:false});
-            
             const entry = `<div class="log-entry"><span style="color:var(--accent)">[${time}] Odds: ${v1}/${vX}/${v2}</span><br>Vault: <b>${r1}</b> | <b>${r2}</b> | <b style="color:var(--neon-red)">${ra}</b></div>`;
             const logDiv = document.getElementById('match-log');
             logDiv.insertAdjacentHTML('afterbegin', entry);
-            localStorage.setItem('archiveVaultLogFinal', logDiv.innerHTML);
+            localStorage.setItem('archiveVaultLogFinalDB', logDiv.innerHTML);
         },
 
         loadLog: function() {
-            const saved = localStorage.getItem('archiveVaultLogFinal');
+            const saved = localStorage.getItem('archiveVaultLogFinalDB');
             if (saved) document.getElementById('match-log').innerHTML = saved;
         },
 
         clearLog: function() {
-            localStorage.removeItem('archiveVaultLogFinal');
+            localStorage.removeItem('archiveVaultLogFinalDB');
             document.getElementById('match-log').innerHTML = "";
         }
     };
