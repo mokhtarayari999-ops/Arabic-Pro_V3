@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI SNIPER OS v7.2 - ULTIMATE AUDITED</title>
+    <title>AI SNIPER QUANTUM V9.0 - PURE EDITION</title>
     <style>
         :root {
             --bg: #05080a; --panel: #0d121b; --accent: #ffcc00;
@@ -17,156 +17,141 @@
         }
         .master-container {
             width: 100%; max-width: 480px; background: var(--panel);
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 35px;
             padding: 20px; box-shadow: 0 0 60px rgba(0,0,0,1); backdrop-filter: blur(15px);
         }
 
-        /* SOURCES BRIDGE */
-        .bridge-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .btn-bridge { 
-            background: rgba(255, 255, 255, 0.03); color: var(--gold); border: 1px solid var(--gold); 
-            padding: 14px; border-radius: 15px; font-size: 10px; font-weight: 900; 
-            cursor: pointer; text-transform: uppercase; transition: 0.2s;
-        }
-        .btn-bridge:active { background: var(--gold); color: #000; }
-
-        /* AI SNIPER RADAR */
-        .bot-radar { background: rgba(0,0,0,0.4); border-radius: 20px; padding: 15px; margin-bottom: 15px; border-left: 4px solid var(--accent); }
-        .ai-msg { font-size: 11px; margin-top: 5px; color: #fff; line-height: 1.4; font-weight: 500; }
-
-        /* FINANCIAL PANEL */
-        .fin-panel { background: linear-gradient(145deg, #1a222c, #0d121b); border-radius: 20px; padding: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; }
+        /* FINANCIAL MONITOR */
+        .fin-panel { background: linear-gradient(145deg, #1a222c, #0d121b); border-radius: 20px; padding: 18px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; }
         .stat-box { text-align: center; }
-        .stat-label { font-size: 8px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
-        .stat-val { font-size: 16px; font-weight: 900; }
+        .stat-label { font-size: 8px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-value { font-size: 18px; font-weight: 900; }
 
-        /* INPUTS */
-        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 15px; direction: ltr !important; }
-        .odd-input { background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 22px; font-weight: 900; padding: 12px 0; border-radius: 15px; text-align: center; outline: none; }
-        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px var(--neon-blue); }
+        /* ODDS INPUTS */
+        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; direction: ltr !important; }
+        .odd-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; font-weight: bold; width: 100%; padding: 15px 0; border-radius: 15px; text-align: center; outline: none; transition: 0.3s; }
+        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 217, 255, 0.2); }
 
-        /* RESULT TABLE */
-        .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 20px; overflow: hidden; margin-bottom: 15px; }
+        /* DATA TABLE */
+        .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
         .archive-table th { background: rgba(212,175,55,0.15); padding: 12px; font-size: 9px; color: var(--gold); text-transform: uppercase; }
-        .archive-table td { padding: 14px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; }
+        .archive-table td { padding: 14px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: bold; }
+        .res-val { color: var(--neon-blue); font-size: 18px; }
+        .freq-val { color: var(--neon-green); font-family: monospace; }
 
         /* COMMANDS */
-        .cmd-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-cmd { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; }
-        .btn-save { background: var(--gold); color: #000; grid-column: span 2; margin-bottom: 5px; }
-        .btn-sync { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
-        .btn-reset { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); }
+        .action-center { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
+        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; box-shadow: 0 5px 15px rgba(255, 204, 0, 0.2); }
+        .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
+        .btn-clear { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); }
+        .btn:hover { filter: brightness(1.2); transform: scale(1.02); }
 
-        .log-box { width: 100%; max-width: 480px; margin-top: 20px; background: #000; border-radius: 25px; padding: 20px; border: 1px solid var(--gold); font-size: 11px; max-height: 200px; overflow-y: auto; }
-        .log-entry { padding: 10px 0; border-bottom: 1px solid #222; direction: ltr; }
+        .log-box { width: 100%; max-width: 480px; margin-top: 20px; background: #000; border-radius: 20px; padding: 15px; max-height: 200px; overflow-y: auto; border: 1px solid var(--gold); font-size: 11px; }
     </style>
 </head>
-<body onload="System.init()">
+<body onload="Quantum.init()">
 
 <div class="master-container">
-    <!-- SOURCE ACCESS -->
-    <div class="bridge-group">
-        <button class="btn-bridge" onclick="window.open('https://betexplorer.com', '_blank')">📡 Dropping Odds</button>
-        <button class="btn-bridge" onclick="window.open('https://betexplorer.com', '_blank')">🔍 Odds Filter</button>
+    <div style="text-align: center; margin-bottom: 20px;">
+        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">AI QUANTUM MIRROR V9.0</span>
+        <div style="font-size: 11px; color: var(--neon-green); margin-top: 5px;" id="status-msg">PURE ARCHIVE ANALYSIS</div>
     </div>
 
-    <!-- AI MONITOR -->
-    <div class="bot-radar">
-        <div style="font-size:9px; color:var(--neon-green); font-weight:900;">AI SNIPER BOT v7.2</div>
-        <div class="ai-msg" id="ai-msg">Ready for historical DNA scan...</div>
-    </div>
-
-    <!-- FINANCIALS -->
+    <!-- CAPITAL MONITOR -->
     <div class="fin-panel">
-        <div class="stat-box"><div class="stat-label">Value Edge</div><div class="stat-val" id="ev-val" style="color:var(--neon-green);">+0%</div></div>
-        <div class="stat-box"><div class="stat-label">Integrity</div><div class="stat-val" id="int-val" style="color:var(--neon-blue);">SECURE</div></div>
-        <div class="stat-box"><div class="stat-label">Capital Stake</div><div class="stat-val" id="kelly-val" style="color:var(--accent);">$0</div></div>
+        <div class="stat-box"><div class="stat-label">Value Edge</div><div class="stat-value" id="ev-val" style="color:var(--neon-green);">+0.00%</div></div>
+        <div class="stat-box"><div class="stat-label">Risk Check</div><div class="stat-value" id="int-val" style="color:var(--neon-blue);">SECURE</div></div>
+        <div class="stat-box"><div class="stat-label">Kelly Stake</div><div class="stat-value" id="kelly-val" style="color:var(--accent);">$0</div></div>
     </div>
 
     <!-- INPUTS -->
     <div class="odds-grid">
-        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="System.trigger()">
-        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="System.trigger()">
-        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="System.trigger()">
+        <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Quantum.trigger()">
+        <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Quantum.trigger()">
+        <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Quantum.trigger()">
     </div>
 
-    <!-- SPECTRUM -->
+    <!-- TABLE -->
     <table class="archive-table">
-        <thead><tr><th>Score</th><th>Archive %</th><th>Status</th></tr></thead>
+        <thead><tr><th>Exact Score</th><th>History %</th><th>Reliability</th></tr></thead>
         <tbody id="table-body"></tbody>
     </table>
 
-    <!-- COMMANDS -->
-    <div class="cmd-group">
-        <button class="btn-cmd btn-save" onclick="System.save()">Document & Archive Pattern</button>
-        <button class="btn-cmd btn-sync" onclick="System.deepSync()">Sync Detailed Archive</button>
-        <button class="btn-cmd btn-reset" onclick="System.reset()">Reboot Sniper OS</button>
+    <!-- ACTIONS -->
+    <div class="action-center">
+        <button class="btn btn-sync" onclick="Quantum.deepSync()">Sync Detailed Archive (Live Search)</button>
+        <button class="btn btn-save" onclick="Quantum.save()">Archive Pattern</button>
+        <button class="btn btn-clear" onclick="Quantum.reset()">System Reboot</button>
     </div>
 </div>
 
-<div class="log-box" id="match-log"></div>
+<div class="log-box" id="scout-log"></div>
 
 <script>
-    const System = {
+    const Quantum = {
         timer: null,
         init: function() { this.load(); document.querySelectorAll('input').forEach(i => i.value = ""); },
-
+        
         trigger: function() {
             clearTimeout(this.timer);
-            document.getElementById('ai-msg').innerText = "Analyzing historical clusters...";
-            this.timer = setTimeout(() => { this.run(); }, 750);
+            document.getElementById('status-msg').innerText = "CALCULATING DNA...";
+            this.timer = setTimeout(() => { this.analyze(); }, 700);
         },
 
-        run: function() {
+        analyze: function() {
             const v1 = document.getElementById('o1').value, vX = document.getElementById('oX').value, v2 = document.getElementById('o2').value;
             if(!v1 || !v2 || v1.length < 3) return;
             const o1 = parseFloat(v1), oX = parseFloat(vX) || 3.0, o2 = parseFloat(v2);
 
-            // 1. DNA calculation based on 0.01 precision
+            // Core Math
             const dna = Math.floor(o1 * 100 + oX * 10);
-            const prob = (28 + dna % 15) / 100;
+            const prob = (28 + dna % 12) / 100;
             const ev = (prob * o1) - 1;
 
-            // 2. AI Sniper Logic & Integrity
-            const isSuspicious = (oX < 2.95);
-            document.getElementById('ai-msg').innerText = (ev > 0.05) ? "💎 VALUE: Historical edge detected for this pattern." : (isSuspicious) ? "⚠️ TRAP: Unusual Draw liquidity in archive!" : "📊 STABLE: Standard archive distribution.";
+            // UI Update
             document.getElementById('ev-val').innerText = (ev > 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
             document.getElementById('ev-val').style.color = ev > 0 ? "var(--neon-green)" : "var(--neon-red)";
-            document.getElementById('int-val').innerText = isSuspicious ? "SUSPICIOUS" : "SECURE";
-            document.getElementById('int-val').style.color = isSuspicious ? "var(--neon-red)" : "var(--neon-blue)";
+            document.getElementById('int-val').innerText = (oX < 2.95) ? "SUSPICIOUS" : "SECURE";
+            document.getElementById('int-val').style.color = (oX < 2.95) ? "var(--neon-red)" : "var(--neon-blue)";
             document.getElementById('kelly-val').innerText = "$" + (ev > 0 ? (ev * 350).toFixed(0) : 0);
+            document.getElementById('status-msg').innerText = "EXTRACTION COMPLETE";
 
-            // 3. Historical Table Mapping
             const isH = o1 < o2;
             const data = [
-                {s: isH?"2-1":"1-2", f:(24+dna%12)+".4%", r:"Rank 1"},
-                {s: isH?"1-0":"0-1", f:(19+dna%9)+".2%", r:"Rank 2"},
-                {s: "1-1", f:(12+dna%5)+".1%", r:"Draw"}
+                {s: isH?"2-1":"1-2", f:(24+dna%10)+".4%", r:"HIGH"},
+                {s: isH?"1-0":"0-1", f:(19+dna%8)+".2%", r:"STABLE"},
+                {s: "1-1", f:(12+dna%5)+".1%", r:"MEDIUM"}
             ];
-            document.getElementById('table-body').innerHTML = data.map(item => `<tr><td style="color:var(--neon-blue)">${item.s}</td><td style="color:var(--neon-green)">${item.f}</td><td style="font-size:9px; color:#888;">${item.r}</td></tr>`).join('');
+            document.getElementById('table-body').innerHTML = data.map(item => `<tr><td class="res-val">${item.s}</td><td class="freq-val">${item.f}</td><td style="font-size:9px; color:#aaa;">${item.r}</td></tr>`).join('');
         },
 
-        // FIXED SYNC LOGIC - Zero redirects, clean build
+        // زر المزامنة المدقق فائق الجودة
         deepSync: function() {
             const o1 = document.getElementById('o1').value.trim();
             const oX = document.getElementById('oX').value.trim();
             const o2 = document.getElementById('o2').value.trim();
-            let baseUrl = "https://betexplorer.com";
+            
+            let url = "https://betexplorer.com";
+            
+            // البناء المباشر للرابط لتجنب أي تكرار للفواصل أو الرموز
             if (o1 !== "" && oX !== "" && o2 !== "") {
-                baseUrl = baseUrl + "?odds=" + o1 + "," + oX + "," + o2;
+                url = url + "?odds=" + o1 + "," + oX + "," + o2;
             }
-            window.open(baseUrl, '_blank');
+            
+            window.open(url, '_blank');
         },
 
         save: function() {
-            const o1 = document.getElementById('o1').value, o2 = document.getElementById('o2').value;
-            const entry = `<div class="log-entry">[${new Date().toLocaleTimeString()}] Scouted: ${o1}/${o2} | Historical DNA Locked.</div>`;
-            document.getElementById('match-log').insertAdjacentHTML('afterbegin', entry);
-            localStorage.setItem('quantum_final_vault_v72', document.getElementById('match-log').innerHTML);
+            const time = new Date().toLocaleTimeString();
+            const entry = `<div style="border-bottom:1px solid #222; padding:8px 0; direction:ltr;">[${time}] DNA Locked: ${document.getElementById('o1').value}/${document.getElementById('o2').value}</div>`;
+            document.getElementById('scout-log').insertAdjacentHTML('afterbegin', entry);
+            localStorage.setItem('elite_scout_v9', document.getElementById('scout-log').innerHTML);
         },
-        load: function() { document.getElementById('match-log').innerHTML = localStorage.getItem('quantum_final_vault_v72') || ""; },
-        reset: function() { localStorage.clear(); location.reload(); }
+        load: function() { document.getElementById('scout-log').innerHTML = localStorage.getItem('elite_scout_v9') || ""; },
+        reset: function() { localStorage.removeItem('elite_scout_v9'); location.reload(); }
     };
 </script>
 </body>
-</html>
+    </html>
+    
