@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI SOVEREIGN OS V23.0 - IMMERSIVE EDITION</title>
+    <title>AI SOVEREIGN OS V24.0 - FULL SPECTRUM</title>
     <style>
         :root {
             --bg: #05080a; --panel: #0d121b; --accent: #ffcc00;
@@ -11,74 +11,53 @@
             --gold: #d4af37; --text: #e0e6ed;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
         body {
             background: radial-gradient(circle at center, #1a222c 0%, #05080a 100%);
-            color: var(--text); font-family: 'Segoe UI', Roboto, sans-serif;
+            color: var(--text); font-family: 'Segoe UI', sans-serif;
             margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
-
         .master-container {
-            width: 98%; /* توسيع العرض ليشغل الشاشة */
-            max-width: 500px; /* سقف العرض للأجهزة الكبيرة */
-            background: var(--panel);
+            width: 98%; max-width: 500px; background: var(--panel);
             border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 40px;
-            padding: 25px; /* زيادة المسافات الداخلية للفخامة */
-            box-shadow: 0 20px 60px rgba(0,0,0,0.9); backdrop-filter: blur(20px);
+            padding: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.9); backdrop-filter: blur(20px);
         }
 
-        /* VALUE COMPASS */
-        .compass-box {
-            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold);
-            border-radius: 20px; padding: 12px; margin-bottom: 20px; text-align: center;
-        }
-        .compass-targets { display: flex; justify-content: space-around; font-size: 13px; font-weight: 900; margin-top: 5px; }
-
-        /* STRATEGIC VERDICT */
-        .verdict-box {
-            background: rgba(255, 255, 255, 0.03); border: 2px solid #333;
-            border-radius: 20px; padding: 15px; margin-bottom: 20px; text-align: center;
-            display: none; transition: 0.5s;
-        }
+        /* 1. TARGETS & VERDICT */
+        .compass-box { background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold); border-radius: 20px; padding: 12px; margin-bottom: 15px; text-align: center; }
+        .verdict-box { background: rgba(255, 255, 255, 0.03); border: 2px solid #333; border-radius: 20px; padding: 15px; margin-bottom: 15px; text-align: center; display: none; }
         .v-pick { font-size: 22px; font-weight: 900; text-transform: uppercase; margin: 5px 0; }
 
-        /* DASHBOARD */
-        .dashboard { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; 
-            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; 
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); 
-        }
+        /* 2. DOUBLE CHANCE PANEL (RE-ADDED) */
+        .dc-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        .dc-card { background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); border-radius: 15px; padding: 10px; text-align: center; }
+        .dc-label { font-size: 9px; color: var(--neon-blue); font-weight: 900; text-transform: uppercase; }
+        .dc-val { font-size: 18px; font-weight: 900; margin-top: 4px; }
+
+        /* 3. DASHBOARD */
+        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .stat-box { text-align: center; }
         .stat-label { font-size: 9px; color: #888; text-transform: uppercase; }
         .stat-val { font-size: 16px; font-weight: 900; }
 
-        /* INPUTS (REBALANCED) */
-        .odds-flex {
-            display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; width: 100%;
-        }
-        .odd-input {
-            flex: 1; min-width: 0; background: rgba(255,255,255,0.05); 
-            border: 1px solid rgba(255,255,255,0.15); color: #fff;
-            font-size: 24px; /* تكبير الخط لسهولة الإدخال */
-            font-weight: 900; padding: 15px 0;
-            border-radius: 15px; text-align: center; outline: none; transition: 0.3s;
-        }
-        .odd-input:focus { border-color: var(--neon-blue); background: rgba(0, 217, 255, 0.05); }
+        /* 4. INPUTS */
+        .odds-flex { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; width: 100%; }
+        .odd-input { flex: 1; min-width: 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 24px; font-weight: 900; padding: 15px 0; border-radius: 15px; text-align: center; outline: none; transition: 0.3s; }
+        .odd-input:focus { border-color: var(--neon-blue); }
 
-        /* ARCHIVE TABLE */
+        /* 5. TABLE */
         .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
         .archive-table th { background: rgba(212,175,55,0.15); padding: 12px; font-size: 10px; color: var(--gold); text-transform: uppercase; }
         .archive-table td { padding: 15px 5px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; font-size: 16px; }
 
-        .btn-sync { background: var(--accent); color: #000; width: 100%; border: none; padding: 20px; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; font-size: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .btn-sync { background: var(--accent); color: #000; width: 100%; border: none; padding: 20px; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
     </style>
 </head>
 <body onload="Quantum.init()">
 
 <div class="master-container">
     <div style="text-align: center; margin-bottom: 20px;">
-        <span style="font-size: 11px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">SOVEREIGN MASTER OS V23.0</span>
-        <div id="status-msg" style="font-size: 12px; color: var(--neon-green); margin-top: 6px;">READY FOR DNA EXTRACTION</div>
+        <span style="font-size: 11px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">SOVEREIGN MASTER OS V24.0</span>
+        <div id="status-msg" style="font-size: 12px; color: var(--neon-green); margin-top: 6px;">SHIELD PROTOCOLS ACTIVE</div>
     </div>
 
     <div class="compass-box">
@@ -91,12 +70,24 @@
 
     <div id="verdict-box" class="verdict-box">
         <div style="font-size:10px; color:var(--gold); font-weight:900;">👑 STRATEGIC VERDICT</div>
-        <div id="v-pick" class="verdict-pick" style="color:#666;">Awaiting DNA...</div>
+        <div id="v-pick" class="v-pick" style="color:#666;">Awaiting DNA...</div>
+    </div>
+
+    <!-- DOUBLE CHANCE LIVE PROBABILITIES (BACK IN V24.0) -->
+    <div class="dc-panel">
+        <div class="dc-card">
+            <div class="dc-label">🛡️ 1X Probability</div>
+            <div id="dc-1x" class="dc-val" style="color:var(--neon-blue);">0%</div>
+        </div>
+        <div class="dc-card">
+            <div class="dc-label">🛡️ X2 Probability</div>
+            <div id="dc-x2" class="dc-val" style="color:var(--neon-blue);">0%</div>
+        </div>
     </div>
 
     <div class="dashboard">
         <div class="stat-box"><div class="stat-label">Value Edge</div><div id="ev-val" class="stat-val" style="color:var(--neon-green);">+0%</div></div>
-        <div class="stat-box"><div class="stat-label">Integrity</div><div id="int-val" class="stat-val" style="color:var(--neon-blue);">SECURE</div></div>
+        <div class="stat-box"><div class="stat-label">Integrity</div><div id="int-val" class="stat-val" style="color:var(--neon-blue);">READY</div></div>
         <div class="stat-box"><div class="stat-label">Stake ($)</div><div id="stake-val" class="stat-val" style="color:var(--accent);">0</div></div>
     </div>
 
@@ -131,11 +122,20 @@
             const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
 
             const dna = Math.floor(o1 * 100 + oX * 50);
-            const samplePool = 1400 + (dna % 900); 
-            const baseProb = (o1 < 2.0) ? 36 : 32;
-            const archiveProb = (baseProb + (dna % 18)) / 100;
-            const ev = (archiveProb * (o1 < o2 ? o1 : o2)) - 1;
+            const samplePool = 1450 + (dna % 950); 
+            
+            // Probability Base
+            const pWinH = (32 + (dna % 16)) / 100;
+            const pDraw = (17 + (dna % 11)) / 100;
+            const pWinA = 1 - pWinH - pDraw;
 
+            // DC SHIELD Logic
+            const prob1X = ((pWinH + pDraw) * 100).toFixed(1);
+            const probX2 = ((pWinA + pDraw) * 100).toFixed(1);
+            document.getElementById('dc-1x').innerText = prob1X + "%";
+            document.getElementById('dc-x2').innerText = probX2 + "%";
+
+            const ev = (pWinH * o1) - 1;
             document.getElementById('ev-val').innerText = (ev > 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
             document.getElementById('ev-val').style.color = ev > 0 ? "var(--neon-green)" : "var(--neon-red)";
             const isSuspicious = (oX < 2.95);
@@ -143,13 +143,13 @@
             document.getElementById('int-val').style.color = isSuspicious ? "var(--neon-red)" : "var(--neon-blue)";
             document.getElementById('stake-val').innerText = ev > 0 ? (ev * 500).toFixed(0) : 0;
 
-            this.updateVerdict(o1, o2, ev, isSuspicious);
+            this.updateVerdict(o1, o2, prob1X, probX2, ev, isSuspicious);
 
             const isH = o1 < o2;
             const hS = ["2-1", "1-0", "2-0", "3-1"], aS = ["1-2", "0-1", "0-2", "1-3"];
             const data = [
-                {s: isH ? hS[dna%4] : aS[dna%4], f: Math.floor(archiveProb*100)+"%", m: Math.floor(samplePool * archiveProb)},
-                {s: "1-1", f: "18%", m: 312}
+                {s: isH ? hS[dna%4] : aS[dna%4], f: Math.floor(pWinH*100)+"%", m: Math.floor(samplePool * pWinH)},
+                {s: "1-1", f: Math.floor(pDraw*100)+"%", m: Math.floor(samplePool * pDraw)}
             ];
 
             document.getElementById('table-content').innerHTML = data.map(i => `
@@ -161,13 +161,14 @@
             document.getElementById('status-msg').innerText = "DNA EXTRACTION COMPLETE";
         },
 
-        updateVerdict: function(o1, o2, ev, risk) {
+        updateVerdict: function(o1, o2, p1X, pX2, ev, risk) {
             const box = document.getElementById('verdict-box');
             box.style.display = "block";
             const pick = document.getElementById('v-pick');
             if(risk) { pick.innerText = "🚨 AVOID"; pick.style.color = "var(--neon-red)"; box.style.borderColor = "var(--neon-red)"; }
-            else if(ev > 0.05) { pick.innerText = "💎 VALUE: " + (o1<o2?"1":"2"); pick.style.color = "var(--neon-green)"; box.style.borderColor = "var(--neon-green)"; }
-            else if(ev >= -0.05) { pick.innerText = "🛡️ STABLE: " + (o1<o2?"1X":"X2"); pick.style.color = "var(--neon-blue)"; box.style.borderColor = "var(--neon-blue)"; }
+            else if(parseFloat(p1X) > 82 && o1 < o2) { pick.innerText = "🛡️ SAFE: 1X"; pick.style.color = "var(--neon-green)"; box.style.borderColor = "var(--neon-green)"; }
+            else if(parseFloat(pX2) > 82 && o2 < o1) { pick.innerText = "🛡️ SAFE: X2"; pick.style.color = "var(--neon-green)"; box.style.borderColor = "var(--neon-green)"; }
+            else if(ev > 0.05) { pick.innerText = "💎 BANKER: " + (o1<o2?"1":"2"); pick.style.color = "var(--gold)"; box.style.borderColor = "var(--gold)"; }
             else { pick.innerText = "🛑 NO VALUE"; pick.style.color = "#888"; box.style.borderColor = "#333"; }
         },
 
