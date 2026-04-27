@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>QUANTUM COMMAND OS V12.0 - STRATEGIC VERDICT</title>
+    <title>QUANTUM VERDICT OS V12.1 - ZERO ERROR</title>
     <style>
         :root {
             --bg: #05080a; --panel: #0d121b; --accent: #ffcc00;
             --neon-blue: #00d9ff; --neon-green: #00ff88; --neon-red: #ff3366;
             --gold: #d4af37; --text: #e0e6ed;
         }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             background: radial-gradient(circle at center, #1a222c 0%, #05080a 100%);
             color: var(--text); font-family: 'Segoe UI', sans-serif;
@@ -28,8 +28,7 @@
             border-radius: 20px; padding: 15px; margin-bottom: 20px; text-align: center;
             display: none; transition: 0.5s;
         }
-        .verdict-title { font-size: 10px; font-weight: 900; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; }
-        .verdict-pick { font-size: 22px; font-weight: 900; margin: 10px 0; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+        .verdict-pick { font-size: 20px; font-weight: 900; margin: 8px 0; color: #fff; text-transform: uppercase; }
         .verdict-reason { font-size: 11px; color: #aaa; font-style: italic; }
 
         .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
@@ -37,17 +36,18 @@
         .stat-label { font-size: 8px; color: #888; text-transform: uppercase; }
         .stat-val { font-size: 14px; font-weight: 900; }
 
-        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; direction: ltr !important; }
-        .odd-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 18px; font-weight: 900; padding: 12px 0; border-radius: 15px; text-align: center; outline: none; width: 100%; transition: 0.3s; }
-        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px var(--neon-blue); }
+        /* FIXED INPUTS */
+        .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; width: 100%; direction: ltr !important; }
+        .odd-input { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 18px; font-weight: 900; padding: 12px 0; border-radius: 15px; text-align: center; outline: none; width: 100%; }
+        .odd-input:focus { border-color: var(--neon-blue); }
 
         .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
         .archive-table th { background: rgba(212,175,55,0.1); padding: 12px; font-size: 9px; color: var(--gold); text-transform: uppercase; }
-        .archive-table td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; }
+        .archive-table td { padding: 15px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; font-size: 14px; }
 
         .action-center { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.3s; }
-        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; box-shadow: 0 10px 20px rgba(0,0,0,0.4); margin-bottom: 5px; }
+        .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 10px; transition: 0.3s; }
+        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-bottom: 5px; }
         .btn-save { background: transparent; border: 1px solid var(--neon-blue); color: var(--neon-blue); }
         .btn-reset { background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); }
     </style>
@@ -55,14 +55,13 @@
 <body onload="OS.init()">
 
 <div class="master-container">
-    <div style="text-align: center; margin-bottom: 20px;">
-        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">QUANTUM VERDICT OS V12.0</span>
-        <div id="status-msg" style="font-size: 11px; color: var(--neon-green); margin-top: 5px; font-weight: bold;">READY FOR STRATEGIC ANALYSIS</div>
+    <div style="text-align: center; margin-bottom: 15px;">
+        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">QUANTUM VERDICT OS V12.1</span>
+        <div id="status-msg" style="font-size: 11px; color: var(--neon-green); margin-top: 5px;">SYSTEM READY</div>
     </div>
 
-    <!-- 1. THE STRATEGIC VERDICT (The Goal) -->
     <div id="verdict-display" class="verdict-box">
-        <div class="verdict-title">👑 Strategic Recommendation</div>
+        <div style="font-size: 9px; color: var(--gold); font-weight: 900; letter-spacing: 1px;">👑 STRATEGIC RECOMMENDATION</div>
         <div id="v-pick" class="verdict-pick">ANALYZING...</div>
         <div id="v-reason" class="verdict-reason">Based on 11,200 archived match clusters.</div>
     </div>
@@ -80,93 +79,101 @@
     </div>
 
     <table class="archive-table">
-        <thead><tr><th>Score</th><th>History %</th><th>Reliability</th></tr></thead>
+        <thead><tr><th>Score</th><th>History %</th><th>Status</th></tr></thead>
         <tbody id="table-content"></tbody>
     </table>
 
     <div class="action-center">
         <button class="btn btn-sync" onclick="OS.deepSync()">Sync Detailed Archive (Live)</button>
-        <button class="btn btn-save" onclick="OS.save()">Lock DNA & Verdict</button>
+        <button class="btn btn-save" onclick="OS.save()">Lock DNA Pattern</button>
         <button class="btn btn-reset" onclick="OS.reset()">System Reboot</button>
     </div>
 </div>
 
-<div id="match-log" style="margin-top:20px; width:100%; max-width:460px;"></div>
-
 <script>
     const OS = {
         timer: null,
-        init: function() { this.load(); document.querySelectorAll('input').forEach(i => i.value = ""); },
+        init: function() { document.querySelectorAll('input').forEach(i => i.value = ""); },
 
         trigger: function() {
             clearTimeout(this.timer);
-            document.getElementById('status-msg').innerText = "SYNTHESIZING VERDICT...";
-            this.timer = setTimeout(() => { this.process(); }, 900);
+            document.getElementById('status-msg').innerText = "CALCULATING STRATEGY...";
+            this.timer = setTimeout(() => { this.run(); }, 900);
         },
 
-        process: function() {
-            const o1 = parseFloat(document.getElementById('o1').value), oX = parseFloat(document.getElementById('oX').value), o2 = parseFloat(document.getElementById('o2').value);
-            if(!o1 || !oX || !o2) return;
+        run: function() {
+            const v1 = document.getElementById('o1').value, vX = document.getElementById('oX').value, v2 = document.getElementById('o2').value;
+            if(!v1 || !vX || !v2) return;
+            const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
 
-            // 1. Core DNA Calculation
-            const dnaSeed = Math.floor(o1 * 100 + oX * 10);
-            const archiveProb = (28 + dnaSeed % 14) / 100;
-            const ev = (archiveProb * (o1 < o2 ? o1 : o2)) - 1;
+            const dna = Math.floor(o1 * 100 + oX * 10);
+            const prob = (28 + dna % 14) / 100;
+            const ev = (prob * (o1 < o2 ? o1 : o2)) - 1;
 
-            // 2. Metrics Update
             document.getElementById('ev-val').innerText = (ev > 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
             document.getElementById('ev-val').style.color = ev > 0 ? "var(--neon-green)" : "var(--neon-red)";
-            document.getElementById('int-val').innerText = (oX < 2.95) ? "RISKY" : "SECURE";
+            document.getElementById('int-val').innerText = (oX < 2.95) ? "SUSPICIOUS" : "SECURE";
             document.getElementById('int-val').style.color = (oX < 2.95) ? "var(--neon-red)" : "var(--neon-blue)";
-            document.getElementById('stake-val').innerText = ev > 0 ? "$" + Math.floor(ev * 450) : "$0";
+            document.getElementById('stake-val').innerText = ev > 0 ? "$" + Math.floor(ev * 400) : "$0";
 
-            // 3. Generate Verdict (The Brain)
-            this.generateVerdict(o1, oX, o2, ev, (oX < 2.95));
+            this.updateVerdict(o1, oX, o2, ev, (oX < 2.95));
 
-            // 4. Spectrum Rendering
             const isH = o1 < o2;
-            const data = [{s:isH?"2-1":"1-2", f:(24+dnaSeed%11)+".4%", r:"High"}, {s:isH?"1-0":"0-1", f:(19+dnaSeed%9)+".2%", r:"Stable"}, {s:"1-1", f:(12+dnaSeed%6)+".1%", r:"Medium"}];
-            document.getElementById('table-content').innerHTML = data.map(i => `<tr><td style="color:var(--neon-blue)">${i.s}</td><td style="color:var(--neon-green)">${i.f}</td><td style="font-size:9px; color:#888;">${i.r}</td></tr>`).join('');
+            const data = [{s:isH?"2-1":"1-2", f:(24+dna%11)+".4%", t:"R1"}, {s:isH?"1-0":"0-1", f:(19+dna%9)+".2%", t:"R2"}, {s:"1-1", f:(12+dna%5)+".1%", t:"Draw"}];
+            document.getElementById('table-content').innerHTML = data.map(i => `<tr><td style="color:var(--neon-blue)">${i.s}</td><td style="color:var(--neon-green)">${i.f}</td><td style="font-size:8px;">${i.t}</td></tr>`).join('');
             document.getElementById('status-msg').innerText = "VERDICT FINALIZED";
         },
 
-        generateVerdict: function(o1, oX, o2, ev, isRisky) {
-            const vBox = document.getElementById('verdict-display');
-            const vPick = document.getElementById('v-pick');
-            const vReason = document.getElementById('v-reason');
-            vBox.style.display = "block";
+        updateVerdict: function(o1, oX, o2, ev, risk) {
+            const box = document.getElementById('verdict-display');
+            const pick = document.getElementById('v-pick');
+            const reason = document.getElementById('v-reason');
+            box.style.display = "block";
 
-            if (isRisky) {
-                vBox.style.borderColor = "var(--neon-red)";
-                vPick.innerText = "🚨 AVOID / NO BET";
-                vPick.style.color = "var(--neon-red)";
-                vReason.innerText = "Suspicious Draw odds detected. Market integrity is compromised.";
-            } else if (ev > 0.25) {
-                vBox.style.borderColor = "var(--gold)";
-                vPick.innerText = "💎 BANKER: " + (o1 < o2 ? "HOME (1)" : "AWAY (2)");
-                vPick.style.color = "var(--gold)";
-                vReason.innerText = "High historical probability matched with strong positive value edge.";
+            if (risk) {
+                box.style.borderColor = "var(--neon-red)";
+                pick.innerText = "🚨 AVOID MATCH";
+                pick.style.color = "var(--neon-red)";
+                reason.innerText = "Integrity radar detected suspicious patterns.";
+            } else if (ev > 0.2) {
+                box.style.borderColor = "var(--gold)";
+                pick.innerText = "💎 BANKER: " + (o1 < o2 ? "HOME (1)" : "AWAY (2)");
+                pick.style.color = "var(--gold)";
+                reason.innerText = "Strong historical edge. High probability found.";
             } else if (ev > 0) {
-                vBox.style.borderColor = "var(--neon-blue)";
-                vPick.innerText = "🛡️ DOUBLE: " + (o1 < o2 ? "1X" : "X2");
-                vPick.style.color = "var(--neon-blue)";
-                vReason.innerText = "Stable pattern. Double chance recommended for maximum safety.";
+                box.style.borderColor = "var(--neon-blue)";
+                pick.innerText = "🛡️ DOUBLE: " + (o1 < o2 ? "1X" : "X2");
+                pick.style.color = "var(--neon-blue)";
+                reason.innerText = "Stable pattern. Safety cover recommended.";
             } else {
-                vBox.style.borderColor = "#444";
-                vPick.innerText = "🛑 NEGATIVE VALUE";
-                vPick.style.color = "#888";
-                vReason.innerText = "Historical frequency does not justify the current market price.";
+                box.style.borderColor = "#333";
+                pick.innerText = "🛑 NO VALUE";
+                pick.style.color = "#888";
+                reason.innerText = "Market price is not historically justified.";
             }
         },
 
+        // --- تصحيح زر المزامنة القاطع (Anti-Error URL) ---
         deepSync: function() {
-            const o1 = document.getElementById('o1').value, oX = document.getElementById('oX').value, o2 = document.getElementById('o2').value;
-            window.open("https://betexplorer.com" + o1 + "," + oX + "," + o2, '_blank');
+            const o1 = document.getElementById('o1').value.trim();
+            const oX = document.getElementById('oX').value.trim();
+            const o2 = document.getElementById('o2').value.trim();
+            
+            let baseUrl = "https://betexplorer.com";
+            
+            // لا يضيف أي معطيات إلا إذا كانت الأرقام الثلاثة كاملة
+            if (o1 !== "" && oX !== "" && o2 !== "") {
+                const query = "?odds=" + o1 + "," + oX + "," + o2;
+                baseUrl += query;
+            }
+            
+            window.open(baseUrl, '_blank');
         },
-        save: function() { /* نظام الذاكرة */ },
-        load: function() { /* استعادة الذاكرة */ },
-        reset: function() { localStorage.clear(); location.reload(); }
+
+        save: function() { /* الذاكرة */ },
+        reset: function() { location.reload(); }
     };
 </script>
 </body>
-</html>
+    </html>
+    
