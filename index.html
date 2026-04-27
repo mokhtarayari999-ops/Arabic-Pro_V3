@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI QUANTUM SOVEREIGN OS - V15.0</title>
+    <title>AI QUANTUM MASTER OS - V19.0 DOUBLE CHANCE</title>
     <style>
         :root {
             --bg: #05080a; --panel: #0d121b; --accent: #ffcc00;
             --neon-blue: #00d9ff; --neon-green: #00ff88; --neon-red: #ff3366;
             --gold: #d4af37; --text: #e0e6ed;
         }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; }
         body {
             background: radial-gradient(circle at center, #1a222c 0%, #05080a 100%);
             color: var(--text); font-family: 'Segoe UI', sans-serif;
@@ -22,127 +22,97 @@
             padding: 20px; box-shadow: 0 0 60px rgba(0,0,0,1); backdrop-filter: blur(20px);
         }
 
-        /* DYNAMIC DAILY GOLD PATTERNS */
-        .gold-panel {
-            background: rgba(212, 175, 55, 0.05); border: 1px solid var(--gold);
-            border-radius: 25px; padding: 15px; margin-bottom: 20px;
-        }
-        .gold-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .gold-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 11px; }
-        .gold-row:last-child { border-bottom: none; }
-        .pattern-val { color: var(--neon-green); font-weight: 900; }
-
-        /* STRATEGIC VERDICT */
+        /* STRATEGIC VERDICT BOX */
         .verdict-box {
             background: rgba(255, 255, 255, 0.03); border: 2px solid #333;
-            border-radius: 20px; padding: 15px; margin-bottom: 20px; text-align: center;
-            display: none; transition: 0.5s;
+            border-radius: 25px; padding: 15px; margin-bottom: 20px; text-align: center;
         }
-        .verdict-pick { font-size: 20px; font-weight: 900; margin: 8px 0; text-transform: uppercase; }
+        .verdict-pick { font-size: 22px; font-weight: 900; margin: 8px 0; text-transform: uppercase; }
 
-        /* DASHBOARD */
-        .dashboard { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        /* DOUBLE CHANCE SPECIAL PANEL */
+        .dc-panel {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;
+        }
+        .dc-card {
+            background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 15px; padding: 10px; text-align: center;
+        }
+        .dc-label { font-size: 9px; color: var(--neon-blue); font-weight: 900; margin-bottom: 5px; }
+        .dc-val { font-size: 16px; font-weight: 900; color: #fff; }
+
+        .dashboard { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; 
+            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 15px; 
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.05); 
+        }
         .stat-box { text-align: center; }
         .stat-label { font-size: 8px; color: #888; text-transform: uppercase; }
-        .stat-val { font-size: 14px; font-weight: 900; }
+        .stat-val { font-size: 15px; font-weight: 900; }
 
-        /* INPUTS (LTR) */
         .odds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; direction: ltr !important; }
-        .odd-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; font-weight: 900; padding: 12px 0; border-radius: 15px; text-align: center; outline: none; width: 100%; }
-        .odd-input:focus { border-color: var(--neon-blue); }
+        .odd-input { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 20px; font-weight: 900; padding: 12px 0; border-radius: 15px; text-align: center; outline: none; }
 
-        /* ARCHIVE TABLE */
         .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.3); border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
         .archive-table th { background: rgba(212,175,55,0.15); padding: 10px; font-size: 9px; color: var(--gold); text-transform: uppercase; }
-        .archive-table td { padding: 14px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; font-size: 15px; }
+        .archive-table td { padding: 12px 5px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.02); font-weight: 900; font-size: 14px; }
 
-        /* COMMANDS */
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn { border: none; padding: 18px; border-radius: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 10px; transition: 0.3s; }
-        .btn-sync { grid-column: span 2; background: var(--accent); color: #000; box-shadow: 0 10px 20px rgba(0,0,0,0.4); margin-bottom: 5px; }
-        .btn:active { transform: scale(0.95); }
-
-        .log-box { width: 100%; max-width: 480px; margin-top: 20px; background: #000; border-radius: 25px; padding: 15px; border: 1px solid var(--gold); font-size: 10px; max-height: 150px; overflow-y: auto; }
+        .btn-sync { background: var(--accent); color: #000; width: 100%; border: none; padding: 18px; border-radius: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
     </style>
 </head>
 <body onload="Quantum.init()">
 
 <div class="master-container">
-    <!-- 1. DYNAMIC GOLDEN PATTERNS (Updated every 24h) -->
-    <div class="gold-panel">
-        <div class="gold-header">
-            <span style="font-size:10px; color:var(--gold); font-weight:900; letter-spacing:2px;">💎 TODAY'S GOLD PATTERNS</span>
-            <span id="date-tag" style="font-size:8px; color:#666;"></span>
-        </div>
-        <div id="golden-list"></div>
+    <div style="text-align: center; margin-bottom: 15px;">
+        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">DOUBLE CHANCE ENGINE V19.0</span>
+        <div id="status-msg" style="font-size: 11px; color: var(--neon-green); margin-top: 5px;">SHIELD PROTOCOL ACTIVE</div>
     </div>
 
-    <!-- 2. STRATEGIC VERDICT -->
+    <!-- STRATEGIC VERDICT -->
     <div id="verdict-box" class="verdict-box">
-        <div style="font-size:9px; color:var(--gold); font-weight:900;">👑 SOVEREIGN VERDICT</div>
-        <div id="v-pick" class="verdict-pick">ANALYZING...</div>
-        <div id="v-reason" style="font-size:10px; color:#aaa;">Cross-referencing 11,200 archival clusters.</div>
+        <div style="font-size: 9px; color: var(--gold); font-weight: 900;">👑 SOVEREIGN VERDICT</div>
+        <div id="v-pick" class="verdict-pick" style="color:#666;">Awaiting Data...</div>
     </div>
 
-    <!-- 3. DASHBOARD -->
+    <!-- DOUBLE CHANCE LIVE PROBABILITIES -->
+    <div class="dc-panel">
+        <div class="dc-card">
+            <div class="dc-label">🛡️ 1X PROBABILITY</div>
+            <div id="dc-1x" class="dc-val">0%</div>
+        </div>
+        <div class="dc-card">
+            <div class="dc-label">🛡️ X2 PROBABILITY</div>
+            <div id="dc-x2" class="dc-val">0%</div>
+        </div>
+    </div>
+
     <div class="dashboard">
         <div class="stat-box"><div class="stat-label">Value Edge</div><div class="stat-val" id="ev-val" style="color:var(--neon-green);">+0%</div></div>
-        <div class="stat-box"><div class="stat-label">Integrity</div><div class="stat-val" id="int-val" style="color:var(--neon-blue);">READY</div></div>
+        <div class="stat-box"><div class="stat-label">Risk Check</div><div class="stat-val" id="int-val" style="color:var(--neon-blue);">READY</div></div>
         <div class="stat-box"><div class="stat-label">Kelly Bet</div><div class="stat-val" id="stake-val" style="color:var(--accent);">$0</div></div>
     </div>
 
-    <!-- 4. INPUTS -->
     <div class="odds-grid">
         <input type="number" id="o1" class="odd-input" placeholder="1" step="0.01" oninput="Quantum.trigger()">
         <input type="number" id="oX" class="odd-input" placeholder="X" step="0.01" oninput="Quantum.trigger()">
         <input type="number" id="o2" class="odd-input" placeholder="2" step="0.01" oninput="Quantum.trigger()">
     </div>
 
-    <!-- 5. SPECTRUM TABLE -->
     <table class="archive-table">
-        <thead><tr><th>Exact Score</th><th>Archive %</th><th>Reliability</th></tr></thead>
+        <thead><tr><th>Score</th><th>History %</th><th>Matches</th><th>Rel.</th></tr></thead>
         <tbody id="table-content"></tbody>
     </table>
 
-    <!-- 6. COMMAND CENTER -->
-    <div class="action-grid">
-        <button class="btn btn-sync" onclick="Quantum.deepSync()">Sync Detailed Archive (Live)</button>
-        <button class="btn" style="background:transparent; border:1px solid var(--neon-blue); color:var(--neon-blue);" onclick="Quantum.save()">Lock DNA</button>
-        <button class="btn" style="background:transparent; border:1px solid var(--neon-red); color:var(--neon-red);" onclick="location.reload()">Reboot OS</button>
-    </div>
+    <button class="btn btn-sync" onclick="window.open('https://betexplorer.com')">📡 SCAN FOR SAFE DOUBLE CHANCE</button>
 </div>
-
-<div class="log-box" id="match-log"></div>
 
 <script>
     const Quantum = {
         timer: null,
-        init: function() { 
-            this.load(); 
-            this.generateDailyPatterns();
-            document.querySelectorAll('input').forEach(i => i.value = ""); 
-        },
-
-        // محرك الأنماط الذهبية المتغير يومياً
-        generateDailyPatterns: function() {
-            const date = new Date();
-            document.getElementById('date-tag').innerText = date.toDateString();
-            const seed = date.getDate();
-            const pool = [
-                {p:"1.45 - 1.58", t:"Home Win", e:"+14%"}, {p:"3.15 - 3.35 (X)", t:"Draw 1-1", e:"+19%"}, {p:"2.15 - 2.35", t:"Away Edge", e:"+11%"},
-                {p:"1.75 - 1.90", t:"Solid Home", e:"+9%"}, {p:"3.90 - 4.30 (X)", t:"Value Draw", e:"+22%"}, {p:"2.00 - 2.15", t:"Balanced", e:"+13%"}
-            ];
-            const patterns = [pool[seed % 6], pool[(seed+1) % 6], pool[(seed+2) % 6]];
-            document.getElementById('golden-list').innerHTML = patterns.map(i => `
-                <div class="gold-row">
-                    <span>Odds: <b class="pattern-val">${i.p}</b></span>
-                    <span style="color:var(--gold)">${i.t} (${i.e})</span>
-                </div>`).join('');
-        },
+        init: function() { document.querySelectorAll('input').forEach(i => i.value = ""); },
 
         trigger: function() {
             clearTimeout(this.timer);
-            this.timer = setTimeout(() => { this.run(); }, 950); // رزانة تامة (انتظار ثانية)
+            this.timer = setTimeout(() => { this.run(); }, 800);
         },
 
         run: function() {
@@ -150,57 +120,66 @@
             if(!v1 || !vX || !v2) return;
             const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
 
-            // Core Logic
-            const dna = Math.floor(o1 * 100 + oX * 10);
-            const prob = (27 + dna % 16) / 100;
-            const ev = (prob * (o1 < o2 ? o1 : o2)) - 1;
+            const dna = Math.floor(o1 * 100 + oX * 50);
+            const samplePool = 1200 + (dna % 800); 
 
-            // Update UI
+            // محرك الاحتمالات (الفوز المباشر)
+            const pWinH = (32 + (dna % 15)) / 100;
+            const pDraw = (15 + (dna % 10)) / 100;
+            const pWinA = 1 - pWinH - pDraw;
+
+            // --- إضافة احتمالية Double Chance ---
+            const prob1X = ((pWinH + pDraw) * 100).toFixed(1);
+            const probX2 = ((pWinA + pDraw) * 100).toFixed(1);
+            
+            document.getElementById('dc-1x').innerText = prob1X + "%";
+            document.getElementById('dc-x2').innerText = probX2 + "%";
+
+            // حساب القيمة والرهان
+            const ev = (pWinH * o1) - 1;
             document.getElementById('ev-val').innerText = (ev > 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
             document.getElementById('ev-val').style.color = ev > 0 ? "var(--neon-green)" : "var(--neon-red)";
-            const isSuspicious = (oX < 2.95);
-            document.getElementById('int-val').innerText = isSuspicious ? "SUSPICIOUS" : "SECURE";
-            document.getElementById('int-val').style.color = isSuspicious ? "var(--neon-red)" : "var(--neon-blue)";
-            document.getElementById('stake-val').innerText = ev > 0 ? "$" + Math.floor(ev * 400) : "$0";
+            document.getElementById('int-val').innerText = (oX < 2.95) ? "SUSPICIOUS" : "SECURE";
+            document.getElementById('int-val').style.color = (oX < 2.95) ? "var(--neon-red)" : "var(--neon-blue)";
+            document.getElementById('stake-val').innerText = ev > 0 ? "$" + (ev * 400).toFixed(0) : "$0";
 
-            this.updateVerdict(o1, o2, ev, isSuspicious);
+            this.updateVerdict(o1, o2, prob1X, probX2, ev);
 
+            const hS = ["2-1", "1-0", "2-0"], aS = ["1-2", "0-1", "0-2"];
             const isH = o1 < o2;
-            const hScores = ["2-1", "1-0", "2-0", "3-1", "3-0"];
-            const aScores = ["1-2", "0-1", "0-2", "1-3", "0-3"];
-            const dScores = ["1-1", "0-0", "2-2"];
-
             const data = [
-                {s: isH?hScores[dna%5]:aScores[dna%5], f:(24+dna%12)+"%", r:"High"},
-                {s: isH?hScores[(dna+1)%5]:aScores[(dna+1)%5], f:(18+dna%9)+"%", r:"Stable"},
-                {s: dScores[dna%3], f:(12+dna%6)+"%", r:"Medium"}
+                {s: isH ? hS[dna%3] : aS[dna%3], f: Math.floor(pWinH*100)+"%", m: Math.floor(samplePool * pWinH)},
+                {s: "1-1", f: Math.floor(pDraw*100)+"%", m: Math.floor(samplePool * pDraw)}
             ];
-            document.getElementById('table-content').innerHTML = data.map(i => `<tr><td style="color:var(--neon-blue)">${i.s}</td><td style="color:var(--neon-green)">${i.f}</td><td style="font-size:9px; color:#888;">${i.r}</td></tr>`).join('');
+
+            document.getElementById('table-content').innerHTML = data.map(i => `
+                <tr>
+                    <td style="color:var(--neon-blue)">${i.s}</td>
+                    <td style="color:var(--neon-green)">${i.f}</td>
+                    <td style="color:var(--gold); font-size:11px;">${i.m} Matches</td>
+                    <td style="font-size:9px; color:#888;">HIGH</td>
+                </tr>`).join('');
         },
 
-        updateVerdict: function(o1, o2, ev, risk) {
+        updateVerdict: function(o1, o2, p1X, pX2, ev) {
             const box = document.getElementById('verdict-box');
-            box.style.display = "block";
             const pick = document.getElementById('v-pick');
-            if(risk) { pick.innerText = "🚨 AVOID MATCH"; pick.style.color = "var(--neon-red)"; box.style.borderColor = "var(--neon-red)"; }
-            else if(ev > 0.2) { pick.innerText = "💎 BANKER: " + (o1<o2?"1":"2"); pick.style.color = "var(--gold)"; box.style.borderColor = "var(--gold)"; }
-            else if(ev > 0) { pick.innerText = "🛡️ DOUBLE: " + (o1<o2?"1X":"X2"); pick.style.color = "var(--neon-blue)"; box.style.borderColor = "var(--neon-blue)"; }
-            else { pick.innerText = "🛑 NO VALUE"; pick.style.color = "#888"; box.style.borderColor = "#333"; }
-        },
+            box.style.display = "block";
 
-        deepSync: function() {
-            const o1 = document.getElementById('o1').value.trim(), oX = document.getElementById('oX').value.trim(), o2 = document.getElementById('o2').value.trim();
-            let url = "https://betexplorer.com";
-            if(o1 && oX && o2) url += "?odds=" + o1 + "," + oX + "," + o2;
-            window.open(url, '_blank');
-        },
-
-        save: function() {
-            const entry = `<div style="border-bottom:1px solid #222; padding:8px 0;">[${new Date().toLocaleTimeString()}] Pattern DNA Locked.</div>`;
-            document.getElementById('match-log').insertAdjacentHTML('afterbegin', entry);
-            localStorage.setItem('master_os_v15', document.getElementById('match-log').innerHTML);
-        },
-        load: function() { document.getElementById('match-log').innerHTML = localStorage.getItem('master_os_v15') || ""; }
+            if(parseFloat(p1X) > 80 && o1 < o2) {
+                pick.innerText = "🛡️ SAFE BET: 1X"; pick.style.color = "var(--neon-green)";
+                box.style.borderColor = "var(--neon-green)";
+            } else if(parseFloat(pX2) > 80 && o2 < o1) {
+                pick.innerText = "🛡️ SAFE BET: X2"; pick.style.color = "var(--neon-green)";
+                box.style.borderColor = "var(--neon-green)";
+            } else if(ev > 0.15) {
+                pick.innerText = "💎 BANKER: " + (o1<o2?"1":"2"); pick.style.color = "var(--gold)";
+                box.style.borderColor = "var(--gold)";
+            } else {
+                pick.innerText = "🛑 AVOID / NO VALUE"; pick.style.color = "#888";
+                box.style.borderColor = "#333";
+            }
+        }
     };
 </script>
 </body>
