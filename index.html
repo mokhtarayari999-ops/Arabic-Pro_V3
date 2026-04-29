@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI OMNISCIENT OS V44.0 - PURE MIRROR</title>
+    <title>AI SOVEREIGN MASTER OS V45.0 - FINAL SYNC FIX</title>
     <style>
         :root {
             --bg: #05080a; --panel: #0d121b; --accent: #ffcc00;
@@ -13,7 +13,7 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             background: radial-gradient(circle at center, #1a222c 0%, #05080a 100%);
-            color: var(--text); font-family: 'Segoe UI', Roboto, sans-serif;
+            color: var(--text); font-family: 'Segoe UI', sans-serif;
             margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
         }
         .master-container {
@@ -41,10 +41,9 @@
         .stat-box { text-align: center; }
         .stat-val { font-size: 14px; font-weight: 900; }
 
-        /* 5. PERFECT INPUTS */
+        /* 5. INPUTS */
         .odds-flex { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 15px; width: 100%; direction: ltr !important; }
-        .odd-input { flex: 1; min-width: 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 24px; font-weight: 900; padding: 15px 0; border-radius: 15px; text-align: center; outline: none; transition: 0.3s; }
-        .odd-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 217, 255, 0.2); }
+        .odd-input { flex: 1; min-width: 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: #fff; font-size: 24px; font-weight: 900; padding: 15px 0; border-radius: 15px; text-align: center; outline: none; }
 
         /* 6. HIERARCHICAL TABLE */
         .archive-table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.2); border-radius: 20px; overflow: hidden; margin-bottom: 20px; }
@@ -54,16 +53,17 @@
         .anomaly-row { color: var(--neon-red) !important; animation: pulse-red 1.5s infinite; border: 1px dashed var(--neon-red); }
         @keyframes pulse-red { 0% { background: rgba(255, 51, 102, 0.05); } 50% { background: rgba(255, 51, 102, 0.15); } 100% { background: rgba(255, 51, 102, 0.05); } }
 
-        /* 7. FIXED SYNC BUTTON */
-        .btn-sync { background: var(--accent); color: #000; width: 100%; border: none; padding: 22px; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 14px; }
+        /* 7. THE REPAIRED SYNC BUTTON */
+        .btn-sync { background: var(--accent); color: #000; width: 100%; border: none; padding: 22px; border-radius: 20px; font-weight: 900; text-transform: uppercase; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5); font-size: 14px; transition: 0.3s; }
+        .btn-sync:active { transform: scale(0.95); opacity: 0.8; }
     </style>
 </head>
 <body onload="Quantum.init()">
 
 <div class="master-container">
     <div style="text-align: center; margin-bottom: 15px;">
-        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">PURE HISTORICAL MIRROR V44.0</span>
-        <div id="status-msg" style="font-size: 10px; color: var(--neon-green); margin-top: 4px;">SYSTEM STATUS: NEUTRAL & PURIFIED</div>
+        <span style="font-size: 10px; color: var(--gold); font-weight: 900; letter-spacing: 3px;">OMNISCIENT MASTER OS V45.0</span>
+        <div id="status-msg" style="font-size: 10px; color: var(--neon-green); margin-top: 4px;">SYNC BRIDGE: RECONSTRUCTED</div>
     </div>
 
     <!-- LEAGUE SELECTION -->
@@ -111,6 +111,7 @@
         <tbody id="table-content"></tbody>
     </table>
 
+    <!-- THE REPAIRED SYNC BUTTON -->
     <button class="btn-sync" onclick="Quantum.deepSync()">📡 SYNC PURIFIED ARCHIVE (FIXED)</button>
 </div>
 
@@ -131,7 +132,6 @@
             const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
             const league = document.getElementById('l-select').value;
 
-            // --- محرك الحقيقة الصافية ---
             let lgKey = 0, goalMod = 1;
             if(league === 'tun') { lgKey = 80; goalMod = 0.65; }
             if(league === 'egy') { lgKey = 70; goalMod = 0.75; }
@@ -140,7 +140,7 @@
             const dna = Math.floor(o1 * 100 + oX * 10 + lgKey);
             const samplePool = 1450 + (dna % 850);
 
-            // 1. حسابات الاحتمالات المتناظرة (Mirror Logic)
+            // 1. Mirror Logic
             let p1, p2, pX;
             const pFav = (36 + (dna % 12)) / 100;
             const pDraw = (18 + (dna % 10)) / 100;
@@ -149,11 +149,10 @@
             if (o1 < o2) { p1 = pFav; p2 = pDog; pX = pDraw; } 
             else { p1 = pDog; p2 = pFav; pX = pDraw; }
 
-            const prob1X = (p1 + pX) * 100, probX2 = (p2 + pX) * 100;
-            document.getElementById('dc-1x').innerText = prob1X.toFixed(1) + "%";
-            document.getElementById('dc-x2').innerText = probX2.toFixed(1) + "%";
+            document.getElementById('dc-1x').innerText = ((p1 + pX) * 100).toFixed(1) + "%";
+            document.getElementById('dc-x2').innerText = ((p2 + pX) * 100).toFixed(1) + "%";
 
-            // 2. محرك الأهداف (Neutral Reflection)
+            // 2. Multi-Truth
             document.getElementById('btts-yes').innerText = ((35 + (dna % 30)) * goalMod).toFixed(1) + "%";
             document.getElementById('goal-over').innerText = ((40 + (dna % 25)) * goalMod).toFixed(1) + "%";
             document.getElementById('ht-res').innerText = ["0-0", "1-0", "0-1", "1-1"][dna % 4];
@@ -162,7 +161,6 @@
             document.getElementById('m-risk').innerText = vol > 7 ? "HIGH" : "LOW";
             document.getElementById('m-risk').style.color = vol > 7 ? "var(--neon-red)" : "var(--neon-green)";
 
-            // 3. المالية والقرار
             const ev = (pFav * (o1 < o2 ? o1 : o2)) - 1;
             document.getElementById('ev-val').innerText = (ev > 0 ? "+" : "") + (ev * 100).toFixed(1) + "%";
             document.getElementById('ev-val').style.color = ev > 0 ? "var(--neon-green)" : "var(--neon-red)";
@@ -178,17 +176,16 @@
             else if (ev > 0.05) { pick.innerText = "💎 BANKER"; pick.style.color = "var(--gold)"; }
             else { pick.innerText = "🛡️ STABLE"; pick.style.color = "var(--neon-blue)"; }
 
-            // --- 4. هرمية النتائج الديناميكية (The True Ranking) ---
+            // --- 3. Dynamic Ranking Logic ---
             const hS = ["1-0", "2-0", "2-1", "3-0", "3-1"];
             const aS = ["0-1", "0-2", "1-2", "0-3", "1-3"];
             
             let outcomes = [
                 { s: o1 < o2 ? hS[dna%5] : aS[dna%5], p: pFav },
-                { s: "1-1", p: pX },
+                { s: "1-1", p: pDraw },
                 { s: o1 < o2 ? aS[dna%5] : hS[dna%5], p: pDog }
             ];
 
-            // ترتيب النتائج حسب القوة التاريخية حتماً
             outcomes.sort((a, b) => b.p - a.p);
 
             let tableHTML = outcomes.map((item, index) => `
@@ -199,20 +196,26 @@
                     <td style="color:var(--gold)">${Math.floor(samplePool * item.p)}</td>
                 </tr>`).join('');
 
-            // رادار الشذوذ المصفى
             if (dna % 7 === 0) {
                 tableHTML += `<tr class="anomaly-row"><td><span class="rank-tag" style="color:var(--neon-red)">ANOMALY</span></td><td style="color:var(--neon-red)">2-2</td><td style="color:var(--neon-red)">!!</td><td style="color:var(--neon-red)">Repeating DNA</td></tr>`;
             }
 
             document.getElementById('table-content').innerHTML = tableHTML;
-            document.getElementById('status-msg').innerText = "PURE MIRROR REFLECTION COMPLETED";
+            document.getElementById('status-msg').innerText = "MIRROR LOGIC SYNCED";
         },
 
+        // --- REPAIRED SYNC FUNCTION (Microscopic Precision) ---
         deepSync: function() {
-            const o1 = document.getElementById('o1').value.trim(), oX = document.getElementById('oX').value.trim(), o2 = document.getElementById('o2').value.trim();
-            if (o1 && oX && o2) {
-                const url = "https://betexplorer.com" + encodeURIComponent(o1 + "," + oX + "," + o2);
+            const v1 = document.getElementById('o1').value.trim();
+            const vX = document.getElementById('oX').value.trim();
+            const v2 = document.getElementById('o2').value.trim();
+            
+            if (v1 && vX && v2) {
+                // Building the URL as a clean string - literal commas
+                const url = "https://betexplorer.com" + v1 + "," + vX + "," + v2;
                 window.open(url, '_blank');
+            } else {
+                window.open("https://betexplorer.com", '_blank');
             }
         }
     };
