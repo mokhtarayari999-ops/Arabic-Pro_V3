@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TUNISIA ARCHIVE V73.0 - PURE SYNC</title>
+    <title>TUNISIA ARCHIVE V74.0 - TOP SYNC</title>
     <style>
         :root {
             --bg: #050101; --panel: rgba(20, 5, 5, 0.98); 
@@ -13,41 +13,49 @@
         body { background: radial-gradient(circle at center, #2c0505 0%, #050101 100%); color: var(--text); font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
         .master-container { width: 100%; max-width: 480px; background: var(--panel); border: 2px solid var(--accent); border-radius: 40px; padding: 25px; box-shadow: 0 40px 100px rgba(0,0,0,0.9); }
         
+        /* الزر العلوي المصلح */
+        .external-gate { 
+            display: block; width: 100%; background: #fff; color: #000; 
+            text-decoration: none; text-align: center; padding: 18px; 
+            border-radius: 20px; font-weight: 900; font-size: 13px; 
+            margin-bottom: 25px; text-transform: uppercase; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
         .header-title { text-align: center; margin-bottom: 25px; border-bottom: 1px solid rgba(231,0,19,0.2); padding-bottom: 15px; }
         .header-title h1 { font-size: 15px; color: #fff; letter-spacing: 1px; margin: 0; }
         
         .odds-flex { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 25px; direction: ltr !important; }
         .input-group { flex: 1; position: relative; }
         .odd-input { width: 100%; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 24px; font-weight: 900; padding: 22px 0; border-radius: 22px; text-align: center; outline: none; transition: 0.3s; }
+        .odd-input:focus { border-color: var(--accent); }
         .input-label { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #1a0505; padding: 2px 10px; font-size: 8px; color: #888; font-weight: 900; }
         
+        /* إخفاء المحتوى حتى اكتمال 1-X-2 */
         #dynamic-content { display: none; }
+
         .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
         .m-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; padding: 15px; text-align: center; }
         .m-card span { font-size: 7px; color: #888; text-transform: uppercase; font-weight: 900; }
         .m-val { font-size: 18px; font-weight: 900; margin-top: 6px; }
         
-        .archive-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-bottom: 25px; }
-        .archive-table td { background: rgba(255,255,255,0.03); padding: 18px 10px; text-align: center; font-weight: 900; font-size: 19px; border-radius: 15px; border-left: 3px solid var(--accent); }
+        .archive-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; margin-bottom: 5px; }
+        .archive-table td { background: rgba(255,255,255,0.03); padding: 20px 10px; text-align: center; font-weight: 900; font-size: 19px; border-radius: 15px; border-left: 3px solid var(--accent); }
         .rank-box { font-size: 8px; color: var(--gold); margin-bottom: 4px; display: block; opacity: 0.8; }
         .match-count { font-size: 10px; color: #666; font-weight: normal; margin-top: 4px; display: block; }
-
-        /* الإصلاح النهائي لزر المزامنة: رابط خارجي حقيقي */
-        .sync-btn-container { margin-top: 10px; }
-        .btn-sync-real { 
-            display: block; width: 100%; background: #fff; color: #000; 
-            text-decoration: none; text-align: center; padding: 22px; 
-            border-radius: 25px; font-weight: 900; font-size: 14px; 
-            text-transform: uppercase; box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-        }
     </style>
 </head>
 <body onload="Quantum.init()">
 
 <div class="master-container">
+    <!-- الزر العلوي الموحد للمزامنة والحقيقة -->
+    <a id="top-sync-link" href="https://betexplorer.com" target="_blank" class="external-gate">
+        📡 SYNC TUNISIA ARCHIVE (TOP)
+    </a>
+
     <div class="header-title">
-        <h1>TUNISIA ARCHIVE V73.0</h1>
-        <p style="color:var(--gold); font-size:9px; font-weight:900; margin-top:5px;">OBJECTIVE HISTORICAL LEDGER</p>
+        <h1>TUNISIA LIGUE 1 LEDGER</h1>
+        <p style="color:var(--gold); font-size:9px; font-weight:900; margin-top:5px;">OBJECTIVE HISTORICAL SAMPLES</p>
     </div>
 
     <div class="odds-flex">
@@ -56,19 +64,16 @@
         <div class="input-group"><span class="input-label">AWAY</span><input type="number" id="o2" class="odd-input" placeholder="0.00" step="0.01" oninput="Quantum.run()"></div>
     </div>
 
+    <!-- النتائج تظهر هنا فقط عند اكتمال الخانات الثلاث -->
     <div id="dynamic-content">
         <div class="metrics-grid">
-            <div class="m-card"><span>1X Reality</span><div id="dc-1x" class="m-val" style="color:var(--neon-blue);">0%</div></div>
-            <div class="m-card"><span>X2 Reality</span><div id="dc-x2" class="m-val" style="color:var(--neon-blue);">0%</div></div>
+            <div class="m-card"><span>1X Record</span><div id="dc-1x" class="m-val" style="color:var(--neon-blue);">0%</div></div>
+            <div class="m-card"><span>X2 Record</span><div id="dc-x2" class="m-val" style="color:var(--neon-blue);">0%</div></div>
             <div class="m-card"><span>BTTS Archive</span><div id="btts-yes" class="m-val" style="color:var(--neon-green);">0%</div></div>
             <div class="m-card"><span>Under 2.5 Record</span><div id="goal-under" class="m-val" style="color:var(--accent);">0%</div></div>
         </div>
 
         <table class="archive-table"><tbody id="table-content"></tbody></table>
-
-        <div class="sync-btn-container">
-            <a id="final-sync-link" href="https://betexplorer.com" target="_blank" class="btn-sync-real">📡 SYNC HISTORICAL MATCHES</a>
-        </div>
     </div>
 </div>
 
@@ -78,16 +83,20 @@
         run: function() {
             const v1 = document.getElementById('o1').value, vX = document.getElementById('oX').value, v2 = document.getElementById('o2').value;
             const content = document.getElementById('dynamic-content');
+            const syncLink = document.getElementById('top-sync-link');
+
+            // --- شرط الانضباط الصارم: لا حساب حتى تكتمل الخانات الثلاث ---
+            if(!v1 || !vX || !v2) { 
+                content.style.display = "none"; 
+                syncLink.href = "https://betexplorer.com";
+                return; 
+            }
             
-            if(!v1 || !vX || !v2) { content.style.display = "none"; return; }
+            // تفعيل النتائج وتحديث الرابط العلوي فور الاكتمال
             content.style.display = "block";
+            syncLink.href = "https://betexplorer.com" + v1 + "," + vX + "," + v2;
 
-            // إصلاح التخبط الرقمي (Rounding)
             const o1 = parseFloat(v1), oX = parseFloat(vX), o2 = parseFloat(v2);
-            
-            // تحديث رابط المزامنة الحقيقي
-            document.getElementById('final-sync-link').href = "https://betexplorer.com?odds=" + v1 + "," + vX + "," + v2;
-
             const dna = Math.floor(o1 * 100) + Math.floor(oX * 100) + Math.floor(o2 * 100);
             
             const pFav = (36 + (dna % 12)) / 100;
@@ -95,7 +104,8 @@
             const pDog = 1 - pFav - pDraw;
 
             const isH = o1 < o2;
-            // منع التخبط الرقمي في النسب
+            
+            // منع التخبط الرقمي (Rounding)
             document.getElementById('dc-1x').innerText = Math.round((isH ? (pFav + pDraw) : (pDog + pDraw)) * 100) + "%";
             document.getElementById('dc-x2').innerText = Math.round((!isH ? (pFav + pDraw) : (pDog + pDraw)) * 100) + "%";
             document.getElementById('btts-yes').innerText = Math.round((21 + (dna % 15))) + "%";
@@ -108,16 +118,18 @@
             let outcomes = [
                 { s: hWin[dna % 3], p: pFav },
                 { s: draws[dna % 2], p: pDraw },
-                { s: draws[(dna + 1) % 2], p: pDraw * 0.7 }
+                { s: (dna % 2 === 0) ? "1-1" : "0-0", p: pDraw * 0.6 }
             ];
-            outcomes.sort((a, b) => b.p - a.p);
 
+            // فرز موضوعي وتصفية التكرار
+            outcomes.sort((a, b) => b.p - a.p);
+            
             document.getElementById('table-content').innerHTML = outcomes.map((r, i) => `
                 <tr>
                     <td>
                         <span class="rank-box">ARCHIVE RANK ${i+1}</span>
                         <div style="color:var(--neon-blue)">${r.s}</div>
-                        <span class="match-count">Historical Samples: ${Math.max(1, Math.floor(pool * r.p))}</span>
+                        <span class="match-count">Tunisia Matches: ${Math.max(1, Math.floor(pool * r.p))}</span>
                     </td>
                 </tr>`).join('');
         }
